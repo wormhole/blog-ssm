@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name = "filters" value = "${jdbc.filters}" />
+        <!-- 初始化连接数量 -->
+        <property name = "initialSize" value = "${jdbc.initialSize}" />
+        <!-- 最大并发连接数 -->
+        <property name = "maxActive" value = "${jdbc.maxActive}" />
+        <!-- 最小空闲连接数 -->
+        <property name = "minIdle" value = "${jdbc.minIdle}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name = "maxWait" value = "${jdbc.maxWait}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name = "timeBetweenEvictionRunsMillis" value ="${jdbc.timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name = "minEvictableIdleTimeMillis" value ="${jdbc.minEvictableIdleTimeMillis}" />
+        <property name = "maxOpenPreparedStatements" value ="${jdbc.maxOpenPreparedStatements}" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="xyz.stackoverflow.blog.dao"/>
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
