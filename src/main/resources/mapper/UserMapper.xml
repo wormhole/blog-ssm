@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.UserDao">
+
+    <resultMap id="userMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="email" column="email"></result>
+        <result property="nickname" column="nickname"></result>
+        <result property="password" column="password"></result>
+        <result property="salt" column="salt"></result>
+        <result property="headurl" column="headurl"></result>
+    </resultMap>
+
+    <select id="getUserByEmail" resultType="user" resultMap="userMap" parameterType="string">
+        select * from user where email = #{email}
+    </select>
+
+    <insert id="addUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user(id,email,nickname,password,salt,headurl) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl})
+    </insert>
+
+    <update id="updateHeadUrl" parameterType="user">
+        update user
+        <set>
+            <if test="headurl!=null">
+                headurl=#{headurl}
+            </if>
+        </set>
+        where email=#{email}
+    </update>
+
+    <update id="updatePassword" parameterType="user">
+        update user
+        <set>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="salt!=null">
+                salt=#{salt}
+            </if>
+        </set>
+        where email=#{email}
+    </update>
+
+    <update id="updateNickname" parameterType="user">
+        update user
+        <set>
+            <if test="nickname!=null">
+                nickname=#{nickname}
+            </if>
+        </set>
+        where email=#{email}
+    </update>
+
+</mapper>
