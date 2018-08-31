@@ -2,9 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>溢栈</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/custom/css/index.css">
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script src="/static/layui/layui.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <title>凉衫薄</title>
 </head>
-<body>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <div class="layui-header">
+        <div class="layui-logo">后台管理</div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item">
+                <a href="javascript:;"><i class="layui-icon layui-icon-website"></i>&nbsp;&nbsp;博客首页</a>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;"><i class="layui-icon layui-icon-notice"></i>&nbsp;&nbsp;消息</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="/static/custom/image/head.jpg" class="layui-nav-img">
+                    凉衫薄
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">个人信息</a></dd>
+                    <dd><a href="">注销</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
 
+    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="" data-title="所有文章" data-id="">所有文章</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="写文章" data-id="">写文章</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="分类" data-id="">分类</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="标签" data-id="">标签</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;&nbsp;评论</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="" data-title="所有评论" data-id="">所有评论</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;用户</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="" data-title="所有用户" data-id="">所有用户</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="添加用户" data-id="">添加用户</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="个人中心" data-id="">个人中心</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-picture"></i>&nbsp;&nbsp;媒体</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="" data-title="图片管理" data-id="">图片管理</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="音乐管理" data-id="">音乐管理</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="视频管理" data-id="">视频管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;&nbsp;设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="" data-title="常规设置" data-id="">常规设置</a></dd>
+                        <dd><a href="javascript:;" data-url="" data-title="SEO设置" data-id="">SEO设置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+        <div class="layui-tab layui-tab-brief" lay-filter="tabs" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this"><i class="layui-icon layui-icon-home"></i>&nbsp;&nbsp;首页</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <iframe src="/admin/welcome" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部固定区域 -->
+    <div class="layui-footer">
+        <center>&copy; 2018 by 凉衫薄</center>
+    </div>
+</div>
+<script>
+    layui.use(['element'], function(){
+        var element = layui.element;
+
+        $(".layui-nav a").click(function(){
+            var id = $(this).attr('data-id');
+            var title = $(this).attr('data-title');
+            var url = $(this).attr('data-url');
+
+            if(!url){
+                return;
+            }
+
+            var isActive = $('.layui-body .layui-tab-title').find("li[lay-id=" + id + "]");
+            if(isActive.length > 0) {
+                //切换到选项卡
+                element.tabChange('tabs', id);
+            } else {
+                element.tabAdd('tabs', {
+                    title: title,
+                    content: '<iframe src="' + url + '" class="iframe" framborder="0" data-id="' + id + '" scrolling="auto" width="100%"  height="100%"></iframe>',
+                    id: id
+                });
+                element.tabChange('tabs', id);
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -112,12 +112,12 @@
             <value>
                 /login = authc
                 /logout = logout
-                /regist = anon
+                /register = anon
                 /unauthorized = anon
                 /vcode = anon
-                /static/** = anon
                 / = anon
-                /** = user
+                /static/** = anon
+                <!--/** = user-->
             </value>
         </property>
     </bean>

@@ -1,0 +1,29 @@
+.iframe{
+    border:0;
+}
+
+.layui-body{
+    overflow:hidden;
+}
+
+.layui-tab{
+    margin:0;
+    height:100%;
+}
+
+.layui-tab-title{
+    height:5%;
+}
+
+.layui-tab-content{
+    padding:0;
+    height:95%;
+}
+
+.layui-tab-item{
+    height:100%;
+}
+
+.layui-nav a{
+    text-decoration: none;
+}
