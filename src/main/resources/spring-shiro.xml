@@ -87,20 +87,20 @@
     <bean id="formAuthenticationFilter" class="xyz.stackoverflow.blog.web.shiro.filter.FormAuthenticationFilter">
         <property name="usernameParam" value="email"/>
         <property name="passwordParam" value="password"/>
-        <property name="loginUrl" value="/login"/>
+        <property name="loginUrl" value="/user/login"/>
         <property name="successUrl" value="/"/>
         <property name="failureKeyAttribute" value="shiroLoginFailure"/>
         <property name="rememberMeParam" value="rememberMe"/>
     </bean>
 
     <bean id="logoutFilter" class="xyz.stackoverflow.blog.web.shiro.filter.LogoutFilter">
-        <property name="redirectUrl" value="/login"/>
+        <property name="redirectUrl" value="/user/login"/>
     </bean>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login"/>
+        <property name="loginUrl" value="/user/login"/>
         <property name="unauthorizedUrl" value="/unauthorized"/>
         <property name="filters">
             <map>
@@ -110,14 +110,14 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /login = authc
-                /logout = logout
-                /register = anon
+                /user/login = authc
+                /user/logout = logout
+                /user/register = anon
                 /unauthorized = anon
                 /vcode = anon
                 / = anon
                 /static/** = anon
-                <!--/** = user-->
+                /** = user
             </value>
         </property>
     </bean>

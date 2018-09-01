@@ -22,8 +22,7 @@
     </context:component-scan>
 
     <mvc:view-controller path="/admin" view-name="/admin/index"/>
-    <mvc:view-controller path="/admin/login" view-name="/admin/login"/>
-    <mvc:view-controller path="/admin/register" view-name="/admin/register"/>
+    <mvc:view-controller path="/user/login" view-name="/user/login"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
