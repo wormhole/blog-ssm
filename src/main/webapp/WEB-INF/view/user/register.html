@@ -15,18 +15,23 @@
     <h3>用户注册</h3>
     <div class="register-wrap">
         <form class="layui-form">
+            <span id="emailErrorInfo"></span>
             <div class="layui-form-item">
                 <input type="email" name="email" required placeholder="邮箱" class="layui-input">
             </div>
+            <span id="nicknameErrorInfo"></span>
             <div class="layui-form-item">
                 <input type="text" name="nickname" required placeholder="昵称" class="layui-input">
             </div>
+            <span id="passwordErrorInfo"></span>
             <div class="layui-form-item">
                 <input type="password" name="password" required placeholder="密码" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="checkPassword" required placeholder="确认密码" class="layui-input">
+                <span id="checkedErrorInfo"></span>
+                <input type="password" name="checkedPassword" required placeholder="确认密码" class="layui-input">
             </div>
+            <span id="vcodeErrorInfo"></span>
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <input type="text" name="vcode" required placeholder="验证码" class="layui-input">
@@ -40,7 +45,7 @@
             </div>
         </form>
     </div>
-    <p class="copyright">&copy; 2018 by 凉衫薄</p>
+    <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
 <script type="text/javascript">
 
