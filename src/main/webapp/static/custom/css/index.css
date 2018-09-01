@@ -27,3 +27,7 @@
 .layui-nav a{
     text-decoration: none;
 }
+
+ul.layui-tab-title li:first-child i{
+    display: none;
+}
