@@ -6,15 +6,15 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 public class PasswordUtil {
-    private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-    private String algorithmName = "md5";
-    private final int hashIterations = 1;
+    private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+    private static String algorithmName = "md5";
+    private static final int hashIterations = 1;
 
-    public String getSalt(){
+    public static String getSalt(){
         return randomNumberGenerator.nextBytes().toHex();
     }
 
-    public String encryptPassword(String salt,String password){
+    public static String encryptPassword(String salt,String password){
         String newPassword = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(salt), hashIterations).toHex();
         return newPassword;
     }
