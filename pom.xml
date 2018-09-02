@@ -26,6 +26,7 @@
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <mysql-connector.version>8.0.11</mysql-connector.version>
         <servlet.version>3.1.0</servlet.version>
+        <jackson-databind.version>2.9.6</jackson-databind.version>
     </properties>
 
     <dependencies>
@@ -168,6 +169,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
 
     </dependencies>
