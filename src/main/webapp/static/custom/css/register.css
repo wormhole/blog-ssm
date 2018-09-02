@@ -44,7 +44,6 @@ body {
     height: 35px;
 }
 
-.register-wrap span{
-    color:red;
+.hidden {
     display:none;
 }

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/static/custom/css/register.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
+    <script src="/static/popper/umd/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <title>凉衫薄</title>
 </head>
 <body>
@@ -15,35 +17,44 @@
     <h3>用户注册</h3>
     <div class="register-wrap">
         <form class="layui-form">
-            <span id="emailErrorInfo"></span>
-            <div class="layui-form-item">
-                <input type="email" name="email" required placeholder="邮箱" class="layui-input">
+            <div class="alert alert-success alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                <a href="/user/login" class="alert-link">注册成功,点击前往登陆页面</a>
             </div>
-            <span id="nicknameErrorInfo"></span>
-            <div class="layui-form-item">
-                <input type="text" name="nickname" required placeholder="昵称" class="layui-input">
+            <div class="alert alert-danger alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                错误:插入数据库时出错
             </div>
-            <span id="passwordErrorInfo"></span>
             <div class="layui-form-item">
-                <input type="password" name="password" required placeholder="密码" class="layui-input">
+                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
             </div>
             <div class="layui-form-item">
-                <span id="checkedErrorInfo"></span>
-                <input type="password" name="checkedPassword" required placeholder="确认密码" class="layui-input">
+                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
             </div>
-            <span id="vcodeErrorInfo"></span>
+            <div class="layui-form-item">
+                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+            </div>
+            <div class="layui-form-item">
+                <input type="password" name="checkedPassword" id="checkedPassword" required placeholder="确认密码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+            </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input type="text" name="vcode" required placeholder="验证码" class="layui-input">
+                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
                 </div>
                 <div class="layui-inline">
                     <img src="/vcode" class="verifyImg" id="verifyImg"/>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <button class="layui-btn layui-btn-normal btn-block">注册</button>
-            </div>
         </form>
+        <div class="layui-form-item">
+            <Button class="layui-btn layui-btn-normal btn-block" id="registerBtn">注册</Button>
+        </div>
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
@@ -53,8 +64,81 @@
         $(this).attr('src', $(this).attr('src') + '?' + Math.random());
     });
 
-    $('#').click(function () {
+    $('#registerBtn').click(function () {
+        var email = $('#email').val();
+        var nickname = $('#nickname').val();
+        var password = $('#password').val();
+        var checkedPassword = $('#checkedPassword').val();
+        var vcode = $('#vcode').val();
 
+        if(!(email.length && nickname.length && password.length && checkedPassword.length && vcode.length)){
+            return;
+        }
+
+        if(password != checkedPassword){
+            $('#checkedPassword').val('');
+            $("#checkedPassword").attr('data-content','两次密码不一致');
+            $("[data-toggle='popover']").popover('show');
+            return;
+        }
+
+        var data = {};
+        data['email'] = email;
+        data['nickname'] = nickname;
+        data['password'] = password;
+        data['vcode'] = vcode;
+
+        $.ajax({
+            url: "/user/register",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if(data.status == 0){
+                    $('.alert-success').removeClass('hidden');
+                }else if(data.status == 1){
+                    $("#vcode").attr('data-content',data.data);
+                    $("[data-toggle='popover']").popover('show');
+                }else if(data.status == 2){
+                    $("#email").attr('data-content',data.data.emailErrorInfo);
+                    $("#password").attr('data-content',data.data.passwordErrorInfo);
+                    $('#nickname').attr('data-content',data.data.nicknameErrorInfo);
+                    $("[data-toggle='popover']").popover('show');
+                }else if(data.status == 3){
+                    $('.alert-danger').removeClass('hidden');
+                }
+            },
+            error: function () {
+                console.log("未知错误");
+            }
+        });
+
+    });
+
+    $('#email').focus(function(){
+        $("#email").attr('data-content','');
+        $("[data-toggle='popover']").popover('show');
+    });
+
+    $('#nickname').focus(function(){
+        $("#nickname").attr('data-content','');
+        $("[data-toggle='popover']").popover('show');
+    });
+
+    $('#password').focus(function(){
+        $("#password").attr('data-content','');
+        $("[data-toggle='popover']").popover('show');
+    });
+
+    $('#checkedPassword').focus(function() {
+        $("#checkedPassword").attr('data-content','');
+        $("[data-toggle='popover']").popover('show');
+    });
+
+    $('#vcode').focus(function(){
+        $("#vcode").attr('data-content','');
+        $("[data-toggle='popover']").popover('show');
     });
 </script>
 </body>
