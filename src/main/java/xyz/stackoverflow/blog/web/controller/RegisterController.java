@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.pojo.ResponseMessage;
-import xyz.stackoverflow.blog.pojo.ValidateResult;
+import xyz.stackoverflow.blog.pojo.RegisterInfoValidateResult;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;
@@ -36,7 +36,7 @@ public class RegisterController {
             return responseMessage;
         }
 
-        ValidateResult result = ValidateUtil.validateRegisterInfo(registerVO);
+        RegisterInfoValidateResult result = ValidateUtil.validateRegisterInfo(registerVO);
 
         if(result.getStatus()==0){
             User user = registerVO.toUser();
