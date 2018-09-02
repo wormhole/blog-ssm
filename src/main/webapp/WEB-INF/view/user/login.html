@@ -8,42 +8,53 @@
     <link rel="stylesheet" href="/static/custom/css/login.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
+    <script src="/static/popper/umd/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <title>凉衫薄</title>
 </head>
 <body>
 <div class="login">
     <h3>用户登陆</h3>
     <div class="login-wrap">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <input type="email" name="email" required placeholder="邮箱" class="layui-input">
+        <form class="layui-form" id="loginForm" method="post" action="/user/login">
+            <div class="alert alert-danger alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                <span></span>
             </div>
             <div class="layui-form-item">
-                <input type="password" name="password" required placeholder="密码" class="layui-input">
+                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input"
+                       data-toggle="popover" data-placement="left" data-content="">
+            </div>
+            <div class="layui-form-item">
+                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input"
+                       data-toggle="popover" data-placement="left" data-content="">
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input type="text" name="vcode" required placeholder="验证码" class="layui-input">
+                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input"
+                           data-toggle="popover" data-placement="left" data-content="">
                 </div>
                 <div class="layui-inline">
                     <img src="/vcode" class="verifyImg" id="verifyImg"/>
                 </div>
             </div>
-
             <div class="layui-form-item">
                 <input name="rememberMe" lay-skin="primary" title="记住我" type="checkbox" value="true">
             </div>
-            <div class="layui-form-item">
-                <button class="layui-btn layui-btn-normal btn-block">登陆</button>
-            </div>
         </form>
+        <div class="layui-form-item">
+            <button class="layui-btn layui-btn-normal btn-block" id="loginBtn">登陆</button>
+        </div>
         <a href="/user/register">注册用户</a>
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
 <script type="text/javascript">
 
-    layui.use(['form'], function() {
+    layui.use('form', function () {
         var form = layui.form;
     });
 
@@ -51,8 +62,56 @@
         $(this).attr('src', $(this).attr('src') + '?' + Math.random());
     });
 
-    $('').click(function () {
+    $('#loginBtn').click(function () {
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var vcode = $('#vcode').val();
 
+        if (!(email.length && password.length && vcode.length)) {
+            return;
+        }
+
+        $.ajax({
+            url: "/user/login",
+            type: "post",
+            data: $('#loginForm').serialize(),
+
+            success: function (data) {
+                if(data.status == 1){
+                    $("#vcode").attr('data-content',data.data);
+                    $("[data-toggle='popover']").popover('show');
+                }else if(data.status == 2){
+                    $("#email").attr('data-content',data.data);
+                    $("[data-toggle='popover']").popover('show');
+                }else if(data.status == 3){
+                    $("#password").attr('data-content',data.data);
+                    $("[data-toggle='popover']").popover('show');
+                }else if(data.status == 4){
+                    $('.alert-danger span').text(data.data);
+                    $('.alert-danger').removeClass('hidden');
+                }else{
+                    window.location.href="/admin";
+                }
+            },
+            error: function () {
+                console.log("未知错误");
+            }
+        });
+    });
+
+    $('#email').focus(function () {
+        $("#email").attr('data-content', '');
+        $("[data-toggle='popover']").popover('toggle');
+    });
+
+    $('#password').focus(function () {
+        $("#password").attr('data-content', '');
+        $("[data-toggle='popover']").popover('toggle');
+    });
+
+    $('#vcode').focus(function () {
+        $("#vcode").attr('data-content', '');
+        $("[data-toggle='popover']").popover('toggle');
     });
 </script>
 </body>
