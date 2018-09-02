@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.web.shiro.filter;
 
 import org.apache.shiro.web.servlet.ShiroHttpSession;
+import xyz.stackoverflow.blog.exception.IncorrectVCodeException;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -16,7 +17,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
         if(vcode1 == null || vcode1.equalsIgnoreCase(vcode)){
             return super.onPreHandle(request, response, mappedValue);
         }else{
-            request.setAttribute(getFailureKeyAttribute(),Exception.class.getName());
+            request.setAttribute(getFailureKeyAttribute(),IncorrectVCodeException.class.getName());
             return true;
         }
     }

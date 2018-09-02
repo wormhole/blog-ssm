@@ -24,8 +24,8 @@ public class JdbcRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String username = (String) authenticationToken.getPrincipal();
-        User user = userService.getUserByEmail(username);
+        String email = (String) authenticationToken.getPrincipal();
+        User user = userService.getUserByEmail(email);
         SimpleAuthenticationInfo sa = new SimpleAuthenticationInfo(user.getEmail(),user.getPassword(),new SimpleByteSource(user.getSalt()),getName());
         return sa;
     }
