@@ -2,12 +2,19 @@ package xyz.stackoverflow.blog.pojo;
 
 import java.io.Serializable;
 
-public class ValidateResult implements Serializable {
+public class RegisterInfoValidateResult implements Serializable {
 
     private Integer status;
     private String emailErrorInfo;
     private String passwordErrorInfo;
     private String nicknameErrorInfo;
+
+    public RegisterInfoValidateResult(){
+        this.status = 0;
+        this.emailErrorInfo = "";
+        this.passwordErrorInfo = "";
+        this.nicknameErrorInfo = "";
+    }
 
     public Integer getStatus() {
         return status;
