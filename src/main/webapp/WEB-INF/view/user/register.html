@@ -32,20 +32,20 @@
                 错误:插入数据库时出错
             </div>
             <div class="layui-form-item">
-                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
             <div class="layui-form-item">
-                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="checkedPassword" id="checkedPassword" required placeholder="确认密码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+                <input type="password" name="checkedPassword" id="checkedPassword" required placeholder="确认密码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input" data-toggle="popover" data-placement="right" data-content="">
+                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
                 </div>
                 <div class="layui-inline">
                     <img src="/vcode" class="verifyImg" id="verifyImg"/>
@@ -53,7 +53,7 @@
             </div>
         </form>
         <div class="layui-form-item">
-            <Button class="layui-btn layui-btn-normal btn-block" id="registerBtn">注册</Button>
+            <button class="layui-btn layui-btn-normal btn-block" id="registerBtn">注册</button>
         </div>
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
@@ -118,27 +118,27 @@
 
     $('#email').focus(function(){
         $("#email").attr('data-content','');
-        $("[data-toggle='popover']").popover('show');
+        $("[data-toggle='popover']").popover('toggle');
     });
 
     $('#nickname').focus(function(){
         $("#nickname").attr('data-content','');
-        $("[data-toggle='popover']").popover('show');
+        $("[data-toggle='popover']").popover('toggle');
     });
 
     $('#password').focus(function(){
         $("#password").attr('data-content','');
-        $("[data-toggle='popover']").popover('show');
+        $("[data-toggle='popover']").popover('toggle');
     });
 
     $('#checkedPassword').focus(function() {
         $("#checkedPassword").attr('data-content','');
-        $("[data-toggle='popover']").popover('show');
+        $("[data-toggle='popover']").popover('toggle');
     });
 
     $('#vcode').focus(function(){
         $("#vcode").attr('data-content','');
-        $("[data-toggle='popover']").popover('show');
+        $("[data-toggle='popover']").popover('toggle');
     });
 </script>
 </body>
