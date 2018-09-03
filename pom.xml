@@ -27,6 +27,8 @@
         <mysql-connector.version>8.0.11</mysql-connector.version>
         <servlet.version>3.1.0</servlet.version>
         <jackson-databind.version>2.9.6</jackson-databind.version>
+        <jedis.version>2.9.0</jedis.version>
+        <spring-data-redis.version>2.0.9.RELEASE</spring-data-redis.version>
     </properties>
 
     <dependencies>
@@ -176,6 +178,20 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-databind.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
         </dependency>
 
     </dependencies>
