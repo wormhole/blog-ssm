@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache",key = "'user_'+#result.id",condition = "#result != null")
+    @Cacheable(value = "defaultCache",key = "'user_'+#email",unless="#result == null")
     public User getUserByEmail(String email) {
         return dao.getUserByEmail(email);
     }
