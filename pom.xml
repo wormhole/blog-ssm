@@ -29,6 +29,7 @@
         <jackson-databind.version>2.9.6</jackson-databind.version>
         <jedis.version>2.9.0</jedis.version>
         <spring-data-redis.version>1.8.6.RELEASE</spring-data-redis.version>
+        <aspectj.version>1.9.1</aspectj.version>
     </properties>
 
     <dependencies>
@@ -192,6 +193,20 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>${spring-data-redis.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
     </dependencies>
