@@ -80,21 +80,26 @@
                 if(data.status == 1){
                     $("#vcode").attr('data-content',data.data);
                     $("[data-toggle='popover']").popover('show');
+                    $('#verifyImg').attr('src', $(this).attr('src') + '?' + Math.random());
                 }else if(data.status == 2){
                     $("#email").attr('data-content',data.data);
                     $("[data-toggle='popover']").popover('show');
+                    $('#verifyImg').attr('src', $(this).attr('src') + '?' + Math.random());
                 }else if(data.status == 3){
                     $("#password").attr('data-content',data.data);
                     $("[data-toggle='popover']").popover('show');
+                    $('#verifyImg').attr('src', $(this).attr('src') + '?' + Math.random());
                 }else if(data.status == 4){
                     $('.alert-danger span').text(data.data);
                     $('.alert-danger').removeClass('hidden');
+                    $('#verifyImg').attr('src', $(this).attr('src') + '?' + Math.random());
                 }else{
                     window.location.href="/admin";
                 }
             },
             error: function () {
                 console.log("未知错误");
+                $('#verifyImg').attr('src', $(this).attr('src') + '?' + Math.random());
             }
         });
     });
