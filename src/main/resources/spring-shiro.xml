@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- redis缓存管理 -->
-    <!--<bean id="cacheManager" class="xyz.stackoverflow.blog.web.cache.MyCacheManager"/>-->
+    <bean id="cacheManager" class="xyz.stackoverflow.blog.web.shiro.cache.ShiroCacheManager"/>
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -17,11 +17,11 @@
     <!-- Realm实现 -->
     <bean id="jdbcRealm" class="xyz.stackoverflow.blog.web.shiro.realm.JdbcRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <!--<property name="cachingEnabled" value="true"/>
+        <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
         <property name="authenticationCacheName" value="authenticationCache"/>
         <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>-->
+        <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -64,16 +64,16 @@
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
-        <!--<property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
-        <property name="sessionIdCookie" ref="sessionIdCookie"/>-->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="jdbcRealm"/>
         <property name="sessionManager" ref="sessionManager"/>
-        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
         <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
