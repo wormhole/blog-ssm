@@ -43,9 +43,6 @@
         <property name="cacheNames">
             <list>
                 <value>defaultCache</value>
-                <value>authenticationCache</value>
-                <value>authorizationCache</value>
-                <value>activeSessionCache</value>
             </list>
         </property>
     </bean>

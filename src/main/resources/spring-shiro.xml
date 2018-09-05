@@ -4,8 +4,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+        <property name="host" value="127.0.0.1:6379"/>
+    </bean>
+
     <!-- redis缓存管理 -->
-    <bean id="cacheManager" class="xyz.stackoverflow.blog.web.shiro.cache.ShiroCacheManager"/>
+    <bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
+        <property name="redisManager" ref="redisManager" />
+    </bean>
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -27,27 +33,16 @@
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
-    <!--会话Cookie模板 -->
+    <!-- 会话Cookie模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="-1"/>
     </bean>
 
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="rememberMe"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="2592000"/>
-    </bean>
-
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
-        <property name="cookie" ref="rememberMeCookie"/>
-    </bean>
-
     <!-- 会话DAO -->
-    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="activeSessionCache"/>
+    <bean id="sessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+        <property name="redisManager" ref="redisManager" />
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
@@ -67,6 +62,19 @@
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+    </bean>
+
+    <!-- rememberMe Cookie模板 -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/>
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 
     <!-- 安全管理器 -->
@@ -93,6 +101,7 @@
         <property name="rememberMeParam" value="rememberMe"/>
     </bean>
 
+    <!-- logout过滤器 -->
     <bean id="logoutFilter" class="xyz.stackoverflow.blog.web.shiro.filter.LogoutFilter">
         <property name="redirectUrl" value="/user/login"/>
     </bean>

@@ -30,6 +30,7 @@
         <jedis.version>2.9.0</jedis.version>
         <spring-data-redis.version>1.8.6.RELEASE</spring-data-redis.version>
         <aspectj.version>1.9.1</aspectj.version>
+        <shiro-redis.version>3.1.0</shiro-redis.version>
     </properties>
 
     <dependencies>
@@ -207,6 +208,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${aspectj.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.crazycake/shiro-redis -->
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>${shiro-redis.version}</version>
         </dependency>
 
     </dependencies>
