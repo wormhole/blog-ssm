@@ -3,75 +3,88 @@ package xyz.stackoverflow.blog.web.shiro.cache;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
-    private String cacheKey;
+    private org.springframework.cache.Cache cache;
     private RedisTemplate redisTemplate;
+    private String prefix;
 
-    public ShiroRedisCache(String cacheName,RedisTemplate redisTemplate) {
-        this.cacheKey = cacheName;
+    public ShiroRedisCache(org.springframework.cache.Cache cache, RedisTemplate redisTemplate) {
+        this.cache = cache;
         this.redisTemplate = redisTemplate;
+        this.prefix = "shiro:" + cache.getName() + ":";
     }
 
-    private Object getKey(K k) {
+    String getKey(K k) {
+        String key = null;
         if (k instanceof PrincipalCollection) {
-            PrincipalCollection prin = (PrincipalCollection) k;
-            String email = prin.getPrimaryPrincipal().toString();
-            return email;
+            PrincipalCollection principalCollection = (PrincipalCollection) k;
+            key = principalCollection.getPrimaryPrincipal().toString();
+        } else {
+            key = (String) k;
         }
-        return k;
+        key = this.prefix + key;
+        return key;
     }
 
     @Override
     public V get(K k) throws CacheException {
-        BoundHashOperations<String, K, V> hash = redisTemplate.boundHashOps(cacheKey);
-        Object key = getKey(k);
-        return hash.get(key);
+        if (k == null) {
+            return null;
+        }
+        org.springframework.cache.Cache.ValueWrapper valueWrapper = null;
+        String key = getKey(k);
+        valueWrapper = cache.get(key);
+        if (valueWrapper == null) {
+            return null;
+        }
+        return (V) valueWrapper.get();
     }
 
     @Override
     public V put(K k, V v) throws CacheException {
-        BoundHashOperations<String, K, V> hash = redisTemplate.boundHashOps(cacheKey);
-        Object key = getKey(k);
-        hash.put((K) key, v);
-        return v;
+        String key = getKey(k);
+        cache.put(key, v);
+        return get(k);
     }
 
     @Override
     public V remove(K k) throws CacheException {
-        BoundHashOperations<String, K, V> hash = redisTemplate.boundHashOps(cacheKey);
-        Object key = getKey(k);
-        V value = hash.get(key);
-        hash.delete(key);
-        return value;
+        V v = get(k);
+        String key = getKey(k);
+        cache.evict(key);
+        return v;
     }
 
     @Override
     public void clear() throws CacheException {
-        redisTemplate.delete(cacheKey);
+        cache.clear();
     }
 
     @Override
     public int size() {
-        BoundHashOperations<String,K,V> hash = redisTemplate.boundHashOps(cacheKey);
-        return hash.size().intValue();
+        return redisTemplate.opsForZSet().size(cache.getName() + "~keys").intValue();
     }
 
     @Override
     public Set<K> keys() {
-        BoundHashOperations<String,K,V> hash = redisTemplate.boundHashOps(cacheKey);
-        return hash.keys();
+        return (Set<K>) redisTemplate.opsForZSet().range(cache.getName() + "~keys", 0, -1);
     }
 
     @Override
     public Collection<V> values() {
-        BoundHashOperations<String,K,V> hash = redisTemplate.boundHashOps(cacheKey);
-        return hash.values();
+        Set<K> set = keys();
+        List<V> list = new ArrayList<>();
+        for (K k : set) {
+            list.add(get(k));
+        }
+        return list;
     }
 }
