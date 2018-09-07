@@ -104,7 +104,7 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/user/login"/>
-        <property name="unauthorizedUrl" value="/unauthorized"/>
+        <property name="unauthorizedUrl" value="/error/unauthorized"/>
         <property name="filters">
             <map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -116,9 +116,9 @@
                 /user/login = authc
                 /user/logout = logout
                 /user/register = anon
-                /unauthorized = anon
                 /vcode = anon
                 /static/** = anon
+                /error/** = anon
                 / = anon
                 /** = user
             </value>
