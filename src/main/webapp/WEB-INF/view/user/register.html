@@ -24,13 +24,6 @@
                 </button>
                 <a href="/user/login" class="alert-link">注册成功,点击前往登陆页面</a>
             </div>
-            <div class="alert alert-danger alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">
-                    &times;
-                </button>
-                错误:插入数据库时出错
-            </div>
             <div class="layui-form-item">
                 <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
@@ -108,9 +101,6 @@
                     $("#password").attr('data-content',data.data.passwordErrorInfo);
                     $('#nickname').attr('data-content',data.data.nicknameErrorInfo);
                     $("[data-toggle='popover']").popover('show');
-                    $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
-                }else if(data.status == 3){
-                    $('.alert-danger').removeClass('hidden');
                     $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
                 }
             },

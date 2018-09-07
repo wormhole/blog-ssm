@@ -18,7 +18,6 @@ public class RegisterController {
     private final Integer success =  0;
     private final Integer vcodeError = 1;
     private final Integer fieldError = 2;
-    private final Integer otherError = 3;
 
     @Autowired
     private UserService userService;
@@ -40,13 +39,7 @@ public class RegisterController {
 
         if(result.getStatus()==0){
             User user = registerVO.toUser();
-            try{
-                userService.addUser(user);
-            }catch (Exception e){
-                responseMessage.setStatus(otherError);
-                responseMessage.setData(e.getMessage());
-                return responseMessage;
-            }
+            userService.addUser(user);
             responseMessage.setStatus(success);
         }else{
             responseMessage.setStatus(fieldError);

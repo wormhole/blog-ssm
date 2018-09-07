@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int addUser(User user) {
-        user.setHeadurl("/static/custom/image/head.png");
+        user.setHeadurl("/static/custom/image/cam.png");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(),user.getPassword()));
