@@ -118,8 +118,8 @@
                 /user/register = anon
                 /unauthorized = anon
                 /vcode = anon
-                / = anon
                 /static/** = anon
+                / = anon
                 /** = user
             </value>
         </property>

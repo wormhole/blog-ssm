@@ -18,14 +18,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache",key = "'user_'+#email",unless="#result == null")
+    @Cacheable(value = "defaultCache",key = "'user:'+#email",unless="#result == null")
     public User getUserByEmail(String email) {
         return dao.getUserByEmail(email);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user_'+#user.email")
+    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int addUser(User user) {
         user.setHeadurl("/static/custom/image/head.png");
         user.setId(IdGenerator.getId());
@@ -36,14 +36,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user_'+#user.email")
+    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int updateHeadurl(User user) {
         return dao.updateHeadurl(user);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user_'+#user.email")
+    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int updatePassword(User user) {
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(),user.getPassword()));
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user_'+#user.email")
+    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int udpateNickname(User user) {
         return dao.updateNickname(user);
     }
