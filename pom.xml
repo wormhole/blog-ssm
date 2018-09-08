@@ -210,13 +210,6 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.crazycake/shiro-redis -->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-            <version>${shiro-redis.version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>
