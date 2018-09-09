@@ -1,12 +1,12 @@
 package xyz.stackoverflow.blog.web.controller;
 
-import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
@@ -19,7 +19,7 @@ import java.util.Random;
 public class VCodeController {
 
     @RequestMapping("/vcode")
-    public void vcode(HttpServletResponse response, ShiroHttpSession session) {
+    public void vcode(HttpServletResponse response, HttpSession session) {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String verifyCode = drawImg(output);

@@ -16,12 +16,14 @@
 <div class="login">
     <h3>用户登陆</h3>
     <div class="login-wrap">
-        <#--<div class="alert alert-danger alert-dismissable hidden">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                &times;
-            </button>
-            <span>${error}</span>
-        </div>-->
+        <#if error??>
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <span>${error}</span>
+            </div>
+        </#if>
         <form class="layui-form" id="loginForm" action="/admin/login" method="post">
             <div class="layui-form-item">
                 <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input">

@@ -1,15 +1,19 @@
 package xyz.stackoverflow.blog.web.controller;
 
-import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import xyz.stackoverflow.blog.pojo.ResponseMessage;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.RegisterInfoValidateResult;
+import xyz.stackoverflow.blog.pojo.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.ValidateUtil;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,7 +28,7 @@ public class RegisterController {
 
     @RequestMapping(value="/register",method=RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage register(@RequestBody RegisterVO registerVO, ShiroHttpSession session){
+    public ResponseMessage register(@RequestBody RegisterVO registerVO, HttpSession session){
 
         ResponseMessage responseMessage = new ResponseMessage();
         String vcode = (String) session.getAttribute("vcode");
