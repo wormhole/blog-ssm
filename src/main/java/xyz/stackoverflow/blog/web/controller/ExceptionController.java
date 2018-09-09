@@ -2,16 +2,18 @@ package xyz.stackoverflow.blog.web.controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.stackoverflow.blog.pojo.ResponseMessage;
 
 @ControllerAdvice
 public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(Exception e){
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("message",e.getMessage());
-        mv.setViewName("error/exception");
-        return mv;
+    @ResponseBody
+    public ResponseMessage handleException(Exception e){
+        ResponseMessage responseMessage = new ResponseMessage();
+        responseMessage.setStatus(3);
+        responseMessage.setData(e.getClass().getSimpleName());
+        return responseMessage;
     }
 }

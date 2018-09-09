@@ -30,7 +30,7 @@
         <jedis.version>2.9.0</jedis.version>
         <spring-data-redis.version>1.8.6.RELEASE</spring-data-redis.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <shiro-redis.version>3.1.0</shiro-redis.version>
+        <common-lang.version>3.8</common-lang.version>
     </properties>
 
     <dependencies>
@@ -208,6 +208,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${aspectj.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${common-lang.version}</version>
         </dependency>
 
     </dependencies>

@@ -1,10 +1,12 @@
 package xyz.stackoverflow.blog.service;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.dao.UserDao;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.util.IdGenerator;
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService{
     @CachePut(value = "defaultCache",key = "'user:'+#user.email")
     public int addUser(User user) {
         user.setHeadurl("/static/custom/image/cam.png");
+        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(),user.getPassword()));
