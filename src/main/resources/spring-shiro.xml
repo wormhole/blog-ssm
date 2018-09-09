@@ -116,11 +116,11 @@
                 /admin/login = authc
                 /admin/logout = logout
                 /admin/register = anon
+                /admin/** = user
                 /vcode = anon
                 /static/** = anon
                 /error/** = anon
-                / = anon
-                /** = user
+                /** = anon
             </value>
         </property>
     </bean>
