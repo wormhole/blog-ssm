@@ -16,21 +16,21 @@
 <div class="register">
     <h3>用户注册</h3>
     <div class="register-wrap">
+        <div class="alert alert-success alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            <a href="/admin/login" class="alert-link">注册成功,点击前往登陆页面</a>
+        </div>
+        <div class="alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">
+                &times;
+            </button>
+            <span></span>
+        </div>
         <form class="layui-form">
-            <div class="alert alert-success alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">
-                    &times;
-                </button>
-                <a href="/admin/login" class="alert-link">注册成功,点击前往登陆页面</a>
-            </div>
-            <div class="alert alert-danger alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">
-                    &times;
-                </button>
-                <span></span>
-            </div>
             <div class="layui-form-item">
                 <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
             </div>
