@@ -12,7 +12,7 @@ import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.ValidateUtil;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class RegisterController {
 
     private final Integer success =  0;
@@ -50,6 +50,6 @@ public class RegisterController {
 
     @RequestMapping(value="/register",method=RequestMethod.GET)
     public String register(){
-        return "/user/register";
+        return "/admin/register";
     }
 }

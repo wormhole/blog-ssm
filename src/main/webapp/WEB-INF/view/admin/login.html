@@ -16,7 +16,7 @@
 <div class="login">
     <h3>用户登陆</h3>
     <div class="login-wrap">
-        <form class="layui-form" id="loginForm" method="post" action="/user/login">
+        <form class="layui-form" id="loginForm">
             <div class="alert alert-danger alert-dismissable hidden">
                 <button type="button" class="close" data-dismiss="alert"
                         aria-hidden="true">
@@ -48,7 +48,7 @@
         <div class="layui-form-item">
             <button class="layui-btn layui-btn-normal btn-block" id="loginBtn">登陆</button>
         </div>
-        <a href="/user/register">注册用户</a>
+        <a href="/admin/register">注册用户</a>
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
@@ -72,10 +72,10 @@
         }
 
         $.ajax({
-            url: "/user/login",
+            url: "/admin/login",
             type: "post",
             data: $('#loginForm').serialize(),
-
+            dataType: "json",
             success: function (data) {
                 if(data.status == 1){
                     $("#vcode").attr('data-content',data.data);

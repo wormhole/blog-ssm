@@ -15,7 +15,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <!--<aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

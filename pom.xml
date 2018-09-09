@@ -30,7 +30,8 @@
         <jedis.version>2.9.0</jedis.version>
         <spring-data-redis.version>1.8.6.RELEASE</spring-data-redis.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <common-lang.version>3.8</common-lang.version>
+        <freemarker.version>2.3.28</freemarker.version>
+
     </properties>
 
     <dependencies>
@@ -210,11 +211,11 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${common-lang.version}</version>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
         </dependency>
 
     </dependencies>

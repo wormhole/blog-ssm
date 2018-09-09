@@ -22,7 +22,7 @@
                         aria-hidden="true">
                     &times;
                 </button>
-                <a href="/user/login" class="alert-link">注册成功,点击前往登陆页面</a>
+                <a href="/admin/login" class="alert-link">注册成功,点击前往登陆页面</a>
             </div>
             <div class="alert alert-danger alert-dismissable hidden">
                 <button type="button" class="close" data-dismiss="alert"
@@ -90,7 +90,7 @@
         data['vcode'] = vcode;
 
         $.ajax({
-            url: "/user/register",
+            url: "/admin/register",
             type: "post",
             data: JSON.stringify(data),
             dataType: "json",
@@ -109,7 +109,7 @@
                     $('#nickname').attr('data-content',data.data.nicknameErrorInfo);
                     $("[data-toggle='popover']").popover('show');
                     $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
-                }else if(data.status == 3){
+                }else{
                     $('.alert-danger span').html(data.data);
                     $('.alert-danger').removeClass('hidden');
                     $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());

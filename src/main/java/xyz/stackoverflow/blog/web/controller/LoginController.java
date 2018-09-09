@@ -12,7 +12,7 @@ import xyz.stackoverflow.blog.pojo.ResponseMessage;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class LoginController {
 
     private final Integer vcodeError = 1;
@@ -46,6 +46,6 @@ public class LoginController {
 
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
-        return "/user/login";
+        return "/admin/login";
     }
 }
