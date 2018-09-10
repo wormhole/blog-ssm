@@ -50,15 +50,6 @@
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
-<script type="text/javascript">
-
-    layui.use('form', function () {
-        var form = layui.form;
-    });
-
-    $('#verifyImg').click(function () {
-        $(this).attr('src', $(this).attr('src') + '?' + Math.random());
-    });
-</script>
+<script type="text/javascript" src="/static/custom/js/login.js"></script>
 </body>
 </html>
