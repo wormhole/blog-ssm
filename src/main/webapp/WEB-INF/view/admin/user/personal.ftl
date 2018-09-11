@@ -13,27 +13,25 @@
 <div class="layui-card" id="baseConf">
     <div class="layui-card-header">基本信息</div>
     <div class="layui-card-body">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
-                <div class="layui-input-inline">
-                    <input name="email" class="layui-input" type="email" required id="email">
-                </div>
-                <div class="layui-form-mid error-color hidden">邮箱格式不正确</div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input name="email" class="layui-input" type="email" required id="email" value="${Session.user.email}">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">昵称</label>
-                <div class="layui-input-inline">
-                    <input name="nickname" class="layui-input" type="text" required id="nickname">
-                </div>
-                <div class="layui-form-mid error-color hidden">昵称长度必须大于1</div>
+            <div class="layui-form-mid error-color hidden" id="email-error"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-normal" id="saveBaseBtn">保存修改</button>
-                </div>
+            <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" id="saveBaseBtn">保存修改</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <div class="layui-card" id="pwdConf">
@@ -45,21 +43,21 @@
                 <div class="layui-input-inline">
                     <input name="oldPassword" class="layui-input" type="password" required id="oldPassword">
                 </div>
-                <div class="layui-form-mid error-color hidden">旧密码不匹配</div>
+                <div class="layui-form-mid error-color hidden"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">新密码</label>
                 <div class="layui-input-inline">
                     <input name="newPassword" class="layui-input" type="password" required id="newPassword">
                 </div>
-                <div class="layui-form-mid error-color hidden">密码长度必须大于等于6</div>
+                <div class="layui-form-mid error-color hidden"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
                     <input name="checkedPassword" class="layui-input" type="password" required id="checkedPassword">
                 </div>
-                <div class="layui-form-mid error-color hidden">两次密码不匹配</div>
+                <div class="layui-form-mid error-color hidden"></div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
