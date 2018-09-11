@@ -15,8 +15,8 @@ $('#registerBtn').click(function () {
 
     if(password != checkedPassword){
         $('#checkedPassword').val('');
-        $("#checkedPassword").attr('data-content','两次密码不一致');
-        $("[data-toggle='popover']").popover('show');
+        $('.alert-danger span').html('两次密码不一致');
+        $('.alert-danger').removeClass('hidden');
         $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
         return;
     }
@@ -38,14 +38,25 @@ $('#registerBtn').click(function () {
                 $('.alert-success').removeClass('hidden');
                 $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
             }else if(data.status == 1){
-                $("#vcode").attr('data-content',data.data);
-                $("[data-toggle='popover']").popover('show');
+                $('.alert-danger span').html(data.data);
+                $('.alert-danger').removeClass('hidden');
+                $('#email').val('');
                 $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
             }else if(data.status == 2){
-                $("#email").attr('data-content',data.data.emailErrorInfo);
-                $("#password").attr('data-content',data.data.passwordErrorInfo);
-                $('#nickname').attr('data-content',data.data.nicknameErrorInfo);
-                $("[data-toggle='popover']").popover('show');
+                $('.alert-danger span').html(data.data);
+                $('.alert-danger').removeClass('hidden');
+                $('#nickname').val('');
+                $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
+            }else if(data.status == 3){
+                $('.alert-danger span').html(data.data);
+                $('.alert-danger').removeClass('hidden');
+                $("#password").val('');
+                $('#checkedPassword').val('');
+                $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
+            }else if(data.status == 4){
+                $('.alert-danger span').html(data.data);
+                $('.alert-danger').removeClass('hidden');
+                $("#vcode").val('');
                 $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
             }else{
                 $('.alert-danger span').html(data.data);
@@ -54,34 +65,10 @@ $('#registerBtn').click(function () {
             }
         },
         error: function () {
-            console.log("未知错误");
+            $('.alert-danger span').html('请求错误');
+            $('.alert-danger').removeClass('hidden');
             $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
         }
     });
 
-});
-
-$('#email').focus(function(){
-    $("#email").attr('data-content','');
-    $("[data-toggle='popover']").popover('toggle');
-});
-
-$('#nickname').focus(function(){
-    $("#nickname").attr('data-content','');
-    $("[data-toggle='popover']").popover('toggle');
-});
-
-$('#password').focus(function(){
-    $("#password").attr('data-content','');
-    $("[data-toggle='popover']").popover('toggle');
-});
-
-$('#checkedPassword').focus(function() {
-    $("#checkedPassword").attr('data-content','');
-    $("[data-toggle='popover']").popover('toggle');
-});
-
-$('#vcode').focus(function(){
-    $("#vcode").attr('data-content','');
-    $("[data-toggle='popover']").popover('toggle');
 });

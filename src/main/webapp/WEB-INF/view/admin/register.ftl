@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/static/custom/css/register.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
-    <script src="/static/popper/umd/popper.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <title>凉衫薄</title>
 </head>
@@ -32,20 +31,20 @@
         </div>
         <form class="layui-form">
             <div class="layui-form-item">
-                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
+                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
+                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
+                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="checkedPassword" id="checkedPassword" required placeholder="确认密码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
+                <input type="password" name="checkedPassword" id="checkedPassword" required placeholder="确认密码" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input" data-toggle="popover" data-placement="left" data-content="">
+                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input">
                 </div>
                 <div class="layui-inline">
                     <img src="/vcode" class="verifyImg" id="verifyImg"/>
