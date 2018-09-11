@@ -21,3 +21,12 @@ img{
 .hidden{
     display:none;
 }
+
+.error-color{
+    color:red;
+}
+
+#headConf .layui-card-body{
+    padding-left: 60px;
+    padding-bottom: 20px;
+}

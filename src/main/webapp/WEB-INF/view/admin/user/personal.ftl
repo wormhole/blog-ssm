@@ -19,12 +19,14 @@
                 <div class="layui-input-inline">
                     <input name="email" class="layui-input" type="email" required id="email">
                 </div>
+                <div class="layui-form-mid error-color hidden">邮箱格式不正确</div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">昵称</label>
                 <div class="layui-input-inline">
                     <input name="nickname" class="layui-input" type="text" required id="nickname">
                 </div>
+                <div class="layui-form-mid error-color hidden">昵称长度必须大于1</div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
@@ -43,18 +45,21 @@
                 <div class="layui-input-inline">
                     <input name="oldPassword" class="layui-input" type="password" required id="oldPassword">
                 </div>
+                <div class="layui-form-mid error-color hidden">旧密码不匹配</div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">新密码</label>
                 <div class="layui-input-inline">
                     <input name="newPassword" class="layui-input" type="password" required id="newPassword">
                 </div>
+                <div class="layui-form-mid error-color hidden">密码长度必须大于等于6</div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
                     <input name="checkedPassword" class="layui-input" type="password" required id="checkedPassword">
                 </div>
+                <div class="layui-form-mid error-color hidden">两次密码不匹配</div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
