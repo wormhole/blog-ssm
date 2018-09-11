@@ -20,7 +20,7 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="${Session.user.headurl}" class="layui-nav-img">
+                    <img src="${Session.user.headurl}" class="layui-nav-img layui-circle">
                     ${Session.user.nickname}
                 </a>
                 <dl class="layui-nav-child">
