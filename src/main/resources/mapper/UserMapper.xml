@@ -18,6 +18,10 @@
         select * from user where email = #{email}
     </select>
 
+    <select id="isExist" resultType="int" parameterType="string">
+        select count(*) from user where email=#{email}
+    </select>
+
     <insert id="addUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user(id,email,nickname,password,salt,headurl) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl})
     </insert>
@@ -29,7 +33,7 @@
                 headurl=#{headurl}
             </if>
         </set>
-        where email=#{email}
+        where id=#{id}
     </update>
 
     <update id="updatePassword" parameterType="user">
@@ -42,7 +46,7 @@
                 salt=#{salt}
             </if>
         </set>
-        where email=#{email}
+        where id=#{id}
     </update>
 
     <update id="updateNickname" parameterType="user">
@@ -52,7 +56,30 @@
                 nickname=#{nickname}
             </if>
         </set>
-        where email=#{email}
+        where id=#{id}
+    </update>
+
+    <update id="updateEmail" parameterType="user">
+        update user
+        <set>
+            <if test="email!=null">
+                email=#{email}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="updateEmailAndNickname" parameterType="user">
+        update user
+        <set>
+            <if test="nickname!=null">
+                nickname=#{nickname},
+            </if>
+            <if test="email!=null">
+                email=#{email}
+            </if>
+        </set>
+        where id=#{id}
     </update>
 
 </mapper>

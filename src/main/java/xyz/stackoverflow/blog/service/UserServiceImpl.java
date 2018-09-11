@@ -12,50 +12,80 @@ import xyz.stackoverflow.blog.util.IdGenerator;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao dao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache",key = "'user:'+#email",unless="#result == null")
+    @Cacheable(value = "defaultCache", key = "'user:'+#email", unless = "#result == null")
     public User getUserByEmail(String email) {
         return dao.getUserByEmail(email);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
-    public int addUser(User user) {
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User addUser(User user) {
         user.setHeadurl("/static/custom/image/cam.png");
         user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
-        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(),user.getPassword()));
-        return dao.addUser(user);
+        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        dao.addUser(user);
+        return dao.getUserByEmail(user.getEmail());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
-    public int updateHeadurl(User user) {
-        return dao.updateHeadurl(user);
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User updateHeadurl(User user) {
+        dao.updateHeadurl(user);
+        return dao.getUserByEmail(user.getEmail());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
-    public int updatePassword(User user) {
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User updatePassword(User user) {
         user.setSalt(PasswordUtil.getSalt());
-        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(),user.getPassword()));
-        return dao.updatePassword(user);
+        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        dao.updatePassword(user);
+        return dao.getUserByEmail(user.getEmail());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache",key = "'user:'+#user.email")
-    public int udpateNickname(User user) {
-        return dao.updateNickname(user);
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User udpateNickname(User user) {
+        dao.updateNickname(user);
+        return dao.getUserByEmail(user.getEmail());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User udpateEmail(User user) {
+        dao.updateEmail(user);
+        return dao.getUserByEmail(user.getEmail());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    public User updateEmailAndNickname(User user) {
+        dao.updateEmailAndNickname(user);
+        return dao.getUserByEmail(user.getEmail());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean isExist(String email) {
+        if (dao.isExist(email) != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

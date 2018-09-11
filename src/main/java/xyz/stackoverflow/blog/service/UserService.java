@@ -4,8 +4,11 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 
 public interface UserService {
     User getUserByEmail(String email);
-    int addUser(User user);
-    int updateHeadurl(User user);
-    int updatePassword(User user);
-    int udpateNickname(User user);
+    User addUser(User user);
+    User updateHeadurl(User user);
+    User updatePassword(User user);
+    User udpateNickname(User user);
+    User udpateEmail(User user);
+    User updateEmailAndNickname(User user);
+    boolean isExist(String email);
 }

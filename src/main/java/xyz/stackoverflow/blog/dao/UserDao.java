@@ -9,5 +9,8 @@ public interface UserDao {
     int addUser(User user);
     int updateHeadurl(User user);
     int updatePassword(User user);
-    int updateNickname(User name);
+    int updateNickname(User user);
+    int updateEmail(User user);
+    int updateEmailAndNickname(User user);
+    int isExist(String email);
 }
