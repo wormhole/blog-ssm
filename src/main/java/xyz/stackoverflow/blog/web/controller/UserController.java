@@ -127,7 +127,7 @@ public class UserController {
             if(!oldUrl.equals(newUrl)){
                 user.setHeadurl(newUrl);
                 User newUser = userService.updateHeadUrl(user);
-                System.out.println(((User) session.getAttribute("user")).getHeadurl());
+                session.setAttribute("user",newUser);
             }
             response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
             response.setData(ResponseStatusEnum.SUCCESS.getMessage());
