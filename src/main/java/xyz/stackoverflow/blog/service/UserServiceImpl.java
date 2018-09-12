@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User udpateNickname(User user) {
+        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
         dao.updateNickname(user);
         return dao.getUserByEmail(user.getEmail());
     }
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User updateEmailAndNickname(User user) {
+        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
         dao.updateEmailAndNickname(user);
         return dao.getUserByEmail(user.getEmail());
     }

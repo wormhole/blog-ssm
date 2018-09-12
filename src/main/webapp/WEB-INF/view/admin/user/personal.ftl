@@ -23,7 +23,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-inline">
-                <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
+                <input name="nickname" class="layui-input" type="text" required id="nickname"
+                       value="${Session.user.nickname}">
             </div>
             <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
         </div>
@@ -37,34 +38,32 @@
 <div class="layui-card" id="pwdConf">
     <div class="layui-card-header">修改密码</div>
     <div class="layui-card-body">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">旧密码</label>
-                <div class="layui-input-inline">
-                    <input name="oldPassword" class="layui-input" type="password" required id="oldPassword">
-                </div>
-                <div class="layui-form-mid error-color hidden"></div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">旧密码</label>
+            <div class="layui-input-inline">
+                <input name="oldPassword" class="layui-input" type="password" required id="oldPassword">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">新密码</label>
-                <div class="layui-input-inline">
-                    <input name="newPassword" class="layui-input" type="password" required id="newPassword">
-                </div>
-                <div class="layui-form-mid error-color hidden"></div>
+            <div class="layui-form-mid error-color hidden" id="oldPassword-error"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-inline">
+                <input name="newPassword" class="layui-input" type="password" required id="newPassword">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">确认密码</label>
-                <div class="layui-input-inline">
-                    <input name="checkedPassword" class="layui-input" type="password" required id="checkedPassword">
-                </div>
-                <div class="layui-form-mid error-color hidden"></div>
+            <div class="layui-form-mid error-color hidden" id="newPassword-error"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码</label>
+            <div class="layui-input-inline">
+                <input name="checkedPassword" class="layui-input" type="password" required id="checkedPassword">
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-normal" id="savePwdBtn">保存密码</button>
-                </div>
+            <div class="layui-form-mid error-color hidden" id="checkedPassword-error"></div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" id="savePwdBtn">保存密码</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <div class="layui-card" id="headConf">

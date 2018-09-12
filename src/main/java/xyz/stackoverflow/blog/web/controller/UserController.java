@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
+import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.ResponseStatusEnum;
 import xyz.stackoverflow.blog.util.ValidateUtil;
 
 import javax.servlet.http.HttpSession;
@@ -20,15 +23,6 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Integer success = 0;
-    private final Integer emailError = 1;
-    private final Integer nicknameError = 2;
-    private final Integer emailExistError = 3;
-
-    private final String emailErrorInfo = "邮箱格式错误";
-    private final String nicknameErrorInfo = "昵称长度要大于0";
-    private final String emailExistErrorInfo = "邮箱已经存在";
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -36,20 +30,20 @@ public class UserController {
 
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage update(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
+    public ResponseMessage updateBaseInfo(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
         ResponseMessage response = new ResponseMessage();
         User user = (User) session.getAttribute("user");
 
         if (!baseInfoVO.getEmail().equals(user.getEmail())) {
             if (userService.isExist(baseInfoVO.getEmail())) {
-                response.setStatus(emailExistError);
-                response.setData(emailExistErrorInfo);
+                response.setStatus(ResponseStatusEnum.EMAILEXISTERROR.getStatus());
+                response.setData(ResponseStatusEnum.EMAILEXISTERROR.getMessage());
                 return response;
             }
         }
 
-        Integer result = ValidateUtil.validateBaseInfo(baseInfoVO);
-        if (result == 0) {
+        Integer result = ValidateUtil.validateBaseInfoVO(baseInfoVO);
+        if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
             User updateUser = baseInfoVO.toUser();
             updateUser.setId(user.getId());
             if(!updateUser.getEmail().equals(user.getEmail())) {
@@ -62,13 +56,44 @@ public class UserController {
             }
             User newUser = userService.updateEmailAndNickname(updateUser);
             session.setAttribute("user", newUser);
-            response.setStatus(success);
-        } else if (result == 1) {
-            response.setStatus(emailError);
-            response.setData(emailErrorInfo);
-        } else if (result == 2) {
-            response.setStatus(nicknameError);
-            response.setData(nicknameErrorInfo);
+            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
+        } else if (result.equals(ResponseStatusEnum.EMAILERROR.getStatus())) {
+            response.setStatus(ResponseStatusEnum.EMAILERROR.getStatus());
+            response.setData(ResponseStatusEnum.EMAILERROR.getMessage());
+        } else if (result.equals(ResponseStatusEnum.NICKNAMEERROR.getStatus())) {
+            response.setStatus(ResponseStatusEnum.NICKNAMEERROR.getStatus());
+            response.setData(ResponseStatusEnum.NICKNAMEERROR.getMessage());
+        }
+        return response;
+    }
+
+    @RequestMapping(value="/update/password",method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage updatePassword(@RequestBody PasswordVO passwordVO,HttpSession session){
+        ResponseMessage response = new ResponseMessage();
+        User user = (User) session.getAttribute("user");
+
+        if(!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(),passwordVO.getOldPassword()))){
+            response.setStatus(ResponseStatusEnum.OLDPASSWORDERROR.getStatus());
+            response.setData(ResponseStatusEnum.OLDPASSWORDERROR.getMessage());
+            return response;
+        }
+
+        Integer result = ValidateUtil.validatePasswordVO(passwordVO);
+        if(result.equals(ResponseStatusEnum.SUCCESS.getStatus())){
+            User updateUser = passwordVO.toUser();
+            updateUser.setId(user.getId());
+            updateUser.setEmail(user.getEmail());
+            Cache defaultCache = redisCacheManager.getCache("defaultCache");
+            defaultCache.evict("user:" + user.getEmail());
+            Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
+            authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
+            userService.updatePassword(updateUser);
+            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
+            response.setData(ResponseStatusEnum.SUCCESS.getMessage());
+        }else if(result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())){
+            response.setStatus(ResponseStatusEnum.PASSWORDERROR.getStatus());
+            response.setData(ResponseStatusEnum.PASSWORDERROR.getMessage());
         }
         return response;
     }
