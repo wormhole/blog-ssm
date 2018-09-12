@@ -58,6 +58,11 @@ $('#registerBtn').click(function () {
                 $('.alert-danger').removeClass('hidden');
                 $("#vcode").val('');
                 $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
+            }else if(data.status == 6){
+                $('.alert-danger span').html(data.data);
+                $('.alert-danger').removeClass('hidden');
+                $('#email').val('');
+                $('#verifyImg').attr('src', '/vcode' + '?' + Math.random());
             }else{
                 $('.alert-danger span').html(data.data);
                 $('.alert-danger').removeClass('hidden');

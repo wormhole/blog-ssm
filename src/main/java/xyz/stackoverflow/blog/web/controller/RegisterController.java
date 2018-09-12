@@ -35,6 +35,12 @@ public class RegisterController {
             return responseMessage;
         }
 
+        if(userService.isExist(registerVO.getEmail())){
+            responseMessage.setStatus(ResponseStatusEnum.EMAILEXISTERROR.getStatus());
+            responseMessage.setData(ResponseStatusEnum.EMAILEXISTERROR.getMessage());
+            return responseMessage;
+        }
+
         Integer result = ValidateUtil.validateRegisterVO(registerVO);
 
         if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
