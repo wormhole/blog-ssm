@@ -5,7 +5,7 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 public interface UserService {
     User getUserByEmail(String email);
     User addUser(User user);
-    User updateHeadurl(User user);
+    User updateHeadUrl(User user);
     User updatePassword(User user);
     User udpateNickname(User user);
     User udpateEmail(User user);

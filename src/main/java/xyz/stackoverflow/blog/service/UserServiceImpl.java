@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
-    public User updateHeadurl(User user) {
-        dao.updateHeadurl(user);
+    public User updateHeadUrl(User user) {
+        dao.updateHeadUrl(user);
         return dao.getUserByEmail(user.getEmail());
     }
 

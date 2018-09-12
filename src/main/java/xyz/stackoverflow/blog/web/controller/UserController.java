@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import xyz.stackoverflow.blog.pojo.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
@@ -17,7 +19,10 @@ import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.ResponseStatusEnum;
 import xyz.stackoverflow.blog.util.ValidateUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
@@ -46,7 +51,7 @@ public class UserController {
         if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
             User updateUser = baseInfoVO.toUser();
             updateUser.setId(user.getId());
-            if(!updateUser.getEmail().equals(user.getEmail())) {
+            if (!updateUser.getEmail().equals(user.getEmail())) {
                 Cache defaultCache = redisCacheManager.getCache("defaultCache");
                 defaultCache.evict("user:" + user.getEmail());
                 Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
@@ -67,20 +72,20 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value="/update/password",method=RequestMethod.POST)
+    @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage updatePassword(@RequestBody PasswordVO passwordVO,HttpSession session){
+    public ResponseMessage updatePassword(@RequestBody PasswordVO passwordVO, HttpSession session) {
         ResponseMessage response = new ResponseMessage();
         User user = (User) session.getAttribute("user");
 
-        if(!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(),passwordVO.getOldPassword()))){
+        if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), passwordVO.getOldPassword()))) {
             response.setStatus(ResponseStatusEnum.OLDPASSWORDERROR.getStatus());
             response.setData(ResponseStatusEnum.OLDPASSWORDERROR.getMessage());
             return response;
         }
 
         Integer result = ValidateUtil.validatePasswordVO(passwordVO);
-        if(result.equals(ResponseStatusEnum.SUCCESS.getStatus())){
+        if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
             User updateUser = passwordVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
@@ -91,9 +96,44 @@ public class UserController {
             userService.updatePassword(updateUser);
             response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
             response.setData(ResponseStatusEnum.SUCCESS.getMessage());
-        }else if(result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())){
+        } else if (result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())) {
             response.setStatus(ResponseStatusEnum.PASSWORDERROR.getStatus());
             response.setData(ResponseStatusEnum.PASSWORDERROR.getMessage());
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/update/head", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage updateHead(HttpServletRequest request, HttpSession session) {
+        ResponseMessage response = new ResponseMessage();
+        User user = (User) session.getAttribute("user");
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multiRequest.getFile("headImg");
+        String fileName = file.getOriginalFilename();
+        String newFileName = "head" + fileName.substring(fileName.lastIndexOf("."));
+        String webRootDir = request.getRealPath("");
+        String homeDir = webRootDir + "/WEB-INF/uploads/" + user.getId();
+        File homeFile = new File(homeDir);
+        if (!homeFile.exists()) {
+            homeFile.mkdirs();
+        }
+        File destFile = new File(homeFile,newFileName);
+        destFile.deleteOnExit();
+        try {
+            file.transferTo(destFile);
+            String oldUrl = user.getHeadurl();
+            String newUrl = "/uploads/"+user.getId()+"/"+newFileName;
+            if(!oldUrl.equals(newUrl)){
+                user.setHeadurl(newUrl);
+                User newUser = userService.updateHeadUrl(user);
+                System.out.println(((User) session.getAttribute("user")).getHeadurl());
+            }
+            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
+            response.setData(ResponseStatusEnum.SUCCESS.getMessage());
+        } catch (IOException e) {
+            response.setStatus(ResponseStatusEnum.HEADERROR.getStatus());
+            response.setData(ResponseStatusEnum.HEADERROR.getMessage());
         }
         return response;
     }

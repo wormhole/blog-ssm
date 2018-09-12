@@ -70,9 +70,9 @@
     <div class="layui-card-header">头像设置</div>
     <div class="layui-card-body">
         <div class="layui-row">
-            <img src="${Session.user.headurl}" class="layui-circle" id="headImg">
+            <img src="${Session.user.headurl}" class="layui-circle" id="head">
         </div>
-        <input type="file" name="headImg" class="hidden">
+        <input type="file" name="headImg" id="headImg" class="hidden">
         <div class="layui-row">
             <button class="layui-btn layui-btn-normal layui-btn-lg layui-show-lg-block" id="saveHeadBtn">
                 保存头像

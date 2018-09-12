@@ -7,7 +7,7 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 public interface UserDao {
     User getUserByEmail(String email);
     int addUser(User user);
-    int updateHeadurl(User user);
+    int updateHeadUrl(User user);
     int updatePassword(User user);
     int updateNickname(User user);
     int updateEmail(User user);

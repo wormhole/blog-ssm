@@ -10,13 +10,13 @@ function getObjectURL(file) {
     return url;
 }
 
-$('#headImg').click(function () {
+$('#head').click(function () {
     $('input[type="file"]').click();
 });
 
 $('input[type="file"]').change(function () {
     var file = this.files[0];
-    $('#headImg').attr('src', getObjectURL(file));
+    $('#head').attr('src', getObjectURL(file));
 });
 
 $('#saveBaseBtn').click(function () {
@@ -109,6 +109,39 @@ $('#savePwdBtn').click(function () {
         },
         error: function (data) {
             console.log(data);
+        }
+    });
+});
+
+$('#saveHeadBtn').click(function(){
+    var formData = new FormData();
+    formData.append('headImg', $('#headImg').get(0).files[0]);
+    $.ajax({
+        url: "/user/update/head",
+        type: 'POST',
+        data: formData,
+        cache : false,
+        processData: false,
+        contentType: false,
+        dataType:"json",
+        success : function(data) {
+            if (data.status == 0) {
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 0,
+                        content: "头像上传成功",
+                    });
+                });
+            } else if(data.status == 7){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 0,
+                        content: "头像上传成功",
+                    });
+                });
+            }
         }
     });
 });
