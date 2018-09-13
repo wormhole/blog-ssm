@@ -119,12 +119,15 @@ public class UserController {
             homeFile.mkdirs();
         }
         File destFile = new File(homeFile,newFileName);
-        destFile.deleteOnExit();
         try {
             file.transferTo(destFile);
             String oldUrl = user.getHeadurl();
             String newUrl = "/uploads/"+user.getId()+"/"+newFileName;
             if(!oldUrl.equals(newUrl)){
+                if(!oldUrl.startsWith("/static")){
+                    File oldHead = new File(webRootDir+"/WEB-INF/"+oldUrl);
+                    oldHead.delete();
+                }
                 user.setHeadurl(newUrl);
                 User newUser = userService.updateHeadUrl(user);
                 session.setAttribute("user",newUser);

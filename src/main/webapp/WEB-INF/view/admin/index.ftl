@@ -55,7 +55,7 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="" data-title="所有用户" data-id="">所有用户</a></dd>
                         <dd><a href="javascript:;" data-url="" data-title="添加用户" data-id="">添加用户</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="个人中心" data-id="">个人信息</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
