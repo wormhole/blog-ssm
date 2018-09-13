@@ -131,6 +131,9 @@ $('#saveHeadBtn').click(function(){
                     layer.open({
                         type: 0,
                         content: "头像上传成功",
+                        yes:function(index, layero){
+                            parent.location.reload();
+                        }
                     });
                 });
             } else if(data.status == 7){
@@ -138,7 +141,7 @@ $('#saveHeadBtn').click(function(){
                     var layer = layui.layer;
                     layer.open({
                         type: 0,
-                        content: "头像上传成功",
+                        content: "头像上传失败",
                     });
                 });
             }
