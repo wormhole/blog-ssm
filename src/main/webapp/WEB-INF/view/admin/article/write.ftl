@@ -24,7 +24,7 @@
         testEditor = editormd({
             id      : "editormd",
             width   : "90%",
-            height  : 640,
+            height  :  650,
             path    : "/static/editor.md/lib/"
         });
     });
