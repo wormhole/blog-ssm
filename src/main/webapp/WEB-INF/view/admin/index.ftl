@@ -39,7 +39,7 @@
                     <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="" data-title="所有文章" data-id="">所有文章</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="写文章" data-id="">写文章</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/write" data-title="写文章" data-id="write">写文章</a></dd>
                         <dd><a href="javascript:;" data-url="" data-title="分类" data-id="">分类</a></dd>
                         <dd><a href="javascript:;" data-url="" data-title="标签" data-id="">标签</a></dd>
                     </dl>

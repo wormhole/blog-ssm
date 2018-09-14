@@ -23,6 +23,7 @@
 
     <mvc:view-controller path="/admin" view-name="/admin/index"/>
     <mvc:view-controller path="/admin/user/personal" view-name="/admin/user/personal"/>
+    <mvc:view-controller path="/admin/article/write" view-name="/admin/article/write"/>
 
     <mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**"></mvc:resources>
 
