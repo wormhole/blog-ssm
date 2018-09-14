@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller;
+package xyz.stackoverflow.blog.web.controller.admin;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

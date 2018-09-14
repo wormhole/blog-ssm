@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller;
+package xyz.stackoverflow.blog.web.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -26,7 +26,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class PersonalInfoController {
 
     @Autowired
     private UserService userService;
