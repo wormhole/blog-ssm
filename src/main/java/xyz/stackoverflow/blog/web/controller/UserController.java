@@ -124,7 +124,7 @@ public class UserController {
             String oldUrl = user.getHeadurl();
             String newUrl = "/uploads/"+user.getId()+"/"+newFileName;
             if(!oldUrl.equals(newUrl)){
-                if(!oldUrl.startsWith("/static")){
+                if(!oldUrl.equals("/static/custom/image/cam.png")){
                     File oldHead = new File(webRootDir+"/WEB-INF/"+oldUrl);
                     oldHead.delete();
                 }

@@ -59,7 +59,10 @@ $('#saveBaseBtn').click(function () {
 
         },
         error: function (data) {
-            console.log(data);
+            layer.open({
+                type: 0,
+                content: "请求失败",
+            });
         }
     });
 });
@@ -108,7 +111,10 @@ $('#savePwdBtn').click(function () {
             }
         },
         error: function (data) {
-            console.log(data);
+            layer.open({
+                type: 0,
+                content: "请求失败",
+            });
         }
     });
 });
@@ -131,9 +137,6 @@ $('#saveHeadBtn').click(function(){
                     layer.open({
                         type: 0,
                         content: "头像上传成功",
-                        yes:function(index, layero){
-                            parent.location.reload();
-                        }
                     });
                 });
             } else if(data.status == 7){
