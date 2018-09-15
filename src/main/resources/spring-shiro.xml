@@ -118,6 +118,7 @@
                 /admin/register = anon
                 /admin/** = user
                 /user/** = user
+                /article/** = user
                 /vcode = anon
                 /static/** = anon
                 /uploads/** = anon
