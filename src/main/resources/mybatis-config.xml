@@ -7,6 +7,7 @@
 
     <typeAliases>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.User" alias="user"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Blog" alias="blog"/>
     </typeAliases>
 
 </configuration>
