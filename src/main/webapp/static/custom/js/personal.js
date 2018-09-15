@@ -59,9 +59,12 @@ $('#saveBaseBtn').click(function () {
 
         },
         error: function (data) {
-            layer.open({
-                type: 0,
-                content: "请求失败",
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 0,
+                    content: "请求失败",
+                });
             });
         }
     });
@@ -111,9 +114,12 @@ $('#savePwdBtn').click(function () {
             }
         },
         error: function (data) {
-            layer.open({
-                type: 0,
-                content: "请求失败",
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 0,
+                    content: "请求失败",
+                });
             });
         }
     });
