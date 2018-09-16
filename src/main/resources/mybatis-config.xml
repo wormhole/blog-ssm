@@ -8,6 +8,8 @@
     <typeAliases>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.User" alias="user"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Blog" alias="blog"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Role" alias="role"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Permission" alias="permission"/>
     </typeAliases>
 
 </configuration>

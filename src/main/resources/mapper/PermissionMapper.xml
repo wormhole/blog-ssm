@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.PermissionDao">
+
+    <resultMap id="permissionMap" type="permission">
+        <id property="id" column="id"></id>
+        <result property="role" column="role"></result>
+        <result property="permission" column="permission"></result>
+    </resultMap>
+
+    <select id="getPermissionByRole" resultType="permission" resultMap="permissionMap" parameterType="string">
+        select * from permission where role = #{role}
+    </select>
+
+</mapper>
