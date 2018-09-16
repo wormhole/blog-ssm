@@ -32,7 +32,7 @@ $('#saveBaseBtn').click(function () {
     data['nickname'] = nickname;
 
     $.ajax({
-        url: "/user/update/baseinfo",
+        url: "/admin/user/update/baseinfo",
         type: "post",
         data: JSON.stringify(data),
         dataType: "json",
@@ -91,7 +91,7 @@ $('#savePwdBtn').click(function () {
     data['newPassword'] = newPassword;
 
     $.ajax({
-        url: "/user/update/password",
+        url: "/admin/user/update/password",
         type: "post",
         data: JSON.stringify(data),
         dataType: "json",
@@ -129,7 +129,7 @@ $('#saveHeadBtn').click(function(){
     var formData = new FormData();
     formData.append('headImg', $('#headImg').get(0).files[0]);
     $.ajax({
-        url: "/user/update/head",
+        url: "/admin/user/update/head",
         type: 'POST',
         data: formData,
         cache : false,

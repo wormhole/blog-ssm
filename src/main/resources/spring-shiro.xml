@@ -117,9 +117,7 @@
                 /admin/logout = logout
                 /admin/register = anon
                 /admin/** = user
-                /user/** = user
-                /article/** = user
-                /vcode = anon
+                /api/** = anon
                 /static/** = anon
                 /uploads/** = anon
                 /error/** = anon

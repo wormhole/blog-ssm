@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @Controller
+@RequestMapping("/api")
 public class VCodeController {
 
     @RequestMapping("/vcode")

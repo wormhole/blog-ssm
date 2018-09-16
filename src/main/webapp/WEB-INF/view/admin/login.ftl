@@ -36,7 +36,7 @@
                     <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input">
                 </div>
                 <div class="layui-inline">
-                    <img src="/vcode" class="verifyImg" id="verifyImg"/>
+                    <img src="/api/vcode" class="verifyImg" id="verifyImg"/>
                 </div>
             </div>
             <div class="layui-form-item">

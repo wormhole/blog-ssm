@@ -22,6 +22,8 @@
 </div>
 <div id="layout">
     <div id="editormd">
+        <textarea></textarea>
+        <textarea></textarea>
     </div>
 </div>
 <script src="/static/editor.md/editormd.min.js"></script>
@@ -43,7 +45,7 @@
             flowChart: true,
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "/WEB-INF/uploads/${Session.user.id}/"
+            imageUploadURL: "/admin/article/image",
         });
     });
 
@@ -60,7 +62,7 @@
         };
 
         $.ajax({
-            url: "/article/save",
+            url: "/admin/article/save",
             type: "post",
             data: JSON.stringify(data),
             dataType: "json",
