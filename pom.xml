@@ -122,6 +122,14 @@
             <version>${logback.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-all -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-all</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-web -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -234,11 +242,17 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.mingsoft/shiro-freemarker-tags -->
-        <!--<dependency>
+        <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>shiro-freemarker-tags</artifactId>
             <version>${shiro-freemarker-tags.version}</version>
-        </dependency>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>freemarker</artifactId>
+                    <groupId>org.freemarker</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
     </dependencies>
 

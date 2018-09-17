@@ -21,10 +21,11 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="${Session.user.headurl}" class="layui-nav-img layui-circle">
-                    ${Session.user.nickname}
+                ${Session.user.nickname}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人信息" data-id="personal">个人信息</a></dd>
+                    <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人信息"
+                           data-id="personal">个人信息</a></dd>
                     <dd><a href="/admin/logout">注销</a></dd>
                 </dl>
             </li>
@@ -39,7 +40,8 @@
                     <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="" data-title="所有文章" data-id="">所有文章</a></dd>
-                        <dd><a href="javascript:;" data-url="/admin/article/write" data-title="写文章" data-id="write">写文章</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/write" data-title="写文章"
+                               data-id="write">写文章</a></dd>
                         <dd><a href="javascript:;" data-url="" data-title="分类" data-id="">分类</a></dd>
                     </dl>
                 </li>
@@ -52,9 +54,14 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;用户</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="" data-title="所有用户" data-id="">所有用户</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="添加用户" data-id="">添加用户</a></dd>
-                        <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a></dd>
+                        <@shiro.hasPermission name="system:user:view">
+                            <dd><a href="javascript:;" data-url="" data-title="所有用户" data-id="">所有用户</a></dd>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="system:user:add">
+                            <dd><a href="javascript:;" data-url="" data-title="添加用户" data-id="">添加用户</a></dd>
+                        </@shiro.hasPermission>
+                        <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a>
+                        </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -65,13 +72,15 @@
                         <dd><a href="javascript:;" data-url="" data-title="视频管理" data-id="">视频管理</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;&nbsp;设置</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="" data-title="常规设置" data-id="">常规设置</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="SEO设置" data-id="">SEO设置</a></dd>
-                    </dl>
-                </li>
+                <@shiro.hasPermission name="system:setting">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;&nbsp;设置</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" data-url="" data-title="常规设置" data-id="">常规设置</a></dd>
+                            <dd><a href="javascript:;" data-url="" data-title="SEO设置" data-id="">SEO设置</a></dd>
+                        </dl>
+                    </li>
+                </@shiro.hasPermission>
             </ul>
         </div>
     </div>

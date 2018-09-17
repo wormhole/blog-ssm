@@ -30,8 +30,8 @@
 
     <mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**"></mvc:resources>
 
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/view/"/>
+    <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.config.ShiroTagFreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -40,7 +40,7 @@
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="prefix" value=""/>
+        <property name="prefix" value="/view"/>
         <property name="suffix" value=".ftl"/>
         <property name="cache" value="false"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
