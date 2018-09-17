@@ -33,6 +33,7 @@
         <freemarker.version>2.3.28</freemarker.version>
         <commons-fileuploads.version>1.3.3</commons-fileuploads.version>
         <json.version>20180813</json.version>
+        <shiro-freemarker-tags.version>1.0.0</shiro-freemarker-tags.version>
     </properties>
 
     <dependencies>
@@ -231,6 +232,13 @@
             <artifactId>json</artifactId>
             <version>${json.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.mingsoft/shiro-freemarker-tags -->
+        <!--<dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>shiro-freemarker-tags</artifactId>
+            <version>${shiro-freemarker-tags.version}</version>
+        </dependency>-->
 
     </dependencies>
 

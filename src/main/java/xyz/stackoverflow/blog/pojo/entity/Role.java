@@ -3,23 +3,23 @@ package xyz.stackoverflow.blog.pojo.entity;
 import java.io.Serializable;
 
 public class Role implements Serializable {
-    private Integer id;
-    private Integer userId;
+    private String id;
+    private String userId;
     private String role;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
