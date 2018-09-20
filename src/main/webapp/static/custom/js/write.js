@@ -4,7 +4,7 @@ $(function () {
     mdEditor = editormd({
         id: "editormd",
         width: "90%",
-        height: 650,
+        height: 680,
         path: "/static/editor.md/lib/",
         placeholder: "请用markdown写博客",
         saveHTMLToTextarea: true,
@@ -19,6 +19,28 @@ $('#saveBlog').click(function () {
     var title = $('#title').val();
     var blogMd = mdEditor.getMarkdown();
     var blogHtml = mdEditor.getHTML();
+
+    if(title.length == 0){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 0,
+                content: "标题不能为空",
+            });
+        });
+        return;
+    }
+
+    if(blogMd.length == 0){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 0,
+                content: "内容不能为空",
+            });
+        });
+        return;
+    }
 
     var data = {
         title: title,
