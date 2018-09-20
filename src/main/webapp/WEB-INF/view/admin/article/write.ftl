@@ -9,6 +9,7 @@
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/layui/layui.js"></script>
+    <script src="/static/editor.md/editormd.min.js"></script>
 </head>
 <body>
 <div class="row">
@@ -23,7 +24,6 @@
     <div id="editormd">
     </div>
 </div>
-<script src="/static/editor.md/editormd.min.js"></script>
 <script src="/static/custom/js/write.js"></script>
 </body>
 </html>
