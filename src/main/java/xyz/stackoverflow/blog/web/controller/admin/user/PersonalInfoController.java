@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.web.controller.admin.user;
 
+import com.hazelcast.spi.exception.ResponseNotSentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import xyz.stackoverflow.blog.pojo.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
 import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
@@ -59,7 +60,7 @@ public class PersonalInfoController {
                 Cache authorizationCache = redisCacheManager.getCache("authorizationCache");
                 authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
             }
-            User newUser = userService.updateEmailAndNickname(updateUser);
+            User newUser = userService.updateBaseInfo(updateUser);
             session.setAttribute("user", newUser);
             response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
         } else if (result.equals(ResponseStatusEnum.EMAILERROR.getStatus())) {
@@ -68,6 +69,9 @@ public class PersonalInfoController {
         } else if (result.equals(ResponseStatusEnum.NICKNAMEERROR.getStatus())) {
             response.setStatus(ResponseStatusEnum.NICKNAMEERROR.getStatus());
             response.setData(ResponseStatusEnum.NICKNAMEERROR.getMessage());
+        } else if(result.equals(ResponseStatusEnum.SIGNATRUEERROR.getStatus())){
+            response.setStatus(ResponseStatusEnum.SIGNATRUEERROR.getStatus());
+            response.setData(ResponseStatusEnum.SIGNATRUEERROR.getMessage());
         }
         return response;
     }

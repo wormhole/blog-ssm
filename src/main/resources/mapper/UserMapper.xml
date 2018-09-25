@@ -12,6 +12,7 @@
         <result property="password" column="password"></result>
         <result property="salt" column="salt"></result>
         <result property="headurl" column="headurl"></result>
+        <result property="signature" column="signature"></result>
     </resultMap>
 
     <select id="getUserByEmail" resultType="user" resultMap="userMap" parameterType="string">
@@ -23,7 +24,7 @@
     </select>
 
     <insert id="addUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into user(id,email,nickname,password,salt,headurl) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl})
+        insert into user(id,email,nickname,password,salt,headurl,signature) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl},#{signature})
     </insert>
 
     <update id="updateHeadUrl" parameterType="user">
@@ -49,34 +50,17 @@
         where id=#{id}
     </update>
 
-    <update id="updateNickname" parameterType="user">
-        update user
-        <set>
-            <if test="nickname!=null">
-                nickname=#{nickname}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
-
-    <update id="updateEmail" parameterType="user">
-        update user
-        <set>
-            <if test="email!=null">
-                email=#{email}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
-
-    <update id="updateEmailAndNickname" parameterType="user">
+    <update id="updateBaseInfo" parameterType="user">
         update user
         <set>
             <if test="nickname!=null">
                 nickname=#{nickname},
             </if>
             <if test="email!=null">
-                email=#{email}
+                email=#{email},
+            </if>
+            <if test="signature!=null">
+                signature=#{signature}
             </if>
         </set>
         where id=#{id}

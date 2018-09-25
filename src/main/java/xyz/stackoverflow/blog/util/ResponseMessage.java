@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo;
+package xyz.stackoverflow.blog.util;
 
 import java.io.Serializable;
 

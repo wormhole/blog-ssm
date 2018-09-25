@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class BaseInfoVO implements Serializable {
     private String email;
     private String nickname;
+    private String signature;
 
     public String getEmail() {
         return email;
@@ -24,10 +25,19 @@ public class BaseInfoVO implements Serializable {
         this.nickname = nickname;
     }
 
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
     public User toUser(){
         User user = new User();
         user.setNickname(nickname);
         user.setEmail(email);
+        user.setSignature(signature);
         return user;
     }
 }

@@ -1,10 +1,9 @@
 package xyz.stackoverflow.blog.web.controller.exception;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseMessage;
 
 @ControllerAdvice
 public class ExceptionController {

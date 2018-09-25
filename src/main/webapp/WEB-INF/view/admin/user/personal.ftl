@@ -29,6 +29,13 @@
             <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">签名</label>
+            <div class="layui-input-inline">
+                <textarea name="signature" class="layui-textarea" id="signature">${Session.user.signature}</textarea>
+            </div>
+            <div class="layui-form-mid error-color hidden" id="signatrue-error"></div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn layui-btn-normal" id="saveBaseBtn">保存修改</button>
             </div>

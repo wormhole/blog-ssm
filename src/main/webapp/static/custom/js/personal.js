@@ -23,13 +23,16 @@ $('#saveBaseBtn').click(function () {
 
     $('#email-error').addClass('hidden');
     $('#nickname-error').addClass('hidden');
+    $('#signatrue-error').addClass('hidden');
 
     var email = $('#email').val();
     var nickname = $('#nickname').val();
+    var signature = $('#signature').val();
 
     var data = {};
     data['email'] = email;
     data['nickname'] = nickname;
+    data['signature'] = signature;
 
     $.ajax({
         url: "/admin/user/update/baseinfo",
@@ -55,6 +58,9 @@ $('#saveBaseBtn').click(function () {
             } else if (data.status == 6) {
                 $('#email-error').html(data.data);
                 $('#email-error').removeClass('hidden');
+            } else if (data.status == 8) {
+                $('#signatrue-error').html(data.data);
+                $('#signatrue-error').removeClass('hidden');
             }
 
         },

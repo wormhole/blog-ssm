@@ -7,8 +7,6 @@ public interface UserService {
     User addUser(User user);
     User updateHeadUrl(User user);
     User updatePassword(User user);
-    User udpateNickname(User user);
-    User udpateEmail(User user);
-    User updateEmailAndNickname(User user);
+    User updateBaseInfo(User user);
     boolean isExist(String email);
 }

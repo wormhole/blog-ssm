@@ -10,6 +10,7 @@ public class User implements Serializable {
     private String nickname;
     private String salt;
     private String headurl;
+    private String signature;
 
     public String getId() {
         return id;
@@ -57,5 +58,13 @@ public class User implements Serializable {
 
     public void setHeadurl(String headurl) {
         this.headurl = headurl;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.stackoverflow.blog.pojo.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.Blog;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BlogVO;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @Controller

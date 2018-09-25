@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;

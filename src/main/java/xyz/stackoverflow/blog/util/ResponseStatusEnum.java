@@ -9,7 +9,8 @@ public enum ResponseStatusEnum {
     VCODEERROR(4,"验证码错误"),
     OLDPASSWORDERROR(5,"旧密码不匹配"),
     EMAILEXISTERROR(6,"邮箱已经存在"),
-    HEADERROR(7,"头像上传失败");
+    HEADERROR(7,"头像上传失败"),
+    SIGNATRUEERROR(8,"个性签名长度要大于0");
 
     private Integer status;
     private String message;

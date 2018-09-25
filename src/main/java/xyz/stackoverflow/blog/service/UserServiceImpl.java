@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
         user.setHeadurl("/static/custom/image/cam.png");
         user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
+        user.setSignature("这个人很懒,没有留下任何东西");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
@@ -58,26 +59,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
-    public User udpateNickname(User user) {
+    public User updateBaseInfo(User user) {
         user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
-        dao.updateNickname(user);
-        return dao.getUserByEmail(user.getEmail());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
-    public User udpateEmail(User user) {
-        dao.updateEmail(user);
-        return dao.getUserByEmail(user.getEmail());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
-    public User updateEmailAndNickname(User user) {
-        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
-        dao.updateEmailAndNickname(user);
+        user.setSignature(HtmlUtils.htmlEscape(user.getSignature()));
+        dao.updateBaseInfo(user);
         return dao.getUserByEmail(user.getEmail());
     }
 

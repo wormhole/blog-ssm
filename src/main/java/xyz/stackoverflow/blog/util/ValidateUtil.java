@@ -12,59 +12,70 @@ public class ValidateUtil {
     private static final Pattern passwordPattern = Pattern.compile("^[a-zA-Z0-9]{6,}$");
     private static final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_\\-]+@([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$");
 
-    public static Integer validateRegisterVO(RegisterVO registerVO){
-        if(!validateEmail(registerVO.getEmail())){
+    public static Integer validateRegisterVO(RegisterVO registerVO) {
+        if (!validateEmail(registerVO.getEmail())) {
             return ResponseStatusEnum.EMAILERROR.getStatus();
         }
-        if(!validateNickName(registerVO.getNickname())){
+        if (!validateNickName(registerVO.getNickname())) {
             return ResponseStatusEnum.NICKNAMEERROR.getStatus();
         }
-        if(!validatePassword(registerVO.getPassword())){
+        if (!validatePassword(registerVO.getPassword())) {
             return ResponseStatusEnum.PASSWORDERROR.getStatus();
         }
         return ResponseStatusEnum.SUCCESS.getStatus();
     }
 
-    public static Integer validateBaseInfoVO(BaseInfoVO baseInfoVO){
-        if(!validateEmail(baseInfoVO.getEmail())){
+    public static Integer validateBaseInfoVO(BaseInfoVO baseInfoVO) {
+        if (!validateEmail(baseInfoVO.getEmail())) {
             return ResponseStatusEnum.EMAILERROR.getStatus();
         }
-        if(!validateNickName(baseInfoVO.getNickname())){
+        if (!validateNickName(baseInfoVO.getNickname())) {
             return ResponseStatusEnum.NICKNAMEERROR.getStatus();
+        }
+        if(!validateSignature(baseInfoVO.getSignature())){
+            return ResponseStatusEnum.SIGNATRUEERROR.getStatus();
         }
         return ResponseStatusEnum.SUCCESS.getStatus();
     }
 
-    public static Integer validatePasswordVO(PasswordVO passwordVO){
-        if(!validatePassword(passwordVO.getNewPassword())){
+    public static Integer validatePasswordVO(PasswordVO passwordVO) {
+        if (!validatePassword(passwordVO.getNewPassword())) {
             return ResponseStatusEnum.PASSWORDERROR.getStatus();
         }
         return ResponseStatusEnum.SUCCESS.getStatus();
     }
 
-    private static boolean validateEmail(String email){
-        Matcher m = emailPattern.matcher(email);
-        if(m.find()){
+    private static boolean validateSignature(String signature) {
+        if (signature.length() > 0) {
             return true;
-        }else{
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean validateEmail(String email) {
+        Matcher m = emailPattern.matcher(email);
+        if (m.find()) {
+            return true;
+        } else {
             return false;
         }
     }
 
     private static boolean validatePassword(String password) {
         Matcher m = passwordPattern.matcher(password);
-        if(m.find()){
+        if (m.find()) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    private static boolean validateNickName(String nickname){
-        if(nickname.length() == 0){
-            return false;
-        }else{
+    private static boolean validateNickName(String nickname) {
+        if (nickname.length() > 0) {
             return true;
+        } else {
+            return false;
         }
     }
 }
