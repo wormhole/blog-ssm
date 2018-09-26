@@ -1,6 +1,5 @@
 package xyz.stackoverflow.blog.web.controller.admin.user;
 
-import com.hazelcast.spi.exception.ResponseNotSentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -62,17 +61,14 @@ public class PersonalInfoController {
             }
             User newUser = userService.updateBaseInfo(updateUser);
             session.setAttribute("user", newUser);
-            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
         } else if (result.equals(ResponseStatusEnum.EMAILERROR.getStatus())) {
-            response.setStatus(ResponseStatusEnum.EMAILERROR.getStatus());
             response.setData(ResponseStatusEnum.EMAILERROR.getMessage());
         } else if (result.equals(ResponseStatusEnum.NICKNAMEERROR.getStatus())) {
-            response.setStatus(ResponseStatusEnum.NICKNAMEERROR.getStatus());
             response.setData(ResponseStatusEnum.NICKNAMEERROR.getMessage());
         } else if(result.equals(ResponseStatusEnum.SIGNATRUEERROR.getStatus())){
-            response.setStatus(ResponseStatusEnum.SIGNATRUEERROR.getStatus());
             response.setData(ResponseStatusEnum.SIGNATRUEERROR.getMessage());
         }
+        response.setStatus(result);
         return response;
     }
 
@@ -98,12 +94,11 @@ public class PersonalInfoController {
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
             userService.updatePassword(updateUser);
-            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
             response.setData(ResponseStatusEnum.SUCCESS.getMessage());
         } else if (result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())) {
-            response.setStatus(ResponseStatusEnum.PASSWORDERROR.getStatus());
             response.setData(ResponseStatusEnum.PASSWORDERROR.getMessage());
         }
+        response.setStatus(result);
         return response;
     }
 

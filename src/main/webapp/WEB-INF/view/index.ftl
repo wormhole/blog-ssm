@@ -4,40 +4,47 @@
     <meta charset="UTF-8">
     <title>凉衫薄</title>
     <link rel="stylesheet" href="/static/custom/css/index.css"/>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
+    <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/editor.md/lib/marked.min.js"></script>
+    <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
+
 </head>
 <body>
 <div id="layout">
     <header>
-        <h1>${title}</h1>
+        <h1></h1>
     </header>
     <div id="sidebar">
         <h1>目录</h1>
         <div class="markdown-body editormd-preview-container" id="custom-toc-container"></div>
     </div>
     <div id="editormd-view">
+        <textarea style="display:none;"></textarea>
     </div>
 </div>
 
 <script type="text/javascript">
     $(function () {
-        editormd.markdownToHTML("editormd-view", {
-            markdown: "[TOC]\n" +
-            "\n" +
-            "# aaa\n" +
-            "\n" +
-            "## bbb\n" +
-            "\n" +
-            "### ccc\n" +
-            "\n" +
-            "#### ddd",
-            tocContainer: "#custom-toc-container",
+        $.ajax({
+            url: "/test",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                editormd.markdownToHTML("editormd-view", {
+                    markdown:data.data.md,
+                    tocContainer: "#custom-toc-container",
+                });
+            },
+            error: function (data) {
+
+            }
         });
+
     });
 </script>
 </body>
