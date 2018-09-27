@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import xyz.stackoverflow.blog.util.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
 import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
@@ -35,8 +35,8 @@ public class PersonalInfoController {
 
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage updateBaseInfo(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
-        ResponseMessage response = new ResponseMessage();
+    public ResponseJson updateBaseInfo(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
+        ResponseJson response = new ResponseJson();
         User user = (User) session.getAttribute("user");
 
         if (!baseInfoVO.getEmail().equals(user.getEmail())) {
@@ -74,8 +74,8 @@ public class PersonalInfoController {
 
     @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage updatePassword(@RequestBody PasswordVO passwordVO, HttpSession session) {
-        ResponseMessage response = new ResponseMessage();
+    public ResponseJson updatePassword(@RequestBody PasswordVO passwordVO, HttpSession session) {
+        ResponseJson response = new ResponseJson();
         User user = (User) session.getAttribute("user");
 
         if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), passwordVO.getOldPassword()))) {
@@ -104,8 +104,8 @@ public class PersonalInfoController {
 
     @RequestMapping(value = "/update/head", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage updateHead(HttpServletRequest request, HttpSession session) {
-        ResponseMessage response = new ResponseMessage();
+    public ResponseJson updateHead(HttpServletRequest request, HttpSession session) {
+        ResponseJson response = new ResponseJson();
         User user = (User) session.getAttribute("user");
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");

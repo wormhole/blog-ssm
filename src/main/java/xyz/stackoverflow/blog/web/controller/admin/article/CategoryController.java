@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseJson;
 
 @Controller
 @RequestMapping("/admin/article")
@@ -19,10 +19,10 @@ public class CategoryController {
 
     @RequestMapping("/category/insert")
     @ResponseBody
-    public ResponseMessage insert(@RequestBody CategoryVO categoryVO){
-        ResponseMessage respnose = new ResponseMessage();
+    public ResponseJson insert(@RequestBody CategoryVO categoryVO){
+        ResponseJson response = new ResponseJson();
         Category category = categoryVO.toCategory();
         service.insertCategory(category);
-        return respnose;
+        return response;
     }
 }

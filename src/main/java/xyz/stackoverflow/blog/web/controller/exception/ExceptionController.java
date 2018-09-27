@@ -3,7 +3,7 @@ package xyz.stackoverflow.blog.web.controller.exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.util.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseJson;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -12,10 +12,10 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseMessage handleException(Exception e){
-        ResponseMessage responseMessage = new ResponseMessage();
-        responseMessage.setStatus(exceptionStatus);
-        responseMessage.setData(e.getClass().getSimpleName());
-        return responseMessage;
+    public ResponseJson handleException(Exception e){
+        ResponseJson responseJson = new ResponseJson();
+        responseJson.setStatus(exceptionStatus);
+        responseJson.setData(e.getClass().getSimpleName());
+        return responseJson;
     }
 }

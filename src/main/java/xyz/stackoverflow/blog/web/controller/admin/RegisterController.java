@@ -6,59 +6,64 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.util.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.ResponseStatusEnum;
 import xyz.stackoverflow.blog.util.ValidateUtil;
+import xyz.stackoverflow.blog.validator.RegisterVOValidator;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
 public class RegisterController {
+
+    private final Integer SUCCESS = 0;
+    private final Integer FAILURE = 1;
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage register(@RequestBody RegisterVO registerVO, HttpSession session) {
+    public ResponseJson register(@RequestBody RegisterVO registerVO, HttpSession session) {
 
-        ResponseMessage responseMessage = new ResponseMessage();
+        ResponseJson response = new ResponseJson();
+        Map map = new HashMap<String, String>();
+
         String vcode = (String) session.getAttribute("vcode");
 
         if (!vcode.equalsIgnoreCase(registerVO.getVcode())) {
-            responseMessage.setStatus(ResponseStatusEnum.VCODEERROR.getStatus());
-            responseMessage.setData(ResponseStatusEnum.VCODEERROR.getMessage());
-            return responseMessage;
+            map.put("vcode", "验证码错误");
+            response.setStatus(FAILURE);
+            response.setMessage("验证码错误");
+            response.setData(map);
+            return response;
         }
 
-        if(userService.isExist(registerVO.getEmail())){
-            responseMessage.setStatus(ResponseStatusEnum.EMAILEXISTERROR.getStatus());
-            responseMessage.setData(ResponseStatusEnum.EMAILEXISTERROR.getMessage());
-            return responseMessage;
+        if (userService.isExist(registerVO.getEmail())) {
+            map.put("email", "邮箱已经存在");
+            response.setStatus(FAILURE);
+            response.setMessage("邮箱已经存在");
+            response.setData(map);
+            return response;
         }
 
-        Integer result = ValidateUtil.validateRegisterVO(registerVO);
-
-        if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
-            User user = registerVO.toUser();
-            userService.addUser(user);
-            responseMessage.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
-            responseMessage.setData(ResponseStatusEnum.SUCCESS.getMessage());
-        } else if (result.equals(ResponseStatusEnum.EMAILERROR.getStatus())) {
-            responseMessage.setStatus(ResponseStatusEnum.EMAILERROR.getStatus());
-            responseMessage.setData(ResponseStatusEnum.EMAILERROR.getMessage());
-        } else if (result.equals(ResponseStatusEnum.NICKNAMEERROR.getStatus())) {
-            responseMessage.setStatus(ResponseStatusEnum.NICKNAMEERROR.getStatus());
-            responseMessage.setData(ResponseStatusEnum.NICKNAMEERROR.getMessage());
-        } else if (result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())) {
-            responseMessage.setStatus(ResponseStatusEnum.PASSWORDERROR.getStatus());
-            responseMessage.setData(ResponseStatusEnum.PASSWORDERROR.getMessage());
+        map = RegisterVOValidator.validate(registerVO);
+        if (map.size() != 0) {
+            response.setStatus(FAILURE);
+            response.setMessage("格式错误");
+            response.setData(map);
+        } else {
+            response.setStatus(SUCCESS);
+            response.setMessage("注册成功");
         }
-        return responseMessage;
+        return response;
+
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

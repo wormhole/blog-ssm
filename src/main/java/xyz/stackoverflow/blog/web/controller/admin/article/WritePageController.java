@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.stackoverflow.blog.dao.CategoryDao;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.ResponseMessage;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.pojo.entity.Blog;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BlogVO;
@@ -33,8 +32,8 @@ public class WritePageController {
 
     @RequestMapping(value="/save",method=RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage save(@RequestBody BlogVO blogVO,HttpSession session){
-        ResponseMessage response = new ResponseMessage();
+    public ResponseJson save(@RequestBody BlogVO blogVO, HttpSession session){
+        ResponseJson response = new ResponseJson();
         Category category = categoryService.getCategoryByName(blogVO.getCategory());
         User user = (User)session.getAttribute("user");
         Blog blog = blogVO.toBlog();
