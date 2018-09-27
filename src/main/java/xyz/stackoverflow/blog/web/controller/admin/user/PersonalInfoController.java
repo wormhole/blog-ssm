@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
 import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
-import xyz.stackoverflow.blog.util.ResponseStatusEnum;
-import xyz.stackoverflow.blog.util.ValidateUtil;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.validator.BaseInfoVOValidator;
+import xyz.stackoverflow.blog.validator.PasswordVOValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -84,16 +83,19 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updatePassword(@RequestBody PasswordVO passwordVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
+        Map map = new HashMap<String,String>();
         User user = (User) session.getAttribute("user");
 
         if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), passwordVO.getOldPassword()))) {
-            response.setStatus(ResponseStatusEnum.OLDPASSWORDERROR.getStatus());
-            response.setData(ResponseStatusEnum.OLDPASSWORDERROR.getMessage());
+            map.put("oldPassword","旧密码不匹配");
+            response.setStatus(FAILURE);
+            response.setMessage("旧密码不匹配");
+            response.setData(map);
             return response;
         }
 
-        Integer result = ValidateUtil.validatePasswordVO(passwordVO);
-        if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
+        map = PasswordVOValidator.validatePasswordVO(passwordVO);
+        if(map.size()==0){
             User updateUser = passwordVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
@@ -102,11 +104,13 @@ public class PersonalInfoController {
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
             userService.updatePassword(updateUser);
-            response.setData(ResponseStatusEnum.SUCCESS.getMessage());
-        } else if (result.equals(ResponseStatusEnum.PASSWORDERROR.getStatus())) {
-            response.setData(ResponseStatusEnum.PASSWORDERROR.getMessage());
+            response.setStatus(SUCCESS);
+            response.setMessage("修改成功");
+        }else{
+            response.setStatus(FAILURE);
+            response.setMessage("格式错误");
+            response.setData(map);
         }
-        response.setStatus(result);
         return response;
     }
 
@@ -114,7 +118,9 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updateHead(HttpServletRequest request, HttpSession session) {
         ResponseJson response = new ResponseJson();
+        Map map = new HashMap<String,String>();
         User user = (User) session.getAttribute("user");
+
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");
         String fileName = file.getOriginalFilename();
@@ -139,11 +145,13 @@ public class PersonalInfoController {
                 User newUser = userService.updateHeadUrl(user);
                 session.setAttribute("user",newUser);
             }
-            response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
-            response.setData(ResponseStatusEnum.SUCCESS.getMessage());
+            response.setStatus(SUCCESS);
+            response.setMessage("修改成功");
         } catch (IOException e) {
-            response.setStatus(ResponseStatusEnum.HEADERROR.getStatus());
-            response.setData(ResponseStatusEnum.HEADERROR.getMessage());
+            map.put("head","头像上传失败");
+            response.setStatus(FAILURE);
+            response.setMessage("头像上传失败");
+            response.setData(map);
         }
         return response;
     }
