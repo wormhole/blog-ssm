@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.CategoryDao">
+
+    <resultMap id="categoryMap" type="category">
+        <id property="id" column="id"></id>
+        <result property="category" column="category"></result>
+    </resultMap>
+
+    <insert id="insertCategory" parameterType="category">
+        insert into category(id,category) values(#{id},#{category})
+    </insert>
+
+    <select id="getCategoryByName" resultMap="categoryMap">
+        select * from category where category = #{category}
+    </select>
+
+</mapper>
