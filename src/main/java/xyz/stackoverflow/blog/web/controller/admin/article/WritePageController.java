@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import xyz.stackoverflow.blog.dao.CategoryDao;
+import xyz.stackoverflow.blog.pojo.entity.Category;
+import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.ResponseMessage;
 import xyz.stackoverflow.blog.pojo.entity.Blog;
 import xyz.stackoverflow.blog.pojo.entity.User;
@@ -25,13 +28,18 @@ public class WritePageController {
 
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value="/save",method=RequestMethod.POST)
     @ResponseBody
     public ResponseMessage save(@RequestBody BlogVO blogVO,HttpSession session){
         ResponseMessage response = new ResponseMessage();
+        Category category = categoryService.getCategoryByName(blogVO.getCategory());
+        User user = (User)session.getAttribute("user");
         Blog blog = blogVO.toBlog();
-        blog.setUserId(((User)session.getAttribute("user")).getId());
+        blog.setUserId(user.getId());
+        blog.setCategoryId(category.getId());
         blogService.saveBlog(blog);
         response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
         response.setData(ResponseStatusEnum.SUCCESS.getMessage());
