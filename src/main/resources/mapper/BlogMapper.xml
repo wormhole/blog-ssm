@@ -11,12 +11,12 @@
         <result property="title" column="title"></result>
         <result property="blogMd" column="blogmd"></result>
         <result property="blogHtml" column="bloghtml"></result>
-        <result property="category" column="category"></result>
+        <result property="categoryId" column="categoryid"></result>
         <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
     </resultMap>
 
     <insert id="saveBlog" parameterType="blog">
-        insert into blog(id,userid,title,blogmd,bloghtml,category,date) values(#{id},#{userId},#{title},#{blogMd},#{blogHtml},#{category},#{date})
+        insert into blog(id,userid,title,blogmd,bloghtml,categoryid,date) values(#{id},#{userId},#{title},#{blogMd},#{blogHtml},#{categoryId},#{date})
     </insert>
 
     <select id="getBlogById" resultMap="blogMap">

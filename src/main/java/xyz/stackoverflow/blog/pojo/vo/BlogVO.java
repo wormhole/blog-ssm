@@ -48,7 +48,6 @@ public class BlogVO implements Serializable {
         blog.setBlogHtml(blogHtml);
         blog.setBlogMd(blogMd);
         blog.setTitle(title);
-        blog.setCategory(category);
         blog.setDate(new Date());
         return blog;
     }

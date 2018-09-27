@@ -9,7 +9,7 @@ public class Blog implements Serializable {
     private String title;
     private String blogMd;
     private String blogHtml;
-    private String category;
+    private String categoryId;
     private Date date;
 
     public String getId() {
@@ -52,12 +52,12 @@ public class Blog implements Serializable {
         this.blogHtml = blogHtml;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Date getDate() {
