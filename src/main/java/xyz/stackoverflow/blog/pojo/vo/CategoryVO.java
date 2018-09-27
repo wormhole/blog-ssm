@@ -16,7 +16,7 @@ public class CategoryVO implements Serializable {
         this.catetory = catetory;
     }
 
-    public Category toCatetory(){
+    public Category toCategory(){
         Category cat = new Category();
         cat.setCatetory(catetory);
         return cat;
