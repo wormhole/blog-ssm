@@ -13,7 +13,6 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.BlogVO;
 import xyz.stackoverflow.blog.service.BlogService;
 import xyz.stackoverflow.blog.util.FileUtil;
-import xyz.stackoverflow.blog.util.ResponseStatusEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +23,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin/article")
 public class WritePageController {
+
+    private final Integer SUCCESS = 0;
+    private final Integer FAILURE = 1;
 
     @Autowired
     private BlogService blogService;
@@ -40,8 +42,8 @@ public class WritePageController {
         blog.setUserId(user.getId());
         blog.setCategoryId(category.getId());
         blogService.saveBlog(blog);
-        response.setStatus(ResponseStatusEnum.SUCCESS.getStatus());
-        response.setData(ResponseStatusEnum.SUCCESS.getMessage());
+        response.setStatus(SUCCESS);
+        response.setMessage("保存成功");
         return response;
     }
 
