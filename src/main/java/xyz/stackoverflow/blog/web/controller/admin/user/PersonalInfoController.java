@@ -18,15 +18,21 @@ import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.ResponseStatusEnum;
 import xyz.stackoverflow.blog.util.ValidateUtil;
+import xyz.stackoverflow.blog.validator.BaseInfoVOValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/user")
 public class PersonalInfoController {
+
+    private final Integer SUCCESS = 0;
+    private final Integer FAILURE = 1;
 
     @Autowired
     private UserService userService;
@@ -37,18 +43,21 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updateBaseInfo(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
+        Map map = new HashMap<String,String>();
         User user = (User) session.getAttribute("user");
 
         if (!baseInfoVO.getEmail().equals(user.getEmail())) {
             if (userService.isExist(baseInfoVO.getEmail())) {
-                response.setStatus(ResponseStatusEnum.EMAILEXISTERROR.getStatus());
-                response.setData(ResponseStatusEnum.EMAILEXISTERROR.getMessage());
+                map.put("email","邮箱已经存在");
+                response.setStatus(FAILURE);
+                response.setData(map);
+                response.setMessage("邮箱已经存在");
                 return response;
             }
         }
 
-        Integer result = ValidateUtil.validateBaseInfoVO(baseInfoVO);
-        if (result.equals(ResponseStatusEnum.SUCCESS.getStatus())) {
+        map = BaseInfoVOValidator.validate(baseInfoVO);
+        if(map.size()==0){
             User updateUser = baseInfoVO.toUser();
             updateUser.setId(user.getId());
             if (!updateUser.getEmail().equals(user.getEmail())) {
@@ -61,14 +70,13 @@ public class PersonalInfoController {
             }
             User newUser = userService.updateBaseInfo(updateUser);
             session.setAttribute("user", newUser);
-        } else if (result.equals(ResponseStatusEnum.EMAILERROR.getStatus())) {
-            response.setData(ResponseStatusEnum.EMAILERROR.getMessage());
-        } else if (result.equals(ResponseStatusEnum.NICKNAMEERROR.getStatus())) {
-            response.setData(ResponseStatusEnum.NICKNAMEERROR.getMessage());
-        } else if(result.equals(ResponseStatusEnum.SIGNATRUEERROR.getStatus())){
-            response.setData(ResponseStatusEnum.SIGNATRUEERROR.getMessage());
+            response.setStatus(SUCCESS);
+            response.setMessage("修改成功");
+        }else{
+            response.setStatus(FAILURE);
+            response.setMessage("格式错误");
+            response.setData(map);
         }
-        response.setStatus(result);
         return response;
     }
 
