@@ -9,6 +9,7 @@ public class Blog implements Serializable {
     private String title;
     private String blogMd;
     private String blogHtml;
+    private String category;
     private Date date;
 
     public String getId() {
@@ -49,6 +50,14 @@ public class Blog implements Serializable {
 
     public void setBlogHtml(String blogHtml) {
         this.blogHtml = blogHtml;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Date getDate() {
