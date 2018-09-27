@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.ResponseStatusEnum;
-import xyz.stackoverflow.blog.util.ValidateUtil;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.validator.RegisterVOValidator;
 
 import javax.servlet.http.HttpSession;
