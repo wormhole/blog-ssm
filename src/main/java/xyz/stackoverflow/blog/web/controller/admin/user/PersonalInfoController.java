@@ -16,8 +16,8 @@ import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.validator.BaseInfoVOValidator;
-import xyz.stackoverflow.blog.validator.PasswordVOValidator;
+import xyz.stackoverflow.blog.validator.BaseInfoValidator;
+import xyz.stackoverflow.blog.validator.PasswordInfoValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,6 +37,10 @@ public class PersonalInfoController {
     private UserService userService;
     @Autowired
     private RedisCacheManager redisCacheManager;
+    @Autowired
+    private BaseInfoValidator baseInfoValidator;
+    @Autowired
+    private PasswordInfoValidator passwordInfoValidator;
 
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
@@ -55,7 +59,7 @@ public class PersonalInfoController {
             }
         }
 
-        map = BaseInfoVOValidator.validate(baseInfoVO);
+        map = baseInfoValidator.validate(baseInfoVO);
         if(map.size()==0){
             User updateUser = baseInfoVO.toUser();
             updateUser.setId(user.getId());
@@ -94,7 +98,7 @@ public class PersonalInfoController {
             return response;
         }
 
-        map = PasswordVOValidator.validatePasswordVO(passwordVO);
+        map = passwordInfoValidator.validate(passwordVO);
         if(map.size()==0){
             User updateUser = passwordVO.toUser();
             updateUser.setId(user.getId());

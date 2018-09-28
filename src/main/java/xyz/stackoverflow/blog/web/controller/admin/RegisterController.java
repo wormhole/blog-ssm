@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.validator.RegisterVOValidator;
+import xyz.stackoverflow.blog.validator.RegisterInfoValidator;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -24,6 +24,8 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RegisterInfoValidator validator;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -50,7 +52,7 @@ public class RegisterController {
             return response;
         }
 
-        map = RegisterVOValidator.validate(registerVO);
+        map = validator.validate(registerVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("格式错误");
