@@ -49,7 +49,7 @@ $('#saveBlog').click(function () {
     };
 
     $.ajax({
-        url: "/admin/article/save",
+        url: "/admin/article/insert",
         type: "post",
         data: JSON.stringify(data),
         dataType: "json",

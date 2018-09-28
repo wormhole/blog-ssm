@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
+import xyz.stackoverflow.blog.service.RoleService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.validator.RegisterInfoValidator;
@@ -25,6 +27,8 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private RegisterInfoValidator validator;
 
@@ -60,7 +64,11 @@ public class RegisterController {
             response.setData(map);
         } else {
             User user = registerVO.toUser();
-            userService.addUser(user);
+            User newUser = userService.addUser(user);
+            Role role = new Role();
+            role.setUserId(newUser.getId());
+            role.setRole("author");
+            roleService.insertUserRole(role);
             response.setStatus(SUCCESS);
             response.setMessage("注册成功");
         }

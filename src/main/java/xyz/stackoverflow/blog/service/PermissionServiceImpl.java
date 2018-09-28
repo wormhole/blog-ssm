@@ -2,6 +2,7 @@ package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.PermissionDao;
 import xyz.stackoverflow.blog.dao.RoleDao;
 import xyz.stackoverflow.blog.pojo.entity.Permission;
@@ -17,6 +18,7 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionDao dao;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Set<String> getPermissionByRole(String role) {
         List<Permission> list = dao.getPermissionByRole(role);
         Set<String> retSet = null;
@@ -30,6 +32,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Set<String> getAllPermission(String[] roles) {
         Set<String> retSet = new HashSet();
         for (String role : roles) {

@@ -5,6 +5,6 @@ import xyz.stackoverflow.blog.pojo.entity.Blog;
 
 @Repository
 public interface BlogDao {
-    int saveBlog(Blog blog);
+    int insertBlog(Blog blog);
     Blog getBlogById(String id);
 }

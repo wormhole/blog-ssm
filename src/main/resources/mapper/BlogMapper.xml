@@ -15,7 +15,7 @@
         <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
     </resultMap>
 
-    <insert id="saveBlog" parameterType="blog">
+    <insert id="insertBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into blog(id,userid,title,blogmd,bloghtml,categoryid,date) values(#{id},#{userId},#{title},#{blogMd},#{blogHtml},#{categoryId},#{date})
     </insert>
 

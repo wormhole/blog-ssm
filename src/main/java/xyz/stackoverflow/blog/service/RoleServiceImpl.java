@@ -2,8 +2,10 @@ package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.RoleDao;
 import xyz.stackoverflow.blog.pojo.entity.Role;
+import xyz.stackoverflow.blog.util.IdGenerator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao dao;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Set<String> getRoleByUserId(String userId) {
         List<Role> roleList = dao.getRoleByUserId(userId);
         Set<String> retSet = null;
@@ -26,5 +29,13 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return retSet;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Role insertUserRole(Role role) {
+        role.setId(IdGenerator.getId());
+        dao.insertUserRole(role);
+        return role;
     }
 }

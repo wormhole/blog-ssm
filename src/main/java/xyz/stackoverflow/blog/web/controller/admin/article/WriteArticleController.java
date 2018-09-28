@@ -32,7 +32,7 @@ public class WriteArticleController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value="/save",method=RequestMethod.POST)
+    @RequestMapping(value="/insert",method=RequestMethod.POST)
     @ResponseBody
     public ResponseJson save(@RequestBody BlogVO blogVO, HttpSession session){
         ResponseJson response = new ResponseJson();
@@ -41,7 +41,7 @@ public class WriteArticleController {
         Blog blog = blogVO.toBlog();
         blog.setUserId(user.getId());
         blog.setCategoryId(category.getId());
-        blogService.saveBlog(blog);
+        blogService.insertBlog(blog);
         response.setStatus(SUCCESS);
         response.setMessage("保存成功");
         return response;

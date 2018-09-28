@@ -10,7 +10,7 @@
         <result property="category" column="category"></result>
     </resultMap>
 
-    <insert id="insertCategory" parameterType="category">
+    <insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into category(id,category) values(#{id},#{category})
     </insert>
 

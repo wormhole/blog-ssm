@@ -18,9 +18,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'blog:'+#result.id")
-    public Blog saveBlog(Blog blog) {
+    public Blog insertBlog(Blog blog) {
         blog.setId(IdGenerator.getId());
-        dao.saveBlog(blog);
+        dao.insertBlog(blog);
         return dao.getBlogById(blog.getId());
     }
 

@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface RoleDao {
     List<Role> getRoleByUserId(String userId);
+    int insertUserRole(Role role);
 }

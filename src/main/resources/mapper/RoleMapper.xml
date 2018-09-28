@@ -15,4 +15,8 @@
         select * from role where userid = #{userId}
     </select>
 
+    <insert id="insertUserRole" parameterType="role" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into role(id,userid,role) values(#{id},#{userId},#{role})
+    </insert>
+
 </mapper>
