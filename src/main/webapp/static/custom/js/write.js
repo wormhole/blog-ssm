@@ -60,7 +60,17 @@ $('#saveBlog').click(function () {
                     var layer = layui.layer;
                     layer.open({
                         type: 0,
-                        content: "保存成功",
+                        title: "保存成功",
+                        content: data.message
+                    });
+                });
+            }else{
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 0,
+                        title: "保存失败",
+                        content: data.message
                     });
                 });
             }

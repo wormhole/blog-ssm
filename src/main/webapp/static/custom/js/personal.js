@@ -21,9 +21,9 @@ $('input[type="file"]').change(function () {
 
 $('#saveBaseBtn').click(function () {
 
-    $('#email-error').addClass('hidden');
-    $('#nickname-error').addClass('hidden');
-    $('#signatrue-error').addClass('hidden');
+    $('#emailError').addClass('hidden');
+    $('#nicknameError').addClass('hidden');
+    $('#signatrueError').addClass('hidden');
 
     var email = $('#email').val();
     var nickname = $('#nickname').val();
@@ -42,30 +42,29 @@ $('#saveBaseBtn').click(function () {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.status == 0) {
-                layui.use('layer', function(){
+                layui.use('layer', function () {
                     var layer = layui.layer;
                     layer.open({
                         type: 0,
                         content: '修改成功',
                     });
                 });
-            } else if (data.status == 1) {
-                $('#email-error').html(data.data);
-                $('#email-error').removeClass('hidden');
-            } else if (data.status == 2) {
-                $('#nickname-error').html(data.data);
-                $('#nickname-error').removeClass('hidden');
-            } else if (data.status == 6) {
-                $('#email-error').html(data.data);
-                $('#email-error').removeClass('hidden');
-            } else if (data.status == 8) {
-                $('#signatrue-error').html(data.data);
-                $('#signatrue-error').removeClass('hidden');
+            } else {
+                if (data.data['email'] != undefined) {
+                    $('#emailError').html(data.data);
+                    $('#emailError').removeClass('hidden');
+                } else if (data.data['nickname'] != undefined) {
+                    $('#nicknameError').html(data.data);
+                    $('#nicknameError').removeClass('hidden');
+                } else if (data.data['signature'] != undefined) {
+                    $('#signatureError').html(data.data);
+                    $('#signatureError').removeClass('hidden');
+                }
             }
 
         },
         error: function (data) {
-            layui.use('layer', function() {
+            layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
                     type: 0,
@@ -104,7 +103,7 @@ $('#savePwdBtn').click(function () {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.status == 0) {
-                layui.use('layer', function(){
+                layui.use('layer', function () {
                     var layer = layui.layer;
                     layer.open({
                         type: 0,
@@ -120,7 +119,7 @@ $('#savePwdBtn').click(function () {
             }
         },
         error: function (data) {
-            layui.use('layer', function() {
+            layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
                     type: 0,
@@ -131,28 +130,28 @@ $('#savePwdBtn').click(function () {
     });
 });
 
-$('#saveHeadBtn').click(function(){
+$('#saveHeadBtn').click(function () {
     var formData = new FormData();
     formData.append('headImg', $('#headImg').get(0).files[0]);
     $.ajax({
         url: "/admin/user/update/head",
         type: 'POST',
         data: formData,
-        cache : false,
+        cache: false,
         processData: false,
         contentType: false,
-        dataType:"json",
-        success : function(data) {
+        dataType: "json",
+        success: function (data) {
             if (data.status == 0) {
-                layui.use('layer', function(){
+                layui.use('layer', function () {
                     var layer = layui.layer;
                     layer.open({
                         type: 0,
                         content: "头像上传成功",
                     });
                 });
-            } else if(data.status == 7){
-                layui.use('layer', function(){
+            } else if (data.status == 7) {
+                layui.use('layer', function () {
                     var layer = layui.layer;
                     layer.open({
                         type: 0,

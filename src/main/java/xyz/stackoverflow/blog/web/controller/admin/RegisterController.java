@@ -55,7 +55,7 @@ public class RegisterController {
         map = validator.validate(registerVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
-            response.setMessage("格式错误");
+            response.setMessage("注册信息格式错误");
             response.setData(map);
         } else {
             response.setStatus(SUCCESS);
