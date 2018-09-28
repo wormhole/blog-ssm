@@ -23,7 +23,7 @@ $('#saveBaseBtn').click(function () {
 
     $('#emailError').addClass('hidden');
     $('#nicknameError').addClass('hidden');
-    $('#signatrueError').addClass('hidden');
+    $('#signatureError').addClass('hidden');
 
     var email = $('#email').val();
     var nickname = $('#nickname').val();
@@ -51,13 +51,13 @@ $('#saveBaseBtn').click(function () {
                 });
             } else {
                 if (data.data['email'] != undefined) {
-                    $('#emailError').html(data.data);
+                    $('#emailError').html(data.data['email']);
                     $('#emailError').removeClass('hidden');
                 } else if (data.data['nickname'] != undefined) {
-                    $('#nicknameError').html(data.data);
+                    $('#nicknameError').html(data.data['nickname']);
                     $('#nicknameError').removeClass('hidden');
                 } else if (data.data['signature'] != undefined) {
-                    $('#signatureError').html(data.data);
+                    $('#signatureError').html(data.data['signature']);
                     $('#signatureError').removeClass('hidden');
                 }
             }
@@ -76,9 +76,9 @@ $('#saveBaseBtn').click(function () {
 });
 
 $('#savePwdBtn').click(function () {
-    $('#checkedPassword-error').addClass('hidden');
-    $('#oldPassword-error').addClass('hidden');
-    $('#newPassword-error').addClass('hidden');
+    $('#checkedPasswordError').addClass('hidden');
+    $('#oldPasswordError').addClass('hidden');
+    $('#newPasswordError').addClass('hidden');
 
     var oldPassword = $('#oldPassword').val();
     var newPassword = $('#newPassword').val();
@@ -86,8 +86,8 @@ $('#savePwdBtn').click(function () {
 
     if (newPassword != checkedPassword) {
         $('#checkedPassword').val('');
-        $('#checkedPassword-error').html("两次密码不匹配");
-        $('#checkedPassword-error').removeClass('hidden');
+        $('#checkedPasswordError').html("两次密码不匹配");
+        $('#checkedPasswordError').removeClass('hidden');
         return;
     }
 
@@ -110,12 +110,14 @@ $('#savePwdBtn').click(function () {
                         content: "密码修改成功",
                     });
                 });
-            } else if (data.status == 5) {
-                $('#oldPassword-error').html(data.data);
-                $('#oldPassword-error').removeClass('hidden');
-            } else if (data.status == 3) {
-                $('#newPassword-error').html(data.data);
-                $('#newPassword-error').removeClass('hidden');
+            } else {
+                if (data.data['oldPassword'] != undefined) {
+                    $('#oldPasswordError').html(data.data['oldPassword']);
+                    $('#oldPasswordError').removeClass('hidden');
+                } else if (data.data['password'] != undefined) {
+                    $('#newPasswordError').html(data.data['password']);
+                    $('#newPasswordError').removeClass('hidden');
+                }
             }
         },
         error: function (data) {

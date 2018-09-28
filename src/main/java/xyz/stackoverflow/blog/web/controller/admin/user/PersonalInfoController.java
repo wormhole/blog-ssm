@@ -107,7 +107,8 @@ public class PersonalInfoController {
             defaultCache.evict("user:" + user.getEmail());
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
-            userService.updatePassword(updateUser);
+            User newUser = userService.updatePassword(updateUser);
+            session.setAttribute("user",newUser);
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
         }else{
