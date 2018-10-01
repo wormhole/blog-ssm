@@ -44,19 +44,18 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        Category category = service.getCategoryByName(categoryVO.getCategory());
 
-        service.deleteCategoryByName(categoryVO.getCategory());
-        if (category == null) {
-            response.setStatus(1);
-            response.setMessage("未找到此分类");
-            return response;
-        } else {
+        if(service.isExist(categoryVO.getCategory())){
+            service.deleteCategoryByName(categoryVO.getCategory());
             response.setStatus(0);
             response.setMessage("删除成功");
             response.setData(service.getAllCategory());
-            return response;
+        }else{
+            response.setStatus(1);
+            response.setMessage("未找到此分类");
         }
+
+        return response;
     }
 
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)

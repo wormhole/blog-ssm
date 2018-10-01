@@ -49,12 +49,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public Category deleteCategoryByName(String category) {
         Category retCategory = dao.getCategoryByName(category);
-        if (retCategory == null) {
-            return null;
-        } else {
-            dao.deleteCategoryByName(category);
-            return retCategory;
-        }
+        dao.deleteCategoryByName(category);
+        return retCategory;
+
     }
 
     @Override
