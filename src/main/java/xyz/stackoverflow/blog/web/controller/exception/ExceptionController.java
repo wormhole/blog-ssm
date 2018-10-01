@@ -19,6 +19,7 @@ public class ExceptionController {
         ResponseJson responseJson = new ResponseJson();
         responseJson.setStatus(exceptionStatus);
         responseJson.setMessage(e.getClass().getSimpleName());
+        responseJson.setData(e);
         return responseJson;
     }
 }
