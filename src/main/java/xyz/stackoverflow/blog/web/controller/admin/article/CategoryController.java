@@ -63,10 +63,15 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson update(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        service.updateCategory(categoryVO.getCategory(),categoryVO.getNewCategory());
-        response.setStatus(0);
-        response.setMessage("更新成功");
-        response.setData(service.getAllCategory());
+        if(service.isExist(categoryVO.getNewCategory())){
+            response.setStatus(1);
+            response.setMessage("新分类名已经存在");
+        }else {
+            service.updateCategory(categoryVO.getCategory(), categoryVO.getNewCategory());
+            response.setStatus(0);
+            response.setMessage("更新成功");
+            response.setData(service.getAllCategory());
+        }
         return response;
     }
 }

@@ -22,6 +22,10 @@
         select * from category
     </select>
 
+    <select id="isExist" parameterType="string">
+        select count(*) from category where category = #{category}
+    </select>
+
     <delete id="deleteCategoryByName" parameterType="string">
         delete from category where category = #{category}
     </delete>

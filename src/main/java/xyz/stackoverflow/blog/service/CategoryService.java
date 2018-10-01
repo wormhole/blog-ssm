@@ -8,6 +8,8 @@ public interface CategoryService {
 
     Category insertCategory(Category category);
 
+    boolean isExist(String category);
+
     Category getCategoryByName(String category);
 
     List<Category> getAllCategory();

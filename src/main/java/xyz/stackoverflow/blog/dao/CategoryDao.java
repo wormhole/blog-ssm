@@ -12,6 +12,8 @@ public interface CategoryDao {
 
     Category getCategoryByName(String category);
 
+    int isExist(String category);
+
     List<Category> getAllCategory();
 
     int deleteCategoryByName(String category);
