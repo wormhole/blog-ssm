@@ -64,7 +64,7 @@ public class RegisterController {
             response.setData(map);
         } else {
             User user = registerVO.toUser();
-            User newUser = userService.addUser(user);
+            User newUser = userService.insertUser(user);
             Role role = new Role();
             role.setUserId(newUser.getId());
             role.setRole("author");

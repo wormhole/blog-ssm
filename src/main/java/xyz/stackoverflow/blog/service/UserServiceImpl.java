@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
-    public User addUser(User user) {
+    public User insertUser(User user) {
         user.setHeadurl("/static/custom/image/cam.png");
         user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
         user.setSignature("这个人很懒,没有留下任何东西");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        dao.addUser(user);
+        dao.insertUser(user);
         return dao.getUserByEmail(user.getEmail());
     }
 

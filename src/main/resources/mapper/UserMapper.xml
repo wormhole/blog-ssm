@@ -23,7 +23,7 @@
         select count(*) from user where email=#{email}
     </select>
 
-    <insert id="addUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user(id,email,nickname,password,salt,headurl,signature) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl},#{signature})
     </insert>
 
