@@ -18,4 +18,16 @@
         select * from category where category = #{category}
     </select>
 
+    <select id="getAllCategory" resultMap="categoryMap">
+        select * from category
+    </select>
+
+    <delete id="deleteCategoryByName" parameterType="string">
+        delete from category where category = #{category}
+    </delete>
+
+    <update id="updateCategory">
+        update category set category = #{1} where category = #{0}
+    </update>
+
 </mapper>

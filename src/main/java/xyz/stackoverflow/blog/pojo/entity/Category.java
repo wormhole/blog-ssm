@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Category implements Serializable {
     private String id;
-    private String catetory;
+    private String category;
 
     public String getId() {
         return id;
@@ -14,11 +14,11 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getCatetory() {
-        return catetory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCatetory(String catetory) {
-        this.catetory = catetory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
