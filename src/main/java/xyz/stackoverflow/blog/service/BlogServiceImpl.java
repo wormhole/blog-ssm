@@ -5,6 +5,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.dao.BlogDao;
 import xyz.stackoverflow.blog.pojo.entity.Blog;
 import xyz.stackoverflow.blog.util.IdGenerator;
@@ -20,6 +21,7 @@ public class BlogServiceImpl implements BlogService {
     @CachePut(value = "defaultCache", key = "'blog:'+#result.id")
     public Blog insertBlog(Blog blog) {
         blog.setId(IdGenerator.getId());
+        blog.setTitle(HtmlUtils.htmlEscape(blog.getTitle()));
         dao.insertBlog(blog);
         return dao.getBlogById(blog.getId());
     }
