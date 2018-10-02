@@ -4,10 +4,13 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 
 import java.io.Serializable;
 
-public class BaseInfoVO implements Serializable {
+public class PersonalInfoVO implements Serializable {
+
     private String email;
     private String nickname;
     private String signature;
+    private String oldPassword;
+    private String newPassword;
 
     public String getEmail() {
         return email;
@@ -33,11 +36,28 @@ public class BaseInfoVO implements Serializable {
         this.signature = signature;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     public User toUser(){
         User user = new User();
-        user.setNickname(nickname);
         user.setEmail(email);
+        user.setNickname(nickname);
         user.setSignature(signature);
+        user.setPassword(newPassword);
         return user;
     }
 }

@@ -26,9 +26,8 @@
         </property>
     </bean>
 
-    <bean id="baseInfoValidator" class="xyz.stackoverflow.blog.validator.BaseInfoValidator"/>
-    <bean id="passwordInfoValidator" class="xyz.stackoverflow.blog.validator.PasswordInfoValidator"/>
     <bean id="registerInfoValidator" class="xyz.stackoverflow.blog.validator.RegisterInfoValidator"/>
+    <bean id="personalInfoValidator" class="xyz.stackoverflow.blog.validator.PersonalInfoValidator"/>
 
     <import resource="spring-redis.xml"/>
     <import resource="spring-mybatis.xml"/>

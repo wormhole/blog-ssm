@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.BaseInfoVO;
-import xyz.stackoverflow.blog.pojo.vo.PasswordVO;
+import xyz.stackoverflow.blog.pojo.vo.PersonalInfoVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.validator.BaseInfoValidator;
-import xyz.stackoverflow.blog.validator.PasswordInfoValidator;
+import xyz.stackoverflow.blog.validator.PersonalInfoValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,19 +36,17 @@ public class PersonalInfoController {
     @Autowired
     private RedisCacheManager redisCacheManager;
     @Autowired
-    private BaseInfoValidator baseInfoValidator;
-    @Autowired
-    private PasswordInfoValidator passwordInfoValidator;
+    private PersonalInfoValidator personalInfoValidator;
 
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson updateBaseInfo(@RequestBody BaseInfoVO baseInfoVO, HttpSession session) {
+    public ResponseJson updateBaseInfo(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
         Map map = new HashMap<String,String>();
         User user = (User) session.getAttribute("user");
 
-        if (!baseInfoVO.getEmail().equals(user.getEmail())) {
-            if (userService.isExist(baseInfoVO.getEmail())) {
+        if (!personalInfoVO.getEmail().equals(user.getEmail())) {
+            if (userService.isExist(personalInfoVO.getEmail())) {
                 map.put("email","邮箱已经存在");
                 response.setStatus(FAILURE);
                 response.setData(map);
@@ -59,9 +55,9 @@ public class PersonalInfoController {
             }
         }
 
-        map = baseInfoValidator.validate(baseInfoVO);
+        map = personalInfoValidator.validate(personalInfoVO);
         if(map.size()==0){
-            User updateUser = baseInfoVO.toUser();
+            User updateUser = personalInfoVO.toUser();
             updateUser.setId(user.getId());
             if (!updateUser.getEmail().equals(user.getEmail())) {
                 Cache defaultCache = redisCacheManager.getCache("defaultCache");
@@ -85,12 +81,12 @@ public class PersonalInfoController {
 
     @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson updatePassword(@RequestBody PasswordVO passwordVO, HttpSession session) {
+    public ResponseJson updatePassword(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
         Map map = new HashMap<String,String>();
         User user = (User) session.getAttribute("user");
 
-        if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), passwordVO.getOldPassword()))) {
+        if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), personalInfoVO.getOldPassword()))) {
             map.put("oldPassword","旧密码不匹配");
             response.setStatus(FAILURE);
             response.setMessage("旧密码不匹配");
@@ -98,9 +94,9 @@ public class PersonalInfoController {
             return response;
         }
 
-        map = passwordInfoValidator.validate(passwordVO);
+        map = personalInfoValidator.validate(personalInfoVO);
         if(map.size()==0){
-            User updateUser = passwordVO.toUser();
+            User updateUser = personalInfoVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
             Cache defaultCache = redisCacheManager.getCache("defaultCache");
