@@ -3,10 +3,12 @@ package xyz.stackoverflow.blog.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class AbstractBaseValidator<T> implements Validator<T>{
+public abstract class AbstractBaseValidator<T> implements Validator<T> {
 
-    protected final Pattern passwordPattern = Pattern.compile("^[a-zA-Z0-9]{6,}$");
+    protected final Pattern passwordPattern = Pattern.compile("^[a-zA-Z0-9_]{6,}$");
     protected final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_\\-]+@([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$");
+    protected final Pattern codePattern = Pattern.compile("^[a-zA-Z0-9_]+$");
+    protected final Pattern charAndChinesePattern = Pattern.compile("^[\\u4e00-\\u9fa5a-zA-Z0-9_]+$");
 
     protected boolean validateEmail(String email) {
         Matcher m = emailPattern.matcher(email);
@@ -34,8 +36,18 @@ public abstract class AbstractBaseValidator<T> implements Validator<T>{
         }
     }
 
-    protected boolean validateSignature(String signature) {
-        if (signature.length() > 0) {
+    protected boolean validateCode(String code) {
+        Matcher m = codePattern.matcher(code);
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected boolean validateCharAndChinese(String str) {
+        Matcher m = charAndChinesePattern.matcher(str);
+        if (m.find()) {
             return true;
         } else {
             return false;

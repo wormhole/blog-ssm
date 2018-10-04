@@ -23,4 +23,12 @@ public class PersonalInfoValidator extends AbstractBaseValidator<PersonalInfoVO>
 
         return map;
     }
+
+    private boolean validateSignature(String signature) {
+        if (signature.length() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
