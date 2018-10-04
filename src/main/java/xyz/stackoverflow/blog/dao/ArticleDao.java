@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface ArticleDao {
-    int insertArticle(Article blog);
+    int insertArticle(Article article);
 
     Article getArticleById(String id);
 
