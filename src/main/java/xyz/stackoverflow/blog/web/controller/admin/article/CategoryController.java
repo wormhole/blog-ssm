@@ -56,8 +56,8 @@ public class CategoryController {
     public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
 
-        if (service.isExistCode(categoryVO.getCategoryCode())) {
-            service.deleteCategoryByCategoryCode(categoryVO.getCategoryCode());
+        if (service.isExist(categoryVO.getId())) {
+            service.deleteCategoryById(categoryVO.getId());
             response.setStatus(SUCCESS);
             response.setMessage("删除成功");
             response.setData(service.getAllCategory());
@@ -76,7 +76,10 @@ public class CategoryController {
         if (service.isExistName(categoryVO.getCategoryName())) {
             response.setStatus(FAILURE);
             response.setMessage("新分类名已经存在");
-        } else {
+        } else if (service.isExistCode(categoryVO.getCategoryCode())) {
+            response.setStatus(FAILURE);
+            response.setMessage("新分类编码已经存在");
+        } else{
             service.updateCategory(categoryVO.toCategory());
             response.setStatus(SUCCESS);
             response.setMessage("更新成功");

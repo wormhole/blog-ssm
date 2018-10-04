@@ -15,7 +15,11 @@
         insert into category(id,categoryname,categoryname) values(#{id},#{category},#{categoryCode})
     </insert>
 
-    <select id="getCategoryByCategoryCode" resultMap="categoryMap">
+    <select id="getCategoryById" resultMap="categoryMap">
+        select * from category where id = #{id}
+    </select>
+
+    <select id="getCategoryByCode" resultMap="categoryMap">
         select * from category where categorycode = #{categoryCode}
     </select>
 
@@ -31,8 +35,12 @@
         select count(*) from category where categoryname = #{categoryName}
     </select>
 
-    <delete id="deleteCategoryByCategoryCode" parameterType="string">
-        delete from category where categorycode = #{categoryCode}
+    <select id="isExist" parameterType="string">
+        select count(*) from category where id = #{id}
+    </select>
+
+    <delete id="deleteCategoryById" parameterType="string">
+        delete from category where id = #{id}
     </delete>
 
     <update id="updateCategory" parameterType="category">
@@ -41,8 +49,11 @@
             <if test="categoryName!=null">
                 categoryname = #{categoryName}
             </if>
+            <if test="categoryCode!=null">
+                categorycode = #{categoryCode}
+            </if>
         </set>
-        where categorycode = #{categoryCode}
+        where id = #{id}
     </update>
 
 </mapper>

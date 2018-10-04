@@ -6,8 +6,17 @@ import java.io.Serializable;
 
 public class CategoryVO implements Serializable {
 
+    private String id;
     private String categoryName;
     private String categoryCode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCategoryName() {
         return categoryName;
@@ -27,6 +36,7 @@ public class CategoryVO implements Serializable {
 
     public Category toCategory(){
         Category category = new Category();
+        category.setId(id);
         category.setCategoryCode(categoryCode);
         category.setCategoryName(categoryName);
         return category;

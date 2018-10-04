@@ -9,7 +9,7 @@ public class BlogVO implements Serializable {
     private String title;
     private String blogMd;
     private String blogHtml;
-    private String categoryCode;
+    private String categoryId;
     private String blogCode;
 
     public String getTitle() {
@@ -36,12 +36,12 @@ public class BlogVO implements Serializable {
         this.blogHtml = blogHtml;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getBlogCode() {

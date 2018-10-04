@@ -12,11 +12,15 @@ public interface CategoryService {
 
     boolean isExistCode(String categoryCode);
 
-    Category getCategoryByCategoryCode(String categoryCode);
+    boolean isExist(String id);
+
+    Category getCategoryByCode(String categoryCode);
+
+    Category getCategoryById(String id);
 
     List<Category> getAllCategory();
 
-    Category deleteCategoryByCategoryCode(String categoryCode);
+    Category deleteCategoryById(String id);
 
     Category updateCategory(Category category);
 }

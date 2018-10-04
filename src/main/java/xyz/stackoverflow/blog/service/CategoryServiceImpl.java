@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category insertCategory(Category category) {
         category.setId(IdGenerator.getId());
         dao.insertCategory(category);
-        return dao.getCategoryByCategoryCode(category.getCategoryCode());
+        return dao.getCategoryById(category.getId());
     }
 
     @Override
@@ -45,8 +45,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Category getCategoryByCategoryCode(String categoryCode) {
-        return dao.getCategoryByCategoryCode(categoryCode);
+    public boolean isExist(String id) {
+        if (dao.isExist(id) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Category getCategoryByCode(String categoryCode) {
+        return dao.getCategoryByCode(categoryCode);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Category getCategoryById(String id) {
+        return dao.getCategoryById(id);
     }
 
     @Override
@@ -57,9 +73,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Category deleteCategoryByCategoryCode(String categoryCode) {
-        Category retCategory = dao.getCategoryByCategoryCode(categoryCode);
-        dao.deleteCategoryByCategoryCode(categoryCode);
+    public Category deleteCategoryById(String id) {
+        Category retCategory = dao.getCategoryById(id);
+        dao.deleteCategoryById(id);
         return retCategory;
 
     }
@@ -68,7 +84,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public Category updateCategory(Category category) {
         dao.updateCategory(category);
-        return dao.getCategoryByCategoryCode(category.getCategoryCode());
+        return dao.getCategoryById(category.getId());
     }
 
 }

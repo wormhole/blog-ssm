@@ -36,7 +36,7 @@ public class WriteArticleController {
     @ResponseBody
     public ResponseJson save(@RequestBody BlogVO blogVO, HttpSession session){
         ResponseJson response = new ResponseJson();
-        Category category = categoryService.getCategoryByCategoryCode(blogVO.getCategoryCode());
+        Category category = categoryService.getCategoryById(blogVO.getCategoryId());
         User user = (User)session.getAttribute("user");
         Blog blog = blogVO.toBlog();
         blog.setUserId(user.getId());
