@@ -73,13 +73,14 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson update(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        if (service.isExistName(categoryVO.getCategoryName())) {
+        Category oldCategory = service.getCategoryById(categoryVO.getId());
+        if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && service.isExistName(categoryVO.getCategoryName())) {
             response.setStatus(FAILURE);
             response.setMessage("新分类名已经存在");
-        } else if (service.isExistCode(categoryVO.getCategoryCode())) {
+        } else if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && service.isExistCode(categoryVO.getCategoryCode())) {
             response.setStatus(FAILURE);
             response.setMessage("新分类编码已经存在");
-        } else{
+        } else {
             service.updateCategory(categoryVO.toCategory());
             response.setStatus(SUCCESS);
             response.setMessage("更新成功");
