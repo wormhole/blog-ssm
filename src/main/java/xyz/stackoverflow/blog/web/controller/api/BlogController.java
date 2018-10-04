@@ -18,7 +18,7 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @RequestMapping(value = "/blog", method = RequestMethod.GET)
+    @RequestMapping(value = "/article", method = RequestMethod.GET)
     @ResponseBody
     public ResponseJson getAllBlog() {
         ResponseJson response = new ResponseJson();
@@ -29,7 +29,7 @@ public class BlogController {
         return response;
     }
 
-    @RequestMapping(value="/blog/{blogcode}",method=RequestMethod.GET)
+    @RequestMapping(value="/article/{blogcode}",method=RequestMethod.GET)
     @ResponseBody
     public ResponseJson getBlogByCode(){
         ResponseJson response = new ResponseJson();
