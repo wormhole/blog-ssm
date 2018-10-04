@@ -9,7 +9,8 @@ public class BlogVO implements Serializable {
     private String title;
     private String blogMd;
     private String blogHtml;
-    private String category;
+    private String categoryCode;
+    private String blogCode;
 
     public String getTitle() {
         return title;
@@ -35,12 +36,20 @@ public class BlogVO implements Serializable {
         this.blogHtml = blogHtml;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public String getBlogCode() {
+        return blogCode;
+    }
+
+    public void setBlogCode(String blogCode) {
+        this.blogCode = blogCode;
     }
 
     public Blog toBlog(){
@@ -49,6 +58,7 @@ public class BlogVO implements Serializable {
         blog.setBlogMd(blogMd);
         blog.setTitle(title);
         blog.setDate(new Date());
+        blog.setBlogCode(blogCode);
         return blog;
     }
 }

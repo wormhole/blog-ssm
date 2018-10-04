@@ -13,6 +13,7 @@
         <result property="blogHtml" column="bloghtml"></result>
         <result property="categoryId" column="categoryid"></result>
         <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result property="blogCode" column="blogcode"></result>
     </resultMap>
 
     <select id="getAllBlog" resultMap="blogMap">
@@ -24,11 +25,26 @@
     </select>
 
     <insert id="insertBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into blog(id,userid,title,blogmd,bloghtml,categoryid,date) values(#{id},#{userId},#{title},#{blogMd},#{blogHtml},#{categoryId},#{date})
+        insert into blog(id,userid,title,blogmd,bloghtml,categoryid,date,blogcode) values(#{id},#{userId},#{title},#{blogMd},#{blogHtml},#{categoryId},#{date},#{blogCode})
     </insert>
 
     <update id="updateBlog" parameterType="blog">
-        update blog set title = #{title},blogmd = #{blogmd},bloghtml = #{bloghtml},categoryid = #{categoryId} where id = #{id}
+        update blog
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="blogmd!=null">
+                blogmd=#{blogmd},
+            </if>
+            <if test="bloghtml!=null">
+                bloghtml=#{bloghtml},
+            </if>
+            <if test="categoryid!=null">
+                categoryid=#{categoryId}
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
     <delete id="deleteBlogById" parameterType="string">

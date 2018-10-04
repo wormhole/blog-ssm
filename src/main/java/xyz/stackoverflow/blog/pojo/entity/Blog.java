@@ -11,6 +11,7 @@ public class Blog implements Serializable {
     private String blogHtml;
     private String categoryId;
     private Date date;
+    private String blogCode;
 
     public String getId() {
         return id;
@@ -66,5 +67,13 @@ public class Blog implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getBlogCode() {
+        return blogCode;
+    }
+
+    public void setBlogCode(String blogCode) {
+        this.blogCode = blogCode;
     }
 }
