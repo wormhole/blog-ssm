@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.ArticleDao">
+
+    <resultMap id="articleMap" type="article">
+        <id property="id" column="id"></id>
+        <result property="userId" column="userid"></result>
+        <result property="title" column="title"></result>
+        <result property="articleMd" column="articlemd"></result>
+        <result property="articleHtml" column="articlehtml"></result>
+        <result property="categoryId" column="categoryid"></result>
+        <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result property="articleCode" column="articlecode"></result>
+    </resultMap>
+
+    <select id="getAllArticle" resultMap="articleMap">
+        select * from article order by date desc
+    </select>
+
+    <select id="getArticleById" resultMap="articleMap" parameterType="string">
+        select * from article where id = #{id}
+    </select>
+
+    <select id="getArticleByCode" resultMap="articleMap" parameterType="string">
+        select * from article where articlecode = #{articleCode}
+    </select>
+
+    <select id="isExistCode" resultMap="articleMap" parameterType="string">
+        select count(*) from article where articlecode = #{articleCode}
+    </select>
+
+    <insert id="insertArticle" parameterType="article" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into article(id,userid,title,articlemd,articlehtml,categoryid,date,articlecode) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{date},#{articleCode})
+    </insert>
+
+    <update id="updateArticle" parameterType="article">
+        update article
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="articlemd!=null">
+                articlemd = #{articlemd},
+            </if>
+            <if test="articlehtml!=null">
+                bloghtml = #{bloghtml},
+            </if>
+            <if test="categoryid!=null">
+                categoryid = #{categoryId},
+            </if>
+            <if test="articlecode!=null">
+                articlecode = #{articleCode}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArticleById" parameterType="string">
+        delete from article where id = #{id}
+    </delete>
+
+</mapper>

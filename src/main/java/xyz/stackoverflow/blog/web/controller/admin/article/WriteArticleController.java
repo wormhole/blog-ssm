@@ -5,13 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.pojo.entity.Blog;
+import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.BlogVO;
-import xyz.stackoverflow.blog.service.BlogService;
+import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.util.FileUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,22 +27,26 @@ public class WriteArticleController {
     private final Integer FAILURE = 1;
 
     @Autowired
-    private BlogService blogService;
+    private ArticleService articleService;
     @Autowired
     private CategoryService categoryService;
 
     @RequestMapping(value="/insert",method=RequestMethod.POST)
     @ResponseBody
-    public ResponseJson save(@RequestBody BlogVO blogVO, HttpSession session){
+    public ResponseJson save(@RequestBody ArticleVO articleVO, HttpSession session){
         ResponseJson response = new ResponseJson();
-        Category category = categoryService.getCategoryById(blogVO.getCategoryId());
-        User user = (User)session.getAttribute("user");
-        Blog blog = blogVO.toBlog();
-        blog.setUserId(user.getId());
-        blog.setCategoryId(category.getId());
-        blogService.insertBlog(blog);
-        response.setStatus(SUCCESS);
-        response.setMessage("保存成功");
+
+        if(articleService.isExistCode(articleVO.getArticleCode())){
+            response.setStatus(FAILURE);
+            response.setMessage("code重复");
+        }else {
+            User user = (User) session.getAttribute("user");
+            Article article = articleVO.toArticle();
+            article.setUserId(user.getId());
+            articleService.insertArticle(article);
+            response.setStatus(SUCCESS);
+            response.setMessage("保存成功");
+        }
         return response;
     }
 

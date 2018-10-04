@@ -3,15 +3,15 @@ package xyz.stackoverflow.blog.pojo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Blog implements Serializable {
+public class Article implements Serializable {
     private String id;
     private String userId;
     private String title;
-    private String blogMd;
-    private String blogHtml;
+    private String ArticleMd;
+    private String ArticleHtml;
     private String categoryId;
     private Date date;
-    private String blogCode;
+    private String ArticleCode;
 
     public String getId() {
         return id;
@@ -37,22 +37,6 @@ public class Blog implements Serializable {
         this.title = title;
     }
 
-    public String getBlogMd() {
-        return blogMd;
-    }
-
-    public void setBlogMd(String blogMd) {
-        this.blogMd = blogMd;
-    }
-
-    public String getBlogHtml() {
-        return blogHtml;
-    }
-
-    public void setBlogHtml(String blogHtml) {
-        this.blogHtml = blogHtml;
-    }
-
     public String getCategoryId() {
         return categoryId;
     }
@@ -69,11 +53,27 @@ public class Blog implements Serializable {
         this.date = date;
     }
 
-    public String getBlogCode() {
-        return blogCode;
+    public String getArticleMd() {
+        return ArticleMd;
     }
 
-    public void setBlogCode(String blogCode) {
-        this.blogCode = blogCode;
+    public void setArticleMd(String articleMd) {
+        ArticleMd = articleMd;
+    }
+
+    public String getArticleHtml() {
+        return ArticleHtml;
+    }
+
+    public void setArticleHtml(String articleHtml) {
+        ArticleHtml = articleHtml;
+    }
+
+    public String getArticleCode() {
+        return ArticleCode;
+    }
+
+    public void setArticleCode(String articleCode) {
+        ArticleCode = articleCode;
     }
 }

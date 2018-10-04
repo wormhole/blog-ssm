@@ -5,33 +5,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.entity.Blog;
-import xyz.stackoverflow.blog.service.BlogService;
+import xyz.stackoverflow.blog.pojo.entity.Article;
+import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.util.ResponseJson;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/api")
-public class BlogController {
+public class ArticleController {
 
     @Autowired
-    private BlogService blogService;
+    private ArticleService articleService;
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getAllBlog() {
+    public ResponseJson getAllArticle() {
         ResponseJson response = new ResponseJson();
-        List<Blog> list = blogService.getAllBlog();
+        List<Article> list = articleService.getAllArticle();
         response.setStatus(0);
         response.setMessage("获取成功");
         response.setData(list);
         return response;
     }
 
-    @RequestMapping(value="/article/{blogcode}",method=RequestMethod.GET)
+    @RequestMapping(value="/article/{articlecode}",method=RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getBlogByCode(){
+    public ResponseJson getArticleByCode(){
         ResponseJson response = new ResponseJson();
         return response;
     }
