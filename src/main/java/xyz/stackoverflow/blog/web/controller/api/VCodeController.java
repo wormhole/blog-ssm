@@ -2,6 +2,7 @@ package xyz.stackoverflow.blog.web.controller.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -19,7 +20,7 @@ import java.util.Random;
 @RequestMapping("/api")
 public class VCodeController {
 
-    @RequestMapping("/vcode")
+    @RequestMapping(value = "/vcode", method = RequestMethod.GET)
     public void vcode(HttpServletResponse response, HttpSession session) {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -54,12 +55,12 @@ public class VCodeController {
         g.clearRect(0, 0, width, height);
 
         Random random = new Random();
-        for(int i = 0;i < 50 ;i++){
+        for (int i = 0; i < 50; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
             int x1 = random.nextInt(15);
             int y1 = random.nextInt(15);
-            g.drawLine(x,y,x+x1,y+y1);
+            g.drawLine(x, y, x + x1, y + y1);
         }
 
         g.setColor(new Color(80, 80, 180));

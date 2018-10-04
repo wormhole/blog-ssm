@@ -20,7 +20,7 @@
     </select>
 
     <select id="getBlogById" resultMap="blogMap" parameterType="string">
-        select * from blog where id = #{id}
+        select * from blog where id = #{id} order by date desc
     </select>
 
     <insert id="insertBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
