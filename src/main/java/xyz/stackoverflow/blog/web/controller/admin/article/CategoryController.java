@@ -15,6 +15,9 @@ import xyz.stackoverflow.blog.util.ResponseJson;
 @RequestMapping("/admin/article")
 public class CategoryController {
 
+    private final Integer SUCCESS = 0;
+    private final Integer FAILURE = 1;
+
     @Autowired
     private CategoryService service;
 
@@ -24,14 +27,14 @@ public class CategoryController {
         ResponseJson response = new ResponseJson();
         Category category = categoryVO.toCategory();
         if (service.isExistName(categoryVO.getCategoryName())) {
-            response.setStatus(1);
+            response.setStatus(FAILURE);
             response.setMessage("分类名已经存在");
         } else if (service.isExistCode(categoryVO.getCategoryCode())) {
-            response.setStatus(1);
+            response.setStatus(FAILURE);
             response.setMessage("分类编码已经存在");
         } else {
             service.insertCategory(category);
-            response.setStatus(0);
+            response.setStatus(SUCCESS);
             response.setMessage("添加成功");
             response.setData(service.getAllCategory());
         }
@@ -42,7 +45,7 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson list() {
         ResponseJson response = new ResponseJson();
-        response.setStatus(0);
+        response.setStatus(SUCCESS);
         response.setMessage("查询成功");
         response.setData(service.getAllCategory());
         return response;
@@ -55,11 +58,11 @@ public class CategoryController {
 
         if (service.isExistCode(categoryVO.getCategoryCode())) {
             service.deleteCategoryByCategoryCode(categoryVO.getCategoryCode());
-            response.setStatus(0);
+            response.setStatus(SUCCESS);
             response.setMessage("删除成功");
             response.setData(service.getAllCategory());
         } else {
-            response.setStatus(1);
+            response.setStatus(FAILURE);
             response.setMessage("未找到此分类");
         }
 
@@ -71,11 +74,11 @@ public class CategoryController {
     public ResponseJson update(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
         if (service.isExistName(categoryVO.getCategoryName())) {
-            response.setStatus(1);
+            response.setStatus(FAILURE);
             response.setMessage("新分类名已经存在");
         } else {
             service.updateCategory(categoryVO.toCategory());
-            response.setStatus(0);
+            response.setStatus(SUCCESS);
             response.setMessage("更新成功");
             response.setData(service.getAllCategory());
         }
