@@ -20,13 +20,13 @@ public class CategoryServiceImpl implements CategoryService {
     public Category insertCategory(Category category) {
         category.setId(IdGenerator.getId());
         dao.insertCategory(category);
-        return dao.getCategoryByName(category.getCategory());
+        return dao.getCategoryByCategoryCode(category.getCategoryCode());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean isExist(String category) {
-        if (dao.isExist(category) == 1) {
+    public boolean isExistCode(String categoryCode) {
+        if (dao.isExistCode(categoryCode) == 1) {
             return true;
         } else {
             return false;
@@ -35,8 +35,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Category getCategoryByName(String category) {
-        return dao.getCategoryByName(category);
+    public boolean isExistName(String categoryName) {
+        if (dao.isExistName(categoryName) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Category getCategoryByCategoryCode(String categoryCode) {
+        return dao.getCategoryByCategoryCode(categoryCode);
     }
 
     @Override
@@ -47,18 +57,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Category deleteCategoryByName(String category) {
-        Category retCategory = dao.getCategoryByName(category);
-        dao.deleteCategoryByName(category);
+    public Category deleteCategoryByCategoryCode(String categoryCode) {
+        Category retCategory = dao.getCategoryByCategoryCode(categoryCode);
+        dao.deleteCategoryByCategoryCode(categoryCode);
         return retCategory;
 
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Category updateCategory(String category, String newCategory) {
-        dao.updateCategory(category, newCategory);
-        return dao.getCategoryByName(newCategory);
+    public Category updateCategory(Category category) {
+        dao.updateCategory(category);
+        return dao.getCategoryByCategoryCode(category.getCategoryCode());
     }
 
 }

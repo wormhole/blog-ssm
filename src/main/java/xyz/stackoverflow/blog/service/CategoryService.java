@@ -8,13 +8,15 @@ public interface CategoryService {
 
     Category insertCategory(Category category);
 
-    boolean isExist(String category);
+    boolean isExistName(String categoryName);
 
-    Category getCategoryByName(String category);
+    boolean isExistCode(String categoryCode);
+
+    Category getCategoryByCategoryCode(String categoryCode);
 
     List<Category> getAllCategory();
 
-    Category deleteCategoryByName(String category);
+    Category deleteCategoryByCategoryCode(String categoryCode);
 
-    Category updateCategory(String category, String newCategory);
+    Category updateCategory(Category category);
 }

@@ -10,13 +10,15 @@ import java.util.Map;
 public interface CategoryDao {
     int insertCategory(Category category);
 
-    Category getCategoryByName(String category);
+    Category getCategoryByCategoryCode(String categoryCode);
 
-    int isExist(String category);
+    int isExistName(String categoryName);
+
+    int isExistCode(String categoryCode);
 
     List<Category> getAllCategory();
 
-    int deleteCategoryByName(String category);
+    int deleteCategoryByCategoryCode(String categoryCode);
 
-    Category updateCategory(String category, String newCategory);
+    Category updateCategory(Category category);
 }

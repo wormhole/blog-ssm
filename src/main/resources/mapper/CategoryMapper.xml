@@ -7,31 +7,42 @@
 
     <resultMap id="categoryMap" type="category">
         <id property="id" column="id"></id>
-        <result property="category" column="category"></result>
+        <result property="categoryName" column="categoryname"></result>
+        <result property="categoryCode" column="categorycode"></result>
     </resultMap>
 
     <insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into category(id,category) values(#{id},#{category})
+        insert into category(id,categoryname,categoryname) values(#{id},#{category},#{categoryCode})
     </insert>
 
-    <select id="getCategoryByName" resultMap="categoryMap">
-        select * from category where category = #{category}
+    <select id="getCategoryByCategoryCode" resultMap="categoryMap">
+        select * from category where categorycode = #{categoryCode}
     </select>
 
     <select id="getAllCategory" resultMap="categoryMap">
         select * from category
     </select>
 
-    <select id="isExist" parameterType="string">
-        select count(*) from category where category = #{category}
+    <select id="isExistCode" parameterType="string">
+        select count(*) from category where categorycode = #{categoryCode}
     </select>
 
-    <delete id="deleteCategoryByName" parameterType="string">
-        delete from category where category = #{category}
+    <select id="isExistName" parameterType="string">
+        select count(*) from category where categoryname = #{categoryName}
+    </select>
+
+    <delete id="deleteCategoryByCategoryCode" parameterType="string">
+        delete from category where categorycode = #{categoryCode}
     </delete>
 
-    <update id="updateCategory">
-        update category set category = #{1} where category = #{0}
+    <update id="updateCategory" parameterType="category">
+        update category
+        <set>
+            <if test="categoryName!=null">
+                categoryname = #{categoryName}
+            </if>
+        </set>
+        where categorycode = #{categoryCode}
     </update>
 
 </mapper>
