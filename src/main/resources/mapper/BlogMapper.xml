@@ -17,11 +17,15 @@
     </resultMap>
 
     <select id="getAllBlog" resultMap="blogMap">
-        select * from blog
+        select * from blog order by date desc
     </select>
 
     <select id="getBlogById" resultMap="blogMap" parameterType="string">
-        select * from blog where id = #{id} order by date desc
+        select * from blog where id = #{id}
+    </select>
+
+    <select id="getBlogByCode" resultMap="blogMap" parameterType="string">
+        select * from blog where blogcode = #{blogCode}
     </select>
 
     <insert id="insertBlog" parameterType="blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -32,16 +36,19 @@
         update blog
         <set>
             <if test="title!=null">
-                title=#{title},
+                title = #{title},
             </if>
             <if test="blogmd!=null">
-                blogmd=#{blogmd},
+                blogmd = #{blogmd},
             </if>
             <if test="bloghtml!=null">
-                bloghtml=#{bloghtml},
+                bloghtml = #{bloghtml},
             </if>
             <if test="categoryid!=null">
-                categoryid=#{categoryId}
+                categoryid = #{categoryId},
+            </if>
+            <if test="blogcode!=null">
+                blogcode = #{blogCode}
             </if>
         </set>
         where id = #{id}

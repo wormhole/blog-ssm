@@ -11,6 +11,8 @@ public interface BlogDao {
 
     Blog getBlogById(String id);
 
+    Blog getBlogByCode(String blogCode);
+
     List<Blog> getAllBlog();
 
     Blog updateBlog(Blog blog);

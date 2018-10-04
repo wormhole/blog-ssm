@@ -38,6 +38,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Cacheable(value = "defaultCache", key = "'blog:'+#blogCode", unless = "#ressult == null")
+    public Blog getBlogByCode(String blogCode) {
+        return dao.getBlogByCode(blogCode);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<Blog> getAllBlog() {
         return dao.getAllBlog();
     }
