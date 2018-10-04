@@ -6,28 +6,29 @@ import java.io.Serializable;
 
 public class CategoryVO implements Serializable {
 
-    private String category;
-    private String newCategory;
+    private String categoryName;
+    private String categoryCode;
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCatetory(String category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getNewCategory() {
-        return newCategory;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setNewCategory(String newCategory) {
-        this.newCategory = newCategory;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     public Category toCategory(){
-        Category cat = new Category();
-        cat.setCategory(category);
-        return cat;
+        Category category = new Category();
+        category.setCategoryCode(categoryCode);
+        category.setCategoryName(categoryName);
+        return category;
     }
 }

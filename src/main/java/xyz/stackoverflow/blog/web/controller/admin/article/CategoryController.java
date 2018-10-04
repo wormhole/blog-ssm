@@ -23,10 +23,18 @@ public class CategoryController {
     public ResponseJson insert(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
         Category category = categoryVO.toCategory();
-        service.insertCategory(category);
-        response.setStatus(0);
-        response.setMessage("添加成功");
-        response.setData(service.getAllCategory());
+        if (service.isExistName(categoryVO.getCategoryName())) {
+            response.setStatus(1);
+            response.setMessage("分类名已经存在");
+        } else if (service.isExistCode(categoryVO.getCategoryCode())) {
+            response.setStatus(1);
+            response.setMessage("分类编码已经存在");
+        } else {
+            service.insertCategory(category);
+            response.setStatus(0);
+            response.setMessage("添加成功");
+            response.setData(service.getAllCategory());
+        }
         return response;
     }
 
@@ -45,12 +53,12 @@ public class CategoryController {
     public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
 
-        if(service.isExist(categoryVO.getCategory())){
-            service.deleteCategoryByName(categoryVO.getCategory());
+        if (service.isExistCode(categoryVO.getCategoryCode())) {
+            service.deleteCategoryByCategoryCode(categoryVO.getCategoryCode());
             response.setStatus(0);
             response.setMessage("删除成功");
             response.setData(service.getAllCategory());
-        }else{
+        } else {
             response.setStatus(1);
             response.setMessage("未找到此分类");
         }
@@ -62,11 +70,11 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson update(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        if(service.isExist(categoryVO.getNewCategory())){
+        if (service.isExistName(categoryVO.getCategoryName())) {
             response.setStatus(1);
             response.setMessage("新分类名已经存在");
-        }else {
-            service.updateCategory(categoryVO.getCategory(), categoryVO.getNewCategory());
+        } else {
+            service.updateCategory(categoryVO.toCategory());
             response.setStatus(0);
             response.setMessage("更新成功");
             response.setData(service.getAllCategory());
