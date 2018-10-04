@@ -47,7 +47,7 @@
         update category
         <set>
             <if test="categoryName!=null">
-                categoryname = #{categoryName}
+                categoryname = #{categoryName},
             </if>
             <if test="categoryCode!=null">
                 categorycode = #{categoryCode}
