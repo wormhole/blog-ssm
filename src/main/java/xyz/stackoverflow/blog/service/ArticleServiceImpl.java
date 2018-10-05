@@ -24,7 +24,7 @@ public class ArticleServiceImpl implements ArticleService {
     @CachePut(value = "defaultCache", key = "'article:'+#result.id")
     public Article insertArticle(Article blog) {
         blog.setId(IdGenerator.getId());
-        blog.setTitle(HtmlUtils.htmlEscape(blog.getTitle()));
+        blog.setTitle(blog.getTitle());
         dao.insertArticle(blog);
         return dao.getArticleById(blog.getId());
     }

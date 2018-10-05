@@ -12,21 +12,21 @@ public class PersonalInfoValidator extends AbstractBaseValidator<PersonalInfoVO>
         Map map = new HashMap<String, String>();
 
         if ((personalInfoVO.getEmail() != null) && (!validateEmail(personalInfoVO.getEmail()))) {
-            map.put("email", "邮箱格式错误");
+            map.put("email", "邮箱格式错误或邮箱长度不在0-50之间");
         } else if ((personalInfoVO.getNickname() != null) && (!validateNickName(personalInfoVO.getNickname()))) {
-            map.put("nickname", "昵称长度要大于等于0");
+            map.put("nickname", "昵称包含特殊字符或昵称长度不在0-50之间");
         } else if ((personalInfoVO.getSignature() != null) && (!validateSignature(personalInfoVO.getSignature()))) {
-            map.put("signature", "个性签名长度要大于0");
+            map.put("signature", "签名包含特殊字符或签名长度不在0-50之间");
         } else if ((personalInfoVO.getNewPassword() != null) && (!validatePassword(personalInfoVO.getNewPassword()))) {
-            map.put("password", "密码长度要大于等于6,且为0-9,a-z,A-Z之间");
+            map.put("password", "密码包含特殊字符或密码长度不在0-20之间");
         }
 
         return map;
     }
 
     private boolean validateSignature(String signature) {
-        if (signature.length() > 0) {
-            return true;
+        if (0 < signature.length() && signature.length() <= 50) {
+            return validateCharAndChinese(signature);
         } else {
             return false;
         }

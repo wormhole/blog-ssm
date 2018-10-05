@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User insertUser(User user) {
         user.setHeadurl("/static/custom/image/cam.png");
-        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
+        user.setNickname(user.getNickname());
         user.setSignature("这个人很懒,没有留下任何东西");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User updateBaseInfo(User user) {
-        user.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
-        user.setSignature(HtmlUtils.htmlEscape(user.getSignature()));
+        user.setNickname(user.getNickname());
+        user.setSignature(user.getSignature());
         dao.updateBaseInfo(user);
         return dao.getUserByEmail(user.getEmail());
     }
