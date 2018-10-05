@@ -42,12 +42,12 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updateBaseInfo(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String,String>();
+        Map map = new HashMap<String, String>();
         User user = (User) session.getAttribute("user");
 
         if (!personalInfoVO.getEmail().equals(user.getEmail())) {
             if (userService.isExist(personalInfoVO.getEmail())) {
-                map.put("email","邮箱已经存在");
+                map.put("email", "邮箱已经存在");
                 response.setStatus(FAILURE);
                 response.setData(map);
                 response.setMessage("邮箱已经存在");
@@ -56,7 +56,7 @@ public class PersonalInfoController {
         }
 
         map = personalInfoValidator.validate(personalInfoVO);
-        if(map.size()==0){
+        if (map.size() == 0) {
             User updateUser = personalInfoVO.toUser();
             updateUser.setId(user.getId());
             if (!updateUser.getEmail().equals(user.getEmail())) {
@@ -71,9 +71,9 @@ public class PersonalInfoController {
             session.setAttribute("user", newUser);
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
-        }else{
+        } else {
             response.setStatus(FAILURE);
-            response.setMessage("格式错误");
+            response.setMessage("字段格式错误");
             response.setData(map);
         }
         return response;
@@ -83,11 +83,11 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updatePassword(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String,String>();
+        Map map = new HashMap<String, String>();
         User user = (User) session.getAttribute("user");
 
         if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), personalInfoVO.getOldPassword()))) {
-            map.put("oldPassword","旧密码不匹配");
+            map.put("oldPassword", "旧密码不匹配");
             response.setStatus(FAILURE);
             response.setMessage("旧密码不匹配");
             response.setData(map);
@@ -95,7 +95,7 @@ public class PersonalInfoController {
         }
 
         map = personalInfoValidator.validate(personalInfoVO);
-        if(map.size()==0){
+        if (map.size() == 0) {
             User updateUser = personalInfoVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
@@ -104,12 +104,12 @@ public class PersonalInfoController {
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
             User newUser = userService.updatePassword(updateUser);
-            session.setAttribute("user",newUser);
+            session.setAttribute("user", newUser);
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
-        }else{
+        } else {
             response.setStatus(FAILURE);
-            response.setMessage("格式错误");
+            response.setMessage("字段格式错误");
             response.setData(map);
         }
         return response;
@@ -119,7 +119,7 @@ public class PersonalInfoController {
     @ResponseBody
     public ResponseJson updateHead(HttpServletRequest request, HttpSession session) {
         ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String,String>();
+        Map map = new HashMap<String, String>();
         User user = (User) session.getAttribute("user");
 
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
@@ -132,24 +132,24 @@ public class PersonalInfoController {
         if (!homeFile.exists()) {
             homeFile.mkdirs();
         }
-        File destFile = new File(homeFile,newFileName);
+        File destFile = new File(homeFile, newFileName);
         try {
             file.transferTo(destFile);
             String oldUrl = user.getHeadurl();
-            String newUrl = "/uploads/"+user.getId()+"/"+newFileName;
-            if(!oldUrl.equals(newUrl)){
-                if(!oldUrl.equals("/static/custom/image/cam.png")){
-                    File oldHead = new File(webRootDir+"/WEB-INF/"+oldUrl);
+            String newUrl = "/uploads/" + user.getId() + "/" + newFileName;
+            if (!oldUrl.equals(newUrl)) {
+                if (!oldUrl.equals("/static/custom/image/cam.png")) {
+                    File oldHead = new File(webRootDir + "/WEB-INF/" + oldUrl);
                     oldHead.delete();
                 }
                 user.setHeadurl(newUrl);
                 User newUser = userService.updateHeadUrl(user);
-                session.setAttribute("user",newUser);
+                session.setAttribute("user", newUser);
             }
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
         } catch (IOException e) {
-            map.put("head","头像上传失败");
+            map.put("head", "头像上传失败");
             response.setStatus(FAILURE);
             response.setMessage("头像上传失败");
             response.setData(map);

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -42,19 +43,21 @@ public class WriteArticleController {
             response.setStatus(FAILURE);
             response.setMessage("字段错误");
             response.setData(map);
-            return response;
-        }
-
-        if (articleService.isExistCode(articleVO.getArticleCode())) {
-            response.setStatus(FAILURE);
-            response.setMessage("code重复");
         } else {
-            User user = (User) session.getAttribute("user");
-            Article article = articleVO.toArticle();
-            article.setUserId(user.getId());
-            articleService.insertArticle(article);
-            response.setStatus(SUCCESS);
-            response.setMessage("保存成功");
+            Map map1 = new HashMap<String, String>();
+            if (articleService.isExistCode(articleVO.getArticleCode())) {
+                response.setStatus(FAILURE);
+                response.setMessage("编码重复");
+                map1.put("code", "编码重复");
+                response.setData(map1);
+            } else {
+                User user = (User) session.getAttribute("user");
+                Article article = articleVO.toArticle();
+                article.setUserId(user.getId());
+                articleService.insertArticle(article);
+                response.setStatus(SUCCESS);
+                response.setMessage("保存成功");
+            }
         }
         return response;
     }
