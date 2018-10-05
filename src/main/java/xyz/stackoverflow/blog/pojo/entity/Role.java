@@ -3,9 +3,10 @@ package xyz.stackoverflow.blog.pojo.entity;
 import java.io.Serializable;
 
 public class Role implements Serializable {
+
     private String id;
-    private String userId;
-    private String role;
+    private String roleName;
+    private String roleCode;
 
     public String getId() {
         return id;
@@ -15,19 +16,19 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 }

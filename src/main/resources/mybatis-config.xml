@@ -10,6 +10,8 @@
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Article" alias="article"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Role" alias="role"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Permission" alias="permission"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.UserRole" alias="userRole"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.RolePermission" alias="rolePermission"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Category" alias="category"/>
     </typeAliases>
 

@@ -7,16 +7,24 @@
 
     <resultMap id="roleMap" type="role">
         <id property="id" column="id"></id>
-        <result property="userId" column="userid"></result>
-        <result property="role" column="role"></result>
+        <result property="roleName" column="rolename"></result>
+        <result property="roleCode" column="rolecode"></result>
     </resultMap>
 
-    <select id="getRoleByUserId" resultType="role" resultMap="roleMap" parameterType="string">
-        select * from role where userid = #{userId}
+    <select id="getRoleById" resultType="role" resultMap="roleMap" parameterType="string">
+        select * from role where id = #{id}
     </select>
 
-    <insert id="insertUserRole" parameterType="role" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into role(id,userid,role) values(#{id},#{userId},#{role})
+    <select id="getRoleByCode" resultType="role" resultMap="roleMap" parameterType="string">
+        select * from role where rolecode = #{roleCode}
+    </select>
+
+    <select id="getAllRole" resultType="role" resultMap="roleMap">
+        select * from role;
+    </select>
+
+    <insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into role(id,rolename,rolecode) values(#{id},#{rolename},#{rolecode})
     </insert>
 
 </mapper>

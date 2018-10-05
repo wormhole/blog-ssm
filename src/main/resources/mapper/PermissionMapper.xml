@@ -7,12 +7,24 @@
 
     <resultMap id="permissionMap" type="permission">
         <id property="id" column="id"></id>
-        <result property="role" column="role"></result>
-        <result property="permission" column="permission"></result>
+        <result property="permissionName" column="permissionname"></result>
+        <result property="permissionCode" column="permissioncode"></result>
     </resultMap>
 
-    <select id="getPermissionByRole" resultType="permission" resultMap="permissionMap" parameterType="string">
-        select * from permission where role = #{role}
+    <select id="getPermissionById" resultType="permission" resultMap="permissionMap" parameterType="string">
+        select * from permission where id = #{id}
     </select>
+
+    <select id="getPermissionByCode" resultType="permission" resultMap="permissionMap" parameterType="string">
+        select * from permission where permissioncode = #{permissionCode}
+    </select>
+
+    <select id="getAllPermission" resultType="permission" resultMap="permissionMap">
+        select * from permission;
+    </select>
+
+    <insert id="insertPermission" parameterType="permission" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into permission(id,permissionname,permissioncode) values(#{id},#{permissionName},#{permissionCode})
+    </insert>
 
 </mapper>

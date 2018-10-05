@@ -7,6 +7,12 @@ import java.util.List;
 
 @Repository
 public interface RoleDao {
-    List<Role> getRoleByUserId(String userId);
-    int insertUserRole(Role role);
+
+    int insertRole(Role role);
+
+    Role getRoleById(String id);
+
+    Role getRoleByCode(String roleCode);
+
+    List<Role> getAllRole();
 }

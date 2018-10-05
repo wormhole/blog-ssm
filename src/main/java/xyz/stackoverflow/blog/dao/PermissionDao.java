@@ -7,5 +7,12 @@ import java.util.List;
 
 @Repository
 public interface PermissionDao {
-    List<Permission> getPermissionByRole(String role);
+
+    int insertPermission(Permission permission);
+
+    Permission getPermissionById(String id);
+
+    Permission getPermissionByCode(String permissionCode);
+
+    List<Permission> getAllPermission();
 }

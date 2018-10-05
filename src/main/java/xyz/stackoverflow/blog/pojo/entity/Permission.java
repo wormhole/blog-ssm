@@ -1,9 +1,12 @@
 package xyz.stackoverflow.blog.pojo.entity;
 
-public class Permission {
+import java.io.Serializable;
+
+public class Permission implements Serializable {
+
     private String id;
-    private String role;
-    private String permission;
+    private String permissionName;
+    private String permissionCode;
 
     public String getId() {
         return id;
@@ -13,19 +16,19 @@ public class Permission {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getPermissionCode() {
+        return permissionCode;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 }

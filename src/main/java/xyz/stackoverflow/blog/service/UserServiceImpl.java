@@ -5,23 +5,34 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.dao.UserDao;
-import xyz.stackoverflow.blog.pojo.entity.User;
+import xyz.stackoverflow.blog.dao.*;
+import xyz.stackoverflow.blog.pojo.entity.*;
 import xyz.stackoverflow.blog.util.IdGenerator;
 import xyz.stackoverflow.blog.util.PasswordUtil;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao dao;
+    private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
+    @Autowired
+    private PermissionDao permissionDao;
+    @Autowired
+    private UserRoleDao userRoleDao;
+    @Autowired
+    private RolePermissionDao rolePermissionDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @Cacheable(value = "defaultCache", key = "'user:'+#email", unless = "#result == null")
     public User getUserByEmail(String email) {
-        return dao.getUserByEmail(email);
+        return userDao.getUserByEmail(email);
     }
 
     @Override
@@ -34,16 +45,16 @@ public class UserServiceImpl implements UserService {
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        dao.insertUser(user);
-        return dao.getUserByEmail(user.getEmail());
+        userDao.insertUser(user);
+        return userDao.getUserByEmail(user.getEmail());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User updateHeadUrl(User user) {
-        dao.updateHeadUrl(user);
-        return dao.getUserByEmail(user.getEmail());
+        userDao.updateHeadUrl(user);
+        return userDao.getUserByEmail(user.getEmail());
     }
 
     @Override
@@ -52,8 +63,8 @@ public class UserServiceImpl implements UserService {
     public User updatePassword(User user) {
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        dao.updatePassword(user);
-        return dao.getUserByEmail(user.getEmail());
+        userDao.updatePassword(user);
+        return userDao.getUserByEmail(user.getEmail());
     }
 
     @Override
@@ -62,17 +73,63 @@ public class UserServiceImpl implements UserService {
     public User updateBaseInfo(User user) {
         user.setNickname(user.getNickname());
         user.setSignature(user.getSignature());
-        dao.updateBaseInfo(user);
-        return dao.getUserByEmail(user.getEmail());
+        userDao.updateBaseInfo(user);
+        return userDao.getUserByEmail(user.getEmail());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean isExist(String email) {
-        if (dao.isExist(email) != 0) {
+        if (userDao.isExist(email) != 0) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public UserRole grantRole(String roleCode, String userId) {
+        Role role = roleDao.getRoleByCode(roleCode);
+        UserRole userRole = new UserRole();
+        userRole.setId(IdGenerator.getId());
+        userRole.setRoleId(role.getId());
+        userRole.setUserId(userId);
+        userRoleDao.insertUserRole(userRole);
+        return userRole;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Set<String> getRoleCodeByUserId(String userId) {
+        List<UserRole> userRoleList = userRoleDao.getUserRoleByUserId(userId);
+        Set<String> retSet = null;
+        if ((null != userRoleList) && (userRoleList.size() != 0)) {
+            retSet = new HashSet();
+            for (UserRole userRole : userRoleList) {
+                Role role = roleDao.getRoleById(userRole.getRoleId());
+                retSet.add(role.getRoleCode());
+            }
+        }
+        return retSet;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Set<String> getPermissionCodeByUserId(String userId) {
+        Set<String> roleCodeSet = getRoleCodeByUserId(userId);
+        Set<String> retSet = null;
+        for (String roleCode : roleCodeSet) {
+            Role role = roleDao.getRoleByCode(roleCode);
+            List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
+            if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
+                retSet = new HashSet();
+                for(RolePermission rolePermission : rolePermissionList){
+                    Permission permission = permissionDao.getPermissionById(rolePermission.getPermissionId());
+                    retSet.add(permission.getPermissionCode());
+                }
+            }
+        }
+        return retSet;
     }
 }

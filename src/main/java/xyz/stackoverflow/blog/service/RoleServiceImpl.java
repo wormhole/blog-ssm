@@ -7,9 +7,7 @@ import xyz.stackoverflow.blog.dao.RoleDao;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.util.IdGenerator;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -19,23 +17,27 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<String> getRoleByUserId(String userId) {
-        List<Role> roleList = dao.getRoleByUserId(userId);
-        Set<String> retSet = null;
-        if ((null != roleList) && (roleList.size() != 0)) {
-            retSet = new HashSet();
-            for (Role role : roleList) {
-                retSet.add(role.getRole());
-            }
-        }
-        return retSet;
+    public Role getRoleById(String id) {
+        return dao.getRoleById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Role insertUserRole(Role role) {
+    public Role getRoleByCode(String roleCode) {
+        return dao.getRoleByCode(roleCode);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Role> getAllRole() {
+        return dao.getAllRole();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Role insertRole(Role role) {
         role.setId(IdGenerator.getId());
-        dao.insertUserRole(role);
-        return role;
+        dao.insertRole(role);
+        return dao.getRoleById(role.getId());
     }
 }

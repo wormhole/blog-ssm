@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.UserRoleDao">
+
+    <resultMap id="userRoleMap" type="userRole">
+        <id property="id" column="id"></id>
+        <result property="userId" column="userid"></result>
+        <result property="roleId" column="roleid"></result>
+    </resultMap>
+
+    <select id="getUserRoleByUserId" resultType="userRole" resultMap="userRoleMap" parameterType="string">
+        select * from user_role where userid = #{userId}
+    </select>
+
+    <insert id="insertUserRole" parameterType="userRole" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user_role(id,userid,roleid) values(#{id},#{userId},#{roleId})
+    </insert>
+
+</mapper>

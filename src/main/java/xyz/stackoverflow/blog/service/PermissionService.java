@@ -1,8 +1,16 @@
 package xyz.stackoverflow.blog.service;
 
-import java.util.Set;
+import xyz.stackoverflow.blog.pojo.entity.Permission;
+
+import java.util.List;
 
 public interface PermissionService {
-    Set<String> getPermissionByRole(String role);
-    Set<String> getAllPermission(String[] roles);
+
+    Permission getPermissionById(String id);
+
+    Permission getPermissionByCode(String permissionCode);
+
+    List<Permission> getAllPermission();
+
+    Permission insertPermission(Permission permission);
 }
