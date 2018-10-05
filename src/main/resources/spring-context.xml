@@ -28,6 +28,7 @@
 
     <bean id="registerInfoValidator" class="xyz.stackoverflow.blog.validator.RegisterInfoValidator"/>
     <bean id="personalInfoValidator" class="xyz.stackoverflow.blog.validator.PersonalInfoValidator"/>
+    <bean id="categoryValidator" class="xyz.stackoverflow.blog.validator.CategoryValidator"/>
 
     <import resource="spring-redis.xml"/>
     <import resource="spring-mybatis.xml"/>

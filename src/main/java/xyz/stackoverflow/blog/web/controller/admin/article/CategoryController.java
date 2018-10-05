@@ -10,6 +10,9 @@ import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.ResponseJson;
+import xyz.stackoverflow.blog.validator.CategoryValidator;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/article")
@@ -20,11 +23,22 @@ public class CategoryController {
 
     @Autowired
     private CategoryService service;
+    @Autowired
+    private CategoryValidator categoryValidator;
 
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
     public ResponseJson insert(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
+
+        Map map = categoryValidator.validate(categoryVO);
+        if (map.size() != 0) {
+            response.setStatus(FAILURE);
+            response.setMessage("字段格式有误");
+            response.setData(map);
+            return response;
+        }
+
         Category category = categoryVO.toCategory();
         if (service.isExistName(categoryVO.getCategoryName())) {
             response.setStatus(FAILURE);
@@ -73,6 +87,15 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson update(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
+
+        Map map = categoryValidator.validate(categoryVO);
+        if (map.size() != 0) {
+            response.setStatus(FAILURE);
+            response.setMessage("字段格式有误");
+            response.setData(map);
+            return response;
+        }
+
         Category oldCategory = service.getCategoryById(categoryVO.getId());
         if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && service.isExistName(categoryVO.getCategoryName())) {
             response.setStatus(FAILURE);
