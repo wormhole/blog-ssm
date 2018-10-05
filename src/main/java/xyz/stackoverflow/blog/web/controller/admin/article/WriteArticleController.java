@@ -12,6 +12,7 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.util.FileUtil;
+import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,17 +30,25 @@ public class WriteArticleController {
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private CategoryService categoryService;
+    private ArticleValidator articleValidator;
 
-    @RequestMapping(value="/insert",method=RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson save(@RequestBody ArticleVO articleVO, HttpSession session){
+    public ResponseJson save(@RequestBody ArticleVO articleVO, HttpSession session) {
         ResponseJson response = new ResponseJson();
 
-        if(articleService.isExistCode(articleVO.getArticleCode())){
+        Map map = articleValidator.validate(articleVO);
+        if (map.size() != 0) {
+            response.setStatus(FAILURE);
+            response.setMessage("字段错误");
+            response.setData(map);
+            return response;
+        }
+
+        if (articleService.isExistCode(articleVO.getArticleCode())) {
             response.setStatus(FAILURE);
             response.setMessage("code重复");
-        }else {
+        } else {
             User user = (User) session.getAttribute("user");
             Article article = articleVO.toArticle();
             article.setUserId(user.getId());
@@ -50,32 +59,32 @@ public class WriteArticleController {
         return response;
     }
 
-    @RequestMapping(value="/image",method=RequestMethod.POST)
+    @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
-    public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session){
+    public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session) {
         JSONObject result = new JSONObject();
         User user = (User) session.getAttribute("user");
         String webRootDir = request.getRealPath("");
         String homeDir = webRootDir + "/WEB-INF/uploads/" + user.getId();
         String dateDir = FileUtil.getDatePath();
-        String uploadDir = homeDir+dateDir;
+        String uploadDir = homeDir + dateDir;
         File uploadDirFile = new File(uploadDir);
-        if(!uploadDirFile.exists()) {
+        if (!uploadDirFile.exists()) {
             uploadDirFile.mkdirs();
         }
         String fileName = multipartFile.getOriginalFilename();
-        File destFile = new File(uploadDirFile,fileName);
+        File destFile = new File(uploadDirFile, fileName);
         try {
             multipartFile.transferTo(destFile);
         } catch (IOException e) {
-            result.put("success",0);
-            result.put("message","上传失败");
+            result.put("success", 0);
+            result.put("message", "上传失败");
             return result.toMap();
         }
-        String url = "/uploads/"+user.getId()+dateDir+fileName;
-        result.put("success",1);
-        result.put("message","上传成功");
-        result.put("url",url);
+        String url = "/uploads/" + user.getId() + dateDir + fileName;
+        result.put("success", 1);
+        result.put("message", "上传成功");
+        result.put("url", url);
         return result.toMap();
     }
 }

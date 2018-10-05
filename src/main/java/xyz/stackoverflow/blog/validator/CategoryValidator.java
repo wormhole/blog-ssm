@@ -10,7 +10,7 @@ public class CategoryValidator extends AbstractBaseValidator<CategoryVO> {
     public Map validate(CategoryVO categoryVO) {
         Map map = new HashMap<String, String>();
         if ((categoryVO.getCategoryName() != null) && (!validateCharAndChinese(categoryVO.getCategoryName()))) {
-            map.put("name", "分类名只能含有特殊字符");
+            map.put("name", "分类名含有特殊字符");
         } else if ((categoryVO.getCategoryCode() != null) && (!validateCode(categoryVO.getCategoryCode()))) {
             map.put("code", "编码中只能含有数字,字母,下划线");
         }
