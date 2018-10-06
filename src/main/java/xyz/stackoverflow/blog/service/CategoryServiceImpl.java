@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CategoryDao;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -55,6 +56,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int getTotalSize() {
+        return dao.getTotalSize();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Category getCategoryByCode(String categoryCode) {
         return dao.getCategoryByCode(categoryCode);
     }
@@ -69,6 +76,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public List<Category> getAllCategory() {
         return dao.getAllCategory();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Category> getLimitCategory(PageParameter pageParameter) {
+        return dao.getLimitCategory(pageParameter);
     }
 
     @Override

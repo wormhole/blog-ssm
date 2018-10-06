@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Category;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -14,11 +15,15 @@ public interface CategoryService {
 
     boolean isExist(String id);
 
+    int getTotalSize();
+
     Category getCategoryByCode(String categoryCode);
 
     Category getCategoryById(String id);
 
     List<Category> getAllCategory();
+
+    List<Category> getLimitCategory(PageParameter pageParameter);
 
     Category deleteCategoryById(String id);
 

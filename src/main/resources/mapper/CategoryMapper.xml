@@ -27,11 +27,19 @@
         select * from category
     </select>
 
-    <select id="isExistCode" parameterType="string">
+    <select id="getLimitCategory" resultMap="categoryMap">
+        select * from category limit #{start},#{limit}
+    </select>
+
+    <select id="getTotalSize" resultType="int">
+        select count(*) from category
+    </select>
+
+    <select id="isExistCode" parameterType="string" resultType="int">
         select count(*) from category where categorycode = #{categoryCode}
     </select>
 
-    <select id="isExistName" parameterType="string">
+    <select id="isExistName" parameterType="string" resultType="int">
         select count(*) from category where categoryname = #{categoryName}
     </select>
 

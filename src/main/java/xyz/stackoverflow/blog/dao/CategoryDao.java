@@ -2,6 +2,7 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Category;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,11 @@ public interface CategoryDao {
 
     int isExist(String id);
 
+    int getTotalSize();
+
     List<Category> getAllCategory();
+
+    List<Category> getLimitCategory(PageParameter pageParameter);
 
     int deleteCategoryById(String id);
 
