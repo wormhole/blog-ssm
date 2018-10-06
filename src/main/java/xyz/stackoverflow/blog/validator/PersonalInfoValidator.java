@@ -18,7 +18,7 @@ public class PersonalInfoValidator extends AbstractBaseValidator<PersonalInfoVO>
         } else if ((personalInfoVO.getSignature() != null) && (!validateSignature(personalInfoVO.getSignature()))) {
             map.put("signature", "签名包含特殊字符或签名长度不在0-50之间");
         } else if ((personalInfoVO.getNewPassword() != null) && (!validatePassword(personalInfoVO.getNewPassword()))) {
-            map.put("password", "密码包含特殊字符或密码长度不在0-20之间");
+            map.put("password", "密码包含特殊字符或密码长度不在6-20之间");
         }
 
         return map;

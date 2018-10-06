@@ -25,7 +25,7 @@ public abstract class AbstractBaseValidator<T> implements Validator<T> {
 
     protected boolean validatePassword(String password) {
         Matcher m = passwordPattern.matcher(password);
-        if (0 < password.length() && password.length() <= 20) {
+        if (6 <= password.length() && password.length() <= 20) {
             if (m.find()) {
                 return true;
             } else {

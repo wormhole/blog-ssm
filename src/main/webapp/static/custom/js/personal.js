@@ -1,166 +1,160 @@
-function getObjectURL(file) {
-    var url = null;
-    if (window.createObjectURL != undefined) {
-        url = window.createObjectURL(file);
-    } else if (window.URL != undefined) {
-        url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) {
-        url = window.webkitURL.createObjectURL(file);
+layui.use(['layer', 'jquery'], function () {
+
+    var layer = layui.layer;
+    var $ = layui.$;
+
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
     }
-    return url;
-}
 
-$('#head').click(function () {
-    $('input[type="file"]').click();
-});
+    $('#head').click(function () {
+        $('input[type="file"]').click();
+    });
 
-$('input[type="file"]').change(function () {
-    var file = this.files[0];
-    $('#head').attr('src', getObjectURL(file));
-});
+    $('input[type="file"]').change(function () {
+        var file = this.files[0];
+        $('#head').attr('src', getObjectURL(file));
+    });
 
-$('#saveBaseBtn').click(function () {
+    $('#savebase-btn').click(function () {
 
-    $('#emailError').addClass('hidden');
-    $('#nicknameError').addClass('hidden');
-    $('#signatureError').addClass('hidden');
+        $('#email-error').addClass('hidden');
+        $('#nickname-error').addClass('hidden');
+        $('#signature-error').addClass('hidden');
 
-    var email = $('#email').val();
-    var nickname = $('#nickname').val();
-    var signature = $('#signature').val();
+        var email = $('#email').val();
+        var nickname = $('#nickname').val();
+        var signature = $('#signature').val();
 
-    var data = {};
-    data['email'] = email;
-    data['nickname'] = nickname;
-    data['signature'] = signature;
+        var data = {};
+        data['email'] = email;
+        data['nickname'] = nickname;
+        data['signature'] = signature;
 
-    $.ajax({
-        url: "/admin/user/update/baseinfo",
-        type: "post",
-        data: JSON.stringify(data),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
+        $.ajax({
+            url: "/admin/user/update/baseinfo",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
                     layer.open({
                         type: 0,
-                        content: '修改成功',
+                        content: data.message
                     });
-                });
-            } else {
-                if (data.data['email'] != undefined) {
-                    $('#emailError').html(data.data['email']);
-                    $('#emailError').removeClass('hidden');
-                } else if (data.data['nickname'] != undefined) {
-                    $('#nicknameError').html(data.data['nickname']);
-                    $('#nicknameError').removeClass('hidden');
-                } else if (data.data['signature'] != undefined) {
-                    $('#signatureError').html(data.data['signature']);
-                    $('#signatureError').removeClass('hidden');
+                } else if (data.status == 1) {
+                    if (data.data['email'] != undefined) {
+                        $('#email-error').html(data.data['email']);
+                        $('#email-error').removeClass('hidden');
+                    } else if (data.data['nickname'] != undefined) {
+                        $('#nickname-error').html(data.data['nickname']);
+                        $('#nickname-error').removeClass('hidden');
+                    } else if (data.data['signature'] != undefined) {
+                        $('#signature-error').html(data.data['signature']);
+                        $('#signature-error').removeClass('hidden');
+                    }
                 }
-            }
+            },
+            error:
+                function (data) {
+                    layer.open({
+                        type: 0,
+                        content: "请求失败",
+                    });
+                }
+        });
+    });
 
-        },
-        error: function (data) {
-            layui.use('layer', function () {
-                var layer = layui.layer;
+    $('#savepwd-btn').click(function () {
+        $('#checked-password-error').addClass('hidden');
+        $('#old-password-error').addClass('hidden');
+        $('#new-password-error').addClass('hidden');
+
+        var oldPassword = $('#old-password').val();
+        var newPassword = $('#new-password').val();
+        var checkedPassword = $('#checked-password').val();
+
+        if (newPassword != checkedPassword) {
+            $('#checked-password').val('');
+            $('#checked-password-error').html("两次密码不匹配");
+            $('#checked-password-error').removeClass('hidden');
+            return;
+        }
+
+        var data = {};
+        data['oldPassword'] = oldPassword;
+        data['newPassword'] = newPassword;
+
+        $.ajax({
+            url: "/admin/user/update/password",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else if (data.status == 1) {
+                    if (data.data['oldPassword'] != undefined) {
+                        $('#old-password-error').html(data.data['oldPassword']);
+                        $('#old-password-error').removeClass('hidden');
+                    } else if (data.data['password'] != undefined) {
+                        $('#new-password-error').html(data.data['password']);
+                        $('#new-password-error').removeClass('hidden');
+                    }
+                }
+            },
+            error: function (data) {
                 layer.open({
                     type: 0,
                     content: "请求失败",
                 });
-            });
-        }
+            }
+        });
     });
-});
 
-$('#savePwdBtn').click(function () {
-    $('#checkedPasswordError').addClass('hidden');
-    $('#oldPasswordError').addClass('hidden');
-    $('#newPasswordError').addClass('hidden');
-
-    var oldPassword = $('#oldPassword').val();
-    var newPassword = $('#newPassword').val();
-    var checkedPassword = $('#checkedPassword').val();
-
-    if (newPassword != checkedPassword) {
-        $('#checkedPassword').val('');
-        $('#checkedPasswordError').html("两次密码不匹配");
-        $('#checkedPasswordError').removeClass('hidden');
-        return;
-    }
-
-    var data = {};
-    data['oldPassword'] = oldPassword;
-    data['newPassword'] = newPassword;
-
-    $.ajax({
-        url: "/admin/user/update/password",
-        type: "post",
-        data: JSON.stringify(data),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
+    $('#savehead-btn').click(function () {
+        var formData = new FormData();
+        formData.append('headImg', $('#head-img').get(0).files[0]);
+        $.ajax({
+            url: "/admin/user/update/head",
+            type: 'POST',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 0) {
                     layer.open({
                         type: 0,
-                        content: "密码修改成功",
+                        content: data.message
                     });
-                });
-            } else {
-                if (data.data['oldPassword'] != undefined) {
-                    $('#oldPasswordError').html(data.data['oldPassword']);
-                    $('#oldPasswordError').removeClass('hidden');
-                } else if (data.data['password'] != undefined) {
-                    $('#newPasswordError').html(data.data['password']);
-                    $('#newPasswordError').removeClass('hidden');
+                } else if (data.status == 1) {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
                 }
-            }
-        },
-        error: function (data) {
-            layui.use('layer', function () {
-                var layer = layui.layer;
+            },
+            error: function (data) {
                 layer.open({
                     type: 0,
                     content: "请求失败",
                 });
-            });
-        }
-    });
-});
-
-$('#saveHeadBtn').click(function () {
-    var formData = new FormData();
-    formData.append('headImg', $('#headImg').get(0).files[0]);
-    $.ajax({
-        url: "/admin/user/update/head",
-        type: 'POST',
-        data: formData,
-        cache: false,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        success: function (data) {
-            if (data.status == 0) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        type: 0,
-                        content: "头像上传成功",
-                    });
-                });
-            } else if (data.status == 7) {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        type: 0,
-                        content: "头像上传失败",
-                    });
-                });
             }
-        }
+        });
     });
 });
