@@ -43,7 +43,7 @@
         select count(*) from category where categoryname = #{categoryName}
     </select>
 
-    <select id="isExist" parameterType="string">
+    <select id="isExist" parameterType="string" resultType="int">
         select count(*) from category where id = #{id}
     </select>
 

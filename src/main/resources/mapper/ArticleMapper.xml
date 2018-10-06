@@ -28,7 +28,7 @@
         select * from article where articlecode = #{articleCode}
     </select>
 
-    <select id="isExistCode" resultMap="articleMap" parameterType="string">
+    <select id="isExistCode" resultType="int" parameterType="string">
         select count(*) from article where articlecode = #{articleCode}
     </select>
 
