@@ -12,7 +12,7 @@
     </resultMap>
 
     <insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into category(id,categoryname,categoryname) values(#{id},#{category},#{categoryCode})
+        insert into category(id,categorycode,categoryname) values(#{id},#{categoryCode},#{categoryName})
     </insert>
 
     <select id="getCategoryById" resultMap="categoryMap">

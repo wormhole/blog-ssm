@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import xyz.stackoverflow.blog.util.ResponseJson;
 
-@ControllerAdvice
 public class ExceptionController {
 
     private final Integer exceptionStatus = -1;

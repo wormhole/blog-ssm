@@ -29,5 +29,5 @@ public interface CategoryDao {
 
     int deleteCategoryById(String id);
 
-    Category updateCategory(Category category);
+    int updateCategory(Category category);
 }

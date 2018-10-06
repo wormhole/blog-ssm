@@ -12,37 +12,31 @@
 <div class="layui-card" id="baseConf">
     <div class="layui-card-header">分类</div>
     <div class="layui-card-body">
-        <table class="layui-hide" id="category-table"></table>
+        <table class="layui-hide" id="category-table" lay-filter="category-table-1"></table>
     </div>
 </div>
-</body>
-<script>
-    layui.use(['table', 'jquery', 'layer'], function () {
-        var table = layui.table;
-        var $ = layui.$;
-        var layer = layui.layer;
-
-        table.render({
-            elem: '#category-table',
-            url: '/admin/article/category/list',
-            method: 'get',
-            width: 650,
-            cellMinWidth: 100,
-            page: true,
-            parseData: function (response) {
-                return {
-                    code: response.status,
-                    message: response.message,
-                    count: response.data.count,
-                    data: response.data.items
-                }
-            },
-            cols: [[
-                {field: 'id', width: 350, title: 'ID'},
-                {field: 'categoryName', width: 150, title: '分类名', sort: true, edit: 'text'},
-                {field: 'categoryCode', width: 150, title: '编码', sort: true, edit: 'text'}
-            ]]
-        });
-    });
+<script type="text/html" id="toolbar-head">
+    <div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"/></div>
 </script>
+<script type="text/html" id="toolbar-col">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"/>删除</a>
+</script>
+<script type="text/html" id="add-edit">
+    <div style="margin:20px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类名称</label>
+            <div class="layui-input-inline">
+                <input name="categoryName" class="layui-input" type="text" required id="categoryName" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类编码</label>
+            <div class="layui-input-inline">
+                <input name="categoryCode" class="layui-input" type="text" required id="categoryCode" value="">
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="/static/custom/js/category.js"></script>
+</body>
 </html>
