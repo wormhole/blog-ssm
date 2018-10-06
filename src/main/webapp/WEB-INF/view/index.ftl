@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>栈溢出</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/custom/css/index.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
@@ -12,7 +12,7 @@
     <script src="/static/editor.md/lib/marked.min.js"></script>
     <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
-
+    <title>栈溢出</title>
 </head>
 <body>
 <div id="layout">

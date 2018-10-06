@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>栈溢出</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/custom/css/write.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
@@ -10,6 +10,7 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/layui/layui.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
+    <title>栈溢出</title>
 </head>
 <body>
 <div class="row">
