@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/custom/css/personal.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
-    <title>凉衫薄</title>
+    <title>栈溢出</title>
 </head>
 <body>
 <div class="layui-card" id="baseConf">

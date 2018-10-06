@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>凉衫薄</title>
+    <title>栈溢出</title>
     <link rel="stylesheet" href="/static/custom/css/index.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>

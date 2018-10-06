@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>写博客</title>
+    <title>栈溢出</title>
     <link rel="stylesheet" href="/static/custom/css/write.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
