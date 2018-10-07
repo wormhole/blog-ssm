@@ -1,7 +1,15 @@
-body{
+body {
     overflow-x: hidden;
 }
 
-.row{
-    margin:20px;
+.layui-row {
+    margin: 20px 0;
+}
+
+.layui-row > div {
+    padding: 0 5px;
+}
+
+.layui-row button {
+    width: 100%;
 }

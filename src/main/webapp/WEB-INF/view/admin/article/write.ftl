@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/custom/css/write.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/custom/css/write.css"/>
     <script src="/static/jquery/jquery.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/layui/layui.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
     <title>栈溢出</title>
 </head>
 <body>
-<div class="row">
-    <div class="offset-3 col-5">
-        <input type="text" class="form-control" id="title" placeholder="请输入标题">
+<div class="layui-row">
+    <div class="layui-col-md-offset3 layui-col-md3">
+        <input type="text" name="title" id="title" required placeholder="请输入标题" class="layui-input">
     </div>
-    <div class="col-2">
-        <button type="button" class="btn btn-success" id="saveBlog">发布博客</button>
+    <div class="layui-col-md1">
+        <input type="text" name="article-code" id="article-code" required placeholder="请输入文章编码" class="layui-input">
+    </div>
+    <div class="layui-col-md1">
+        <div class="layui-form">
+            <select id="category-select">
+            </select>
+        </div>
+    </div>
+    <div class="layui-col-md1">
+        <button class="layui-btn layui-btn layui-btn-normal" id="save-btn">发布</button>
     </div>
 </div>
 <div id="layout">
