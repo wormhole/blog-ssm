@@ -1,4 +1,8 @@
 # BlOG
+[![downloads](https://img.shields.io/github/downloads/wormhole1996/blog/total.svg)](https://github.com/wormhole1996/blog/releases)
+[![repo size](https://img.shields.io/github/repo-size/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/archive/master.zip)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
+
 ## 介绍
 之前一直用的是[Wordpress](https://wordpress.org/)博客系统, 但感觉自由度不够高, 于是便想自己开发一个Java版本的博客系统.
 这是一个基于互联网轻量级架构的博客系统, 所用到的都是当下比较流行的轻量级架构, 之后将会推出一个Spring Boot版本的, 敬请期待.
