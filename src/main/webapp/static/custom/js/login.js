@@ -1,7 +1,9 @@
-layui.use('form', function () {
+layui.use('form','jquery', function () {
     var form = layui.form;
+    var $ = layui.$;
+
+    $('#verify-img').click(function () {
+        $(this).attr('src', $(this).attr('src') + '?' + Math.random());
+    });
 });
 
-$('#verifyImg').click(function () {
-    $(this).attr('src', $(this).attr('src') + '?' + Math.random());
-});
