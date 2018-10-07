@@ -38,7 +38,7 @@ public class ArticleController {
     public ResponseJson getArticleByCode(@PathVariable("articlecode") String articleCode) {
         ResponseJson response = new ResponseJson();
         Article article = articleService.getArticleByCode(articleCode);
-        if (article != null) {
+        if (article == null) {
             response.setStatus(FAILURE);
             response.setMessage("访问文章不存在");
         } else {
