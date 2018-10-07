@@ -44,6 +44,10 @@ body {
     height: 35px;
 }
 
+.login-wrap #login-btn {
+    width: 100%;
+}
+
 a {
     text-decoration: underline;
 }

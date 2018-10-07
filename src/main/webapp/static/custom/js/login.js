@@ -1,5 +1,4 @@
-layui.use('form','jquery', function () {
-    var form = layui.form;
+layui.use(['jquery'], function () {
     var $ = layui.$;
 
     $('#verify-img').click(function () {

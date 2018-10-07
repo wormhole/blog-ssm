@@ -34,7 +34,7 @@
                 <input name="rememberMe" lay-skin="primary" title="记住我" type="checkbox" value="true">
             </div>
             <div class="layui-form-item">
-                <input type="submit" class="layui-btn layui-btn-normal btn-block" id="login-btn" value="登陆">
+                <input type="submit" class="layui-btn layui-btn-normal" id="login-btn" value="登陆">
             </div>
         </form>
         <a href="/admin/register">注册用户</a>
