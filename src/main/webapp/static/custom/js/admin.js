@@ -1,5 +1,6 @@
-layui.use(['element'], function(){
+layui.use(['element','jquery'], function(){
     var element = layui.element;
+    var $ = layui.$;
 
     $(".layui-nav a").click(function(){
         var id = $(this).attr('data-id');
