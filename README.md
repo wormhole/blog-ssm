@@ -21,22 +21,22 @@
 
 ## 扩展接口
 >该博客系统的后台管理系统虽然采用freemarker模板引擎,但博客主页,单页,分类页均采用前后端分离架构,方便用户自定义主题和扩展
-### 获取验证码
+1. 获取验证码
 * URL- http://host:port/api/vcode
 * method - GET
-### 获取所有文章
+2. 获取所有文章
 * URL - http://host:port/api/article
 * method - GET
-### 通过编码获取单篇文章
+3. 通过编码获取单篇文章
 * URL - http://host:port/api/article/{articleCode}
 * method - GET
-### 获取所有文章分类信息
+4. 获取所有文章分类信息
 * URL - http://host:port/api/article/category
 * method - GET
-### 通过分类编码获取该分类下的所有文章
+5. 通过分类编码获取该分类下的所有文章
 * URL - http://host:port/api/article/category/{categoryCode}
 * method - GET
-### 未完待补充
+6. 未完待补充
 
 ## 环境搭建
 ### Linux
