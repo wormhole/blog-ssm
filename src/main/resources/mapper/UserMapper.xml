@@ -13,6 +13,7 @@
         <result property="salt" column="salt"></result>
         <result property="headurl" column="headurl"></result>
         <result property="signature" column="signature"></result>
+        <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
     <select id="getUserById" resultMap="userMap" resultType="user" parameterType="string">
