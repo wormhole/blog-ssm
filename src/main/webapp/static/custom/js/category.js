@@ -45,7 +45,6 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     if (!(categoryCode.length && categoryName.length)) {
                         layer.open({
                             type: 0,
-                            title: "错误",
                             content: "不能为空"
                         });
                     } else {
@@ -63,12 +62,10 @@ layui.use(['table', 'jquery', 'layer'], function () {
     table.on('tool(category-table-1)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
-        var tr = obj.tr;
 
         if (layEvent === 'del') {
             layer.confirm('确认删除该分类吗', function (index) {
-                deleteCategory(data);
-                obj.del();
+                deleteCategory(data,obj);
                 layer.close(index);
             });
         }
@@ -115,7 +112,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function deleteCategory(data) {
+    function deleteCategory(data,obj) {
         $.ajax({
             url: "/admin/article/category/delete",
             type: "post",
@@ -124,6 +121,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.status == 0) {
+                    obj.del();
                     layer.open({
                         type: 0,
                         content: data.message

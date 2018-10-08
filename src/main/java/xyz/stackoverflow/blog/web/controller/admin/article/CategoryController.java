@@ -53,6 +53,7 @@ public class CategoryController {
                 map1.put("code", "分类编码重复");
                 response.setData(map1);
             } else {
+                category.setDeleteAble(1);
                 categoryService.insertCategory(category);
                 response.setStatus(SUCCESS);
                 response.setMessage("添加成功");
