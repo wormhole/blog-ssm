@@ -3,6 +3,7 @@ package xyz.stackoverflow.blog.service;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleService {
     Article insertArticle(Article blog);
@@ -16,6 +17,8 @@ public interface ArticleService {
     List<Article> getAllArticle();
 
     Article updateArticle(Article article);
+
+    int updateArticleCategory(Map map);
 
     Article deleteArticleById(String id);
 }

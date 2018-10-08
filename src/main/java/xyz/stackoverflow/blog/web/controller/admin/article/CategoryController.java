@@ -1,11 +1,11 @@
 package xyz.stackoverflow.blog.web.controller.admin.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
+import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.util.ResponseJson;
@@ -23,9 +23,11 @@ public class CategoryController {
     private final Integer FAILURE = 1;
 
     @Autowired
-    private CategoryService service;
+    private CategoryService categoryService;
     @Autowired
     private CategoryValidator categoryValidator;
+    @Autowired
+    private ArticleService articleService;
 
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
@@ -40,21 +42,21 @@ public class CategoryController {
         } else {
             Map map1 = new HashMap<String, String>();
             Category category = categoryVO.toCategory();
-            if (service.isExistName(categoryVO.getCategoryName())) {
+            if (categoryService.isExistName(categoryVO.getCategoryName())) {
                 response.setStatus(FAILURE);
                 response.setMessage("分类名已经存在");
                 map1.put("name", "分类名重复");
                 response.setData(map1);
-            } else if (service.isExistCode(categoryVO.getCategoryCode())) {
+            } else if (categoryService.isExistCode(categoryVO.getCategoryCode())) {
                 response.setStatus(FAILURE);
                 response.setMessage("分类编码已经存在");
                 map1.put("code", "分类编码重复");
                 response.setData(map1);
             } else {
-                service.insertCategory(category);
+                categoryService.insertCategory(category);
                 response.setStatus(SUCCESS);
                 response.setMessage("添加成功");
-                response.setData(service.getAllCategory());
+                response.setData(categoryService.getAllCategory());
             }
         }
         return response;
@@ -69,8 +71,8 @@ public class CategoryController {
             pageParameter.setPageNo(Integer.valueOf(page));
             pageParameter.setLimit(Integer.valueOf(limit));
             pageParameter.setStart((pageParameter.getPageNo() - 1) * pageParameter.getLimit());
-            List<Category> list = service.getLimitCategory(pageParameter);
-            int count = service.getTotalSize();
+            List<Category> list = categoryService.getLimitCategory(pageParameter);
+            int count = categoryService.getTotalSize();
 
             Map map = new HashMap<String, Object>();
             map.put("count", count);
@@ -79,8 +81,8 @@ public class CategoryController {
             response.setMessage("查询成功");
             response.setData(map);
         } else {
-            List<Category> list = service.getAllCategory();
-            int count = service.getTotalSize();
+            List<Category> list = categoryService.getAllCategory();
+            int count = categoryService.getTotalSize();
 
             Map map = new HashMap<String, Object>();
             map.put("count", count);
@@ -96,10 +98,15 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        service.deleteCategoryById(categoryVO.getId());
+        Category unCategory = categoryService.getCategoryByCode("uncategory");
+        Map map = new HashMap<String,String>();
+        map.put("oldCategoryId",categoryVO.getId());
+        map.put("newCategoryId",unCategory.getId());
+        articleService.updateArticleCategory(map);
+        categoryService.deleteCategoryById(categoryVO.getId());
         response.setStatus(SUCCESS);
         response.setMessage("删除成功");
-        response.setData(service.getAllCategory());
+        response.setData(categoryService.getAllCategory());
         return response;
     }
 
@@ -114,23 +121,23 @@ public class CategoryController {
             response.setMessage("字段格式有误");
             response.setData(map);
         } else {
-            Category oldCategory = service.getCategoryById(categoryVO.getId());
+            Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
             Map map1 = new HashMap<String, String>();
-            if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && service.isExistName(categoryVO.getCategoryName())) {
+            if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.isExistName(categoryVO.getCategoryName())) {
                 response.setStatus(FAILURE);
                 response.setMessage("新分类名已经存在");
                 map1.put("name", "分类名重复");
                 response.setData(map1);
-            } else if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && service.isExistCode(categoryVO.getCategoryCode())) {
+            } else if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.isExistCode(categoryVO.getCategoryCode())) {
                 response.setStatus(FAILURE);
                 response.setMessage("新分类编码已经存在");
                 map1.put("code", "分类编码重复");
                 response.setData(map1);
             } else {
-                service.updateCategory(categoryVO.toCategory());
+                categoryService.updateCategory(categoryVO.toCategory());
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
-                response.setData(service.getAllCategory());
+                response.setData(categoryService.getAllCategory());
             }
         }
         return response;

@@ -6,12 +6,12 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.IdGenerator;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -65,6 +65,12 @@ public class ArticleServiceImpl implements ArticleService {
     public Article updateArticle(Article blog) {
         dao.updateArticle(blog);
         return dao.getArticleById(blog.getId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateArticleCategory(Map map) {
+        return dao.updateArticleCategory(map);
     }
 
     @Override

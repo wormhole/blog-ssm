@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ArticleDao {
@@ -17,7 +18,9 @@ public interface ArticleDao {
 
     List<Article> getAllArticle();
 
-    Article updateArticle(Article article);
+    int updateArticle(Article article);
 
-    Article deleteArticleById(String id);
+    int updateArticleCategory(Map map);
+
+    int deleteArticleById(String id);
 }

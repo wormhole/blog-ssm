@@ -58,6 +58,10 @@
         where id = #{id}
     </update>
 
+    <update id="updateArticleCategory" parameterType="map">
+        update article set categoryid = #{newCategoryId} where categoryid = #{oldCategoryId}
+    </update>
+
     <delete id="deleteArticleById" parameterType="string">
         delete from article where id = #{id}
     </delete>
