@@ -72,7 +72,7 @@
     </update>
 
     <delete id="deleteUserById" parameterType="string">
-        delete user where id = #{userId} and deleteable = 1
+        delete from user where id = #{userId} and deleteable = 1
     </delete>
 
 </mapper>
