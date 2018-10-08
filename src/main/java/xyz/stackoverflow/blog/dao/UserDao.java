@@ -5,6 +5,9 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 
 @Repository
 public interface UserDao {
+
+    User getUserById(String userId);
+
     User getUserByEmail(String email);
 
     int insertUser(User user);
@@ -16,4 +19,6 @@ public interface UserDao {
     int updateBaseInfo(User user);
 
     int isExist(String email);
+
+    int deleteUserById(String userId);
 }

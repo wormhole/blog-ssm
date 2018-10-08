@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public User getUserById(String userId) {
+        return userDao.getUserById(userId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     @Cacheable(value = "defaultCache", key = "'user:'+#email", unless = "#result == null")
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
@@ -124,12 +130,23 @@ public class UserServiceImpl implements UserService {
             List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
             if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
                 retSet = new HashSet();
-                for(RolePermission rolePermission : rolePermissionList){
+                for (RolePermission rolePermission : rolePermissionList) {
                     Permission permission = permissionDao.getPermissionById(rolePermission.getPermissionId());
                     retSet.add(permission.getPermissionCode());
                 }
             }
         }
         return retSet;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User deleteUserById(String userId) {
+        User user = userDao.getUserById(userId);
+        if (userDao.deleteUserById(userId) == 1) {
+            return user;
+        } else {
+            return null;
+        }
     }
 }

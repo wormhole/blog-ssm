@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String salt;
     private String headurl;
     private String signature;
+    private Integer deleteAble;
 
     public String getId() {
         return id;
@@ -66,5 +67,13 @@ public class User implements Serializable {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public Integer getDeleteAble() {
+        return deleteAble;
+    }
+
+    public void setDeleteAble(Integer deleteAble) {
+        this.deleteAble = deleteAble;
     }
 }

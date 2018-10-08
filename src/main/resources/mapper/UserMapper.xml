@@ -15,6 +15,10 @@
         <result property="signature" column="signature"></result>
     </resultMap>
 
+    <select id="getUserById" resultMap="userMap" resultType="user" parameterType="string">
+        select * from user where id = #{userId}
+    </select>
+
     <select id="getUserByEmail" resultType="user" resultMap="userMap" parameterType="string">
         select * from user where email = #{email}
     </select>
@@ -24,7 +28,7 @@
     </select>
 
     <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into user(id,email,nickname,password,salt,headurl,signature) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl},#{signature})
+        insert into user(id,email,nickname,password,salt,headurl,signature,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl},#{signature},#{deleteAble})
     </insert>
 
     <update id="updateHeadUrl" parameterType="user">
@@ -65,5 +69,9 @@
         </set>
         where id=#{id}
     </update>
+
+    <delete id="deleteUserById" parameterType="string">
+        delete user where id = #{userId} and deleteable = 1
+    </delete>
 
 </mapper>

@@ -6,6 +6,9 @@ import xyz.stackoverflow.blog.pojo.entity.UserRole;
 import java.util.Set;
 
 public interface UserService {
+
+    User getUserById(String userId);
+
     User getUserByEmail(String email);
 
     User insertUser(User user);
@@ -23,4 +26,6 @@ public interface UserService {
     Set<String> getRoleCodeByUserId(String userId);
 
     Set<String> getPermissionCodeByUserId(String userId);
+
+    User deleteUserById(String userId);
 }
