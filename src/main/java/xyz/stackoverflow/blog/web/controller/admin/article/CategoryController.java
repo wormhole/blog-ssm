@@ -98,15 +98,21 @@ public class CategoryController {
     @ResponseBody
     public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
         ResponseJson response = new ResponseJson();
-        Category unCategory = categoryService.getCategoryByCode("uncategory");
-        Map map = new HashMap<String,String>();
-        map.put("oldCategoryId",categoryVO.getId());
-        map.put("newCategoryId",unCategory.getId());
-        articleService.updateArticleCategory(map);
-        categoryService.deleteCategoryById(categoryVO.getId());
-        response.setStatus(SUCCESS);
-        response.setMessage("删除成功");
-        response.setData(categoryService.getAllCategory());
+        Category category = categoryService.getCategoryById(categoryVO.getId());
+        if (category.getDeleteAble() == 0) {
+            response.setStatus(1);
+            response.setMessage("该分类不允许删除");
+        } else {
+            Category unCategory = categoryService.getCategoryByCode("uncategory");
+            Map map = new HashMap<String, String>();
+            map.put("oldCategoryId", categoryVO.getId());
+            map.put("newCategoryId", unCategory.getId());
+            articleService.updateArticleCategory(map);
+            categoryService.deleteCategoryById(categoryVO.getId());
+            response.setStatus(SUCCESS);
+            response.setMessage("删除成功");
+            response.setData(categoryService.getAllCategory());
+        }
         return response;
     }
 

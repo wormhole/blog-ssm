@@ -9,10 +9,11 @@
         <id property="id" column="id"></id>
         <result property="categoryName" column="categoryname"></result>
         <result property="categoryCode" column="categorycode"></result>
+        <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
     <insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into category(id,categorycode,categoryname) values(#{id},#{categoryCode},#{categoryName})
+        insert into category(id,categorycode,categoryname,deleteable) values(#{id},#{categoryCode},#{categoryName},#{deleteAble})
     </insert>
 
     <select id="getCategoryById" resultMap="categoryMap">
@@ -48,7 +49,7 @@
     </select>
 
     <delete id="deleteCategoryById" parameterType="string">
-        delete from category where id = #{id}
+        delete from category where id = #{id} and deleteable = 1
     </delete>
 
     <update id="updateCategory" parameterType="category">
@@ -63,5 +64,4 @@
         </set>
         where id = #{id}
     </update>
-
 </mapper>

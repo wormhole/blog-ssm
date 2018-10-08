@@ -6,6 +6,7 @@ public class Category implements Serializable {
     private String id;
     private String categoryName;
     private String categoryCode;
+    private Integer deleteAble;
 
     public String getId() {
         return id;
@@ -29,5 +30,13 @@ public class Category implements Serializable {
 
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
+    }
+
+    public Integer getDeleteAble() {
+        return deleteAble;
+    }
+
+    public void setDeleteAble(Integer deleteAble) {
+        this.deleteAble = deleteAble;
     }
 }
