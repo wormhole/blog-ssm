@@ -9,7 +9,7 @@
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
-    <title>栈溢出</title>
+    <title>溢栈</title>
 </head>
 <body>
 <div class="layui-row">

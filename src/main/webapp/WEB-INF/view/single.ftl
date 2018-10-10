@@ -12,7 +12,7 @@
     <script src="/static/editor.md/lib/marked.min.js"></script>
     <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
-    <title>栈溢出</title>
+    <title>溢栈</title>
 </head>
 <body>
 <div id="layout">

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/custom/css/index.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <title>栈溢出</title>
+    <title>溢栈</title>
 </head>
 <body>
 <div class="container">
@@ -26,6 +26,6 @@
         </div>
     </div>
 </div>
-<footer></footer>
+<footer>copyright &copy; 2018 by 溢栈</footer>
 </body>
 </html>

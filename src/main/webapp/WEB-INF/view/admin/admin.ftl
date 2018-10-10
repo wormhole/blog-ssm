@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/css/admin.css">
     <script src="/static/layui/layui.js"></script>
-    <title>栈溢出</title>
+    <title>溢栈</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -100,7 +100,7 @@
 
     <!-- 底部固定区域 -->
     <div class="layui-footer">
-        <center>copyright &copy; 2018 by 凉衫薄</center>
+        <center>copyright &copy; 2018 by 溢栈</center>
     </div>
 </div>
 <script type="text/javascript" src="/static/custom/js/admin.js"></script>

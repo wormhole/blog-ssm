@@ -27,16 +27,17 @@ body {
     margin: 5px;
 }
 
-.padding{
-    height:60px;
+.padding {
+    height: 60px;
 }
 
 footer {
     height: 40px;
     width: 100%;
-    background-color: gray;
+    background-color: #F0F0F0;
     position: fixed;
     bottom: 0;
+    text-align: center;
 }
 
 @media (max-width: 970px) {

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/css/personal.css">
     <script src="/static/layui/layui.js"></script>
-    <title>栈溢出</title>
+    <title>溢栈</title>
 </head>
 <body>
 <div class="layui-card" id="base-conf">
