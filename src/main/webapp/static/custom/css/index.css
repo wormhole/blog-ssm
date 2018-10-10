@@ -5,6 +5,7 @@ html {
 body {
     height: 100%;
     padding-top: 60px;
+    background-image: url("/static/custom/image/weather.png");
 }
 
 .container {
@@ -14,17 +15,114 @@ body {
 .side {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    height: 500px;
+    background: rgba(255, 255, 255, 0.8);
     margin: 5px;
+    text-align: center;
+}
+
+.side img {
+    width: 60%;
+    margin: 25px 0 10px 0;
+}
+
+.side .nickname {
+    font-size: 25px;
+}
+
+.side hr {
+    width: 80%;
+    margin: 3px auto;
+    border: none;
+    height: 1px;
+    border-top: 1px solid #000000;
+}
+
+.side .signature {
+    font-size: 15px;
+}
+
+.side .menu {
+    margin-top: 20px;
+}
+
+.side .menu .select {
+    background-color: rgb(70, 205, 245);
+}
+
+.side .menu .item {
+    height: 50px;
+    font-size: 16px;
+    padding-top: 15px;
+    border-top: 1px solid #E8E8E8;
+}
+
+.side .menu .item:last-child {
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.side .menu .item:hover {
+    background-color: rgb(70, 205, 245);
 }
 
 .body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    height: 1000px;
+    background: rgba(255, 255, 255, 0.8);
     margin: 5px;
+    padding-bottom: 15px;
+}
+
+.body .head {
+    background-image: linear-gradient(rgba(200, 200, 200, 0), rgba(200, 200, 200, 0.12));
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 5px -1px;
+    height: 55px;
+    border-radius: 20px 20px 0 0;
+    padding: 15px 0 10px 25px;
+}
+
+.body .article-list .article {
+    padding: 15px 10px;
+    margin: 0 25px;
+}
+
+.body .article-list .article:not(:first-child) {
+    border-top: 1px solid #E0E0E0;
+}
+
+.body .article-list .article .title {
+    font-size: 30px;
+}
+
+.body .article-list .article .content {
+    font-size: 15px;
+    margin: 15px 0;
+    color: #606060;
+
+    position: relative;
+    line-height: 20px;
+    max-height: 60px;
+    overflow: hidden;
+}
+
+.body .article-list .article .content::after {
+    content: "[......]";
+    font-size: 15px;
+    color: #606060;
+    position: absolute;
+    padding-left: 200px;
+    bottom: 1px;
+    right: 10px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
+.body .article-list .article .footer {
+    font-size: 18px;
+    color: #707070;
+}
+
+.pagination {
+    margin: 20px 0 20px 35%;
 }
 
 .padding {
@@ -38,6 +136,7 @@ footer {
     position: fixed;
     bottom: 0;
     text-align: center;
+    padding-top: 10px;
 }
 
 @media (max-width: 970px) {
