@@ -44,6 +44,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int getArticleCount() {
+        return dao.getArticleCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<Article> getAllArticle() {
         return dao.getAllArticle();
     }

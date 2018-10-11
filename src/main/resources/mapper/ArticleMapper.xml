@@ -21,7 +21,11 @@
     </select>
 
     <select id="getLimitArticle" resultMap="articleMap">
-        select * from article limit #{start},#{limit}
+        select * from article order by date desc limit #{start},#{limit}
+    </select>
+
+    <select id="getArticleCount" resultType="int">
+        select count(*) from article
     </select>
 
     <select id="getArticleById" resultMap="articleMap" parameterType="string">

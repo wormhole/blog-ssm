@@ -14,6 +14,8 @@ public interface ArticleDao {
 
     Article getArticleByCode(String articleCode);
 
+    int getArticleCount();
+
     int isExistCode(String articleCode);
 
     List<Article> getAllArticle();

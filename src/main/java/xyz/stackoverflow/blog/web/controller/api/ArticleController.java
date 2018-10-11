@@ -2,15 +2,15 @@ package xyz.stackoverflow.blog.web.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.service.ArticleService;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.util.ResponseJson;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -24,12 +24,25 @@ public class ArticleController {
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getAllArticle() {
+    public ResponseJson getArticleList(@RequestParam(value = "page", required = false) String page) {
         ResponseJson response = new ResponseJson();
-        List<Article> list = articleService.getAllArticle();
+        List<Article> list = null;
+        if (page != null) {
+            PageParameter parameter = new PageParameter();
+            parameter.setPageNo(Integer.valueOf(page));
+            parameter.setLimit(5);
+            parameter.setStart((parameter.getPageNo() - 1) * parameter.getLimit());
+            list = articleService.getLimitArticle(parameter);
+        } else {
+            list = articleService.getAllArticle();
+        }
+        int count = articleService.getArticleCount();
+        Map map = new HashMap<String, Object>();
+        map.put("count", count);
+        map.put("items", list);
         response.setStatus(0);
         response.setMessage("获取成功");
-        response.setData(list);
+        response.setData(map);
         return response;
     }
 

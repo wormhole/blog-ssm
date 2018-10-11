@@ -12,6 +12,8 @@ public interface ArticleService {
 
     Article getArticleByCode(String articleCode);
 
+    int getArticleCount();
+
     boolean isExistCode(String articleCode);
 
     List<Article> getAllArticle();
