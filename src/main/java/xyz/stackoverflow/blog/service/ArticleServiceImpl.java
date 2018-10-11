@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -50,6 +50,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public List<Article> getLimitArticle(PageParameter parameter) {
+        return dao.getLimitArticle(parameter);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean isExistCode(String articleCode) {
         if (dao.isExistCode(articleCode) == 1) {
             return true;
@@ -64,12 +70,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Article updateArticle(Article article) {
         dao.updateArticle(article);
         return dao.getArticleById(article.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int updateArticleCategory(Map map) {
-        return dao.updateArticleCategory(map);
     }
 
     @Override

@@ -3,6 +3,7 @@ package xyz.stackoverflow.blog.web.controller.admin.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.ArticleService;
@@ -105,10 +106,13 @@ public class CategoryController {
             response.setMessage("该分类不允许删除");
         } else {
             Category unCategory = categoryService.getCategoryByCode("uncategory");
-            Map map = new HashMap<String, String>();
-            map.put("oldCategoryId", categoryVO.getId());
-            map.put("newCategoryId", unCategory.getId());
-            articleService.updateArticleCategory(map);
+            List<Article> list = articleService.getAllArticle();
+            for(Article article : list){
+                if(article.getCategoryId().equals(categoryVO.getId())){
+                    article.setCategoryId(unCategory.getId());
+                    articleService.updateArticle(article);
+                }
+            }
             categoryService.deleteCategoryById(categoryVO.getId());
             response.setStatus(SUCCESS);
             response.setMessage("删除成功");

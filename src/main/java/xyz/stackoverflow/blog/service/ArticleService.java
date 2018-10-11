@@ -1,9 +1,9 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Article;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ArticleService {
     Article insertArticle(Article blog);
@@ -16,9 +16,9 @@ public interface ArticleService {
 
     List<Article> getAllArticle();
 
-    Article updateArticle(Article article);
+    List<Article> getLimitArticle(PageParameter parameter);
 
-    int updateArticleCategory(Map map);
+    Article updateArticle(Article article);
 
     Article deleteArticleById(String id);
 }

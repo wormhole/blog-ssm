@@ -2,9 +2,9 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Article;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface ArticleDao {
@@ -18,9 +18,9 @@ public interface ArticleDao {
 
     List<Article> getAllArticle();
 
-    int updateArticle(Article article);
+    List<Article> getLimitArticle(PageParameter parameter);
 
-    int updateArticleCategory(Map map);
+    int updateArticle(Article article);
 
     int deleteArticleById(String id);
 }

@@ -20,6 +20,10 @@
         select * from article order by date desc
     </select>
 
+    <select id="getLimitArticle" resultMap="articleMap">
+        select * from article limit #{start},#{limit}
+    </select>
+
     <select id="getArticleById" resultMap="articleMap" parameterType="string">
         select * from article where id = #{id}
     </select>
@@ -56,10 +60,6 @@
             </if>
         </set>
         where id = #{id}
-    </update>
-
-    <update id="updateArticleCategory" parameterType="map">
-        update article set categoryid = #{newCategoryId} where categoryid = #{oldCategoryId}
     </update>
 
     <delete id="deleteArticleById" parameterType="string">
