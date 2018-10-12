@@ -50,6 +50,8 @@ body {
 }
 
 .side .menu .item {
+    color: black;
+    display: block;
     height: 50px;
     font-size: 16px;
     padding-top: 15px;
@@ -121,8 +123,9 @@ body {
     color: #707070;
 }
 
-.pagination {
-    margin: 20px 0 20px 35%;
+ul {
+    margin: 20px 0 0 50%;
+    transform: translate(-45%, 0%);
 }
 
 .padding {

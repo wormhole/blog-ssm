@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/custom/css/index.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/custom/js/index.js"></script>
     <title>溢栈</title>
 </head>
 <body>
@@ -14,30 +15,29 @@
     <div class="row">
         <div class="col-md-3">
             <div class="side">
-                <img src="/static/custom/image/cam.png">
-                <div class="nickname">
-                    凉衫薄
-                </div>
+                <img src="" id="head" class="rounded-circle">
+                <div class="nickname" id="nickname"></div>
                 <hr/>
-                <div class="signature">
-                    这个家伙很懒,什么都没留下.
-                </div>
+                <div class="signature" id="signature"></div>
                 <div class="menu">
-                    <div class="item select">
+                    <a class="item select btn" href="/">
                         首页
-                    </div>
-                    <div class="item">
+                    </a>
+                    <a class="item btn">
+                        归档
+                    </a>
+                    <a class="item btn">
                         分类
-                    </div>
-                    <div class="item">
+                    </a>
+                    <a class="item btn">
                         与我聊聊
-                    </div>
-                    <div class="item">
+                    </a>
+                    <a class="item btn">
                         留言板
-                    </div>
-                    <div class="item">
+                    </a>
+                    <a class="item btn">
                         友情链接
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -82,13 +82,8 @@
                     </div>
                 </div>
             </div>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">上一页</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">下一页</a></li>
-            </ul>
+            <div class="buttom">
+            </div>
             <div class="padding">
             </div>
         </div>
