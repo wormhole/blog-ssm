@@ -11,6 +11,8 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    User getAdmin();
+
     User insertUser(User user);
 
     User updateHeadUrl(User user);

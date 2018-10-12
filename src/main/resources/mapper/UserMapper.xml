@@ -11,7 +11,7 @@
         <result property="nickname" column="nickname"></result>
         <result property="password" column="password"></result>
         <result property="salt" column="salt"></result>
-        <result property="headurl" column="headurl"></result>
+        <result property="headUrl" column="headurl"></result>
         <result property="signature" column="signature"></result>
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
@@ -28,15 +28,19 @@
         select count(*) from user where email=#{email}
     </select>
 
+    <select id="getAdmin" resultType="user" resultMap="userMap">
+        select * from user where deleteable = 0
+    </select>
+
     <insert id="insertUser" parameterType="user" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into user(id,email,nickname,password,salt,headurl,signature,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{headurl},#{signature},#{deleteAble})
+        insert into user(id,email,nickname,password,salt,headurl,signature,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{headUrl},#{signature},#{deleteAble})
     </insert>
 
     <update id="updateHeadUrl" parameterType="user">
         update user
         <set>
-            <if test="headurl!=null">
-                headurl=#{headurl}
+            <if test="headUrl!=null">
+                headurl=#{headUrl}
             </if>
         </set>
         where id=#{id}

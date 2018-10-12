@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String password;
     private String nickname;
     private String salt;
-    private String headurl;
+    private String headUrl;
     private String signature;
     private Integer deleteAble;
 
@@ -53,12 +53,12 @@ public class User implements Serializable {
         this.salt = salt;
     }
 
-    public String getHeadurl() {
-        return headurl;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setHeadurl(String headurl) {
-        this.headurl = headurl;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 
     public String getSignature() {

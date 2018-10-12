@@ -11,6 +11,7 @@ public class PersonalInfoVO implements Serializable {
     private String signature;
     private String oldPassword;
     private String newPassword;
+    private String headUrl;
 
     public String getEmail() {
         return email;
@@ -50,6 +51,14 @@ public class PersonalInfoVO implements Serializable {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 
     public User toUser(){

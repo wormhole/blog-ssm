@@ -43,9 +43,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", unless = "#result == null")
+    public User getAdmin() {
+        return userDao.getAdmin();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email")
     public User insertUser(User user) {
-        user.setHeadurl("/static/custom/image/cam.png");
+        user.setHeadUrl("/static/custom/image/cam.png");
         user.setNickname(user.getNickname());
         user.setSignature("这个人很懒,没有留下任何东西");
         user.setId(IdGenerator.getId());

@@ -135,14 +135,14 @@ public class PersonalInfoController {
         File destFile = new File(homeFile, newFileName);
         try {
             file.transferTo(destFile);
-            String oldUrl = user.getHeadurl();
+            String oldUrl = user.getHeadUrl();
             String newUrl = "/uploads/" + user.getId() + "/" + newFileName;
             if (!oldUrl.equals(newUrl)) {
                 if (!oldUrl.equals("/static/custom/image/cam.png")) {
                     File oldHead = new File(webRootDir + "/WEB-INF/" + oldUrl);
                     oldHead.delete();
                 }
-                user.setHeadurl(newUrl);
+                user.setHeadUrl(newUrl);
                 User newUser = userService.updateHeadUrl(user);
                 session.setAttribute("user", newUser);
             }

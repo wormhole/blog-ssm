@@ -10,6 +10,8 @@ public interface UserDao {
 
     User getUserByEmail(String email);
 
+    User getAdmin();
+
     int insertUser(User user);
 
     int updateHeadUrl(User user);
