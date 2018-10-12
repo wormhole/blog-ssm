@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.PersonalInfoVO;
 import xyz.stackoverflow.blog.service.UserService;
@@ -19,7 +20,8 @@ public class ConfigController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/sideinfo", method = RequestMethod.GET)
+    @ResponseBody
     public ResponseJson user() {
         ResponseJson response = new ResponseJson();
         User admin = userService.getAdmin();

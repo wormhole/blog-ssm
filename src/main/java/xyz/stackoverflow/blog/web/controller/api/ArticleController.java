@@ -26,6 +26,7 @@ public class ArticleController {
     @ResponseBody
     public ResponseJson getArticleList(@RequestParam(value = "page", required = false) String page) {
         ResponseJson response = new ResponseJson();
+        Map map = new HashMap<String, Object>();
         List<Article> list = null;
         if (page != null) {
             PageParameter parameter = new PageParameter();
@@ -33,14 +34,14 @@ public class ArticleController {
             parameter.setLimit(5);
             parameter.setStart((parameter.getPageNo() - 1) * parameter.getLimit());
             list = articleService.getLimitArticle(parameter);
+            map.put("page",page);
         } else {
             list = articleService.getAllArticle();
         }
         int count = articleService.getArticleCount();
-        Map map = new HashMap<String, Object>();
         map.put("count", count);
         map.put("items", list);
-        response.setStatus(0);
+        response.setStatus(SUCCESS);
         response.setMessage("获取成功");
         response.setData(map);
         return response;
