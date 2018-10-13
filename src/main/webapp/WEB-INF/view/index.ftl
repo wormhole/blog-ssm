@@ -8,17 +8,18 @@
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/custom/js/index.js"></script>
+    <script src="/static/knockout/knockout-3.4.2.js"></script>
     <title>溢栈</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="side">
-                <img src="" id="head" class="rounded-circle">
-                <div class="nickname" id="nickname"></div>
+            <div class="side" data-bind="with:sideInfo">
+                <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}">
+                <div class="nickname" id="nickname" data-bind="text:nickname"></div>
                 <hr/>
-                <div class="signature" id="signature"></div>
+                <div class="signature" id="signature" data-bind="text:signature"></div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -46,38 +47,22 @@
                 <div class="head">
                     最新文章
                 </div>
-                <div class="article-list">
+                <div class="article-list" data-bind="foreach:articleList">
                     <div class="article">
-                        <div class="title">
-                            hello world
-                        </div>
-                        <div class="content">
-                            测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
-                        </div>
+                        <div class="title" data-bind="text:title"></div>
+                        <div class="content" data-bind="text:articleHtml"></div>
                         <div class="footer">
-                            2018-10-10
-                        </div>
-                    </div>
-                    <div class="article">
-                        <div class="title">
-                            hello world
-                        </div>
-                        <div class="content">
-                            测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
-                        </div>
-                        <div class="footer">
-                            2018-10-10
-                        </div>
-                    </div>
-                    <div class="article">
-                        <div class="title">
-                            hello world
-                        </div>
-                        <div class="content">
-                            测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
-                        </div>
-                        <div class="footer">
-                            2018-10-10
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span id="date" data-bind="text:date"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    作者：<span id="author" data-bind="text:nickname"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    分类：<span id="category" data-bind="text:categoryName"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

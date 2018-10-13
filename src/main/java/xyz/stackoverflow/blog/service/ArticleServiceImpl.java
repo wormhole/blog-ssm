@@ -22,11 +22,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'article:'+#result.articleCode")
-    public Article insertArticle(Article blog) {
-        blog.setId(IdGenerator.getId());
-        blog.setTitle(blog.getTitle());
-        dao.insertArticle(blog);
-        return dao.getArticleById(blog.getId());
+    public Article insertArticle(Article article) {
+        article.setId(IdGenerator.getId());
+        dao.insertArticle(article);
+        return dao.getArticleById(article.getId());
     }
 
     @Override
