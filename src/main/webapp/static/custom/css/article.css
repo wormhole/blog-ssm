@@ -1,34 +1,115 @@
-body {padding: 40px;}
-
-#sidebar {
-    width: 400px;
+html {
     height: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    overflow: hidden;
-    background: #fff;
-    z-index: 100;
-    padding: 18px;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-bottom: none;
 }
 
-#sidebar:hover {
-    overflow: auto;
+body {
+    height: 100%;
+    padding-top: 60px;
+    background-image: url("/static/custom/image/weather.png");
 }
 
-#sidebar h1 {
+.container {
+    height: 100%;
+}
+
+.side {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+    text-align: center;
+}
+
+.side img {
+    width: 60%;
+    margin: 25px 0 10px 0;
+}
+
+.side .nickname {
+    font-size: 25px;
+}
+
+.side hr {
+    width: 80%;
+    margin: 3px auto;
+    border: none;
+    height: 1px;
+    border-top: 1px solid #000000;
+}
+
+.side .signature {
+    font-size: 15px;
+}
+
+.side .menu {
+    margin-top: 20px;
+}
+
+.side .menu .select {
+    background-color: rgb(70, 205, 245);
+}
+
+.side .menu .item {
+    color: black;
+    display: block;
+    height: 50px;
     font-size: 16px;
+    padding-top: 15px;
+    border-top: 1px solid #E8E8E8;
 }
 
-#custom-toc-container {
-    padding-left: 0;
+.side .menu .item:last-child {
+    border-bottom: 1px solid #E8E8E8;
 }
 
-#editormd-view {
-    padding-left: 0;
-    padding-right: 430px;
-    margin: 0;
+.side .menu .item:hover {
+    background-color: rgb(70, 205, 245);
+}
+
+.body {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+}
+
+.body .article {
+    padding: 25px;
+}
+
+.body .article .title {
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.body .article .info {
+    font-size: 16px;
+    color: #707070;
+    margin: 10px 0;
+}
+
+.body .article #editormd-view {
+    background: rgba(255, 255, 255, 0);
+    padding: 0;
+}
+
+.padding {
+    height: 60px;
+}
+
+footer {
+    height: 40px;
+    width: 100%;
+    background-color: #F0F0F0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding-top: 10px;
+    z-index: 1;
+}
+
+@media (max-width: 970px) {
+    footer {
+        display: none;
+    }
 }

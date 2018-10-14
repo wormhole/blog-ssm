@@ -68,18 +68,26 @@ public class ArticleController {
         return response;
     }
 
-    @RequestMapping(value = "/article/{url}", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/{year}/{month}/{day}/{articleCode}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getArticleByCode(@PathVariable("url") String url) {
+    public ResponseJson getArticleByCode(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
         ResponseJson response = new ResponseJson();
+        String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
         Article article = articleService.getArticleByUrl(url);
         if (article == null) {
             response.setStatus(FAILURE);
             response.setMessage("访问文章不存在");
         } else {
+            ArticleVO vo = new ArticleVO();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            vo.setTitle(article.getTitle());
+            vo.setArticleMd(article.getArticleMd());
+            vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
+            vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+            vo.setDate(sdf.format(article.getDate()));
             response.setStatus(SUCCESS);
             response.setMessage("查找成功");
-            response.setData(article);
+            response.setData(vo);
         }
         return response;
     }

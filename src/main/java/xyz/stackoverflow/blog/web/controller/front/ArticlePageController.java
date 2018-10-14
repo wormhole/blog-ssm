@@ -11,9 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ArticlePageController {
 
     @RequestMapping("/{year}/{month}/{day}/{articleCode}")
-    public ModelAndView article(@PathVariable("articleCode") String articleCode){
+    public ModelAndView article(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("articleCode",articleCode);
         mv.setViewName("/article");
         return mv;
     }

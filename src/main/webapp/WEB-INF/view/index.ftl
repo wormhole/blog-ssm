@@ -49,7 +49,7 @@
                 </div>
                 <div class="article-list" data-bind="foreach:articleList">
                     <div class="article">
-                        <div class="title"><a href="" target="_blank" data-bind="text:title,attr:{href:url}"></a></div>
+                        <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
                         <div class="content" data-bind="text:articleHtml"></div>
                         <div class="footer">
                             <div class="row">
