@@ -4,8 +4,7 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
 
 ## 介绍
-之前一直用的是[Wordpress](https://wordpress.org/)博客系统, 但感觉自由度不够高, 于是便想自己开发一个Java版本的博客系统.
-这是一个基于互联网轻量级架构的博客系统, 所用到的都是当下比较流行的轻量级架构, 之后将会推出一个Spring Boot版本的, 敬请期待.
+这是一个基于互联网轻量级架构的博客系统, 之后将会推出一个Spring Boot版本的, 敬请期待.
 
 ## 技术架构
 * Ioc容器 - [Spring](https://spring.io/projects/spring-framework)
@@ -29,10 +28,11 @@
 * URL- http://host:port/api/vcode
 * method - GET
 2. 获取所有文章
-* URL - http://host:port/api/article
+* URL - http://host:port/api/article?page = number
 * method - GET
-3. 通过编码获取单篇文章
-* URL - http://host:port/api/article/{articleCode}
+* 说明 - 无参时获取所有文章,有参数时指定页数,默认一页显示五篇文章
+3. 获取单篇文章
+* URL - http://host:port/api/article/{year}/{month}/{day}/{articleCode}
 * method - GET
 4. 获取所有文章分类信息
 * URL - http://host:port/api/article/category
@@ -104,8 +104,15 @@ startup.sh
 ### 登陆界面
 ![登陆](img/login.png)
 ### 后台管理
+#### 首页
+![首页](img/index.png)
+#### 文章详情页
+![文章详情页](img/article.png)
+#### 分类管理
 ![分类管理](img/category.png)
+#### 写文章
 ![写文章](img/write.png)
+#### 个人信息维护
 ![个人信息维护](img/personal.png)
 
 
