@@ -36,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'article:'+#url", unless = "#ressult == null")
+    @Cacheable(value = "defaultCache", key = "'article:'+#url", unless = "#result == null")
     public Article getArticleByUrl(String url) {
         return dao.getArticleByUrl(url);
     }
