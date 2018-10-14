@@ -5,13 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.util.FileUtil;
+import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,10 +44,10 @@ public class WriteArticleController {
             response.setData(map);
         } else {
             Map map1 = new HashMap<String, String>();
-            if (articleService.isExistCode(articleVO.getArticleCode())) {
+            if (articleService.isExistUrl(articleVO.getUrl())) {
                 response.setStatus(FAILURE);
-                response.setMessage("编码重复");
-                map1.put("code", "编码重复");
+                response.setMessage("URL重复");
+                map1.put("code", "URL重复");
                 response.setData(map1);
             } else {
                 User user = (User) session.getAttribute("user");

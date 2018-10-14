@@ -15,6 +15,7 @@ public class ArticleVO implements Serializable {
     private String nickname;
     private String categoryName;
     private String date;
+    private String url;
 
     public String getId() {
         return id;
@@ -88,14 +89,22 @@ public class ArticleVO implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public Article toArticle(){
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Article toArticle() {
         Article article = new Article();
         article.setId(id);
         article.setArticleHtml(articleHtml);
         article.setArticleMd(articleMd);
         article.setTitle(title);
         article.setDate(new Date());
-        article.setArticleCode(articleCode);
+        article.setUrl(url);
         article.setCategoryId(categoryId);
         return article;
     }

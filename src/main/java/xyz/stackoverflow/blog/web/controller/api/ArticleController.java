@@ -33,7 +33,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getArticleList(@RequestParam(value = "page", required = false) String page) {
+    public ResponseJson getArticleList(@RequestParam(value = "page", required = false) Integer page) {
         ResponseJson response = new ResponseJson();
         Map map = new HashMap<String, Object>();
         List<Article> list = null;
@@ -41,7 +41,7 @@ public class ArticleController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (page != null) {
             PageParameter parameter = new PageParameter();
-            parameter.setPageNo(Integer.valueOf(page));
+            parameter.setPageNo(page);
             parameter.setLimit(5);
             parameter.setStart((parameter.getPageNo() - 1) * parameter.getLimit());
             list = articleService.getLimitArticle(parameter);
@@ -56,6 +56,7 @@ public class ArticleController {
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setDate(sdf.format(article.getDate()));
+            vo.setUrl(article.getUrl());
             voList.add(vo);
         }
         int count = articleService.getArticleCount();
@@ -67,11 +68,11 @@ public class ArticleController {
         return response;
     }
 
-    @RequestMapping(value = "/article/{articlecode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/{url}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getArticleByCode(@PathVariable("articlecode") String articleCode) {
+    public ResponseJson getArticleByCode(@PathVariable("url") String url) {
         ResponseJson response = new ResponseJson();
-        Article article = articleService.getArticleByCode(articleCode);
+        Article article = articleService.getArticleByUrl(url);
         if (article == null) {
             response.setStatus(FAILURE);
             response.setMessage("访问文章不存在");

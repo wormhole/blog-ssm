@@ -11,7 +11,7 @@ public class Article implements Serializable {
     private String ArticleHtml;
     private String categoryId;
     private Date date;
-    private String ArticleCode;
+    private String url;
 
     public String getId() {
         return id;
@@ -69,11 +69,11 @@ public class Article implements Serializable {
         ArticleHtml = articleHtml;
     }
 
-    public String getArticleCode() {
-        return ArticleCode;
+    public String getUrl() {
+        return url;
     }
 
-    public void setArticleCode(String articleCode) {
-        ArticleCode = articleCode;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -10,11 +10,11 @@ public interface ArticleService {
 
     Article getArticleById(String id);
 
-    Article getArticleByCode(String articleCode);
+    Article getArticleByUrl(String url);
 
     int getArticleCount();
 
-    boolean isExistCode(String articleCode);
+    boolean isExistUrl(String url);
 
     List<Article> getAllArticle();
 

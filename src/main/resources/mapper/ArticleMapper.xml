@@ -13,7 +13,7 @@
         <result property="articleHtml" column="articlehtml"></result>
         <result property="categoryId" column="categoryid"></result>
         <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
-        <result property="articleCode" column="articlecode"></result>
+        <result property="url" column="url"></result>
     </resultMap>
 
     <select id="getAllArticle" resultMap="articleMap">
@@ -32,16 +32,16 @@
         select * from article where id = #{id}
     </select>
 
-    <select id="getArticleByCode" resultMap="articleMap" parameterType="string">
-        select * from article where articlecode = #{articleCode}
+    <select id="getArticleByUrl" resultMap="articleMap" parameterType="string">
+        select * from article where url = #{url}
     </select>
 
-    <select id="isExistCode" resultType="int" parameterType="string">
-        select count(*) from article where articlecode = #{articleCode}
+    <select id="isExistUrl" resultType="int" parameterType="string">
+        select count(*) from article where url = #{url}
     </select>
 
     <insert id="insertArticle" parameterType="article" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into article(id,userid,title,articlemd,articlehtml,categoryid,date,articlecode) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{date},#{articleCode})
+        insert into article(id,userid,title,articlemd,articlehtml,categoryid,date,url) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{date},#{url})
     </insert>
 
     <update id="updateArticle" parameterType="article">
@@ -59,8 +59,8 @@
             <if test="categoryId!=null">
                 categoryid = #{categoryId},
             </if>
-            <if test="articleCode!=null">
-                articlecode = #{articleCode}
+            <if test="url!=null">
+                url = #{url}
             </if>
         </set>
         where id = #{id}

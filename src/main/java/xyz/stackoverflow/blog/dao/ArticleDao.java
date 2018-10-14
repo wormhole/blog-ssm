@@ -12,11 +12,11 @@ public interface ArticleDao {
 
     Article getArticleById(String id);
 
-    Article getArticleByCode(String articleCode);
+    Article getArticleByUrl(String url);
 
     int getArticleCount();
 
-    int isExistCode(String articleCode);
+    int isExistUrl(String url);
 
     List<Article> getAllArticle();
 

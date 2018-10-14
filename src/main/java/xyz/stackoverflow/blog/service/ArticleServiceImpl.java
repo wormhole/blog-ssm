@@ -21,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.articleCode")
+    @CachePut(value = "defaultCache", key = "'article:'+#result.url")
     public Article insertArticle(Article article) {
         article.setId(IdGenerator.getId());
         dao.insertArticle(article);
@@ -36,9 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'article:'+#articleCode", unless = "#ressult == null")
-    public Article getArticleByCode(String articleCode) {
-        return dao.getArticleByCode(articleCode);
+    @Cacheable(value = "defaultCache", key = "'article:'+#url", unless = "#ressult == null")
+    public Article getArticleByUrl(String url) {
+        return dao.getArticleByUrl(url);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean isExistCode(String articleCode) {
-        if (dao.isExistCode(articleCode) == 1) {
+    public boolean isExistUrl(String url) {
+        if (dao.isExistUrl(url) == 1) {
             return true;
         } else {
             return false;
@@ -71,7 +71,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.articleCode")
+    @CachePut(value = "defaultCache", key = "'article:'+#result.url")
     public Article updateArticle(Article article) {
         dao.updateArticle(article);
         return dao.getArticleById(article.getId());
@@ -79,7 +79,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", key = "'article:'+#result.articleCode")
+    @CacheEvict(value = "defaultCache", key = "'article:'+#result.url")
     public Article deleteArticleById(String id) {
         Article article = dao.getArticleById(id);
         dao.deleteArticleById(id);
