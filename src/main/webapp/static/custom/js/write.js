@@ -74,7 +74,7 @@ layui.use(['form', 'layer'], function () {
 
         var title = $('#title').val();
         var articleMd = mdEditor.getMarkdown();
-        var articleHtml = mdEditor.getHTML();
+        var articleHtml = mdEditor.getPreviewedHTML();
         var articleCode = $('#article-code').val();
         var categoryId = $('#category-select').val();
         var url = getDateUrl(articleCode);
