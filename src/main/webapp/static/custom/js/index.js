@@ -5,43 +5,8 @@ $(function () {
     viewModel = new viewModel();
     ko.applyBindings(viewModel);
 
-    $.ajax({
-        url: "/api/sideinfo",
-        type: "get",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
-                var sideInfo = data.data;
-                viewModel.sideInfo(sideInfo);
-            } else {
-            }
-        },
-        error: function (data) {
-        }
-    });
-
-    $.ajax({
-        url: "/api/article?page=1",
-        type: "get",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
-                var count = data.data.count;
-                var page = data.data.page;
-                var items = data.data.items;
-                var ul = getPagination(count, page);
-                $('.buttom').append(ul);
-                viewModel.articleList(items);
-            } else {
-
-            }
-        },
-        error: function (data) {
-
-        }
-    });
+    loadSideInfo();
+    loadArticle(1);
 });
 
 function viewModel() {
@@ -62,50 +27,93 @@ function viewModel() {
 function getPagination(count, page) {
     var ulTemplate = '<ul class="pagination justify-content-center"></ul>';
     var liTemplate = '<li class="page-item"></li>';
-    var aTemplate = '<a class="page-link" href=""></a >';
+    var aTemplate = '<a class="page-link" onclick=""></a >';
 
     var pageCount = Math.ceil(count / 5);
     var ul = $(ulTemplate);
-    var start;
-    if (page < 3) {
-        start = 1;
-    } else if (page <= (pageCount - 2)) {
-        start = page - 2;
-    } else if (page > (pageCount - 2)) {
-        start = (pageCount - 4) > 0 ? pageCount - 4 : 1;
-    }
-    var currentIndex = start;
 
-    for (var i = 0; i < 5; i++) {
-        if (currentIndex > pageCount) {
-            break;
-        }
+    var start = page - 2 < 1 ? 1 : page - 2;
+
+    var end = start + 4 > pageCount ? pageCount : start + 4;
+
+    if (end - start < 4) {
+        start = end - 4 < 1 ? 1 : end - 4;
+    }
+
+    for (var i = start; i <= end; i++) {
         var li = $(liTemplate);
         var a = $(aTemplate);
-        a.text(currentIndex);
-        a.attr('href', "/api/article?page=" + currentIndex);
+        a.text(i);
+        a.attr('onclick', "loadArticle(" + i + ")");
         li.append(a);
-        if (page == currentIndex) {
+        if (page == i) {
             li.addClass("active");
         }
         ul.append(li);
-        currentIndex++;
     }
     if (1 < page) {
         var li = $(liTemplate);
         var a = $(aTemplate);
+        var index = page - 1;
         a.text('上一页');
-        a.attr('href', '/api/article?page=' + (page - 1));
+        a.attr('onclick', "loadArticle(" + index + ")");
         li.append(a);
         ul.prepend(li);
     }
     if (page < pageCount) {
         var li = $(liTemplate);
         var a = $(aTemplate);
+        var index = page + 1;
         a.text('下一页');
-        a.attr('href', '/api/article?page=' + (page + 1));
+        a.attr('onclick', "loadArticle(" + index + ")");
         li.append(a);
         ul.append(li);
     }
     return ul;
+}
+
+function loadSideInfo() {
+    $.ajax({
+        url: "/api/sideinfo",
+        type: "get",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.status == 0) {
+                var sideInfo = data.data;
+                viewModel.sideInfo(sideInfo);
+            } else {
+            }
+        },
+        error: function (data) {
+        }
+    });
+}
+
+function loadArticle(page) {
+    $.ajax({
+        url: "/api/article?page=" + page,
+        type: "get",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.status == 0) {
+                var count = data.data.count;
+                var page = data.data.page;
+                var items = data.data.items;
+                var ul = getPagination(count, page);
+                $('.buttom').html('');
+                $('.buttom').append(ul);
+                for (var i = 0; i < items.length; i++) {
+                    items[i].articleHtml = $(items[i].articleHtml).text();
+                }
+                viewModel.articleList(items);
+            } else {
+
+            }
+        },
+        error: function (data) {
+
+        }
+    });
 }

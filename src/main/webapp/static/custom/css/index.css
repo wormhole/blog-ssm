@@ -93,7 +93,12 @@ body {
 }
 
 .body .article-list .article .title {
-    font-size: 28px;
+    font-size: 25px;
+}
+
+.body .article-list .article .title a {
+    text-decoration: none;
+    color: black;
 }
 
 .body .article-list .article .content {
@@ -109,7 +114,7 @@ body {
 
 .body .article-list .article .content::after {
     content: "[......]";
-    font-size: 15px;
+    font-size: 16px;
     color: #606060;
     position: absolute;
     padding-left: 200px;
@@ -119,11 +124,11 @@ body {
 }
 
 .body .article-list .article .footer {
-    font-size: 17px;
+    font-size: 16px;
     color: #707070;
 }
 
-.body .article-list .article .footer span{
+.body .article-list .article .footer span {
     margin-right: 100px;
 }
 
@@ -143,6 +148,7 @@ footer {
     bottom: 0;
     text-align: center;
     padding-top: 10px;
+    z-index: 1;
 }
 
 @media (max-width: 970px) {

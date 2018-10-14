@@ -56,6 +56,20 @@ layui.use(['form', 'layer'], function () {
         form.render('select');
     }
 
+    function getDateUrl(code) {
+        var date = new Date();
+
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        month = month < 10 ? "0" + month : month;
+        day = day < 10 ? "0" + day : day;
+
+        var result = "/article/" + year + "/" + month + "/" + day + "/" + code;
+        return result;
+    }
+
     $('#save-btn').click(function () {
 
         var title = $('#title').val();
@@ -63,6 +77,7 @@ layui.use(['form', 'layer'], function () {
         var articleHtml = mdEditor.getHTML();
         var articleCode = $('#article-code').val();
         var categoryId = $('#category-select').val();
+        var url = getDateUrl(articleCode);
 
         if (title.length == 0) {
             layer.open({
@@ -92,7 +107,8 @@ layui.use(['form', 'layer'], function () {
             articleMd: articleMd,
             articleHtml: articleHtml,
             articleCode: articleCode,
-            categoryId: categoryId
+            categoryId: categoryId,
+            url: url
         };
 
         $.ajax({
