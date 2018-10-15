@@ -108,6 +108,10 @@ footer {
     z-index: 1;
 }
 
+#layui-layer1 {
+    width: 60px;
+}
+
 @media (max-width: 970px) {
     footer {
         display: none;

@@ -1,4 +1,5 @@
 var viewModel;
+var loading;
 
 $(function () {
 
@@ -55,6 +56,14 @@ function loadArticle(url) {
         url: "/api" + url,
         type: "get",
         dataType: "json",
+        beforeSend: function () {
+            loading = layer.open({
+                type: 3
+            });
+        },
+        complete: function () {
+            layer.close(loading);
+        },
         success: function (data) {
             if (data.status == 0) {
                 viewModel.article(data.data);

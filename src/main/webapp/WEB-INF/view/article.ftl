@@ -14,6 +14,7 @@
     <script src="/static/editor.md/editormd.min.js"></script>
     <script src="/static/knockout/knockout-3.4.2.js"></script>
     <script src="/static/custom/js/article.js"></script>
+    <script src="/static/layer/layer.js"></script>
     <title>溢栈</title>
 </head>
 <body>
@@ -54,13 +55,13 @@
                     <div class="info">
                         <div class="row">
                             <div class="col-sm-4">
-                                <span id="date" data-bind="text:date"></span>
+                                <span data-bind="text:date"></span>
                             </div>
                             <div class="col-sm-4">
-                                作者：<span id="author" data-bind="text:nickname"></span>
+                                <span data-bind="text:nickname"></span>
                             </div>
                             <div class="col-sm-4">
-                                分类：<span id="category" data-bind="text:categoryName"></span>
+                                <span data-bind="text:categoryName"></span>
                             </div>
                         </div>
                     </div>
