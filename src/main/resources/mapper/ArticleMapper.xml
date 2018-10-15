@@ -36,6 +36,10 @@
         select * from article where url = #{url}
     </select>
 
+    <select id="getArticleByCategoryId" resultMap="articleMap" parameterType="string">
+        select * from article where categoryid = #{categoryId}
+    </select>
+
     <select id="isExistUrl" resultType="int" parameterType="string">
         select count(*) from article where url = #{url}
     </select>

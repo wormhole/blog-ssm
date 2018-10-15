@@ -9,6 +9,7 @@ public class CategoryVO implements Serializable {
     private String id;
     private String categoryName;
     private String categoryCode;
+    private Integer articleNum;
 
     public String getId() {
         return id;
@@ -32,6 +33,14 @@ public class CategoryVO implements Serializable {
 
     public void setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
+    }
+
+    public Integer getArticleNum() {
+        return articleNum;
+    }
+
+    public void setArticleNum(Integer articleNum) {
+        this.articleNum = articleNum;
     }
 
     public Category toCategory(){
