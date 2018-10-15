@@ -33,7 +33,7 @@
     <mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**"></mvc:resources>
 
     <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.config.ShiroTagFreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/"/>
+        <property name="templateLoaderPath" value="/"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -41,11 +41,16 @@
         <property name="maxInMemorySize" value="4096"/>
     </bean>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="prefix" value="/view"/>
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value="/WEB-INF/view"/>
         <property name="suffix" value=".ftl"/>
         <property name="cache" value="false"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
     <aop:config proxy-target-class="true"></aop:config>

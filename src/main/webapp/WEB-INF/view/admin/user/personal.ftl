@@ -76,7 +76,7 @@
     <div class="layui-card-header">头像设置</div>
     <div class="layui-card-body">
         <div class="layui-row">
-            <img src="${Session.user.headurl}" class="layui-circle" id="head">
+            <img src="${Session.user.headUrl}" class="layui-circle" id="head">
         </div>
         <input type="file" name="headImg" id="head-img" class="hidden">
         <div class="layui-row">
