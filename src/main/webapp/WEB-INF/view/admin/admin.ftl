@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/custom/css/admin.css">
+    <link rel="stylesheet" href="/static/custom/admin/css/admin.css">
     <script src="/static/layui/layui.js"></script>
     <title>溢栈</title>
 </head>
@@ -103,6 +103,6 @@
         <center>copyright &copy; 2018 by 溢栈</center>
     </div>
 </div>
-<script type="text/javascript" src="/static/custom/js/admin.js"></script>
+<script type="text/javascript" src="/static/custom/admin/js/admin.js"></script>
 </body>
 </html>

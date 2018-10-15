@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/custom/css/login.css">
+    <link rel="stylesheet" href="/static/custom/admin/css/login.css">
     <script src="/static/layui/layui.js"></script>
     <title>溢栈</title>
 </head>
@@ -41,6 +41,6 @@
     </div>
     <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
 </div>
-<script type="text/javascript" src="/static/custom/js/login.js"></script>
+<script type="text/javascript" src="/static/custom/admin/js/login.js"></script>
 </body>
 </html>
