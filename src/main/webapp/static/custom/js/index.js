@@ -1,4 +1,5 @@
 var viewModel;
+var loading;
 
 $(function () {
 
@@ -77,7 +78,6 @@ function loadSideInfo() {
         url: "/api/sideinfo",
         type: "get",
         dataType: "json",
-        contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.status == 0) {
                 var sideInfo = data.data;
@@ -95,7 +95,14 @@ function loadArticle(page) {
         url: "/api/article?page=" + page,
         type: "get",
         dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        beforeSend: function () {
+            loading = layer.open({
+                type: 3
+            });
+        },
+        complete: function () {
+            layer.close(loading);
+        },
         success: function (data) {
             if (data.status == 0) {
                 var count = data.data.count;

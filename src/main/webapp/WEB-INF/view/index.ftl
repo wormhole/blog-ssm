@@ -9,6 +9,7 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/custom/js/index.js"></script>
     <script src="/static/knockout/knockout-3.4.2.js"></script>
+    <script src="/static/layer/layer.js"></script>
     <title>溢栈</title>
 </head>
 <body>
