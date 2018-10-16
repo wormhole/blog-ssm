@@ -35,10 +35,10 @@
 * URL - http://host:port/api/article/{year}/{month}/{day}/{articleCode}
 * method - GET
 4. 获取所有文章分类信息
-* URL - http://host:port/api/article/category
+* URL - http://host:port/api/category
 * method - GET
 5. 通过分类编码获取该分类下的所有文章
-* URL - http://host:port/api/article/category/{categoryCode}
+* URL - http://host:port/api/category/{categoryCode}
 * method - GET
 6. 未完待补充
 
