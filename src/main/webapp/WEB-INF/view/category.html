@@ -48,14 +48,37 @@
                 <div class="head">
                     文章分类
                 </div>
-                <div class="category-list" data-bind="foreach:categoryList">
-                    <div class="category">
-                        <button type="button" class="btn btn-secondary">
-                            <span data-bind="text:categoryName"></span>
-                            <span class="badge badge-light" data-bind="text:articleNum"></span>
-                        </button>
+
+                <div class="article-list" data-bind="foreach:articleList">
+                    <div class="article">
+                        <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
+                        <div class="content" data-bind="text:articleHtml"></div>
+                        <div class="footer">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span id="date" data-bind="text:date"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    作者：<span id="author" data-bind="text:nickname"></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    分类：<span id="category" data-bind="text:categoryName"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="category-list" data-bind="foreach:categoryList">
+                    <div class="category">
+                        <a class="btn btn-secondary" data-bind="attr:{href:url}">
+                            <span data-bind="text:categoryName"></span>
+                            <span class="badge badge-light" data-bind="text:articleNum"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="buttom">
             </div>
             <div class="padding">
             </div>

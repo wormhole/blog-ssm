@@ -5,6 +5,7 @@ public class PageParameter {
     private int pageNo;
     private int start;
     private int limit;
+    private String where;
 
     public int getPageNo() {
         return pageNo;
@@ -28,5 +29,13 @@ public class PageParameter {
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    public String getWhere() {
+        return where;
+    }
+
+    public void setWhere(String where) {
+        this.where = where;
     }
 }

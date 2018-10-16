@@ -22,6 +22,8 @@ public interface ArticleService {
 
     List<Article> getArticleByCategoryId(String categoryId);
 
+    List<Article> getLimitArticleByCategoryId(PageParameter parameter);
+
     Article updateArticle(Article article);
 
     Article deleteArticleById(String id);

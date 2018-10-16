@@ -24,6 +24,8 @@ public interface ArticleDao {
 
     List<Article> getArticleByCategoryId(String categoryId);
 
+    List<Article> getLimitArticleByCategoryId(PageParameter parameter);
+
     int updateArticle(Article article);
 
     int deleteArticleById(String id);

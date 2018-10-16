@@ -40,6 +40,10 @@
         select * from article where categoryid = #{categoryId}
     </select>
 
+    <select id="getLimitArticleByCategoryId" resultMap="articleMap">
+        select * from article where categoryid = #{where} order by date desc limit #{start},#{limit}
+    </select>
+
     <select id="isExistUrl" resultType="int" parameterType="string">
         select count(*) from article where url = #{url}
     </select>

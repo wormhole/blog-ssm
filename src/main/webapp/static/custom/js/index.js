@@ -31,6 +31,11 @@ function getPagination(count, page) {
     var aTemplate = '<a class="page-link" onclick=""></a >';
 
     var pageCount = Math.ceil(count / 5);
+
+    if(pageCount == 1){
+        return;
+    }
+
     var ul = $(ulTemplate);
 
     var start = page - 2 < 1 ? 1 : page - 2;

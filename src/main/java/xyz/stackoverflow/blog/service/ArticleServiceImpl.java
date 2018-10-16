@@ -67,6 +67,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public List<Article> getLimitArticleByCategoryId(PageParameter parameter) {
+        return dao.getLimitArticleByCategoryId(parameter);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean isExistUrl(String url) {
         if (dao.isExistUrl(url) == 1) {
             return true;
