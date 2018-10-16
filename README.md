@@ -28,7 +28,7 @@
 * URL- http://host:port/api/vcode
 * method - GET
 2. 获取所有文章
-* URL - http://host:port/api/article?page = number
+* URL - http://host:port/api/article?page=number
 * method - GET
 * 说明 - 无参时获取所有文章,有参数时指定页数,默认一页显示五篇文章
 3. 获取单篇文章
@@ -38,7 +38,7 @@
 * URL - http://host:port/api/category
 * method - GET
 5. 通过分类编码获取该分类下的所有文章
-* URL - http://host:port/api/category/{categoryCode}
+* URL - http://host:port/api/category/{categoryCode}?page=number
 * method - GET
 6. 未完待补充
 
