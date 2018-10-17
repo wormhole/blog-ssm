@@ -14,6 +14,8 @@ public interface ArticleService {
 
     int getArticleCount();
 
+    int getArticleCountByCategoryId(String categoryId);
+
     boolean isExistUrl(String url);
 
     List<Article> getAllArticle();

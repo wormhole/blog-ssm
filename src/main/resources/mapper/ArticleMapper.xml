@@ -28,6 +28,10 @@
         select count(*) from article
     </select>
 
+    <select id="getArticleCountByCategoryId" resultType="int" parameterType="string">
+        select count(*) from article where categoryid = #{categoryId}
+    </select>
+
     <select id="getArticleById" resultMap="articleMap" parameterType="string">
         select * from article where id = #{id}
     </select>

@@ -1,5 +1,6 @@
 var viewModel;
 var loading;
+var page;
 
 $(function () {
 
@@ -7,7 +8,13 @@ $(function () {
     ko.applyBindings(viewModel);
 
     loadSideInfo();
-    loadArticle(1);
+
+    page = getQueryVariable("page");
+    if (page != null) {
+        loadArticle(page);
+    } else {
+        loadArticle(1);
+    }
 });
 
 function viewModel() {
@@ -25,14 +32,26 @@ function viewModel() {
     self.sideInfo = ko.observable(self.initData.sideInfo);
 }
 
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1];
+        }
+    }
+    return null;
+}
+
 function getPagination(count, page) {
     var ulTemplate = '<ul class="pagination justify-content-center"></ul>';
     var liTemplate = '<li class="page-item"></li>';
-    var aTemplate = '<a class="page-link" onclick=""></a >';
+    var aTemplate = '<a class="page-link"></a >';
 
     var pageCount = Math.ceil(count / 5);
 
-    if(pageCount == 1){
+    if (pageCount == 1) {
         return;
     }
 
@@ -50,7 +69,7 @@ function getPagination(count, page) {
         var li = $(liTemplate);
         var a = $(aTemplate);
         a.text(i);
-        a.attr('onclick', "loadArticle(" + i + ")");
+        a.attr('href', "/?page=" + i);
         li.append(a);
         if (page == i) {
             li.addClass("active");
@@ -62,7 +81,7 @@ function getPagination(count, page) {
         var a = $(aTemplate);
         var index = page - 1;
         a.text('上一页');
-        a.attr('onclick', "loadArticle(" + index + ")");
+        a.attr('href', "/?page=" + index);
         li.append(a);
         ul.prepend(li);
     }
@@ -71,7 +90,7 @@ function getPagination(count, page) {
         var a = $(aTemplate);
         var index = page + 1;
         a.text('下一页');
-        a.attr('onclick', "loadArticle(" + index + ")");
+        a.attr('href', "/?page=" + index);
         li.append(a);
         ul.append(li);
     }

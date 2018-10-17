@@ -16,6 +16,8 @@ public interface ArticleDao {
 
     int getArticleCount();
 
+    int getArticleCountByCategoryId(String categoryId);
+
     int isExistUrl(String url);
 
     List<Article> getAllArticle();

@@ -60,12 +60,13 @@ public class CategoryController {
         List<Article> list = null;
         List<ArticleVO> voList = new ArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Category category = categoryService.getCategoryByCode(categoryCode);
         if (page != null) {
             PageParameter parameter = new PageParameter();
             parameter.setPageNo(page);
             parameter.setLimit(5);
             parameter.setStart((parameter.getPageNo() - 1) * parameter.getLimit());
-            parameter.setWhere(categoryService.getCategoryByCode(categoryCode).getId());
+            parameter.setWhere(category.getId());
             list = articleService.getLimitArticleByCategoryId(parameter);
             map.put("page", page);
         } else {
@@ -81,7 +82,7 @@ public class CategoryController {
             vo.setUrl(article.getUrl());
             voList.add(vo);
         }
-        int count = voList.size();
+        int count = articleService.getArticleCountByCategoryId(category.getId());
         map.put("count", count);
         map.put("items", voList);
         response.setStatus(SUCCESS);
