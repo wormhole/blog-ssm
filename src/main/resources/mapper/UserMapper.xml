@@ -28,6 +28,10 @@
         select count(*) from user where email=#{email}
     </select>
 
+    <select id="getUserCount" resultType="int">
+        select count(*) from user
+    </select>
+
     <select id="getAdmin" resultType="user" resultMap="userMap">
         select * from user where deleteable = 0
     </select>

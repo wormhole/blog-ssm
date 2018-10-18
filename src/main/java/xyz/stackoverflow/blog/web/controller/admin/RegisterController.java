@@ -62,7 +62,11 @@ public class RegisterController {
             User user = registerVO.toUser();
             user.setDeleteAble(1);
             User newUser = userService.insertUser(user);
-            userService.grantRole("author",newUser.getId());
+            if (userService.getUserCount() == 0) {
+                userService.grantRole("admin", newUser.getId());
+            } else {
+                userService.grantRole("author", newUser.getId());
+            }
             response.setStatus(SUCCESS);
             response.setMessage("注册成功");
         }

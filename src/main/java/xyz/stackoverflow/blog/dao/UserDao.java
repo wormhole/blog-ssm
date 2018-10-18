@@ -12,6 +12,8 @@ public interface UserDao {
 
     User getAdmin();
 
+    int getUserCount();
+
     int insertUser(User user);
 
     int updateHeadUrl(User user);

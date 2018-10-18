@@ -56,9 +56,6 @@
                         <@shiro.hasPermission name="system:user:view">
                             <dd><a href="javascript:;" data-url="" data-title="所有用户" data-id="">所有用户</a></dd>
                         </@shiro.hasPermission>
-                        <@shiro.hasPermission name="system:user:add">
-                            <dd><a href="javascript:;" data-url="" data-title="添加用户" data-id="">添加用户</a></dd>
-                        </@shiro.hasPermission>
                         <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a>
                         </dd>
                     </dl>
@@ -67,8 +64,6 @@
                     <a href="javascript:;"><i class="layui-icon layui-icon-picture"></i>&nbsp;&nbsp;媒体</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="" data-title="图片管理" data-id="">图片管理</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="音乐管理" data-id="">音乐管理</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="视频管理" data-id="">视频管理</a></dd>
                     </dl>
                 </li>
                 <@shiro.hasPermission name="system:setting">

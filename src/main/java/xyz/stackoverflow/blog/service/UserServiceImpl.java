@@ -102,6 +102,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int getUserCount() {
+        return userDao.getUserCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserRole grantRole(String roleCode, String userId) {
         Role role = roleDao.getRoleByCode(roleCode);
         UserRole userRole = new UserRole();

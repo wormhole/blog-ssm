@@ -23,6 +23,8 @@ public interface UserService {
 
     boolean isExist(String email);
 
+    int getUserCount();
+
     UserRole grantRole(String roleCode,String userId);
 
     Set<String> getRoleCodeByUserId(String userId);
