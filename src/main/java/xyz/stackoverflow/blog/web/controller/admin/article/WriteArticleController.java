@@ -47,7 +47,7 @@ public class WriteArticleController {
             if (articleService.isExistUrl(articleVO.getUrl())) {
                 response.setStatus(FAILURE);
                 response.setMessage("URL重复");
-                map1.put("code", "URL重复");
+                map1.put("url", "URL重复");
                 response.setData(map1);
             } else {
                 User user = (User) session.getAttribute("user");

@@ -6,7 +6,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var parameter = {
         id: 'article-table',
         elem: '#article-table',
-        url: '/admin/article/article/list',
+        url: '/admin/article/list',
         method: 'get',
         width: 1256,
         cellMinWidth: 100,
@@ -32,5 +32,93 @@ layui.use(['table', 'jquery', 'layer'], function () {
     };
 
     var tableIns = table.render(parameter);
+
+    table.on('toolbar(category-table-1)', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        if (obj.event == 'add') {
+            layer.open({
+                type: 2,
+                title: '写文章',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                maxmin: true,
+                content: '/admin/article/write',
+                cancel: function (index, layero) {
+                    tableIns.reload(parameter);
+                }
+            });
+        } else if (obj.event == 'update') {
+            if (checkStatus.data.length == 1) {
+                layer.open({
+                    type: 2,
+                    title: '写文章',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['90%', '90%'],
+                    maxmin: true,
+                    content: '/admin/article/write?id=' + checkStatus.data[0].id,
+                    cancel: function (index, layero) {
+                        tableIns.reload(parameter);
+                    }
+                });
+            } else {
+                layer.open({
+                    type: 0,
+                    content: "只能选中一篇进行编辑"
+                });
+            }
+        } else if (obj.event == 'delete') {
+            if (checkStatus.data.length == 0) {
+                layer.open({
+                    type: 0,
+                    content: "至少选中一条"
+                });
+            } else {
+                layer.confirm('确认删除该文章吗', function (index) {
+                    deleteArticle(checkStatus.data);
+                    layer.close(index);
+                });
+            }
+        }
+    });
+
+    function deleteArticle(array) {
+        var data = [];
+        for (var i = 0; i < array.length; i++) {
+            var item = {
+                id: array[i].id
+            };
+            data.push(item);
+        }
+
+        $.ajax({
+            url: "/admin/article/delete",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
+                    tableIns.reload(parameter);
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "请求失败"
+                });
+            }
+        });
+    }
 
 });
