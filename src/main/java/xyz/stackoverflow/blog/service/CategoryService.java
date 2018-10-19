@@ -15,7 +15,7 @@ public interface CategoryService {
 
     boolean isExist(String id);
 
-    int getTotalSize();
+    int getCategoryCount();
 
     Category getCategoryByCode(String categoryCode);
 

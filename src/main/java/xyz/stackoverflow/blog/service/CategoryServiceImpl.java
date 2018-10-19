@@ -56,8 +56,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int getTotalSize() {
-        return dao.getTotalSize();
+    public int getCategoryCount() {
+        return dao.getCategoryCount();
     }
 
     @Override

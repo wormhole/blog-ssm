@@ -32,7 +32,7 @@
         select * from category limit #{start},#{limit}
     </select>
 
-    <select id="getTotalSize" resultType="int">
+    <select id="getCategoryCount" resultType="int">
         select count(*) from category
     </select>
 

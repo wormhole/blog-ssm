@@ -5,7 +5,6 @@ import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface CategoryDao {
@@ -21,7 +20,7 @@ public interface CategoryDao {
 
     int isExist(String id);
 
-    int getTotalSize();
+    int getCategoryCount();
 
     List<Category> getAllCategory();
 

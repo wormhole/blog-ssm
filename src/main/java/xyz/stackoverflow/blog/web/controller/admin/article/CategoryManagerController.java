@@ -68,31 +68,25 @@ public class CategoryManagerController {
     @ResponseBody
     public ResponseJson list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
         ResponseJson response = new ResponseJson();
+        List<Category> list = null;
         if (page != null && limit != null) {
             PageParameter pageParameter = new PageParameter();
             pageParameter.setPageNo(Integer.valueOf(page));
             pageParameter.setLimit(Integer.valueOf(limit));
             pageParameter.setStart((pageParameter.getPageNo() - 1) * pageParameter.getLimit());
-            List<Category> list = categoryService.getLimitCategory(pageParameter);
-            int count = categoryService.getTotalSize();
+            list = categoryService.getLimitCategory(pageParameter);
 
-            Map map = new HashMap<String, Object>();
-            map.put("count", count);
-            map.put("items", list);
-            response.setStatus(SUCCESS);
-            response.setMessage("查询成功");
-            response.setData(map);
         } else {
-            List<Category> list = categoryService.getAllCategory();
-            int count = categoryService.getTotalSize();
-
-            Map map = new HashMap<String, Object>();
-            map.put("count", count);
-            map.put("items", list);
-            response.setStatus(SUCCESS);
-            response.setMessage("查询成功");
-            response.setData(map);
+            list = categoryService.getAllCategory();
         }
+        int count = categoryService.getCategoryCount();
+
+        Map map = new HashMap<String, Object>();
+        map.put("count", count);
+        map.put("items", list);
+        response.setStatus(SUCCESS);
+        response.setMessage("查询成功");
+        response.setData(map);
         return response;
     }
 
@@ -102,13 +96,13 @@ public class CategoryManagerController {
         ResponseJson response = new ResponseJson();
         Category category = categoryService.getCategoryById(categoryVO.getId());
         if (category.getDeleteAble() == 0) {
-            response.setStatus(1);
+            response.setStatus(FAILURE);
             response.setMessage("该分类不允许删除");
         } else {
             Category unCategory = categoryService.getCategoryByCode("uncategory");
             List<Article> list = articleService.getAllArticle();
-            for(Article article : list){
-                if(article.getCategoryId().equals(categoryVO.getId())){
+            for (Article article : list) {
+                if (article.getCategoryId().equals(categoryVO.getId())) {
                     article.setCategoryId(unCategory.getId());
                     articleService.updateArticle(article);
                 }
