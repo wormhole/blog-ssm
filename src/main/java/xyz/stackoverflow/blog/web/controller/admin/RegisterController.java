@@ -60,13 +60,9 @@ public class RegisterController {
             response.setData(map);
         } else {
             User user = registerVO.toUser();
-            user.setDeleteAble(1);
+            user.setDeleteAble(0);
             User newUser = userService.insertUser(user);
-            if (userService.getUserCount() == 0) {
-                userService.grantRole("admin", newUser.getId());
-            } else {
-                userService.grantRole("author", newUser.getId());
-            }
+            userService.grantRole("admin", newUser.getId());
             response.setStatus(SUCCESS);
             response.setMessage("注册成功");
         }
