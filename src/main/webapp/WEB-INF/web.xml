@@ -1,6 +1,6 @@
 <web-app>
 
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>blog</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -8,7 +8,7 @@
     </context-param>
 
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>xyz.stackoverflow.blog.web.listener.InitListener</listener-class>
     </listener>
 
     <servlet>
