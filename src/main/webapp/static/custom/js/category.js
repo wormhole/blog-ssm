@@ -5,7 +5,7 @@ var page;
 
 $(function () {
 
-    viewModel = new viewModel();
+    viewModel = new ViewModel();
     ko.applyBindings(viewModel);
     url = window.location.pathname;
     page = getQueryVariable("page");
@@ -22,7 +22,7 @@ $(function () {
     }
 });
 
-function viewModel() {
+function ViewModel() {
     var self = this;
 
     self.initData = {

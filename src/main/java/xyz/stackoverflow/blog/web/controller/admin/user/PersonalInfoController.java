@@ -38,6 +38,22 @@ public class PersonalInfoController {
     @Autowired
     private PersonalInfoValidator personalInfoValidator;
 
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseJson get(HttpSession session) {
+        ResponseJson response = new ResponseJson();
+        User user = (User) session.getAttribute("user");
+        PersonalInfoVO vo = new PersonalInfoVO();
+        vo.setNickname(user.getNickname());
+        vo.setEmail(user.getEmail());
+        vo.setSignature(user.getSignature());
+        vo.setHeadUrl(user.getHeadUrl());
+        response.setStatus(SUCCESS);
+        response.setMessage("获取成功");
+        response.setData(vo);
+        return response;
+    }
+
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
     public ResponseJson updateBaseInfo(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
@@ -69,8 +85,14 @@ public class PersonalInfoController {
             }
             User newUser = userService.updateBaseInfo(updateUser);
             session.setAttribute("user", newUser);
+            PersonalInfoVO vo = new PersonalInfoVO();
+            vo.setNickname(newUser.getNickname());
+            vo.setEmail(newUser.getEmail());
+            vo.setSignature(newUser.getSignature());
+            vo.setHeadUrl(newUser.getHeadUrl());
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
+            response.setData(vo);
         } else {
             response.setStatus(FAILURE);
             response.setMessage("字段格式错误");
@@ -99,10 +121,10 @@ public class PersonalInfoController {
             User updateUser = personalInfoVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
-            Cache defaultCache = redisCacheManager.getCache("defaultCache");
-            defaultCache.evict("user:" + user.getEmail());
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
+            Cache authorizationCache = redisCacheManager.getCache("authorizationCache");
+            authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
             User newUser = userService.updatePassword(updateUser);
             session.setAttribute("user", newUser);
             response.setStatus(SUCCESS);
@@ -146,6 +168,13 @@ public class PersonalInfoController {
                 User newUser = userService.updateHeadUrl(user);
                 session.setAttribute("user", newUser);
             }
+            User newUser = (User) session.getAttribute("user");
+            PersonalInfoVO vo = new PersonalInfoVO();
+            vo.setNickname(newUser.getNickname());
+            vo.setEmail(newUser.getEmail());
+            vo.setSignature(newUser.getSignature());
+            vo.setHeadUrl(newUser.getHeadUrl());
+            response.setData(vo);
             response.setStatus(SUCCESS);
             response.setMessage("修改成功");
         } catch (IOException e) {

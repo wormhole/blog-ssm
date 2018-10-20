@@ -4,7 +4,7 @@ var page;
 
 $(function () {
 
-    viewModel = new viewModel();
+    viewModel = new ViewModel();
     ko.applyBindings(viewModel);
 
     loadSideInfo();
@@ -17,7 +17,7 @@ $(function () {
     }
 });
 
-function viewModel() {
+function ViewModel() {
     var self = this;
 
     self.initData = {

@@ -3,7 +3,7 @@ var loading;
 
 $(function () {
 
-    viewModel = new viewModel();
+    viewModel = new ViewModel();
     ko.applyBindings(viewModel);
 
     var url = window.location.pathname;
@@ -12,7 +12,7 @@ $(function () {
     loadArticle(url);
 });
 
-function viewModel() {
+function ViewModel() {
     var self = this;
 
     self.initData = {
