@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User insertUser(User user) {
         user.setHeadUrl("/static/custom/image/cam.png");
         user.setNickname(user.getNickname());
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User updateHeadUrl(User user) {
         userDao.updateHeadUrl(user);
         return userDao.getUserByEmail(user.getEmail());
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User updatePassword(User user) {
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email")
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User updateBaseInfo(User user) {
         user.setNickname(user.getNickname());
         user.setSignature(user.getSignature());
@@ -154,6 +155,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "defaultCache", key = "'user:'+#result.email", condition = "#result!=null", beforeInvocation = false)
     public User deleteUserById(String userId) {
         User user = userDao.getUserById(userId);
         if (userDao.deleteUserById(userId) == 1) {

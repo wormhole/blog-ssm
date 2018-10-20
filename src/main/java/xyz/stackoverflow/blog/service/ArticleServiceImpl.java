@@ -21,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url")
+    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
     public Article insertArticle(Article article) {
         article.setId(IdGenerator.getId());
         dao.insertArticle(article);
@@ -89,7 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url")
+    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
     public Article updateArticle(Article article) {
         dao.updateArticle(article);
         return dao.getArticleById(article.getId());
@@ -97,7 +97,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", key = "'article:'+#result.url")
+    @CacheEvict(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
     public Article deleteArticleById(String id) {
         Article article = dao.getArticleById(id);
         dao.deleteArticleById(id);
