@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email", unless = "#result == null")
+    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User getAdmin() {
         return userDao.getAdmin();
     }

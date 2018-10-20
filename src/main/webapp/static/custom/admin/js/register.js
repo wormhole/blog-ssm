@@ -39,7 +39,6 @@ layui.use(['jquery'], function () {
             success: function (data) {
                 if (data.status == 0) {
                     $('blockquote').html('<a href="/admin/login">点击前往登陆页面</a>');
-                    $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
                 } else if (data.status == 1) {
                     if (data.data['vcode'] != undefined) {
                         $('blockquote').html(data.data['vcode']);
@@ -57,9 +56,9 @@ layui.use(['jquery'], function () {
                     } else {
                         $('blockquote').html(data.message);
                     }
-                    $('blockquote').removeClass('hidden');
-                    $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
                 }
+                $('blockquote').removeClass('hidden');
+                $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
             },
             error: function (data) {
                 $('blockquote').html('请求错误');

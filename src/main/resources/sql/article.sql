@@ -1,4 +1,4 @@
-create table test.article
+create table blog.article
 (
   id          char(36)                            not null
     primary key,
