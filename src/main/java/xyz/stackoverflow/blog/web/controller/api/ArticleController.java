@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PageParameter;
-import xyz.stackoverflow.blog.util.ResponseJson;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 前端接口文章控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/api")
 public class ArticleController {
@@ -31,19 +36,23 @@ public class ArticleController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 文章获取 /api/article
+     * 方法 GET
+     *
+     * @param page 分页参数,允许为空,为空时获取所有文章
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getArticleList(@RequestParam(value = "page", required = false) Integer page) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO list(@RequestParam(value = "page", required = false) Integer page) {
+        ResponseVO response = new ResponseVO();
         Map map = new HashMap<String, Object>();
         List<Article> list = null;
-        List<ArticleVO> voList = new ArrayList();
+        List voList = new ArrayList<ArticleVO>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (page != null) {
-            PageParameter parameter = new PageParameter();
-            parameter.setPageNo(page);
-            parameter.setLimit(5);
-            parameter.setStart((parameter.getPageNo() - 1) * parameter.getLimit());
+            PageParameter parameter = new PageParameter(Integer.valueOf(page), 5, null);
             list = articleService.getLimitArticle(parameter);
             map.put("page", page);
         } else {
@@ -55,7 +64,7 @@ public class ArticleController {
             vo.setArticleHtml(article.getArticleHtml());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDate(sdf.format(article.getDate()));
+            vo.setDateString(sdf.format(article.getDate()));
             vo.setUrl(article.getUrl());
             voList.add(vo);
         }
@@ -68,10 +77,20 @@ public class ArticleController {
         return response;
     }
 
+    /**
+     * 访问单篇文章 /api/article/{year}/{month}/{day}/{articleCode}
+     * 方法 GET
+     *
+     * @param year
+     * @param month
+     * @param day
+     * @param articleCode
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/article/{year}/{month}/{day}/{articleCode}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson getArticleByCode(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO getArticleByCode(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
+        ResponseVO response = new ResponseVO();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
         Article article = articleService.getArticleByUrl(url);
         if (article == null) {
@@ -84,7 +103,7 @@ public class ArticleController {
             vo.setArticleMd(article.getArticleMd());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDate(sdf.format(article.getDate()));
+            vo.setDateString(sdf.format(article.getDate()));
             response.setStatus(SUCCESS);
             response.setMessage("查找成功");
             response.setData(vo);
