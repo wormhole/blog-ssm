@@ -6,9 +6,9 @@ import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 import java.util.List;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 角色-权限表DAO
+ * 角色-权限表DAO
+ *
+ * @author 凉衫薄
  */
 @Repository
 public interface RolePermissionDao {

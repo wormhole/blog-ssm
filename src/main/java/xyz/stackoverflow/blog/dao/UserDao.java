@@ -4,9 +4,9 @@ import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.User;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 用户表DAO
+ * 用户表DAO
+ *
+ * @author 凉衫薄
  */
 @Repository
 public interface UserDao {

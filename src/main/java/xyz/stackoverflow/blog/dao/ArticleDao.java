@@ -7,9 +7,9 @@ import xyz.stackoverflow.blog.util.PageParameter;
 import java.util.List;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 文章表DAO
+ * 文章表DAO
+ *
+ * @author 凉衫薄
  */
 @Repository
 public interface ArticleDao {
