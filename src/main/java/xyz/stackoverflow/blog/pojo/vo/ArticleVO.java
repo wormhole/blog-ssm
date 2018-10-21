@@ -5,9 +5,9 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import java.util.Date;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 文章VO
+ * 文章VO
+ *
+ * @author 凉衫薄
  */
 public class ArticleVO extends Article {
 
@@ -60,6 +60,11 @@ public class ArticleVO extends Article {
         this.dateString = dateString;
     }
 
+    /**
+     * 转换成实体类
+     *
+     * @return 转换后的实体类
+     */
     public Article toArticle() {
         Article article = new Article();
         article.setId(id);

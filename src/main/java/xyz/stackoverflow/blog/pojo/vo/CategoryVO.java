@@ -3,9 +3,9 @@ package xyz.stackoverflow.blog.pojo.vo;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 分类VO
+ * 分类VO
+ *
+ * @author 凉衫薄
  */
 public class CategoryVO extends Category {
 
@@ -20,6 +20,19 @@ public class CategoryVO extends Category {
         this.articleCount = articleCount;
     }
 
+    public Integer getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
+    }
+
+    /**
+     * 转换成实体类
+     *
+     * @return 转换后的实体类
+     */
     public Category toCategory(){
         Category category = new Category();
         category.setId(id);

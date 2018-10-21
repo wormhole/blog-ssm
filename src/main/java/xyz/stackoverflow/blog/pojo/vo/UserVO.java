@@ -3,9 +3,9 @@ package xyz.stackoverflow.blog.pojo.vo;
 import xyz.stackoverflow.blog.pojo.entity.User;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 用户VO
+ * 用户VO
+ *
+ * @author 凉衫薄
  */
 public class UserVO extends User {
 
@@ -38,6 +38,11 @@ public class UserVO extends User {
         this.vcode = vcode;
     }
 
+    /**
+     * 转换成实体类
+     *
+     * @return 转换后的实体类
+     */
     public User toUser(){
         User user = new User();
         user.setId(id);
