@@ -10,10 +10,22 @@ import xyz.stackoverflow.blog.exception.IncorrectVCodeException;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 登陆页面控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
 
+    /**
+     * Shiro登陆失败跳转方法 /admin/login
+     * 方法POST
+     *
+     * @param request http请求对象
+     * @return ModelAndView
+     */
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request){
 
@@ -33,6 +45,12 @@ public class LoginController {
         return mv;
     }
 
+    /**
+     * 登陆页面跳转 /admin/login
+     * 方法GET
+     *
+     * @return 返回视图名
+     */
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
         return "/admin/login";
