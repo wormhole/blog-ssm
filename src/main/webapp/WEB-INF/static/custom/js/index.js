@@ -7,13 +7,13 @@ $(function () {
     viewModel = new ViewModel();
     ko.applyBindings(viewModel);
 
-    loadSideInfo();
+    loadSideInfoAjax();
 
     page = getQueryVariable("page");
     if (page != null) {
-        loadArticle(page);
+        loadArticleAjax(page);
     } else {
-        loadArticle(1);
+        loadArticleAjax(1);
     }
 });
 
@@ -97,7 +97,7 @@ function getPagination(count, page) {
     return ul;
 }
 
-function loadSideInfo() {
+function loadSideInfoAjax() {
     $.ajax({
         url: "/api/sideinfo",
         type: "get",
@@ -107,14 +107,22 @@ function loadSideInfo() {
                 var sideInfo = data.data;
                 viewModel.sideInfo(sideInfo);
             } else {
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            });
         }
     });
 }
 
-function loadArticle(page) {
+function loadArticleAjax(page) {
     $.ajax({
         url: "/api/article?page=" + page,
         type: "get",
@@ -140,11 +148,17 @@ function loadArticle(page) {
                 }
                 viewModel.articleList(items);
             } else {
-
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
-
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            });
         }
     });
 }
