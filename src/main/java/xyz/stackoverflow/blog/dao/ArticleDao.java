@@ -6,6 +6,11 @@ import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 文章表DAO
+ */
 @Repository
 public interface ArticleDao {
     int insertArticle(Article article);

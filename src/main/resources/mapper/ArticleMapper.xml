@@ -16,11 +16,11 @@
         <result property="url" column="url"></result>
     </resultMap>
 
-    <select id="getAllArticle" resultMap="articleMap">
+    <select id="getAllArticle" resultMap="articleMap" resultType="article">
         select * from article order by date desc
     </select>
 
-    <select id="getLimitArticle" resultMap="articleMap">
+    <select id="getLimitArticle" resultMap="articleMap" resultType="article">
         select * from article order by date desc limit #{start},#{limit}
     </select>
 
@@ -32,19 +32,19 @@
         select count(*) from article where categoryid = #{categoryId}
     </select>
 
-    <select id="getArticleById" resultMap="articleMap" parameterType="string">
+    <select id="getArticleById" resultMap="articleMap" parameterType="string" resultType="article">
         select * from article where id = #{id}
     </select>
 
-    <select id="getArticleByUrl" resultMap="articleMap" parameterType="string">
+    <select id="getArticleByUrl" resultMap="articleMap" parameterType="string" resultType="article">
         select * from article where url = #{url}
     </select>
 
-    <select id="getArticleByCategoryId" resultMap="articleMap" parameterType="string">
+    <select id="getArticleByCategoryId" resultMap="articleMap" parameterType="string" resultType="article">
         select * from article where categoryid = #{categoryId}
     </select>
 
-    <select id="getLimitArticleByCategoryId" resultMap="articleMap">
+    <select id="getLimitArticleByCategoryId" resultMap="articleMap" resultType="article">
         select * from article where categoryid = #{where} order by date desc limit #{start},#{limit}
     </select>
 
@@ -52,7 +52,7 @@
         select count(*) from article where url = #{url}
     </select>
 
-    <insert id="insertArticle" parameterType="article" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertArticle" parameterType="article">
         insert into article(id,userid,title,articlemd,articlehtml,categoryid,date,url) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{date},#{url})
     </insert>
 
