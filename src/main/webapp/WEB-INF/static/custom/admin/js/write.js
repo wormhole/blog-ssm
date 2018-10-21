@@ -8,7 +8,7 @@ layui.use(['form', 'layer'], function () {
 
     $(function () {
         if (id != null) {
-            loadArticle(id);
+            loadArticleAjax(id);
         } else {
             mdEditor = editormd({
                 id: "editormd",
@@ -21,7 +21,7 @@ layui.use(['form', 'layer'], function () {
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL: "/admin/article/image",
             });
-            loadCategory();
+            loadCategoryAjax();
         }
     });
 
@@ -37,7 +37,7 @@ layui.use(['form', 'layer'], function () {
         return null;
     }
 
-    function loadArticle(id) {
+    function loadArticleAjax(id) {
         var data = {
             id: id
         };
@@ -62,7 +62,7 @@ layui.use(['form', 'layer'], function () {
                         imageUploadURL: "/admin/article/image",
                         markdown: article.articleMd
                     });
-                    loadCategory();
+                    loadCategoryAjax();
                     renderTitle(article.title);
                     renderCode(article.url);
                 } else {
@@ -75,13 +75,13 @@ layui.use(['form', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败"
+                    content: "服务器错误"
                 });
             }
         });
     }
 
-    function loadCategory() {
+    function loadCategoryAjax() {
         $.ajax({
             url: "/admin/article/category/list",
             type: "get",
@@ -100,13 +100,13 @@ layui.use(['form', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败"
+                    content: "服务器错误"
                 });
             }
         });
     }
 
-    function saveArticle(data) {
+    function saveArticleAjax(data) {
         $.ajax({
             url: "/admin/article/insert",
             type: "post",
@@ -119,7 +119,7 @@ layui.use(['form', 'layer'], function () {
                         type: 0,
                         content: data.message
                     });
-                } else if (data.status == 1) {
+                } else {
                     layer.open({
                         type: 0,
                         content: data.message
@@ -129,13 +129,13 @@ layui.use(['form', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败",
+                    content: "服务器错误",
                 });
             }
         });
     }
 
-    function updateArticle(data) {
+    function updateArticleAjax(data) {
         data.id = article.id;
         $.ajax({
             url: "/admin/article/update",
@@ -149,7 +149,7 @@ layui.use(['form', 'layer'], function () {
                         type: 0,
                         content: data.message
                     });
-                } else if (data.status == 1) {
+                } else {
                     layer.open({
                         type: 0,
                         content: data.message
@@ -159,7 +159,7 @@ layui.use(['form', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败",
+                    content: "服务器错误",
                 });
             }
         });
@@ -259,8 +259,8 @@ layui.use(['form', 'layer'], function () {
         };
 
         if (id == null)
-            saveArticle(data);
+            saveArticleAjax(data);
         else
-            updateArticle(data);
+            updateArticleAjax(data);
     });
 });
