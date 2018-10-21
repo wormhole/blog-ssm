@@ -76,22 +76,21 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 });
             } else {
                 layer.confirm('确认删除该文章吗', function (index) {
-                    deleteArticle(checkStatus.data);
+                    var data = [];
+                    for (var i = 0; i < checkStatus.data.length; i++) {
+                        var item = {
+                            id: checkStatus.data[i].id
+                        };
+                        data.push(item);
+                    }
+                    deleteArticleAjax(data);
                     layer.close(index);
                 });
             }
         }
     });
 
-    function deleteArticle(array) {
-        var data = [];
-        for (var i = 0; i < array.length; i++) {
-            var item = {
-                id: array[i].id
-            };
-            data.push(item);
-        }
-
+    function deleteArticleAjax(data) {
         $.ajax({
             url: "/admin/article/delete",
             type: "post",
