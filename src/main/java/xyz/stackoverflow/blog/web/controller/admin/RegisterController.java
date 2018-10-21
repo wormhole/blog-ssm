@@ -7,15 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.RegisterVO;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.validator.RegisterInfoValidator;
+import xyz.stackoverflow.blog.validator.UserValidator;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 注册页面控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/admin")
 public class RegisterController {
@@ -26,20 +31,27 @@ public class RegisterController {
     @Autowired
     private UserService userService;
     @Autowired
-    private RegisterInfoValidator validator;
+    private UserValidator validator;
 
+    /**
+     * 注册信息提交 /admin/register
+     * 方法POST
+     *
+     * @param userVO 用户类VO
+     * @param session 会话session
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson register(@RequestBody RegisterVO registerVO, HttpSession session) {
+    public ResponseVO register(@RequestBody UserVO userVO, HttpSession session) {
 
-        ResponseJson response = new ResponseJson();
+        ResponseVO response = new ResponseVO();
         Map map = new HashMap<String, String>();
 
         User admin = userService.getAdmin();
         if (admin == null) {
-
             String vcode = (String) session.getAttribute("vcode");
-            if (!vcode.equalsIgnoreCase(registerVO.getVcode())) {
+            if (!vcode.equalsIgnoreCase(userVO.getVcode())) {
                 map.put("vcode", "验证码错误");
                 response.setStatus(FAILURE);
                 response.setMessage("验证码错误");
@@ -47,7 +59,7 @@ public class RegisterController {
                 return response;
             }
 
-            if (userService.isExist(registerVO.getEmail())) {
+            if (userService.isExist(userVO.getEmail())) {
                 map.put("email", "邮箱已经存在");
                 response.setStatus(FAILURE);
                 response.setMessage("邮箱已经存在");
@@ -55,13 +67,13 @@ public class RegisterController {
                 return response;
             }
 
-            map = validator.validate(registerVO);
+            map = validator.validate(userVO);
             if (map.size() != 0) {
                 response.setStatus(FAILURE);
                 response.setMessage("注册信息格式错误");
                 response.setData(map);
             } else {
-                User user = registerVO.toUser();
+                User user = userVO.toUser();
                 user.setDeleteAble(0);
                 User newUser = userService.insertUser(user);
                 userService.grantRole("admin", newUser.getId());
@@ -76,6 +88,12 @@ public class RegisterController {
 
     }
 
+    /**
+     * 注册页面跳转 /admin/register
+     * 方法GET
+     *
+     * @return 返回视图名
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
         return "/admin/register";
