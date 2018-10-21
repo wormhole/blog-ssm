@@ -10,6 +10,11 @@ import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 分类服务实现
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 

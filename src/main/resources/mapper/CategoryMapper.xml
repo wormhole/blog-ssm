@@ -12,23 +12,23 @@
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
-    <insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertCategory" parameterType="category">
         insert into category(id,categorycode,categoryname,deleteable) values(#{id},#{categoryCode},#{categoryName},#{deleteAble})
     </insert>
 
-    <select id="getCategoryById" resultMap="categoryMap">
+    <select id="getCategoryById" resultMap="categoryMap" resultType="category" parameterType="string">
         select * from category where id = #{id}
     </select>
 
-    <select id="getCategoryByCode" resultMap="categoryMap">
+    <select id="getCategoryByCode" resultMap="categoryMap" resultType="category" parameterType="string">
         select * from category where categorycode = #{categoryCode}
     </select>
 
-    <select id="getAllCategory" resultMap="categoryMap">
+    <select id="getAllCategory" resultMap="categoryMap" resultType="category">
         select * from category
     </select>
 
-    <select id="getLimitCategory" resultMap="categoryMap">
+    <select id="getLimitCategory" resultMap="categoryMap" resultType="category">
         select * from category limit #{start},#{limit}
     </select>
 
