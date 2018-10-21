@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.PersonalInfoVO;
+import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
-import xyz.stackoverflow.blog.util.ResponseJson;
-import xyz.stackoverflow.blog.validator.PersonalInfoValidator;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,9 +24,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 个人信息维护页面控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/admin/user")
-public class PersonalInfoController {
+public class PersonalController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -36,14 +41,21 @@ public class PersonalInfoController {
     @Autowired
     private RedisCacheManager redisCacheManager;
     @Autowired
-    private PersonalInfoValidator personalInfoValidator;
+    private UserValidator userValidator;
 
+    /**
+     * 获取当前用户信息 /admin/user/get
+     * 方法GET
+     *
+     * @param session 会话对象
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson get(HttpSession session) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO get(HttpSession session) {
+        ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
-        PersonalInfoVO vo = new PersonalInfoVO();
+        UserVO vo = new UserVO();
         vo.setNickname(user.getNickname());
         vo.setEmail(user.getEmail());
         vo.setSignature(user.getSignature());
@@ -54,15 +66,23 @@ public class PersonalInfoController {
         return response;
     }
 
+    /**
+     * 更新用户基本信息 /admin/user/update/baseinfo
+     * 方法POST
+     *
+     * @param userVO 用户类VO
+     * @param session 会话对象
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/update/baseinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson updateBaseInfo(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
-        ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String, String>();
+    public ResponseVO updateBaseInfo(@RequestBody UserVO userVO, HttpSession session) {
+        ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
+        Map map = new HashMap<String, String>();
 
-        if (!personalInfoVO.getEmail().equals(user.getEmail())) {
-            if (userService.isExist(personalInfoVO.getEmail())) {
+        if (!userVO.getEmail().equals(user.getEmail())) {
+            if (userService.isExist(userVO.getEmail())) {
                 map.put("email", "邮箱已经存在");
                 response.setStatus(FAILURE);
                 response.setData(map);
@@ -71,9 +91,9 @@ public class PersonalInfoController {
             }
         }
 
-        map = personalInfoValidator.validate(personalInfoVO);
+        map = userValidator.validate(userVO);
         if (map.size() == 0) {
-            User updateUser = personalInfoVO.toUser();
+            User updateUser = userVO.toUser();
             updateUser.setId(user.getId());
             if (!updateUser.getEmail().equals(user.getEmail())) {
                 Cache defaultCache = redisCacheManager.getCache("defaultCache");
@@ -85,7 +105,7 @@ public class PersonalInfoController {
             }
             User newUser = userService.updateBaseInfo(updateUser);
             session.setAttribute("user", newUser);
-            PersonalInfoVO vo = new PersonalInfoVO();
+            UserVO vo = new UserVO();
             vo.setNickname(newUser.getNickname());
             vo.setEmail(newUser.getEmail());
             vo.setSignature(newUser.getSignature());
@@ -101,14 +121,22 @@ public class PersonalInfoController {
         return response;
     }
 
+    /**
+     * 更新当前用户密码 /admin/user/updat/password
+     * 方法POST
+     *
+     * @param userVO 用户类VO
+     * @param session 会话对象
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson updatePassword(@RequestBody PersonalInfoVO personalInfoVO, HttpSession session) {
-        ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String, String>();
+    public ResponseVO updatePassword(@RequestBody UserVO userVO, HttpSession session) {
+        ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
+        Map map = new HashMap<String, String>();
 
-        if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), personalInfoVO.getOldPassword()))) {
+        if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userVO.getOldPassword()))) {
             map.put("oldPassword", "旧密码不匹配");
             response.setStatus(FAILURE);
             response.setMessage("旧密码不匹配");
@@ -116,9 +144,9 @@ public class PersonalInfoController {
             return response;
         }
 
-        map = personalInfoValidator.validate(personalInfoVO);
+        map = userValidator.validate(userVO);
         if (map.size() == 0) {
-            User updateUser = personalInfoVO.toUser();
+            User updateUser = userVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
@@ -137,12 +165,20 @@ public class PersonalInfoController {
         return response;
     }
 
+    /**
+     * 更新当前用户头像 /admin/user/update/head
+     * 方法POST
+     *
+     * @param request http请求对象
+     * @param session 会话对象
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/update/head", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson updateHead(HttpServletRequest request, HttpSession session) {
-        ResponseJson response = new ResponseJson();
-        Map map = new HashMap<String, String>();
+    public ResponseVO updateHead(HttpServletRequest request, HttpSession session) {
+        ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
+        Map map = new HashMap<String, String>();
 
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");
@@ -169,7 +205,7 @@ public class PersonalInfoController {
                 session.setAttribute("user", newUser);
             }
             User newUser = (User) session.getAttribute("user");
-            PersonalInfoVO vo = new PersonalInfoVO();
+            UserVO vo = new UserVO();
             vo.setNickname(newUser.getNickname());
             vo.setEmail(newUser.getEmail());
             vo.setSignature(newUser.getSignature());
