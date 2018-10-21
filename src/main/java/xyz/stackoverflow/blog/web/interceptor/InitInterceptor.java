@@ -15,7 +15,7 @@ public class InitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (userService.getUserCount() == 0) {
+        if (userService.getAdmin() == null) {
             response.sendRedirect("/admin/register");
             return false;
         }

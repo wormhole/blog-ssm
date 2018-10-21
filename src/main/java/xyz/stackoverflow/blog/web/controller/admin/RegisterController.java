@@ -35,36 +35,42 @@ public class RegisterController {
         ResponseJson response = new ResponseJson();
         Map map = new HashMap<String, String>();
 
-        String vcode = (String) session.getAttribute("vcode");
+        User admin = userService.getAdmin();
+        if (admin == null) {
 
-        if (!vcode.equalsIgnoreCase(registerVO.getVcode())) {
-            map.put("vcode", "验证码错误");
-            response.setStatus(FAILURE);
-            response.setMessage("验证码错误");
-            response.setData(map);
-            return response;
-        }
+            String vcode = (String) session.getAttribute("vcode");
+            if (!vcode.equalsIgnoreCase(registerVO.getVcode())) {
+                map.put("vcode", "验证码错误");
+                response.setStatus(FAILURE);
+                response.setMessage("验证码错误");
+                response.setData(map);
+                return response;
+            }
 
-        if (userService.isExist(registerVO.getEmail())) {
-            map.put("email", "邮箱已经存在");
-            response.setStatus(FAILURE);
-            response.setMessage("邮箱已经存在");
-            response.setData(map);
-            return response;
-        }
+            if (userService.isExist(registerVO.getEmail())) {
+                map.put("email", "邮箱已经存在");
+                response.setStatus(FAILURE);
+                response.setMessage("邮箱已经存在");
+                response.setData(map);
+                return response;
+            }
 
-        map = validator.validate(registerVO);
-        if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("注册信息格式错误");
-            response.setData(map);
+            map = validator.validate(registerVO);
+            if (map.size() != 0) {
+                response.setStatus(FAILURE);
+                response.setMessage("注册信息格式错误");
+                response.setData(map);
+            } else {
+                User user = registerVO.toUser();
+                user.setDeleteAble(0);
+                User newUser = userService.insertUser(user);
+                userService.grantRole("admin", newUser.getId());
+                response.setStatus(SUCCESS);
+                response.setMessage("注册成功");
+            }
         } else {
-            User user = registerVO.toUser();
-            user.setDeleteAble(0);
-            User newUser = userService.insertUser(user);
-            userService.grantRole("admin", newUser.getId());
-            response.setStatus(SUCCESS);
-            response.setMessage("注册成功");
+            response.setStatus(FAILURE);
+            response.setMessage("不能再进行注册");
         }
         return response;
 

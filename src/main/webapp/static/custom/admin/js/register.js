@@ -40,19 +40,21 @@ layui.use(['jquery'], function () {
                 if (data.status == 0) {
                     $('blockquote').html('<a href="/admin/login">点击前往登陆页面</a>');
                 } else if (data.status == 1) {
-                    if (data.data['vcode'] != undefined) {
-                        $('blockquote').html(data.data['vcode']);
-                        $('#vcode').val('');
-                    } else if (data.data['email'] != undefined) {
-                        $('blockquote').html(data.data['email']);
-                        $('#email').val('');
-                    } else if (data.data['nickname'] != undefined) {
-                        $('blockquote').html(data.data['nickname']);
-                        $('#nickname').val('');
-                    } else if (data.data['password'] != undefined) {
-                        $('blockquote').html(data.data['password']);
-                        $("#password").val('');
-                        $('#checked-password').val('');
+                    if (data.data != undefined) {
+                        if (data.data['vcode'] != undefined) {
+                            $('blockquote').html(data.data['vcode']);
+                            $('#vcode').val('');
+                        } else if (data.data['email'] != undefined) {
+                            $('blockquote').html(data.data['email']);
+                            $('#email').val('');
+                        } else if (data.data['nickname'] != undefined) {
+                            $('blockquote').html(data.data['nickname']);
+                            $('#nickname').val('');
+                        } else if (data.data['password'] != undefined) {
+                            $('blockquote').html(data.data['password']);
+                            $("#password").val('');
+                            $('#checked-password').val('');
+                        }
                     } else {
                         $('blockquote').html(data.message);
                     }
