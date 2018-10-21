@@ -6,11 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: CategoryVO字段校验器
+ * CategoryVO字段校验器
+ *
+ * @author 凉衫薄
  */
 public class CategoryValidator extends AbstractBaseValidator<CategoryVO> {
+
+    /**
+     * 校验CategoryVO字段
+     *
+     * @param categoryVO
+     * @return 返回验证结果集
+     */
     @Override
     public Map validate(CategoryVO categoryVO) {
         Map map = new HashMap<String, String>();

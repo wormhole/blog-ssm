@@ -6,12 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: UserVO字段校验器
+ * UserVO字段校验器
+ *
+ * @author 凉衫薄
  */
 public class UserValidator extends AbstractBaseValidator<UserVO> {
 
+    /**
+     * 校验UserVO字段
+     *
+     * @param userVO
+     * @return 返回验证结果集
+     */
     @Override
     public Map validate(UserVO userVO) {
         Map map = new HashMap<String, String>();
@@ -29,6 +35,12 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
         return map;
     }
 
+    /**
+     * 校验签名方法
+     *
+     * @param signature
+     * @return 通过返回ture,不通过返回false
+     */
     private boolean validateSignature(String signature) {
         if (0 < signature.length() && signature.length() <= 50) {
             return validateCharAndChinese(signature);
