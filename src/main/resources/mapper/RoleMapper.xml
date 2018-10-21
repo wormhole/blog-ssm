@@ -23,7 +23,7 @@
         select * from role;
     </select>
 
-    <insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertRole" parameterType="role">
         insert into role(id,rolename,rolecode) values(#{id},#{rolename},#{rolecode})
     </insert>
 

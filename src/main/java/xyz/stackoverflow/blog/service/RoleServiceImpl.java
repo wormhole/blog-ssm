@@ -9,6 +9,11 @@ import xyz.stackoverflow.blog.util.IdGenerator;
 
 import java.util.List;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 角色服务实现
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 

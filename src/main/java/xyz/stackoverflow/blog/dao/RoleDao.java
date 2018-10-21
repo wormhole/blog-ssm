@@ -5,6 +5,11 @@ import xyz.stackoverflow.blog.pojo.entity.Role;
 
 import java.util.List;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 角色表DAO
+ */
 @Repository
 public interface RoleDao {
 
