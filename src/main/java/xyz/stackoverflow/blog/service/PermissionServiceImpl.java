@@ -10,9 +10,9 @@ import xyz.stackoverflow.blog.util.IdGenerator;
 import java.util.List;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 权限服务实现
+ * 权限服务实现
+ *
+ * @author 凉衫薄
  */
 @Service
 public class PermissionServiceImpl implements PermissionService {

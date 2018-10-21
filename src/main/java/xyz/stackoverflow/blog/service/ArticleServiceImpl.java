@@ -14,9 +14,9 @@ import xyz.stackoverflow.blog.util.PageParameter;
 import java.util.List;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 文章服务实现
+ * 文章服务实现
+ *
+ * @author 凉衫薄
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {

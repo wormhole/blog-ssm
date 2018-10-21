@@ -6,9 +6,9 @@ import xyz.stackoverflow.blog.pojo.entity.UserRole;
 import java.util.Set;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 用户服务接口
+ * 用户服务接口
+ *
+ * @author 凉衫薄
  */
 public interface UserService {
 

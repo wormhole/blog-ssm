@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 用户服务实现
+ * 用户服务实现
+ *
+ * @author 凉衫薄
  */
 @Service
 public class UserServiceImpl implements UserService {

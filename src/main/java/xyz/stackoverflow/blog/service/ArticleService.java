@@ -6,9 +6,9 @@ import xyz.stackoverflow.blog.util.PageParameter;
 import java.util.List;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 文章服务接口
+ * 文章服务接口
+ *
+ * @author 凉衫薄
  */
 public interface ArticleService {
     Article insertArticle(Article blog);
