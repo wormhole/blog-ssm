@@ -1,9 +1,9 @@
 package xyz.stackoverflow.blog.pojo.entity;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 角色-权限表实体类
+ * 角色-权限表实体类
+ *
+ * @author 凉衫薄
  */
 public class RolePermission {
     protected String id;

@@ -3,9 +3,9 @@ package xyz.stackoverflow.blog.pojo.entity;
 import java.io.Serializable;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Desciption: 分类实体类
+ * 分类实体类
+ *
+ * @author 凉衫薄
  */
 public class Category implements Serializable {
     protected String id;

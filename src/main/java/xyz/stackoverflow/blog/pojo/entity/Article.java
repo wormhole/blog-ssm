@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 文章实体类
+ * 文章实体类
+ *
+ * @author 凉衫薄
  */
 public class Article implements Serializable {
     protected String id;

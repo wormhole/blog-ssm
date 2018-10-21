@@ -3,9 +3,9 @@ package xyz.stackoverflow.blog.pojo.entity;
 import java.io.Serializable;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 用户实体类
+ * 用户实体类
+ *
+ * @author 凉衫薄
  */
 public class User implements Serializable {
 
