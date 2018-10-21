@@ -43,7 +43,7 @@ layui.use(['jquery'], function () {
             success: function (data) {
                 if (data.status == 0) {
                     $('blockquote').html('<a href="/admin/login">点击前往登陆页面</a>');
-                } else if (data.status == 1) {
+                } else {
                     if (data.data != undefined) {
                         if (data.data['vcode'] != undefined) {
                             $('blockquote').html(data.data['vcode']);

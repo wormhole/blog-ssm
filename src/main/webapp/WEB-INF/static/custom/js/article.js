@@ -44,9 +44,17 @@ function loadSideInfo() {
                 var sideInfo = data.data;
                 viewModel.sideInfo(sideInfo);
             } else {
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            });
         }
     });
 }
@@ -70,11 +78,18 @@ function loadArticle(url) {
                 editormd.markdownToHTML("editormd-view", {
                     markdown: viewModel.article().articleMd,
                 });
+            } else {
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
-
         },
         error: function (data) {
-
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            })
         }
     });
 

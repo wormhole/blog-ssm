@@ -63,7 +63,7 @@ layui.use(['layer', 'jquery'], function () {
                         type: 0,
                         content: data.message
                     });
-                } else if (data.status == 1) {
+                } else {
                     if (data.data['email'] != undefined) {
                         $('#email-error').html(data.data['email']);
                         $('#email-error').removeClass('hidden');
@@ -98,7 +98,7 @@ layui.use(['layer', 'jquery'], function () {
                         type: 0,
                         content: data.message
                     });
-                } else if (data.status == 1) {
+                } else {
                     if (data.data['oldPassword'] != undefined) {
                         $('#old-password-error').html(data.data['oldPassword']);
                         $('#old-password-error').removeClass('hidden');
@@ -134,7 +134,7 @@ layui.use(['layer', 'jquery'], function () {
                         type: 0,
                         content: data.message
                     });
-                } else if (data.status == 1) {
+                } else {
                     layer.open({
                         type: 0,
                         content: data.message
