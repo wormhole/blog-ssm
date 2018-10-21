@@ -8,18 +8,23 @@ import org.springframework.web.multipart.MultipartFile;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.util.FileUtil;
-import xyz.stackoverflow.blog.util.ResponseJson;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Map;
 
+/**
+ * 后台管理系统写文章控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/admin/article")
 public class WriteArticleController {
@@ -32,10 +37,18 @@ public class WriteArticleController {
     @Autowired
     private ArticleValidator articleValidator;
 
+    /**
+     * 保存文章 /admin/article/insert
+     * 方法 POST
+     *
+     * @param articleVO 文章VO
+     * @param session 会话对象
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson save(@RequestBody ArticleVO articleVO, HttpSession session) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO save(@RequestBody ArticleVO articleVO, HttpSession session) {
+        ResponseVO response = new ResponseVO();
 
         Map map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
@@ -43,15 +56,15 @@ public class WriteArticleController {
             response.setMessage("字段错误");
             response.setData(map);
         } else {
-            Map map1 = new HashMap<String, String>();
             if (articleService.isExistUrl(articleVO.getUrl())) {
                 response.setStatus(FAILURE);
                 response.setMessage("URL重复");
-                map1.put("url", "URL重复");
-                response.setData(map1);
+                map.put("url", "URL重复");
+                response.setData(map);
             } else {
                 User user = (User) session.getAttribute("user");
                 Article article = articleVO.toArticle();
+                article.setDate(new Date());
                 article.setUserId(user.getId());
                 articleService.insertArticle(article);
                 response.setStatus(SUCCESS);
@@ -61,6 +74,15 @@ public class WriteArticleController {
         return response;
     }
 
+    /**
+     * 保存图片 /admin/article/image
+     * 方法 POST
+     *
+     * @param request http请求对象
+     * @param multipartFile multipart对象
+     * @param session 会话对象
+     * @return 返回Map
+     */
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
     public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session) {
