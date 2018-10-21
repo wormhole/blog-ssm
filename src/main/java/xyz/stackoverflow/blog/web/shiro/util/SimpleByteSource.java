@@ -9,6 +9,11 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 
+/**
+ * 可序列化SimpleByteSource实现
+ *
+ * @author 凉衫薄
+ */
 public class SimpleByteSource implements ByteSource,Serializable {
 
     private  byte[] bytes;

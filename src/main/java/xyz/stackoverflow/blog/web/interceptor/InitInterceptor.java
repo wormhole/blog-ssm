@@ -8,11 +8,25 @@ import xyz.stackoverflow.blog.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 初始化拦截器
+ *
+ * @author 凉衫薄
+ */
 public class InitInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserService userService;
 
+    /**
+     * 处理首页拦截,如果博客未建立管理员用户,则跳转到注册界面
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (userService.getAdmin() == null) {

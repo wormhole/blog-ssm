@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 
+/**
+ * 缓存管理器
+ *
+ * @author 凉衫薄
+ */
 public class ShiroRedisCacheManager implements CacheManager {
 
     @Autowired

@@ -15,11 +15,22 @@ import xyz.stackoverflow.blog.web.shiro.util.SimpleByteSource;
 
 import java.util.Set;
 
+/**
+ * 自定义realm
+ *
+ * @author 凉衫薄
+ */
 public class JdbcRealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
 
+    /**
+     * 获取授权信息
+     *
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String email = (String) principalCollection.getPrimaryPrincipal();
@@ -36,6 +47,13 @@ public class JdbcRealm extends AuthorizingRealm {
         return sa;
     }
 
+    /**
+     * 获取认证信息
+     *
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String email = (String) authenticationToken.getPrincipal();

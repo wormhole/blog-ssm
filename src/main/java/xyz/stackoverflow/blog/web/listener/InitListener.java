@@ -9,8 +9,18 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * 初始化监听器
+ *
+ * @author 凉衫薄
+ */
 public class InitListener extends ContextLoaderListener {
 
+    /**
+     * 初始化数据库及表
+     *
+     * @param event
+     */
     @Override
     public void contextInitialized(ServletContextEvent event) {
         try {

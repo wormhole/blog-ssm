@@ -10,6 +10,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Shiro整合Redis缓存
+ *
+ * @author 凉衫薄
+ * @param <K>
+ * @param <V>
+ */
 public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
     private org.springframework.cache.Cache cache;
