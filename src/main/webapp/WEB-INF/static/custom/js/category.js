@@ -10,14 +10,14 @@ $(function () {
     url = window.location.pathname;
     page = getQueryVariable("page");
 
-    loadSideInfo();
+    loadSideInfoAjax();
     if (url == '/category') {
-        loadCategory();
+        loadCategoryAjax();
     } else {
         if (page != null) {
-            loadArticle(page);
+            loadArticleAjax(page);
         } else {
-            loadArticle(1);
+            loadArticleAjax(1);
         }
     }
 });
@@ -31,14 +31,14 @@ function ViewModel() {
             nickname: '',
             signature: ''
         }
-    }
+    };
 
     self.sideInfo = ko.observable(self.initData.sideInfo);
     self.categoryList = ko.observableArray([]);
     self.articleList = ko.observableArray([]);
 }
 
-function loadSideInfo() {
+function loadSideInfoAjax() {
     $.ajax({
         url: "/api/sideinfo",
         type: "get",
@@ -48,14 +48,22 @@ function loadSideInfo() {
                 var sideInfo = data.data;
                 viewModel.sideInfo(sideInfo);
             } else {
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            });
         }
     });
 }
 
-function loadCategory() {
+function loadCategoryAjax() {
     $.ajax({
         url: "/api/category",
         type: "get",
@@ -75,16 +83,22 @@ function loadCategory() {
                 }
                 viewModel.categoryList(data.data);
             } else {
-                console.log('error');
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
-            console.log(data);
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            })
         }
     });
 }
 
-function loadArticle(page) {
+function loadArticleAjax(page) {
     $.ajax({
         url: "/api" + url + "?page=" + page,
         type: "get",
@@ -110,11 +124,17 @@ function loadArticle(page) {
                 }
                 viewModel.articleList(items);
             } else {
-
+                layer.open({
+                    type: 0,
+                    content: data.message
+                });
             }
         },
         error: function (data) {
-
+            layer.open({
+                type: 0,
+                content: "服务器错误"
+            });
         }
     });
 }
