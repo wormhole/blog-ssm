@@ -9,13 +9,18 @@ import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.PageParameter;
-import xyz.stackoverflow.blog.util.ResponseJson;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.validator.CategoryValidator;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 后台管理系统分类管理控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/admin/article")
 public class CategoryManagerController {
@@ -30,10 +35,17 @@ public class CategoryManagerController {
     @Autowired
     private ArticleService articleService;
 
+    /**
+     * 新增分类 /admin/article/category/insert
+     * 方法POST
+     *
+     * @param categoryVO 分类VO
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson insert(@RequestBody CategoryVO categoryVO) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO insert(@RequestBody CategoryVO categoryVO) {
+        ResponseVO response = new ResponseVO();
 
         Map map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
@@ -41,18 +53,17 @@ public class CategoryManagerController {
             response.setMessage("字段格式有误");
             response.setData(map);
         } else {
-            Map map1 = new HashMap<String, String>();
             Category category = categoryVO.toCategory();
             if (categoryService.isExistName(categoryVO.getCategoryName())) {
                 response.setStatus(FAILURE);
                 response.setMessage("分类名已经存在");
-                map1.put("name", "分类名重复");
-                response.setData(map1);
+                map.put("name", "分类名重复");
+                response.setData(map);
             } else if (categoryService.isExistCode(categoryVO.getCategoryCode())) {
                 response.setStatus(FAILURE);
                 response.setMessage("分类编码已经存在");
-                map1.put("code", "分类编码重复");
-                response.setData(map1);
+                map.put("code", "分类编码重复");
+                response.setData(map);
             } else {
                 category.setDeleteAble(1);
                 categoryService.insertCategory(category);
@@ -64,18 +75,22 @@ public class CategoryManagerController {
         return response;
     }
 
+    /**
+     * 获取分类 /admin/article/category/list
+     * 方法GET
+     *
+     * @param page 分页查询页数,允许为空,当为空时,获取所有分类
+     * @param limit 每页的条目数
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/category/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseJson list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
+        ResponseVO response = new ResponseVO();
         List<Category> list = null;
         if (page != null && limit != null) {
-            PageParameter pageParameter = new PageParameter();
-            pageParameter.setPageNo(Integer.valueOf(page));
-            pageParameter.setLimit(Integer.valueOf(limit));
-            pageParameter.setStart((pageParameter.getPageNo() - 1) * pageParameter.getLimit());
+            PageParameter pageParameter = new PageParameter(Integer.valueOf(page),Integer.valueOf(limit),null);
             list = categoryService.getLimitCategory(pageParameter);
-
         } else {
             list = categoryService.getAllCategory();
         }
@@ -90,10 +105,17 @@ public class CategoryManagerController {
         return response;
     }
 
+    /**
+     * 删除分类 /admin/article/category/delete
+     * 方法POST
+     *
+     * @param categoryVO 分类VO
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson delete(@RequestBody CategoryVO categoryVO) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO delete(@RequestBody CategoryVO categoryVO) {
+        ResponseVO response = new ResponseVO();
         Category category = categoryService.getCategoryById(categoryVO.getId());
         if (category.getDeleteAble() == 0) {
             response.setStatus(FAILURE);
@@ -115,10 +137,17 @@ public class CategoryManagerController {
         return response;
     }
 
+    /**
+     * 更新分类 /admin/article/category/update
+     * 方法POST
+     *
+     * @param categoryVO 分类VO
+     * @return 返回ResponseVO
+     */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseJson update(@RequestBody CategoryVO categoryVO) {
-        ResponseJson response = new ResponseJson();
+    public ResponseVO update(@RequestBody CategoryVO categoryVO) {
+        ResponseVO response = new ResponseVO();
 
         Map map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
@@ -127,17 +156,16 @@ public class CategoryManagerController {
             response.setData(map);
         } else {
             Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
-            Map map1 = new HashMap<String, String>();
             if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.isExistName(categoryVO.getCategoryName())) {
                 response.setStatus(FAILURE);
                 response.setMessage("新分类名已经存在");
-                map1.put("name", "分类名重复");
-                response.setData(map1);
+                map.put("name", "分类名重复");
+                response.setData(map);
             } else if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.isExistCode(categoryVO.getCategoryCode())) {
                 response.setStatus(FAILURE);
                 response.setMessage("新分类编码已经存在");
-                map1.put("code", "分类编码重复");
-                response.setData(map1);
+                map.put("code", "分类编码重复");
+                response.setData(map);
             } else {
                 categoryService.updateCategory(categoryVO.toCategory());
                 response.setStatus(SUCCESS);
