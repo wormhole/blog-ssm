@@ -16,10 +16,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * 获取验证码控制器
+ *
+ * @author 凉衫薄
+ */
 @Controller
 @RequestMapping("/api")
 public class VCodeController {
 
+    /**
+     * 获取验证码 /api/vcode
+     * 方法 GET
+     *
+     * @param response http响应对象
+     * @param session 会话对象
+     */
     @RequestMapping(value = "/vcode", method = RequestMethod.GET)
     public void vcode(HttpServletResponse response, HttpSession session) {
 
@@ -36,6 +48,12 @@ public class VCodeController {
         }
     }
 
+    /**
+     * 绘制验证码
+     *
+     * @param output 字节数组输出流
+     * @return 返回验证码
+     */
     private String drawImg(ByteArrayOutputStream output) {
 
         String code = "";
@@ -80,6 +98,11 @@ public class VCodeController {
         return code;
     }
 
+    /**
+     * 获取随机字符
+     *
+     * @return 返回获取的字符
+     */
     private char randomChar() {
         Random r = new Random();
         String s = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
