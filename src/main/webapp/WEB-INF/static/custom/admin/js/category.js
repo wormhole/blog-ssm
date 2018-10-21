@@ -51,7 +51,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         var data = {};
                         data['categoryCode'] = categoryCode;
                         data['categoryName'] = categoryName;
-                        insertCategory(data, tableIns);
+                        insertCategoryAjax(data, tableIns);
                         layer.close(index);
                     }
                 }
@@ -65,7 +65,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         if (layEvent === 'del') {
             layer.confirm('确认删除该分类吗', function (index) {
-                deleteCategory(data,obj);
+                deleteCategoryAjax(data,obj);
                 layer.close(index);
             });
         }
@@ -79,11 +79,11 @@ layui.use(['table', 'jquery', 'layer'], function () {
             });
             tableIns.reload(parameter);
         } else {
-            updateCategory(obj.data);
+            updateCategoryAjax(obj.data);
         }
     });
 
-    function updateCategory(data) {
+    function updateCategoryAjax(data) {
         $.ajax({
             url: "/admin/article/category/update",
             type: "post",
@@ -106,13 +106,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败"
+                    content: "服务器错误"
                 });
             }
         });
     }
 
-    function deleteCategory(data,obj) {
+    function deleteCategoryAjax(data,obj) {
         $.ajax({
             url: "/admin/article/category/delete",
             type: "post",
@@ -136,13 +136,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败"
+                    content: "服务器错误"
                 });
             }
         });
     }
 
-    function insertCategory(data, tableIns) {
+    function insertCategoryAjax(data, tableIns) {
         $.ajax({
             url: "/admin/article/category/insert",
             type: "post",
@@ -166,8 +166,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    title: "错误",
-                    content: "请求失败"
+                    content: "服务器错误"
                 });
             }
         });
