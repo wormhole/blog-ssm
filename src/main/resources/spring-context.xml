@@ -26,8 +26,7 @@
         </property>
     </bean>
 
-    <bean id="registerInfoValidator" class="xyz.stackoverflow.blog.validator.RegisterInfoValidator"/>
-    <bean id="personalInfoValidator" class="xyz.stackoverflow.blog.validator.PersonalInfoValidator"/>
+    <bean id="userValidator" class="xyz.stackoverflow.blog.validator.UserValidator"/>
     <bean id="categoryValidator" class="xyz.stackoverflow.blog.validator.CategoryValidator"/>
     <bean id="articleValidator" class="xyz.stackoverflow.blog.validator.ArticleValidator"/>
 
