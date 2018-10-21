@@ -1,9 +1,9 @@
 package xyz.stackoverflow.blog.util;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: 分页工具
+ * 分页工具
+ *
+ * @author 凉衫薄
  */
 public class PageParameter {
 

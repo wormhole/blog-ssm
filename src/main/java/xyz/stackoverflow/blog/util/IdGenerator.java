@@ -3,12 +3,17 @@ package xyz.stackoverflow.blog.util;
 import java.util.UUID;
 
 /**
- * @Author: 凉衫薄
- * @Date: 2018-10-21
- * @Description: ID生成器工具类
+ * ID生成器工具类
+ *
+ * @author 凉衫薄
  */
 public class IdGenerator {
 
+    /**
+     * 获取ID
+     *
+     * @return 返回36位ID
+     */
     public static String getId(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
