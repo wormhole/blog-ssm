@@ -23,7 +23,7 @@
         select * from permission;
     </select>
 
-    <insert id="insertPermission" parameterType="permission" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertPermission" parameterType="permission">
         insert into permission(id,permissionname,permissioncode) values(#{id},#{permissionName},#{permissionCode})
     </insert>
 
