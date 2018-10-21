@@ -3,6 +3,11 @@ package xyz.stackoverflow.blog.validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 字段校验器抽象类
+ */
 public abstract class AbstractBaseValidator<T> implements Validator<T> {
 
     protected final Pattern passwordPattern = Pattern.compile("^[a-zA-Z0-9_]+$");

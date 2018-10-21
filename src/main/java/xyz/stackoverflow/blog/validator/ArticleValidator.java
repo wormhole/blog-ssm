@@ -5,6 +5,11 @@ import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: ArticleVO字段校验器
+ */
 public class ArticleValidator extends AbstractBaseValidator<ArticleVO> {
     @Override
     public Map validate(ArticleVO articleVO) {
