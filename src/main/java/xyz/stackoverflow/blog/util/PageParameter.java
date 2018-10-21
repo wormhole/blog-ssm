@@ -1,41 +1,25 @@
 package xyz.stackoverflow.blog.util;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 分页工具
+ */
 public class PageParameter {
 
-    private int pageNo;
+    private int page;
     private int start;
     private int limit;
     private String where;
 
-    public int getPageNo() {
-        return pageNo;
+    public PageParameter() {
+
     }
 
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
+    public PageParameter(int page, int limit, String where) {
+        this.page = page;
+        this.start = (page - 1) * limit;
         this.limit = limit;
-    }
-
-    public String getWhere() {
-        return where;
-    }
-
-    public void setWhere(String where) {
         this.where = where;
     }
 }
