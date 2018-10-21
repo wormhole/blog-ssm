@@ -19,8 +19,8 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
      * @return 返回验证结果集
      */
     @Override
-    public Map validate(UserVO userVO) {
-        Map map = new HashMap<String, String>();
+    public Map<String,String> validate(UserVO userVO) {
+        Map<String,String> map = new HashMap<>();
 
         if ((userVO.getEmail() != null) && (!validateEmail(userVO.getEmail()))) {
             map.put("email", "邮箱格式错误或邮箱长度不在0-50之间");

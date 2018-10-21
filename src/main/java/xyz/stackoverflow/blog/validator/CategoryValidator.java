@@ -19,8 +19,8 @@ public class CategoryValidator extends AbstractBaseValidator<CategoryVO> {
      * @return 返回验证结果集
      */
     @Override
-    public Map validate(CategoryVO categoryVO) {
-        Map map = new HashMap<String, String>();
+    public Map<String,String> validate(CategoryVO categoryVO) {
+        Map<String,String> map = new HashMap<>();
         if ((categoryVO.getCategoryName() != null) && (!validateCharAndChinese(categoryVO.getCategoryName()))) {
             map.put("name", "分类名含有特殊字符");
         } else if ((categoryVO.getCategoryCode() != null) && (!validateCode(categoryVO.getCategoryCode()))) {

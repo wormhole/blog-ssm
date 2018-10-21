@@ -47,9 +47,9 @@ public class ArticleController {
     @ResponseBody
     public ResponseVO list(@RequestParam(value = "page", required = false) Integer page) {
         ResponseVO response = new ResponseVO();
-        Map map = new HashMap<String, Object>();
+        Map<String,Object> map = new HashMap<>();
         List<Article> list = null;
-        List voList = new ArrayList<ArticleVO>();
+        List<ArticleVO> voList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (page != null) {
             PageParameter parameter = new PageParameter(Integer.valueOf(page), 5, null);
@@ -62,10 +62,10 @@ public class ArticleController {
             ArticleVO vo = new ArticleVO();
             vo.setTitle(article.getTitle());
             vo.setArticleHtml(article.getArticleHtml());
+            vo.setUrl(article.getUrl());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setDateString(sdf.format(article.getDate()));
-            vo.setUrl(article.getUrl());
             voList.add(vo);
         }
         int count = articleService.getArticleCount();

@@ -46,7 +46,7 @@ public class RegisterController {
     public ResponseVO register(@RequestBody UserVO userVO, HttpSession session) {
 
         ResponseVO response = new ResponseVO();
-        Map map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>();
 
         User admin = userService.getAdmin();
         if (admin == null) {

@@ -79,7 +79,7 @@ public class PersonalController {
     public ResponseVO updateBaseInfo(@RequestBody UserVO userVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
-        Map map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>();
 
         if (!userVO.getEmail().equals(user.getEmail())) {
             if (userService.isExist(userVO.getEmail())) {
@@ -134,7 +134,7 @@ public class PersonalController {
     public ResponseVO updatePassword(@RequestBody UserVO userVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
-        Map map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>();
 
         if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userVO.getOldPassword()))) {
             map.put("oldPassword", "旧密码不匹配");
@@ -178,7 +178,7 @@ public class PersonalController {
     public ResponseVO updateHead(HttpServletRequest request, HttpSession session) {
         ResponseVO response = new ResponseVO();
         User user = (User) session.getAttribute("user");
-        Map map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>();
 
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");

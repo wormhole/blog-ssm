@@ -50,7 +50,7 @@ public class WriteArticleController {
     public ResponseVO save(@RequestBody ArticleVO articleVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
 
-        Map map = articleValidator.validate(articleVO);
+        Map<String,String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段错误");

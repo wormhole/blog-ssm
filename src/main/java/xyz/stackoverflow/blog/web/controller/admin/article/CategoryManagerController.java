@@ -47,7 +47,7 @@ public class CategoryManagerController {
     public ResponseVO insert(@RequestBody CategoryVO categoryVO) {
         ResponseVO response = new ResponseVO();
 
-        Map map = categoryValidator.validate(categoryVO);
+        Map<String,String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段格式有误");
@@ -96,7 +96,7 @@ public class CategoryManagerController {
         }
         int count = categoryService.getCategoryCount();
 
-        Map map = new HashMap<String, Object>();
+        Map<String,Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", list);
         response.setStatus(SUCCESS);
@@ -149,7 +149,7 @@ public class CategoryManagerController {
     public ResponseVO update(@RequestBody CategoryVO categoryVO) {
         ResponseVO response = new ResponseVO();
 
-        Map map = categoryValidator.validate(categoryVO);
+        Map<String,String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段格式有误");

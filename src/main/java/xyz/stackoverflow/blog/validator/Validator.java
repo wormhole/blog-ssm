@@ -15,5 +15,5 @@ public interface Validator<T> {
      * @param t
      * @return 返回结果集
      */
-    Map validate(T t);
+    Map<String,String> validate(T t);
 }

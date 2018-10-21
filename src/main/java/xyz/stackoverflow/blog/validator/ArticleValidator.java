@@ -19,8 +19,8 @@ public class ArticleValidator extends AbstractBaseValidator<ArticleVO> {
      * @return 返回验证结果集
      */
     @Override
-    public Map validate(ArticleVO articleVO) {
-        Map map = new HashMap<String, String>();
+    public Map<String,String> validate(ArticleVO articleVO) {
+        Map<String,String> map = new HashMap<>();
 
         if ((articleVO.getTitle() != null) && (!validateCharAndChinese(articleVO.getTitle()))) {
             map.put("title", "标题含有特殊字符");

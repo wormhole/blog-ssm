@@ -60,7 +60,7 @@ public class ArticleManagerController {
         }
 
         int count = articleService.getArticleCount();
-        List voList = new ArrayList<ArticleVO>();
+        List<ArticleVO> voList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         for (Article article : list) {
             ArticleVO vo = new ArticleVO();
@@ -73,7 +73,7 @@ public class ArticleManagerController {
             voList.add(vo);
         }
 
-        Map map = new HashMap<String, Object>();
+        Map<String,Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
         response.setStatus(SUCCESS);
@@ -143,7 +143,7 @@ public class ArticleManagerController {
         ResponseVO response = new ResponseVO();
         Article article = articleService.getArticleById(articleVO.getId());
 
-        Map map = articleValidator.validate(articleVO);
+        Map<String,String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段错误");
