@@ -2,10 +2,25 @@ package xyz.stackoverflow.blog.pojo.entity;
 
 import java.io.Serializable;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 用户-角色表实体类
+ */
 public class UserRole implements Serializable {
-    private String id;
-    private String userId;
-    private String roleId;
+    protected String id;
+    protected String userId;
+    protected String roleId;
+
+    public UserRole(){
+
+    }
+
+    public UserRole(String id, String userId, String roleId) {
+        this.id = id;
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 
     public String getId() {
         return id;

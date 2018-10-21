@@ -2,11 +2,26 @@ package xyz.stackoverflow.blog.pojo.entity;
 
 import java.io.Serializable;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 权限实体类
+ */
 public class Permission implements Serializable {
 
-    private String id;
-    private String permissionName;
-    private String permissionCode;
+    protected String id;
+    protected String permissionName;
+    protected String permissionCode;
+
+    public Permission(){
+
+    }
+
+    public Permission(String id, String permissionName, String permissionCode) {
+        this.id = id;
+        this.permissionName = permissionName;
+        this.permissionCode = permissionCode;
+    }
 
     public String getId() {
         return id;

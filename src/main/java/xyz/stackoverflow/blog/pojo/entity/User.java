@@ -2,16 +2,36 @@ package xyz.stackoverflow.blog.pojo.entity;
 
 import java.io.Serializable;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 用户实体类
+ */
 public class User implements Serializable {
 
-    private String id;
-    private String email;
-    private String password;
-    private String nickname;
-    private String salt;
-    private String headUrl;
-    private String signature;
-    private Integer deleteAble;
+    protected String id;
+    protected String email;
+    protected String password;
+    protected String nickname;
+    protected String salt;
+    protected String headUrl;
+    protected String signature;
+    protected Integer deleteAble;
+
+    public User(){
+
+    }
+
+    public User(String id, String email, String password, String nickname, String salt, String headUrl, String signature, Integer deleteAble) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.salt = salt;
+        this.headUrl = headUrl;
+        this.signature = signature;
+        this.deleteAble = deleteAble;
+    }
 
     public String getId() {
         return id;

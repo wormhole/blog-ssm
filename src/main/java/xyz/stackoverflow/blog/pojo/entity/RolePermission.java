@@ -1,9 +1,24 @@
 package xyz.stackoverflow.blog.pojo.entity;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 角色-权限表实体类
+ */
 public class RolePermission {
-    private String id;
-    private String roleId;
-    private String permissionId;
+    protected String id;
+    protected String roleId;
+    protected String permissionId;
+
+    public RolePermission(){
+
+    }
+
+    public RolePermission(String id, String roleId, String permissionId) {
+        this.id = id;
+        this.roleId = roleId;
+        this.permissionId = permissionId;
+    }
 
     public String getId() {
         return id;

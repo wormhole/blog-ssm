@@ -2,45 +2,22 @@ package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.Category;
 
-import java.io.Serializable;
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 分类VO
+ */
+public class CategoryVO extends Category {
 
-public class CategoryVO implements Serializable {
+    protected Integer articleCount;
 
-    private String id;
-    private String categoryName;
-    private String categoryCode;
-    private Integer articleNum;
+    public CategoryVO(){
 
-    public String getId() {
-        return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getCategoryCode() {
-        return categoryCode;
-    }
-
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
-    }
-
-    public Integer getArticleNum() {
-        return articleNum;
-    }
-
-    public void setArticleNum(Integer articleNum) {
-        this.articleNum = articleNum;
+    public CategoryVO(String id, String categoryName, String categoryCode, Integer deleteAble, Integer articleCount) {
+        super(id, categoryName, categoryCode, deleteAble);
+        this.articleCount = articleCount;
     }
 
     public Category toCategory(){
@@ -48,6 +25,7 @@ public class CategoryVO implements Serializable {
         category.setId(id);
         category.setCategoryCode(categoryCode);
         category.setCategoryName(categoryName);
+        category.setDeleteAble(deleteAble);
         return category;
     }
 }
