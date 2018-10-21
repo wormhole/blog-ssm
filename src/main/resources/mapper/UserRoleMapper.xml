@@ -15,7 +15,7 @@
         select * from user_role where userid = #{userId}
     </select>
 
-    <insert id="insertUserRole" parameterType="userRole" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertUserRole" parameterType="userRole">
         insert into user_role(id,userid,roleid) values(#{id},#{userId},#{roleId})
     </insert>
 

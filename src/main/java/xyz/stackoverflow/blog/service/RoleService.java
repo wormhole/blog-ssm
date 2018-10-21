@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Role;
+import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface RoleService {
     List<Role> getAllRole();
 
     Role insertRole(Role role);
+
+    RolePermission grantPermission(String roleId,String permissionCode);
 }

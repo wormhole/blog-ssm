@@ -15,4 +15,8 @@
         select * from role_permission where roleid = #{roleId}
     </select>
 
+    <insert id="insertRolePermission" parameterType="rolePermission">
+        insert into role_permission(id,roleid,permissionid) values(#{id},#{roleId},#{permissionId})
+    </insert>
+
 </mapper>
