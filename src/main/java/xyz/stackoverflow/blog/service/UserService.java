@@ -5,6 +5,11 @@ import xyz.stackoverflow.blog.pojo.entity.UserRole;
 
 import java.util.Set;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 用户服务接口
+ */
 public interface UserService {
 
     User getUserById(String userId);

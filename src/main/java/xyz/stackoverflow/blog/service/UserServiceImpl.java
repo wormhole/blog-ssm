@@ -15,6 +15,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 用户服务实现
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -54,8 +59,7 @@ public class UserServiceImpl implements UserService {
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User insertUser(User user) {
         user.setHeadUrl("/static/custom/image/cam.png");
-        user.setNickname(user.getNickname());
-        user.setSignature("这个人很懒,没有留下任何东西");
+        user.setSignature("这个人很懒,没有留下任何东西.");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
@@ -85,8 +89,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User updateBaseInfo(User user) {
-        user.setNickname(user.getNickname());
-        user.setSignature(user.getSignature());
         userDao.updateBaseInfo(user);
         return userDao.getUserByEmail(user.getEmail());
     }

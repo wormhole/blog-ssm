@@ -3,6 +3,11 @@ package xyz.stackoverflow.blog.dao;
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.User;
 
+/**
+ * @Author: 凉衫薄
+ * @Date: 2018-10-21
+ * @Description: 用户表DAO
+ */
 @Repository
 public interface UserDao {
 
