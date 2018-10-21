@@ -207,7 +207,7 @@ layui.use(['layer', 'jquery'], function () {
 
         var data = {};
         data['oldPassword'] = oldPassword;
-        data['newPassword'] = newPassword;
+        data['password'] = newPassword;
 
         updatePasswordAjax(data);
     });

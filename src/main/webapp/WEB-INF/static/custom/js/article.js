@@ -23,11 +23,11 @@ function ViewModel() {
         },
         article: {
             title: '',
-            date: '',
+            dateString: '',
             nickname: '',
             categoryName: ''
         }
-    }
+    };
 
     self.article = ko.observable(self.initData.article);
     self.sideInfo = ko.observable(self.initData.sideInfo);
