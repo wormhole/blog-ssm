@@ -30,6 +30,10 @@ layui.use(['jquery'], function () {
         data['password'] = password;
         data['vcode'] = vcode;
 
+        registerAjax(data);
+    });
+
+    function registerAjax(data) {
         $.ajax({
             url: "/admin/register",
             type: "post",
@@ -63,11 +67,10 @@ layui.use(['jquery'], function () {
                 $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
             },
             error: function (data) {
-                $('blockquote').html('请求错误');
+                $('blockquote').html('服务器错误');
                 $('blockquote').removeClass('hidden');
                 $('#verif-img').attr('src', '/api/vcode' + '?' + Math.random());
             }
         });
-
-    });
+    }
 });
