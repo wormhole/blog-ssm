@@ -35,6 +35,13 @@
 
     <mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**"></mvc:resources>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/" />
+            <bean class="xyz.stackoverflow.blog.web.interceptor.InitInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.config.ShiroTagFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/"/>
     </bean>
