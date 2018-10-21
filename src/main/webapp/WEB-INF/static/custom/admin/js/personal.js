@@ -21,6 +21,10 @@ layui.use(['layer', 'jquery'], function () {
     }
 
     $(function () {
+        loadUserAjax();
+    });
+
+    function loadUserAjax() {
         $.ajax({
             url: "/admin/user/get",
             type: 'get',
@@ -28,7 +32,7 @@ layui.use(['layer', 'jquery'], function () {
             success: function (data) {
                 if (data.status == 0) {
                     viewModel.user(data.data);
-                    $('#head').attr('src',data.data.headUrl);
+                    $('#head').attr('src', data.data.headUrl);
                 } else {
                     layer.open({
                         type: 0,
@@ -39,11 +43,112 @@ layui.use(['layer', 'jquery'], function () {
             error: function (data) {
                 layer.open({
                     type: 0,
-                    content: "请求失败",
+                    content: "服务器错误",
                 });
             }
         });
-    });
+    }
+
+    function updateBaseInfoAjax(data) {
+        $.ajax({
+            url: "/admin/user/update/baseinfo",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
+                    viewModel.user(data.data);
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else if (data.status == 1) {
+                    if (data.data['email'] != undefined) {
+                        $('#email-error').html(data.data['email']);
+                        $('#email-error').removeClass('hidden');
+                    } else if (data.data['nickname'] != undefined) {
+                        $('#nickname-error').html(data.data['nickname']);
+                        $('#nickname-error').removeClass('hidden');
+                    } else if (data.data['signature'] != undefined) {
+                        $('#signature-error').html(data.data['signature']);
+                        $('#signature-error').removeClass('hidden');
+                    }
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "服务器错误",
+                });
+            }
+        });
+    }
+
+    function updatePasswordAjax(data){
+        $.ajax({
+            url: "/admin/user/update/password",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else if (data.status == 1) {
+                    if (data.data['oldPassword'] != undefined) {
+                        $('#old-password-error').html(data.data['oldPassword']);
+                        $('#old-password-error').removeClass('hidden');
+                    } else if (data.data['password'] != undefined) {
+                        $('#new-password-error').html(data.data['password']);
+                        $('#new-password-error').removeClass('hidden');
+                    }
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "服务器错误",
+                });
+            }
+        });
+    }
+
+    function updateHeadAjax(formData){
+        $.ajax({
+            url: "/admin/user/update/head",
+            type: 'POST',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 0) {
+                    viewModel.user(data.data);
+                    $('#head').attr('src', data.data.headUrl);
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else if (data.status == 1) {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "服务器错误",
+                });
+            }
+        });
+    }
 
     function getObjectURL(file) {
         var url = null;
@@ -81,40 +186,7 @@ layui.use(['layer', 'jquery'], function () {
         data['nickname'] = nickname;
         data['signature'] = signature;
 
-        $.ajax({
-            url: "/admin/user/update/baseinfo",
-            type: "post",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
-                    viewModel.user(data.data);
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                } else if (data.status == 1) {
-                    if (data.data['email'] != undefined) {
-                        $('#email-error').html(data.data['email']);
-                        $('#email-error').removeClass('hidden');
-                    } else if (data.data['nickname'] != undefined) {
-                        $('#nickname-error').html(data.data['nickname']);
-                        $('#nickname-error').removeClass('hidden');
-                    } else if (data.data['signature'] != undefined) {
-                        $('#signature-error').html(data.data['signature']);
-                        $('#signature-error').removeClass('hidden');
-                    }
-                }
-            },
-            error:
-                function (data) {
-                    layer.open({
-                        type: 0,
-                        content: "请求失败",
-                    });
-                }
-        });
+        updateBaseInfoAjax(data);
     });
 
     $('#savepwd-btn').click(function () {
@@ -137,70 +209,13 @@ layui.use(['layer', 'jquery'], function () {
         data['oldPassword'] = oldPassword;
         data['newPassword'] = newPassword;
 
-        $.ajax({
-            url: "/admin/user/update/password",
-            type: "post",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                } else if (data.status == 1) {
-                    if (data.data['oldPassword'] != undefined) {
-                        $('#old-password-error').html(data.data['oldPassword']);
-                        $('#old-password-error').removeClass('hidden');
-                    } else if (data.data['password'] != undefined) {
-                        $('#new-password-error').html(data.data['password']);
-                        $('#new-password-error').removeClass('hidden');
-                    }
-                }
-            },
-            error: function (data) {
-                layer.open({
-                    type: 0,
-                    content: "请求失败",
-                });
-            }
-        });
+        updatePasswordAjax(data);
     });
 
     $('#savehead-btn').click(function () {
         var formData = new FormData();
         formData.append('headImg', $('#head-img').get(0).files[0]);
-        $.ajax({
-            url: "/admin/user/update/head",
-            type: 'POST',
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    viewModel.user(data.data);
-                    $('#head').attr('src',data.data.headUrl);
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                } else if (data.status == 1) {
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                }
-            },
-            error: function (data) {
-                layer.open({
-                    type: 0,
-                    content: "请求失败",
-                });
-            }
-        });
+        updateHeadAjax(formData);
     });
 
 });
