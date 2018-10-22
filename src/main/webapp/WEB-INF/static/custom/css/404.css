@@ -82,6 +82,10 @@ body {
     padding: 15px 0 10px 25px;
 }
 
+.middle .body img {
+    width: 100%;
+}
+
 .padding {
     height: 60px;
 }
