@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="/static/custom/css/category.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
@@ -45,19 +46,21 @@
                             <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
                             <div class="content" data-bind="text:articleHtml"></div>
                             <div class="footer">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <span id="date" data-bind="text:createDateString"></span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        作者：<span id="author" data-bind="text:nickname"></span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        分类：<span id="category" data-bind="text:categoryName"></span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        点击量：<span id="hits" data-bind="text:hits"></span>
-                                    </div>
+                                <div>
+                                    <span class="oi oi-calendar" aria-hidden="true"></span>
+                                    <span id="date" data-bind="text:createDateString"></span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-person" aria-hidden="true"></span>
+                                    <span id="author" data-bind="text:nickname"></span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-tags" aria-hidden="true"></span>
+                                    <span id="category" data-bind="text:categoryName"></span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-eye" aria-hidden="true"></span>
+                                    <span id="hits" data-bind="text:hits"></span>
                                 </div>
                             </div>
                         </div>

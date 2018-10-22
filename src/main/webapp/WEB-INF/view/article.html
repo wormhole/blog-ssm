@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/custom/css/article.css"/>
+    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css"
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
@@ -44,19 +45,21 @@
                 <div class="article" data-bind="with:article">
                     <div class="title" data-bind="text:title"></div>
                     <div class="info">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <span id="date" data-bind="text:createDateString"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <span id="author" data-bind="text:nickname"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <span id="category" data-bind="text:categoryName"></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <span id="hits" data-bind="text:hits"></span>
-                            </div>
+                        <div>
+                            <span class="oi oi-calendar" aria-hidden="true"></span>
+                            <span id="date" data-bind="text:createDateString"></span>
+                        </div>
+                        <div>
+                            <span class="oi oi-person" aria-hidden="true"></span>
+                            <span id="author" data-bind="text:nickname"></span>
+                        </div>
+                        <div>
+                            <span class="oi oi-tags" aria-hidden="true"></span>
+                            <span id="category" data-bind="text:categoryName"></span>
+                        </div>
+                        <div>
+                            <span class="oi oi-eye" aria-hidden="true"></span>
+                            <span id="hits" data-bind="text:hits"></span>
                         </div>
                     </div>
                     <div id="editormd-view" class="content">

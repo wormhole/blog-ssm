@@ -1,0 +1,124 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    padding-top: 60px;
+    background-image: url("/static/custom/image/weather.png");
+}
+
+.container {
+    height: 100%;
+}
+
+.left {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+    text-align: center;
+}
+
+.left img {
+    width: 60%;
+    margin: 25px 0 10px 0;
+}
+
+.left .nickname {
+    font-size: 25px;
+}
+
+.left hr {
+    width: 80%;
+    margin: 3px auto;
+    border: none;
+    height: 1px;
+    border-top: 1px solid #000000;
+}
+
+.left .signature {
+    font-size: 15px;
+}
+
+.left .menu {
+    margin-top: 20px;
+}
+
+.left .menu .select {
+    background-color: rgb(70, 205, 245);
+}
+
+.left .menu .item {
+    color: black;
+    display: block;
+    height: 50px;
+    font-size: 16px;
+    padding-top: 15px;
+    border-top: 1px solid #E8E8E8;
+}
+
+.left .menu .item:last-child {
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.left .menu .item:hover {
+    background-color: rgb(70, 205, 245);
+}
+
+.middle {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+}
+
+.middle .article {
+    padding: 25px;
+}
+
+.middle .article .title {
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.middle .article .info {
+    margin: 15px 0;
+}
+
+.middle .article .info div {
+    display: inline;
+    font-size: 15px;
+    color: #707070;
+    margin-right: 20px;
+}
+
+.middle .article #editormd-view {
+    background: rgba(255, 255, 255, 0);
+    padding: 0;
+}
+
+.padding {
+    height: 60px;
+}
+
+footer {
+    height: 40px;
+    width: 100%;
+    background-color: #F0F0F0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding-top: 10px;
+    z-index: 1;
+}
+
+#layui-layer1 {
+    width: 60px;
+}
+
+@media (max-width: 970px) {
+    footer {
+        display: none;
+    }
+}
