@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="side" data-bind="with:sideInfo">
+            <div class="left" data-bind="with:user">
                 <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}">
                 <div class="nickname" id="nickname" data-bind="text:nickname"></div>
                 <hr/>
@@ -35,11 +35,11 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="body">
-                <div class="head">
+            <div class="middle">
+                <div class="header">
                     最新文章
                 </div>
-                <div class="article-list" data-bind="foreach:articleList">
+                <div class="body" data-bind="foreach:articleList">
                     <div class="article">
                         <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
                         <div class="content" data-bind="text:articleHtml"></div>

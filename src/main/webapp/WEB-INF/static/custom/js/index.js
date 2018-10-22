@@ -7,7 +7,7 @@ $(function () {
     viewModel = new ViewModel();
     ko.applyBindings(viewModel);
 
-    loadSideInfoAjax();
+    loadUserAjax();
 
     page = getQueryVariable("page");
     if (page != null) {
@@ -21,7 +21,7 @@ function ViewModel() {
     var self = this;
 
     self.initData = {
-        sideInfo: {
+        user: {
             headUrl: '',
             nickname: '',
             signature: ''
@@ -29,7 +29,7 @@ function ViewModel() {
     }
 
     self.articleList = ko.observableArray([]);
-    self.sideInfo = ko.observable(self.initData.sideInfo);
+    self.user = ko.observable(self.initData.user);
 }
 
 function getQueryVariable(variable) {
@@ -50,17 +50,13 @@ function getPagination(count, page) {
     var aTemplate = '<a class="page-link"></a >';
 
     var pageCount = Math.ceil(count / 5);
-
     if (pageCount == 1) {
         return;
     }
 
     var ul = $(ulTemplate);
-
     var start = page - 2 < 1 ? 1 : page - 2;
-
     var end = start + 4 > pageCount ? pageCount : start + 4;
-
     if (end - start < 4) {
         start = end - 4 < 1 ? 1 : end - 4;
     }
@@ -97,15 +93,14 @@ function getPagination(count, page) {
     return ul;
 }
 
-function loadSideInfoAjax() {
+function loadUserAjax() {
     $.ajax({
-        url: "/api/sideinfo",
+        url: "/api/user",
         type: "get",
         dataType: "json",
         success: function (data) {
             if (data.status == 0) {
-                var sideInfo = data.data;
-                viewModel.sideInfo(sideInfo);
+                viewModel.user(data.data);
             } else {
                 layer.open({
                     type: 0,
