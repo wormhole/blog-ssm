@@ -29,7 +29,7 @@ public interface ArticleDao {
 
     List<Article> getLimitArticle(PageParameter parameter);
 
-    List<Article> getArticleByCategoryId(String categoryId);
+    List<Article> getAllArticleByCategoryId(String categoryId);
 
     List<Article> getLimitArticleByCategoryId(PageParameter parameter);
 

@@ -73,7 +73,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<Article> getArticleByCategoryId(String categoryId) {
-        return dao.getArticleByCategoryId(categoryId);
+        return dao.getAllArticleByCategoryId(categoryId);
     }
 
     @Override

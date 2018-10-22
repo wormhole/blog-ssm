@@ -14,18 +14,20 @@ public class ArticleVO extends Article {
     protected String articleCode;
     protected String nickname;
     protected String categoryName;
-    protected String dateString;
+    protected String createDateString;
+    protected String modifyDateString;
 
     public ArticleVO() {
 
     }
 
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date date, String url, String articleCode, String nickname, String categoryName, String dateString) {
-        super(id, userId, title, articleMd, articleHtml, categoryId, date, url);
+    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, String url, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString) {
+        super(id, userId, title, articleMd, articleHtml, categoryId, createDate, modifyDate, hits, url);
         this.articleCode = articleCode;
         this.nickname = nickname;
         this.categoryName = categoryName;
-        this.dateString = dateString;
+        this.createDateString = createDateString;
+        this.modifyDateString = modifyDateString;
     }
 
     public String getArticleCode() {
@@ -52,12 +54,20 @@ public class ArticleVO extends Article {
         this.categoryName = categoryName;
     }
 
-    public String getDateString() {
-        return dateString;
+    public String getCreateDateString() {
+        return createDateString;
     }
 
-    public void setDateString(String dateString) {
-        this.dateString = dateString;
+    public void setCreateDateString(String createDateString) {
+        this.createDateString = createDateString;
+    }
+
+    public String getModifyDateString() {
+        return modifyDateString;
+    }
+
+    public void setModifyDateString(String modifyDateString) {
+        this.modifyDateString = modifyDateString;
     }
 
     /**
@@ -71,10 +81,12 @@ public class ArticleVO extends Article {
         article.setTitle(title);
         article.setArticleHtml(articleHtml);
         article.setArticleMd(articleMd);
-        article.setDate(date);
+        article.setCreateDate(createDate);
+        article.setModifyDate(modifyDate);
         article.setUrl(url);
         article.setCategoryId(categoryId);
         article.setUserId(userId);
+        article.setHits(hits);
         return article;
     }
 }

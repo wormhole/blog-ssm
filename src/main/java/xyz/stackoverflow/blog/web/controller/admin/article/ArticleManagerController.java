@@ -13,10 +13,7 @@ import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 后台管理系统文章管理控制器
@@ -68,7 +65,9 @@ public class ArticleManagerController {
             vo.setTitle(article.getTitle());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDateString(sdf.format(article.getDate()));
+            vo.setCreateDateString(sdf.format(article.getCreateDate()));
+            vo.setModifyDateString(sdf.format(article.getModifyDate()));
+            vo.setHits(article.getHits());
             vo.setUrl(article.getUrl());
             voList.add(vo);
         }
@@ -156,6 +155,7 @@ public class ArticleManagerController {
                 response.setData(map);
             }else {
                 Article updateArticle = articleVO.toArticle();
+                updateArticle.setModifyDate(new Date());
                 articleService.updateArticle(updateArticle);
                 response.setStatus(SUCCESS);
                 response.setMessage("文章更新成功");

@@ -38,7 +38,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/article/article" data-title="所有文章"
+                        <dd><a href="javascript:;" data-url="/admin/article/management" data-title="所有文章"
                                data-id="article">所有文章</a></dd>
                         <dd><a href="javascript:;" data-url="/admin/article/write" data-title="写文章"
                                data-id="write">写文章</a></dd>

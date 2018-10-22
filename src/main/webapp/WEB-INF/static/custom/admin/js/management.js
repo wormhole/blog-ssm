@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#article-table',
         url: '/admin/article/list',
         method: 'get',
-        width: 1256,
+        width: 1456,
         cellMinWidth: 100,
         page: true,
         toolbar: 'default',
@@ -27,7 +27,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'nickname', width: 150, title: '作者', sort: true},
             {field: 'categoryName', width: 150, title: '分类', sort: true},
             {field: 'url', width: 200, title: 'URL', sort: true},
-            {field: 'date', width: 200, title: '日期', sort: true}
+            {field: 'createDateString', width: 200, title: '创建日期', sort: true},
+            {field: 'modifyDateString', width: 200, title: '修改日期', sort: true}
         ]]
     };
 

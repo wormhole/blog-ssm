@@ -23,7 +23,7 @@ function ViewModel() {
         },
         article: {
             title: '',
-            dateString: '',
+            createDateString: '',
             nickname: '',
             categoryName: ''
         }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.service.ArticleService;
 
 /**
@@ -29,15 +30,18 @@ public class ArticlePageController {
      * @param month
      * @param day
      * @param articleCode
-     * @return 返回ModelAndView,查找成功时,视图设置为文章视图,否则设为404视图
+     * @return 返回ModelAndView, 查找成功时, 视图设置为文章视图, 否则设为404视图
      */
     @RequestMapping("/{year}/{month}/{day}/{articleCode}")
     public ModelAndView article(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
         ModelAndView mv = new ModelAndView();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
-        if(articleService.isExistUrl(url)){
+        Article article = articleService.getArticleByUrl(url);
+        if (article != null) {
+            article.setHits(article.getHits() + 1);
+            articleService.updateArticle(article);
             mv.setViewName("/article");
-        }else{
+        } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
             mv.setViewName("/error/404");
         }

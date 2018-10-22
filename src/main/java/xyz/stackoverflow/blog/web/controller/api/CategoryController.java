@@ -93,7 +93,8 @@ public class CategoryController {
             vo.setArticleHtml(article.getArticleHtml());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDateString(sdf.format(article.getDate()));
+            vo.setCreateDateString(sdf.format(article.getCreateDate()));
+            vo.setHits(article.getHits());
             vo.setUrl(article.getUrl());
             voList.add(vo);
         }

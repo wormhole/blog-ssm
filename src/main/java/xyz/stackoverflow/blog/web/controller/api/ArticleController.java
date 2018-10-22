@@ -65,7 +65,8 @@ public class ArticleController {
             vo.setUrl(article.getUrl());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDateString(sdf.format(article.getDate()));
+            vo.setCreateDateString(sdf.format(article.getCreateDate()));
+            vo.setHits(article.getHits());
             voList.add(vo);
         }
         int count = articleService.getArticleCount();
@@ -103,7 +104,8 @@ public class ArticleController {
             vo.setArticleMd(article.getArticleMd());
             vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setDateString(sdf.format(article.getDate()));
+            vo.setCreateDateString(sdf.format(article.getCreateDate()));
+            vo.setHits(article.getHits());
             response.setStatus(SUCCESS);
             response.setMessage("查找成功");
             response.setData(vo);

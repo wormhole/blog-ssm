@@ -45,14 +45,17 @@
                     <div class="title" data-bind="text:title"></div>
                     <div class="info">
                         <div class="row">
-                            <div class="col-sm-4">
-                                <span data-bind="text:dateString"></span>
+                            <div class="col-sm-3">
+                                <span id="date" data-bind="text:createDateString"></span>
                             </div>
-                            <div class="col-sm-4">
-                                <span data-bind="text:nickname"></span>
+                            <div class="col-sm-3">
+                                <span id="author" data-bind="text:nickname"></span>
                             </div>
-                            <div class="col-sm-4">
-                                <span data-bind="text:categoryName"></span>
+                            <div class="col-sm-3">
+                                <span id="category" data-bind="text:categoryName"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <span id="hits" data-bind="text:hits"></span>
                             </div>
                         </div>
                     </div>

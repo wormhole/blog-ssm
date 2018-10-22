@@ -64,8 +64,10 @@ public class WriteArticleController {
             } else {
                 User user = (User) session.getAttribute("user");
                 Article article = articleVO.toArticle();
-                article.setDate(new Date());
+                article.setCreateDate(new Date());
+                article.setModifyDate(new Date());
                 article.setUserId(user.getId());
+                article.setHits(0);
                 articleService.insertArticle(article);
                 response.setStatus(SUCCESS);
                 response.setMessage("保存成功");
