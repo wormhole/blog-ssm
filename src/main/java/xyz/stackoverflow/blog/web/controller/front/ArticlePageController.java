@@ -34,7 +34,7 @@ public class ArticlePageController {
     @RequestMapping("/{year}/{month}/{day}/{articleCode}")
     public ModelAndView article(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode) {
         ModelAndView mv = new ModelAndView();
-        String url = "/" + year + "/" + month + "/" + day + "/" + articleCode;
+        String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
         if(articleService.isExistUrl(url)){
             mv.setViewName("/article");
         }else{
