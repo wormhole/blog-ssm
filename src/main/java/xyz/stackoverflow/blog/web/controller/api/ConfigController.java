@@ -26,12 +26,12 @@ public class ConfigController {
     private UserService userService;
 
     /**
-     * 获取侧边栏信息 /api/sideinfo
+     * 获取侧边栏用户信息 /api/user
      * 方法 GET
      *
      * @return 返回ResponseVO
      */
-    @RequestMapping(value = "/sideinfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public ResponseVO user() {
         ResponseVO response = new ResponseVO();
