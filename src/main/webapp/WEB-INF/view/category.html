@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="side" data-bind="with:sideInfo">
+            <div class="left" data-bind="with:user">
                 <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}">
                 <div class="nickname" id="nickname" data-bind="text:nickname"></div>
                 <hr/>
@@ -35,37 +35,38 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="body">
-                <div class="head">
+            <div class="middle">
+                <div class="header">
                     文章分类
                 </div>
-
-                <div class="article-list" data-bind="foreach:articleList">
-                    <div class="article">
-                        <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
-                        <div class="content" data-bind="text:articleHtml"></div>
-                        <div class="footer">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <span id="date" data-bind="text:dateString"></span>
-                                </div>
-                                <div class="col-sm-4">
-                                    作者：<span id="author" data-bind="text:nickname"></span>
-                                </div>
-                                <div class="col-sm-4">
-                                    分类：<span id="category" data-bind="text:categoryName"></span>
+                <div class="body">
+                    <div class="article-list" data-bind="foreach:articleList">
+                        <div class="article">
+                            <div class="title"><a href="" data-bind="text:title,attr:{href:url}"></a></div>
+                            <div class="content" data-bind="text:articleHtml"></div>
+                            <div class="footer">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span id="date" data-bind="text:dateString"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        作者：<span id="author" data-bind="text:nickname"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        分类：<span id="category" data-bind="text:categoryName"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="category-list" data-bind="foreach:categoryList">
-                    <div class="category">
-                        <a class="btn btn-secondary" data-bind="attr:{href:url}">
-                            <span data-bind="text:categoryName"></span>
-                            <span class="badge badge-light" data-bind="text:articleCount"></span>
-                        </a>
+                    <div class="category-list" data-bind="foreach:categoryList">
+                        <div class="category">
+                            <a class="btn btn-secondary" data-bind="attr:{href:url}">
+                                <span data-bind="text:categoryName"></span>
+                                <span class="badge badge-light" data-bind="text:articleCount"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

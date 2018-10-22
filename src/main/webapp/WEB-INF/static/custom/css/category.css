@@ -12,7 +12,7 @@ body {
     height: 100%;
 }
 
-.side {
+.left {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.8);
@@ -20,16 +20,16 @@ body {
     text-align: center;
 }
 
-.side img {
+.left img {
     width: 60%;
     margin: 25px 0 10px 0;
 }
 
-.side .nickname {
+.left .nickname {
     font-size: 25px;
 }
 
-.side hr {
+.left hr {
     width: 80%;
     margin: 3px auto;
     border: none;
@@ -37,19 +37,19 @@ body {
     border-top: 1px solid #000000;
 }
 
-.side .signature {
+.left .signature {
     font-size: 15px;
 }
 
-.side .menu {
+.left .menu {
     margin-top: 20px;
 }
 
-.side .menu .select {
+.left .menu .select {
     background-color: rgb(70, 205, 245);
 }
 
-.side .menu .item {
+.left .menu .item {
     color: black;
     display: block;
     height: 50px;
@@ -58,15 +58,15 @@ body {
     border-top: 1px solid #E8E8E8;
 }
 
-.side .menu .item:last-child {
+.left .menu .item:last-child {
     border-bottom: 1px solid #E8E8E8;
 }
 
-.side .menu .item:hover {
+.left .menu .item:hover {
     background-color: rgb(70, 205, 245);
 }
 
-.body {
+.middle {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.8);
@@ -74,7 +74,7 @@ body {
     padding-bottom: 15px;
 }
 
-.body .head {
+.middle .header {
     background-image: linear-gradient(rgba(200, 200, 200, 0), rgba(200, 200, 200, 0.12));
     border: 1px solid rgb(238, 238, 238);
     box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 5px -1px;
@@ -83,37 +83,37 @@ body {
     padding: 15px 0 10px 25px;
 }
 
-.body .category-list {
+.middle .category-list {
     padding: 10px 20px 0 20px;
 }
 
-.body .category-list .category {
+.middle .category-list .category {
     display: inline-block;
     padding: 10px;
 }
 
-.body .article-list {
+.middle .article-list {
     padding: 0 25px;
 }
 
-.body .article-list .article {
+.middle .article-list .article {
     padding: 15px 10px;
 }
 
-.body .article-list .article:not(:first-child) {
+.middle .article-list .article:not(:first-child) {
     border-top: 1px solid #E0E0E0;
 }
 
-.body .article-list .article .title {
+.middle .article-list .article .title {
     font-size: 25px;
 }
 
-.body .article-list .article .title a {
+.middle .article-list .article .title a {
     text-decoration: none;
     color: black;
 }
 
-.body .article-list .article .content {
+.middle .article-list .article .content {
     font-size: 16px;
     margin: 15px 0;
     color: #606060;
@@ -124,7 +124,7 @@ body {
     overflow: hidden;
 }
 
-.body .article-list .article .content::after {
+.middle .article-list .article .content::after {
     content: "[......]";
     font-size: 16px;
     color: #606060;
@@ -135,7 +135,7 @@ body {
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
 
-.body .article-list .article .footer {
+.middle .article-list .article .footer {
     font-size: 16px;
     color: #707070;
 }
