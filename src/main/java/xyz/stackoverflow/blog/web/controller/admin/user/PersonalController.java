@@ -196,7 +196,7 @@ public class PersonalController {
             String oldUrl = user.getHeadUrl();
             String newUrl = "/uploads/" + user.getId() + "/" + newFileName;
             if (!oldUrl.equals(newUrl)) {
-                if (!oldUrl.equals("/static/custom/image/cam.png")) {
+                if (!oldUrl.equals("/static/custom/image/default.jpeg")) {
                     File oldHead = new File(webRootDir + "/WEB-INF/" + oldUrl);
                     oldHead.delete();
                 }

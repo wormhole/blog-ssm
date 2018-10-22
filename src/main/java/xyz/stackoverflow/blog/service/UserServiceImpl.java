@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User insertUser(User user) {
-        user.setHeadUrl("/static/custom/image/cam.png");
-        user.setSignature("这个人很懒,没有留下任何东西.");
+        user.setHeadUrl("/static/custom/image/default.jpeg");
+        user.setSignature("这个家伙很懒,没有留下任何东西.");
         user.setId(IdGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
