@@ -12,7 +12,7 @@ body {
     height: 100%;
 }
 
-.side {
+.left {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.8);
@@ -20,16 +20,16 @@ body {
     text-align: center;
 }
 
-.side img {
+.left img {
     width: 60%;
     margin: 25px 0 10px 0;
 }
 
-.side .nickname {
+.left .nickname {
     font-size: 25px;
 }
 
-.side hr {
+.left hr {
     width: 80%;
     margin: 3px auto;
     border: none;
@@ -37,19 +37,19 @@ body {
     border-top: 1px solid #000000;
 }
 
-.side .signature {
+.left .signature {
     font-size: 15px;
 }
 
-.side .menu {
+.left .menu {
     margin-top: 20px;
 }
 
-.side .menu .select {
+.left .menu .select {
     background-color: rgb(70, 205, 245);
 }
 
-.side .menu .item {
+.left .menu .item {
     color: black;
     display: block;
     height: 50px;
@@ -58,37 +58,37 @@ body {
     border-top: 1px solid #E8E8E8;
 }
 
-.side .menu .item:last-child {
+.left .menu .item:last-child {
     border-bottom: 1px solid #E8E8E8;
 }
 
-.side .menu .item:hover {
+.left .menu .item:hover {
     background-color: rgb(70, 205, 245);
 }
 
-.body {
+.middle {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.8);
     margin: 5px;
 }
 
-.body .article {
+.middle .article {
     padding: 25px;
 }
 
-.body .article .title {
+.middle .article .title {
     font-size: 30px;
     margin-top: 5px;
 }
 
-.body .article .info {
+.middle .article .info {
     font-size: 16px;
     color: #707070;
     margin: 10px 0;
 }
 
-.body .article #editormd-view {
+.middle .article #editormd-view {
     background: rgba(255, 255, 255, 0);
     padding: 0;
 }

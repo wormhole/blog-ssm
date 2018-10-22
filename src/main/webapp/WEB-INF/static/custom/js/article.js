@@ -8,15 +8,15 @@ $(function () {
 
     var url = window.location.pathname;
 
-    loadSideInfo();
-    loadArticle(url);
+    loadUserAjax();
+    loadArticleAjax(url);
 });
 
 function ViewModel() {
     var self = this;
 
     self.initData = {
-        sideInfo: {
+        user: {
             headUrl: '',
             nickname: '',
             signature: ''
@@ -30,19 +30,18 @@ function ViewModel() {
     };
 
     self.article = ko.observable(self.initData.article);
-    self.sideInfo = ko.observable(self.initData.sideInfo);
+    self.user = ko.observable(self.initData.user);
 }
 
-function loadSideInfo() {
+function loadUserAjax() {
     $.ajax({
-        url: "/api/sideinfo",
+        url: "/api/user",
         type: "get",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.status == 0) {
-                var sideInfo = data.data;
-                viewModel.sideInfo(sideInfo);
+                viewModel.user(data.data);
             } else {
                 layer.open({
                     type: 0,
@@ -59,7 +58,7 @@ function loadSideInfo() {
     });
 }
 
-function loadArticle(url) {
+function loadArticleAjax(url) {
     $.ajax({
         url: "/api" + url,
         type: "get",
@@ -92,5 +91,4 @@ function loadArticle(url) {
             })
         }
     });
-
 }

@@ -21,7 +21,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="side" data-bind="with:sideInfo">
+            <div class="left" data-bind="with:user">
                 <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}">
                 <div class="nickname" id="nickname" data-bind="text:nickname"></div>
                 <hr/>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="body">
+            <div class="middle">
                 <div class="article" data-bind="with:article">
                     <div class="title" data-bind="text:title"></div>
                     <div class="info">
