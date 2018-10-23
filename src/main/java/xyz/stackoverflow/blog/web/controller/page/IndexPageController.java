@@ -69,6 +69,7 @@ public class IndexPageController {
 
         int count = articleService.getArticleCount();
         int pageCount = (count % 5 == 0) ? count / 5 : count / 5 + 1;
+        pageCount = pageCount == 0 ? 1 : pageCount;
         int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
         int end = (start + 4 > pageCount) ? pageCount : start + 4;
         if ((end - start) < 4) {
