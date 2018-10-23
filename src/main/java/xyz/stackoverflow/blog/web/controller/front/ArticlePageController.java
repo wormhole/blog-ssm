@@ -65,7 +65,6 @@ public class ArticlePageController {
             vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setHits(article.getHits());
-            vo.setUrl(article.getUrl());
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
             vo.setArticleMd(article.getArticleMd());
             mv.addObject("user", userVO);
