@@ -16,18 +16,20 @@ public class ArticleVO extends Article {
     protected String categoryName;
     protected String createDateString;
     protected String modifyDateString;
+    protected String preview;
 
     public ArticleVO() {
 
     }
 
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, String url, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString) {
+    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, String url, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString, String preview) {
         super(id, userId, title, articleMd, articleHtml, categoryId, createDate, modifyDate, hits, url);
         this.articleCode = articleCode;
         this.nickname = nickname;
         this.categoryName = categoryName;
         this.createDateString = createDateString;
         this.modifyDateString = modifyDateString;
+        this.preview = preview;
     }
 
     public String getArticleCode() {
@@ -68,6 +70,14 @@ public class ArticleVO extends Article {
 
     public void setModifyDateString(String modifyDateString) {
         this.modifyDateString = modifyDateString;
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
     }
 
     /**
