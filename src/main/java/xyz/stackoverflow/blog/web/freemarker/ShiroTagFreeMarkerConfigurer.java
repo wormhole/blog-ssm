@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.freemarker.config;
+package xyz.stackoverflow.blog.web.freemarker;
 
 import com.jagregory.shiro.freemarker.ShiroTags;
 import freemarker.template.TemplateException;

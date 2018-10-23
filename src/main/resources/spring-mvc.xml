@@ -42,7 +42,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.config.ShiroTagFreeMarkerConfigurer">
+    <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.ShiroTagFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/"/>
     </bean>
 
