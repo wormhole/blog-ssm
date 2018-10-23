@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class WriteArticleController {
+public class WriteController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;

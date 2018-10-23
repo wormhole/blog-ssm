@@ -51,7 +51,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         var data = {};
                         data['categoryCode'] = categoryCode;
                         data['categoryName'] = categoryName;
-                        insertCategoryAjax(data, tableIns);
+                        insertCategoryAjax(data);
                         layer.close(index);
                     }
                 }
@@ -102,6 +102,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         content: data.message
                     });
                 }
+                tableIns.reload(parameter);
             },
             error: function (data) {
                 layer.open({
@@ -132,6 +133,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         content: data.message
                     });
                 }
+                tableIns.reload(parameter);
             },
             error: function (data) {
                 layer.open({
@@ -142,7 +144,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function insertCategoryAjax(data, tableIns) {
+    function insertCategoryAjax(data) {
         $.ajax({
             url: "/admin/article/category/insert",
             type: "post",
@@ -155,13 +157,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         type: 0,
                         content: data.message
                     });
-                    tableIns.reload(parameter);
                 } else {
                     layer.open({
                         type: 0,
                         content: data.message
                     });
                 }
+                tableIns.reload(parameter);
             },
             error: function (data) {
                 layer.open({

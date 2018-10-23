@@ -20,7 +20,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="${Session.user.headUrl}" class="layui-nav-img layui-circle">
-                ${Session.user.nickname}
+                ${Session.user.nickname?html}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人信息"

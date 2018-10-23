@@ -3,6 +3,7 @@ package xyz.stackoverflow.blog.web.controller.admin.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
@@ -22,7 +23,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ArticleManagerController {
+public class ManagerController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -62,8 +63,8 @@ public class ArticleManagerController {
         for (Article article : list) {
             ArticleVO vo = new ArticleVO();
             vo.setId(article.getId());
-            vo.setTitle(article.getTitle());
-            vo.setNickname(userService.getUserById(article.getUserId()).getNickname());
+            vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+            vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
             vo.setModifyDateString(sdf.format(article.getModifyDate()));
