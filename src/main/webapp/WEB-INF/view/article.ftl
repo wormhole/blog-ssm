@@ -13,20 +13,17 @@
     <script src="/static/editor.md/lib/marked.min.js"></script>
     <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
-    <script src="/static/knockout/knockout-3.4.2.js"></script>
-    <script src="/static/custom/js/article.js"></script>
-    <script src="/static/layer/layer.js"></script>
     <title>溢栈</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="left" data-bind="with:user">
-                <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}">
-                <div class="nickname" id="nickname" data-bind="text:nickname"></div>
+            <div class="left">
+                <img src="${user.headUrl}" id="head" class="rounded-circle">
+                <div class="nickname" id="nickname">${user.nickname}</div>
                 <hr/>
-                <div class="signature" id="signature" data-bind="text:signature"></div>
+                <div class="signature" id="signature">${user.signature}</div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -42,27 +39,30 @@
         </div>
         <div class="col-md-9">
             <div class="middle">
-                <div class="article" data-bind="with:article">
-                    <div class="title" data-bind="text:title"></div>
+                <div class="article">
+                    <div class="title">${article.title}</div>
                     <div class="info">
                         <div>
                             <span class="oi oi-calendar" aria-hidden="true"></span>
-                            <span id="date" data-bind="text:createDateString"></span>
+                            <span id="date">${article.createDateString}</span>
                         </div>
                         <div>
                             <span class="oi oi-person" aria-hidden="true"></span>
-                            <span id="author" data-bind="text:nickname"></span>
+                            <span id="author">${article.nickname}</span>
                         </div>
                         <div>
                             <span class="oi oi-tags" aria-hidden="true"></span>
-                            <span id="category" data-bind="text:categoryName"></span>
+                            <span id="category">${article.categoryName}</span>
                         </div>
                         <div>
                             <span class="oi oi-eye" aria-hidden="true"></span>
-                            <span id="hits" data-bind="text:hits"></span>
+                            <span id="hits">${article.hits}</span>
                         </div>
                     </div>
                     <div id="editormd-view" class="content">
+                        <textarea style="display:none;">
+${article.articleMd}
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -72,5 +72,8 @@
     </div>
 </div>
 <footer>copyright &copy; 2018 by 溢栈</footer>
+<script type="text/javascript">
+    editormd.markdownToHTML("editormd-view", {});
+</script>
 </body>
 </html>
