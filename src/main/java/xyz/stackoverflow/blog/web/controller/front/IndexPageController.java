@@ -81,6 +81,7 @@ public class IndexPageController {
         mv.addObject("end", end);
         mv.addObject("page", Integer.valueOf(page));
         mv.addObject("pageCount", pageCount);
+        mv.addObject("path", "/");
 
         mv.setViewName("/index");
         return mv;

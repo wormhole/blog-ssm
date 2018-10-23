@@ -66,16 +66,16 @@
             <div class="buttom">
                 <ul class="pagination justify-content-center">
                     <#if (page > 1)>
-                        <li class="page-item"><a class="page-link" href="/?page=${page-1}">上一页</a></li>
+                        <li class="page-item"><a class="page-link" href="${path}?page=${page-1}">上一页</a></li>
                     <#else>
                         <li class="page-item disabled"><a class="page-link"">上一页</a></li>
                     </#if>
                     <#list start..end as i>
                         <li class="page-item  <#if (i == page)>active</#if>"><a class="page-link"
-                                                                                href="/?page=${i}">${i}</a></li>
+                                                                                href="${path}?page=${i}">${i}</a></li>
                     </#list>
                     <#if (page < pageCount)>
-                        <li class="page-item"><a class="page-link" href="/?page=${page+1}">下一页</a></li>
+                        <li class="page-item"><a class="page-link" href="${path}?page=${page+1}">下一页</a></li>
                     <#else>
                         <li class="page-item disabled"><a class="page-link"">下一页</a></li>
                     </#if>
