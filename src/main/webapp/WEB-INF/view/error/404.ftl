@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="/static/custom/css/404.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/custom/js/404.js"></script>
-    <script src="/static/knockout/knockout-3.4.2.js"></script>
-    <script src="/static/layer/layer.js"></script>
     <title>溢栈</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="left" data-bind="with:user">
-                <img src="" id="head" class="rounded-circle" data-bind="attr:{src:headUrl}"/>
-                <div class="nickname" id="nickname" data-bind="text:nickname"></div>
+            <div class="left">
+                <img src="${user.headUrl}" id="head" class="rounded-circle"/>
+                <div class="nickname" id="nickname">${user.nickname}</div>
                 <hr/>
-                <div class="signature" id="signature" data-bind="text:signature"></div>
+                <div class="signature" id="signature">${user.signature}</div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -37,10 +34,10 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="header">
-                    500
+                    404
                 </div>
                 <div class="body">
-                    <img src="/static/custom/image/500.jpeg" class="img-fluid"/>
+                    <img src="/static/custom/image/404.jpeg" class="img-fluid"/>
                 </div>
             </div>
             <div class="padding">
