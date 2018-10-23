@@ -34,6 +34,7 @@
         <commons-fileuploads.version>1.3.3</commons-fileuploads.version>
         <json.version>20180813</json.version>
         <shiro-freemarker-tags.version>1.0.0</shiro-freemarker-tags.version>
+        <jsoup.version>1.11.3</jsoup.version>
     </properties>
 
     <dependencies>
@@ -252,6 +253,13 @@
                     <groupId>org.freemarker</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
     </dependencies>
