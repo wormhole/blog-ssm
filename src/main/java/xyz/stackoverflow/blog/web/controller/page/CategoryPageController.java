@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.front;
+package xyz.stackoverflow.blog.web.controller.page;
 
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +98,11 @@ public class CategoryPageController {
         return mv;
     }
 
+    /**
+     * 分类页面跳转
+     *
+     * @return
+     */
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
