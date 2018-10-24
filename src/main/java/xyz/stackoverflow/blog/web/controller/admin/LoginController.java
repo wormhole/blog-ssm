@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.exception.IncorrectVCodeException;
+import xyz.stackoverflow.blog.exception.VCodeException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,7 +36,7 @@ public class LoginController {
             mv.addObject("error","用户名不存在");
         } else if(IncorrectCredentialsException.class.getName().equals(errorClassName)) {
             mv.addObject("error","密码错误");
-        } else if(IncorrectVCodeException.class.getName().equals((errorClassName))){
+        } else if(VCodeException.class.getName().equals((errorClassName))){
             mv.addObject("error","验证码错误");
         } else if(errorClassName != null) {
             mv.addObject("error",errorClassName);

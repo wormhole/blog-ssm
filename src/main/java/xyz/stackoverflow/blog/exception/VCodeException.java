@@ -5,8 +5,8 @@ package xyz.stackoverflow.blog.exception;
  *
  * @author 凉衫薄
  */
-public class IncorrectVCodeException extends Exception {
-    public IncorrectVCodeException(String message) {
+public class VCodeException extends Exception {
+    public VCodeException(String message) {
         super(message);
     }
 }
