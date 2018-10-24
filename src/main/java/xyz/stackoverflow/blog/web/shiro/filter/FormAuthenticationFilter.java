@@ -4,7 +4,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.stackoverflow.blog.exception.IncorrectVCodeException;
+import xyz.stackoverflow.blog.exception.VCodeException;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.service.UserService;
 
@@ -41,7 +41,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
         if(vcode1 == null || vcode1.equalsIgnoreCase(vcode)){
             return super.onPreHandle(request, response, mappedValue);
         }else{
-            request.setAttribute(getFailureKeyAttribute(),IncorrectVCodeException.class.getName());
+            request.setAttribute(getFailureKeyAttribute(),VCodeException.class.getName());
             return true;
         }
     }
