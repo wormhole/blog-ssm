@@ -63,7 +63,7 @@ public class IndexPageController {
             vo.setHits(article.getHits());
             vo.setUrl(article.getUrl());
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
-            vo.setPreview(Jsoup.parse(article.getArticleHtml()).text());
+            vo.setPreview(HtmlUtils.htmlEscape(Jsoup.parse(article.getArticleHtml()).text()));
             articleVOList.add(vo);
         }
 
