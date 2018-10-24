@@ -8,6 +8,7 @@ create table blog.article
   articlehtml text                                    not null,
   categoryid  char(36)                                not null,
   url         varchar(50)                             not null,
+  likes       int default '0'                         not null,
   hits        int default '0'                         not null,
   modifydate  timestamp default '0000-00-00 00:00:00' not null,
   createdate  timestamp default '0000-00-00 00:00:00' not null,

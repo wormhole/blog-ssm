@@ -18,13 +18,14 @@ public class Article implements Serializable {
     protected Date createDate;
     protected Date modifyDate;
     protected Integer hits;
+    protected Integer likes;
     protected String url;
 
     public Article(){
 
     }
 
-    public Article(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, String url) {
+    public Article(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -34,6 +35,7 @@ public class Article implements Serializable {
         this.createDate = createDate;
         this.modifyDate = modifyDate;
         this.hits = hits;
+        this.likes = likes;
         this.url = url;
     }
 
@@ -115,5 +117,13 @@ public class Article implements Serializable {
 
     public void setHits(Integer hits) {
         this.hits = hits;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
     }
 }

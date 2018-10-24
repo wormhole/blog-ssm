@@ -68,6 +68,7 @@ public class WriteController {
                 article.setModifyDate(new Date());
                 article.setUserId(user.getId());
                 article.setHits(0);
+                article.setLikes(0);
                 articleService.insertArticle(article);
                 response.setStatus(SUCCESS);
                 response.setMessage("保存成功");

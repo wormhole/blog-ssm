@@ -61,7 +61,7 @@
                         </div>
                         <div>
                             <span class="oi oi-thumb-up" aria-hidden="true"></span>
-                            <span id="hits">${article.hits}</span>
+                            <span id="likes">${article.likes}</span>
                         </div>
                     </div>
                     <div id="editormd-view" class="content">
@@ -71,7 +71,7 @@ ${article.articleMd}
                     </div>
                 </div>
                 <div class="like">
-                    <div class="heart"></div>
+                    <div class="heart" <#if (isLike == true)>style="background-position:right"<#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
                 </div>
             </div>
             <div class="padding">
@@ -80,6 +80,6 @@ ${article.articleMd}
     </div>
 </div>
 <footer>copyright &copy; 2018 by 溢栈</footer>
-<script src="/static/custom/js/index.js"></script>
+<script src="/static/custom/js/article.js"></script>
 </body>
 </html>
