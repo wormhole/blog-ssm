@@ -74,7 +74,7 @@ body {
 }
 
 .middle .article {
-    padding: 25px;
+    padding: 25px 25px 0 25px;
 }
 
 .middle .article .title {
@@ -96,6 +96,14 @@ body {
 .middle .article #editormd-view {
     background: rgba(255, 255, 255, 0);
     padding: 0;
+}
+
+.middle .like {
+    text-align: center;
+}
+
+.middle .like div {
+    display: inline-block;
 }
 
 .padding {

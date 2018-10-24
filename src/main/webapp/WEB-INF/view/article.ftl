@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static/custom/css/article.css"/>
-    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css"
+    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/custom/css/like.css"/>
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/editor.md/lib/marked.min.js"></script>
@@ -58,12 +59,19 @@
                             <span class="oi oi-eye" aria-hidden="true"></span>
                             <span id="hits">${article.hits}</span>
                         </div>
+                        <div>
+                            <span class="oi oi-thumb-up" aria-hidden="true"></span>
+                            <span id="hits">${article.hits}</span>
+                        </div>
                     </div>
                     <div id="editormd-view" class="content">
                         <textarea style="display:none;">
 ${article.articleMd}
                         </textarea>
                     </div>
+                </div>
+                <div class="like">
+                    <div class="heart"></div>
                 </div>
             </div>
             <div class="padding">
@@ -72,8 +80,6 @@ ${article.articleMd}
     </div>
 </div>
 <footer>copyright &copy; 2018 by 溢栈</footer>
-<script type="text/javascript">
-    editormd.markdownToHTML("editormd-view", {});
-</script>
+<script src="/static/custom/js/index.js"></script>
 </body>
 </html>
