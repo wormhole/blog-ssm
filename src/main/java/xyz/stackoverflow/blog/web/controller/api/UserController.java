@@ -39,7 +39,7 @@ public class UserController {
         User user = userService.getAdmin();
         UserVO vo = new UserVO();
         vo.setHeadUrl(user.getHeadUrl());
-        vo.setNickname(HtmlUtils.htmlEscape(user.getNickname()));
+        vo.setNickname(user.getNickname());
         vo.setSignature(HtmlUtils.htmlEscape(user.getSignature()));
         response.setStatus(SUCCESS);
         response.setMessage("获取成功");

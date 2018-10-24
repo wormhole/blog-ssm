@@ -185,7 +185,7 @@ public class PersonalController {
         String fileName = file.getOriginalFilename();
         String newFileName = "head" + fileName.substring(fileName.lastIndexOf("."));
         String webRootDir = request.getRealPath("");
-        String homeDir = webRootDir + "/WEB-INF/uploads/" + user.getId();
+        String homeDir = webRootDir + "/uploads/" + user.getId();
         File homeFile = new File(homeDir);
         if (!homeFile.exists()) {
             homeFile.mkdirs();

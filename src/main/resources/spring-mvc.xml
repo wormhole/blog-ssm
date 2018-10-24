@@ -33,8 +33,6 @@
     <mvc:view-controller path="/error/404" view-name="/error/404"/>
     <mvc:view-controller path="/error/500" view-name="/error/500"/>
 
-    <mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**"></mvc:resources>
-
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/" />
