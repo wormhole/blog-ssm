@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/static/custom/css/like.css"/>
+    <link rel="stylesheet" href="/static/custom/css/comment.css"/>
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/editor.md/lib/marked.min.js"></script>
@@ -71,7 +72,86 @@ ${article.articleMd}
                     </div>
                 </div>
                 <div class="like">
-                    <div class="heart" <#if (isLike == true)>style="background-position:right"<#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
+                    <div class="heart" <#if (isLike == true)>style="background-position:right"
+                         <#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
+                </div>
+                <div class="comment">
+                    <div class="comment-title">
+                        所有评论:
+                    </div>
+                    <div class="comment-list">
+                        <div class="comment-item row">
+                            <div class="comment-item-left">
+                                <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
+                            </div>
+                            <div class="comment-item-right">
+                                <div class="comment-item-info">
+                                    <span>
+                                        <a href="javascript:;" class="name">凉衫薄:</a>
+                                    </span>
+                                    <span class="time">2018-10-25 11:56:07</span>
+                                    <span>
+                                        <a href="javascript:;" class="reply">回复</a>
+                                    </span>
+                                </div>
+                                <hr>
+                                <div class="comment-content">
+                                    <a href="#">@凉衫薄</a>测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-item row">
+                            <div class="comment-item-left">
+                                <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
+                            </div>
+                            <div class="comment-item-right">
+                                <div class="comment-item-info">
+                                    <span>
+                                        <a href="javascript:;" class="name">凉衫薄:</a>
+                                    </span>
+                                    <span class="time">2018-10-25 11:56:07</span>
+                                    <span>
+                                        <a href="javascript:;" class="reply">回复</a>
+                                    </span>
+                                </div>
+                                <hr>
+                                <div class="comment-content">
+                                    测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-reply">
+                        <span>
+                            <a href="javascript:;" class="reply-to">
+                                回复 凉衫薄:
+                            </a>
+                        </span>
+                        <span>
+                            <a href="javascript:;" class="cancel">
+                                取消
+                            </a>
+                        </span>
+                    </div>
+                    <div class="comment-input">
+                        <textarea class="comment-text form-control" placeholder="请开始你的表演..."></textarea>
+                    </div>
+                    <div class="comment-info">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input class="form-control" placeholder="昵称">
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" placeholder="邮箱">
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" placeholder="个人网址">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="button" class="btn btn-info" value="评论">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="padding">
