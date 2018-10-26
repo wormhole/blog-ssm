@@ -15,6 +15,7 @@
     <script src="/static/editor.md/lib/marked.min.js"></script>
     <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
+    <script src="/static/knockout/knockout-3.4.2.js"></script>
     <title>溢栈</title>
 </head>
 <body>
@@ -64,10 +65,14 @@
                             <span class="oi oi-thumb-up" aria-hidden="true"></span>
                             <span id="likes">${article.likes}</span>
                         </div>
+                        <div>
+                            <span class="oi oi-chat" aria-hidden="true"></span>
+                            <span id="replyCount">${article.likes}</span>
+                        </div>
                     </div>
                     <div id="editormd-view" class="content">
                         <textarea style="display:none;">
-${article.articleMd}
+                        ${article.articleMd}
                         </textarea>
                     </div>
                 </div>
@@ -79,53 +84,32 @@ ${article.articleMd}
                     <div class="comment-title">
                         所有评论:
                     </div>
-                    <div class="comment-list">
-                        <div class="comment-item row">
+                    <ul class="comment-list">
+                        <li class="comment-item row" data-bind="foreach:commentList">
                             <div class="comment-item-left">
                                 <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
                             </div>
                             <div class="comment-item-right">
                                 <div class="comment-item-info">
                                     <span>
-                                        <a href="javascript:;" class="name">凉衫薄:</a>
+                                        <a href="javascript:;" class="name" data-bind="nickname"></a>
                                     </span>
-                                    <span class="time">2018-10-25 11:56:07</span>
+                                    <span class="time" data-bind="date"></span>
                                     <span>
                                         <a href="javascript:;" class="reply">回复</a>
                                     </span>
                                 </div>
                                 <hr>
                                 <div class="comment-content">
-                                    <a href="#">@凉衫薄</a>测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
+                                    <a href="javascript:;" data-bind="text:replyTo"></a><span data-bind="text:content"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="comment-item row">
-                            <div class="comment-item-left">
-                                <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
-                            </div>
-                            <div class="comment-item-right">
-                                <div class="comment-item-info">
-                                    <span>
-                                        <a href="javascript:;" class="name">凉衫薄:</a>
-                                    </span>
-                                    <span class="time">2018-10-25 11:56:07</span>
-                                    <span>
-                                        <a href="javascript:;" class="reply">回复</a>
-                                    </span>
-                                </div>
-                                <hr>
-                                <div class="comment-content">
-                                    测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment-reply">
+                        </li>
+                    </ul>
+                    <div class="comment-reply" data-bind="if:reply == true">
+                        <span>回复</span>
                         <span>
-                            <a href="javascript:;" class="reply-to">
-                                回复 凉衫薄:
-                            </a>
+                            <a href="javascript:;" class="reply-to" data-bind="text:replyRef"></a>
                         </span>
                         <span>
                             <a href="javascript:;" class="cancel">

@@ -1,5 +1,10 @@
+var viewModel;
+
 $(function () {
     editormd.markdownToHTML("editormd-view", {});
+    viewModel = new ViewModel();
+    ko.applyBindings(viewModel);
+
     $('.heart').click(function () {
         if ($(this).attr("rel") == "true") {
             return;
@@ -10,6 +15,17 @@ $(function () {
         }
     });
 });
+
+function ViewModel(){
+    var self = this;
+
+    self.initDate = {
+
+    };
+
+    self.commentList = ko.observableArray([]);
+    self.reply = ko.observable(false);
+}
 
 function likeAjax(url){
     var data = {
