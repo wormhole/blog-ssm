@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.CommentDao">
+
+    <resultMap id="commentMap" type="comment">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="email" column="email"/>
+        <result property="website" column="website"/>
+        <result property="content" column="content"/>
+        <result property="articleId" column="articleid"/>
+        <result property="type" column="type"/>
+        <result property="replyTo" column="replyto"/>
+        <result property="date" column="date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getCommentById" parameterType="string" resultType="comment" resultMap="commentMap">
+        select * from comment where id = ${id}
+    </select>
+
+    <select id="getAllComment" resultType="comment" resultMap="commentMap">
+        select * from comment
+    </select>
+
+    <select id="getCommentByArticleId" parameterType="string" resultType="comment" resultMap="commentMap">
+        select * from comment where articleid = ${articleId}
+    </select>
+
+    <insert id="insertComment" parameterType="comment">
+        insert into comment(id,nickname,email,website,content,articleid,type,replyto,date) values (${id},${nickname},${email},${website},${content},${articleId},${type},${replyTo},${date})
+    </insert>
+
+    <delete id="deleteCommentById" parameterType="string">
+        delete from comment where id = ${id}
+    </delete>
+
+</mapper>

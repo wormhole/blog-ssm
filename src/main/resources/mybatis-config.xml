@@ -13,6 +13,7 @@
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.UserRole" alias="userRole"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.RolePermission" alias="rolePermission"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Category" alias="category"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Comment" alias="comment"/>
     </typeAliases>
 
 </configuration>
