@@ -26,7 +26,7 @@
 
     <mvc:view-controller path="/admin" view-name="/admin/admin"/>
     <mvc:view-controller path="/admin/user/personal" view-name="/admin/user/personal"/>
-    <mvc:view-controller path="/admin/article/write" view-name="/admin/article/write"/>
+    <mvc:view-controller path="/admin/article/article" view-name="/admin/article/article"/>
     <mvc:view-controller path="/admin/article/category" view-name="/admin/article/category"/>
     <mvc:view-controller path="/admin/article/management" view-name="/admin/article/management"/>
     <mvc:view-controller path="/error/unauthorized" view-name="/error/unauthorized"/>
