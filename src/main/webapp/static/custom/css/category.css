@@ -27,6 +27,7 @@ body {
 
 .left .nickname {
     font-size: 25px;
+    padding: 0 10px;
 }
 
 .left hr {

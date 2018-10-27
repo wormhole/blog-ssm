@@ -39,6 +39,7 @@ body {
 
 .left .signature {
     font-size: 15px;
+    padding: 0 10px;
 }
 
 .left .menu {
@@ -125,8 +126,8 @@ body {
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
 
-.middle .body .article .footer div{
-    display:inline;
+.middle .body .article .footer div {
+    display: inline;
     margin-right: 20px;
     font-size: 15px;
     color: #707070;
