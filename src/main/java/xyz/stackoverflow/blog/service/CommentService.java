@@ -16,4 +16,6 @@ public interface CommentService {
     Comment deleteCommentById(String id);
     List<Comment> getAllComment();
     Comment getCommentById(String id);
+    int getCommentCountByArticleId(String articleId);
+    Comment commentReview(Comment comment);
 }

@@ -17,14 +17,14 @@ public class Comment implements Serializable {
     protected String content;
     protected String articleId;
     protected Date date;
-    protected Integer type;
     protected String replyTo;
+    protected Integer review;
 
     public Comment(){
 
     }
 
-    public Comment(String id, String nickname, String email, String website, String content, String articleId, Date date, Integer type, String replyTo) {
+    public Comment(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
@@ -32,8 +32,8 @@ public class Comment implements Serializable {
         this.content = content;
         this.articleId = articleId;
         this.date = date;
-        this.type = type;
         this.replyTo = replyTo;
+        this.review = review;
     }
 
     public String getId() {
@@ -92,19 +92,19 @@ public class Comment implements Serializable {
         this.date = date;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public String getReplyTo() {
         return replyTo;
     }
 
     public void setReplyTo(String replyTo) {
         this.replyTo = replyTo;
+    }
+
+    public Integer getReview() {
+        return review;
+    }
+
+    public void setReview(Integer review) {
+        this.review = review;
     }
 }

@@ -7,16 +7,24 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
+import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.pojo.vo.CommentVO;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
+import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.validator.CommentValidator;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 前端文章页面跳转控制器
@@ -35,6 +43,10 @@ public class ArticlePageController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private CommentValidator commentValidator;
 
     /**
      * 跳转到文章单页 /article/{year}/{month}/{day}/{articleCode}
@@ -51,6 +63,7 @@ public class ArticlePageController {
         ModelAndView mv = new ModelAndView();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat commentSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         User admin = userService.getAdmin();
         UserVO userVO = new UserVO();
@@ -63,16 +76,37 @@ public class ArticlePageController {
             article.setHits(article.getHits() + 1);
             articleService.updateArticle(article);
 
-            ArticleVO vo = new ArticleVO();
-            vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
-            vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setHits(article.getHits());
-            vo.setLikes(article.getLikes());
-            vo.setCreateDateString(sdf.format(article.getCreateDate()));
-            vo.setArticleMd(article.getArticleMd());
+            ArticleVO articleVO = new ArticleVO();
+            articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+            articleVO.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
+            articleVO.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+            articleVO.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
+            articleVO.setHits(article.getHits());
+            articleVO.setLikes(article.getLikes());
+            articleVO.setCreateDateString(sdf.format(article.getCreateDate()));
+            articleVO.setArticleMd(article.getArticleMd());
+
+            List<Comment> commentList = commentService.getCommentByArticleId(article.getId());
+            List<CommentVO> voList = new ArrayList<>();
+            for (Comment comment : commentList) {
+                CommentVO commentVO = new CommentVO();
+                commentVO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
+                commentVO.setDateString(commentSdf.format(comment.getDate()));
+                commentVO.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+                if (comment.getReplyTo() != null) {
+                    commentVO.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));
+                }
+                if (comment.getWebsite() != null) {
+                    commentVO.setWebsite(comment.getWebsite());
+                } else {
+                    commentVO.setWebsite("javascript:;");
+                }
+                voList.add(commentVO);
+            }
+
             mv.addObject("user", userVO);
-            mv.addObject("article", vo);
+            mv.addObject("article", articleVO);
+            mv.addObject("commentList", voList);
             mv.setViewName("/article");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
@@ -113,6 +147,30 @@ public class ArticlePageController {
         } else {
             response.setStatus(FAILURE);
             response.setMessage("点赞失败");
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/article/comment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO insertComment(@RequestBody CommentVO commentVO) {
+        ResponseVO response = new ResponseVO();
+
+        Map<String, String> map = commentValidator.validate(commentVO);
+        if (map.size() != 0) {
+            response.setStatus(FAILURE);
+            response.setMessage("评论字段错误");
+            response.setData(map);
+        } else {
+            Article article = articleService.getArticleByUrl(commentVO.getUrl());
+            Comment comment = commentVO.toComment();
+            comment.setDate(new Date());
+            comment.setArticleId(article.getId());
+            comment.setReview(0);
+            commentService.insertComment(comment);
+
+            response.setStatus(SUCCESS);
+            response.setMessage("评论获取成功");
         }
         return response;
     }

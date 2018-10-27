@@ -47,6 +47,7 @@ public class InitListener extends ContextLoaderListener {
                 runner.runScript(Resources.getResourceAsReader("sql/user_role.sql"));
                 runner.runScript(Resources.getResourceAsReader("sql/category.sql"));
                 runner.runScript(Resources.getResourceAsReader("sql/article.sql"));
+                runner.runScript(Resources.getResourceAsReader("sql/comment.sql"));
                 runner.runScript(Resources.getResourceAsReader("sql/init.sql"));
             }
             ps.close();

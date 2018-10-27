@@ -14,10 +14,10 @@
     <div class="row">
         <div class="col-md-3">
             <div class="left">
-                <img src="${user.headUrl}" id="head" class="rounded-circle">
-                <div class="nickname" id="nickname">${user.nickname}</div>
+                <img src="${user.headUrl}" class="rounded-circle">
+                <div class="nickname">${user.nickname}</div>
                 <hr/>
-                <div class="signature" id="signature">${user.signature}</div>
+                <div class="signature">${user.signature}</div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -44,19 +44,27 @@
                             <div class="footer">
                                 <div>
                                     <span class="oi oi-calendar" aria-hidden="true"></span>
-                                    <span id="date">${article.createDateString}</span>
+                                    <span>${article.createDateString}</span>
                                 </div>
                                 <div>
                                     <span class="oi oi-person" aria-hidden="true"></span>
-                                    <span id="author">${article.nickname}</span>
+                                    <span>${article.nickname}</span>
                                 </div>
                                 <div>
                                     <span class="oi oi-tags" aria-hidden="true"></span>
-                                    <span id="category">${article.categoryName}</span>
+                                    <span>${article.categoryName}</span>
                                 </div>
                                 <div>
                                     <span class="oi oi-eye" aria-hidden="true"></span>
-                                    <span id="hits">${article.hits}</span>
+                                    <span>${article.hits}</span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-thumb-up" aria-hidden="true"></span>
+                                    <span>${article.likes}</span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-chat" aria-hidden="true"></span>
+                                    <span>${article.commentCount}</span>
                                 </div>
                             </div>
                         </div>

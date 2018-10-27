@@ -29,6 +29,7 @@
     <bean id="userValidator" class="xyz.stackoverflow.blog.validator.UserValidator"/>
     <bean id="categoryValidator" class="xyz.stackoverflow.blog.validator.CategoryValidator"/>
     <bean id="articleValidator" class="xyz.stackoverflow.blog.validator.ArticleValidator"/>
+    <bean id="commentValidator" class="xyz.stackoverflow.blog.validator.CommentValidator"/>
 
     <import resource="spring-redis.xml"/>
     <import resource="spring-mybatis.xml"/>

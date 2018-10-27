@@ -12,14 +12,32 @@ import java.util.Date;
 public class CommentVO extends Comment {
 
     protected String dateString;
+    protected String url;
 
     public CommentVO() {
 
     }
 
-    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, Integer type, String replyTo, String dateString) {
-        super(id, nickname, email, website, content, articleId, date, type, replyTo);
+    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String dateString, String url) {
+        super(id, nickname, email, website, content, articleId, date, replyTo, review);
         this.dateString = dateString;
+        this.url = url;
+    }
+
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     /**
@@ -36,8 +54,8 @@ public class CommentVO extends Comment {
         comment.setContent(content);
         comment.setDate(date);
         comment.setArticleId(articleId);
-        comment.setType(type);
         comment.setReplyTo(replyTo);
+        comment.setReview(review);
         return comment;
     }
 }

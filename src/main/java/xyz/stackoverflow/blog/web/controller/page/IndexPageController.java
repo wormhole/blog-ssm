@@ -14,6 +14,7 @@ import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
+import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PageParameter;
 
@@ -35,6 +36,8 @@ public class IndexPageController {
     private ArticleService articleService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 进入主页
@@ -60,7 +63,9 @@ public class IndexPageController {
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+            vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setHits(article.getHits());
+            vo.setLikes(article.getLikes());
             vo.setUrl(article.getUrl());
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
             vo.setPreview(HtmlUtils.htmlEscape(Jsoup.parse(article.getArticleHtml()).text()));

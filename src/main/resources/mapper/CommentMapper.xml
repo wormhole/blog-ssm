@@ -12,13 +12,13 @@
         <result property="website" column="website"/>
         <result property="content" column="content"/>
         <result property="articleId" column="articleid"/>
-        <result property="type" column="type"/>
         <result property="replyTo" column="replyto"/>
+        <result property="review" column="review"/>
         <result property="date" column="date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="getCommentById" parameterType="string" resultType="comment" resultMap="commentMap">
-        select * from comment where id = ${id}
+        select * from comment where id = #{id}
     </select>
 
     <select id="getAllComment" resultType="comment" resultMap="commentMap">
@@ -26,15 +26,29 @@
     </select>
 
     <select id="getCommentByArticleId" parameterType="string" resultType="comment" resultMap="commentMap">
-        select * from comment where articleid = ${articleId}
+        select * from comment where articleid = #{articleId} and review = 1
+    </select>
+
+    <select id="getCommentCountByArticleId" parameterType="string" resultType="int">
+        select count(*) from comment where articleid = #{articleId} and review = 1
     </select>
 
     <insert id="insertComment" parameterType="comment">
-        insert into comment(id,nickname,email,website,content,articleid,type,replyto,date) values (${id},${nickname},${email},${website},${content},${articleId},${type},${replyTo},${date})
+        insert into comment(id,nickname,email,website,content,articleid,replyto,review,date) values (#{id},#{nickname},#{email},#{website},#{content},#{articleId},#{replyTo},#{review},#{date})
     </insert>
 
+    <update id="commentReview" parameterType="comment">
+        update comment
+        <set>
+            <if test="review!=null">
+                review = #{review}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <delete id="deleteCommentById" parameterType="string">
-        delete from comment where id = ${id}
+        delete from comment where id = #{id}
     </delete>
 
 </mapper>

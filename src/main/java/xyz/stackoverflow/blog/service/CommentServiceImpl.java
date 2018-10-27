@@ -53,4 +53,17 @@ public class CommentServiceImpl implements CommentService {
     public Comment getCommentById(String id) {
         return commentDao.getCommentById(id);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int getCommentCountByArticleId(String articleId) {
+        return commentDao.getCommentCountByArticleId(articleId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Comment commentReview(Comment comment) {
+        commentDao.commentReview(comment);
+        return commentDao.getCommentById(comment.getId());
+    }
 }

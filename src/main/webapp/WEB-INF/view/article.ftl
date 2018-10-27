@@ -16,6 +16,7 @@
     <script src="/static/editor.md/lib/prettify.min.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
     <script src="/static/knockout/knockout-3.4.2.js"></script>
+    <script src="/static/layer/layer.js"></script>
     <title>溢栈</title>
 </head>
 <body>
@@ -23,10 +24,10 @@
     <div class="row">
         <div class="col-md-3">
             <div class="left">
-                <img src="${user.headUrl}" id="head" class="rounded-circle">
-                <div class="nickname" id="nickname">${user.nickname}</div>
+                <img src="${user.headUrl}" class="rounded-circle">
+                <div class="nickname">${user.nickname}</div>
                 <hr/>
-                <div class="signature" id="signature">${user.signature}</div>
+                <div class="signature">${user.signature}</div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -47,19 +48,19 @@
                     <div class="info">
                         <div>
                             <span class="oi oi-calendar" aria-hidden="true"></span>
-                            <span id="date">${article.createDateString}</span>
+                            <span>${article.createDateString}</span>
                         </div>
                         <div>
                             <span class="oi oi-person" aria-hidden="true"></span>
-                            <span id="author">${article.nickname}</span>
+                            <span>${article.nickname}</span>
                         </div>
                         <div>
                             <span class="oi oi-tags" aria-hidden="true"></span>
-                            <span id="category">${article.categoryName}</span>
+                            <span>${article.categoryName}</span>
                         </div>
                         <div>
                             <span class="oi oi-eye" aria-hidden="true"></span>
-                            <span id="hits">${article.hits}</span>
+                            <span>${article.hits}</span>
                         </div>
                         <div>
                             <span class="oi oi-thumb-up" aria-hidden="true"></span>
@@ -67,12 +68,12 @@
                         </div>
                         <div>
                             <span class="oi oi-chat" aria-hidden="true"></span>
-                            <span id="replyCount">${article.likes}</span>
+                            <span>${article.commentCount}</span>
                         </div>
                     </div>
                     <div id="editormd-view" class="content">
                         <textarea style="display:none;">
-                        ${article.articleMd}
+${article.articleMd}
                         </textarea>
                     </div>
                 </div>
@@ -85,28 +86,33 @@
                         所有评论:
                     </div>
                     <ul class="comment-list">
-                        <li class="comment-item row" data-bind="foreach:commentList">
-                            <div class="comment-item-left">
-                                <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
-                            </div>
-                            <div class="comment-item-right">
-                                <div class="comment-item-info">
-                                    <span>
-                                        <a href="javascript:;" class="name" data-bind="nickname"></a>
-                                    </span>
-                                    <span class="time" data-bind="date"></span>
-                                    <span>
-                                        <a href="javascript:;" class="reply">回复</a>
-                                    </span>
+                        <#list commentList as comment>
+                            <li class="comment-item row">
+                                <div class="comment-item-left">
+                                    <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
                                 </div>
-                                <hr>
-                                <div class="comment-content">
-                                    <a href="javascript:;" data-bind="text:replyTo"></a><span data-bind="text:content"></span>
+                                <div class="comment-item-right">
+                                    <div class="comment-item-info">
+                                        <span>
+                                            <a href="${comment.website}" class="name">${comment.nickname}</a>
+                                        </span>
+                                        <span class="time">${comment.dateString}</span>
+                                        <span>
+                                            <a href="javascript:;" class="reply">回复</a>
+                                        </span>
+                                    </div>
+                                    <hr>
+                                    <div class="comment-content">
+                                        <#if (comment.replyTo)??>
+                                            <a href="javascript:;">@${comment.replyTo}</a>
+                                        </#if>
+                                        <span>${comment.content}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        </#list>
                     </ul>
-                    <div class="comment-reply" data-bind="if:reply == true">
+                    <div class="comment-reply" data-bind="visible:reply">
                         <span>回复</span>
                         <span>
                             <a href="javascript:;" class="reply-to" data-bind="text:replyRef"></a>
@@ -118,21 +124,21 @@
                         </span>
                     </div>
                     <div class="comment-input">
-                        <textarea class="comment-text form-control" placeholder="请开始你的表演..."></textarea>
+                        <textarea class="comment-text form-control" placeholder="请开始你的表演..." id="content"></textarea>
                     </div>
                     <div class="comment-info">
                         <div class="row">
                             <div class="col-sm-3">
-                                <input class="form-control" placeholder="昵称">
+                                <input class="form-control" type="text" placeholder="昵称(必填)" id="nickname">
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" placeholder="邮箱">
+                                <input class="form-control" type="email" placeholder="邮箱(必填)" id="email">
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" placeholder="个人网址">
+                                <input class="form-control" type="url" placeholder="个人网址" id="website">
                             </div>
                             <div class="col-sm-3">
-                                <input type="button" class="btn btn-info" value="评论">
+                                <input type="button" class="btn btn-info" value="评论" id="comment-btn">
                             </div>
                         </div>
                     </div>

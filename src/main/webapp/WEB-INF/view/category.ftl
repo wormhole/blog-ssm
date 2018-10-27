@@ -15,10 +15,10 @@
     <div class="row">
         <div class="col-md-3">
             <div class="left">
-                <img src="${user.headUrl}" id="head" class="rounded-circle">
-                <div class="nickname" id="nickname">${user.nickname}</div>
+                <img src="${user.headUrl}" class="rounded-circle">
+                <div class="nickname">${user.nickname}</div>
                 <hr/>
-                <div class="signature" id="signature">${user.signature}</div>
+                <div class="signature">${user.signature}</div>
                 <div class="menu">
                     <a class="item btn" href="/">
                         首页

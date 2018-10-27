@@ -59,7 +59,7 @@ public class ManagerController {
 
         int count = articleService.getArticleCount();
         List<ArticleVO> voList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Article article : list) {
             ArticleVO vo = new ArticleVO();
             vo.setId(article.getId());
