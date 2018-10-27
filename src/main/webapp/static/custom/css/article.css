@@ -27,7 +27,6 @@ body {
 
 .left .nickname {
     font-size: 25px;
-    padding: 0 10px;
 }
 
 .left hr {
@@ -40,10 +39,11 @@ body {
 
 .left .signature {
     font-size: 15px;
+    padding: 0 10px;
 }
 
 .left .menu {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .left .menu .select {
