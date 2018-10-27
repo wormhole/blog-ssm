@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -62,8 +63,20 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int getCommentCount() {
+        return commentDao.getCommentCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Comment commentReview(Comment comment) {
         commentDao.commentReview(comment);
         return commentDao.getCommentById(comment.getId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Comment> getLimitComment(PageParameter parameter) {
+        return commentDao.getLimitComment(parameter);
     }
 }

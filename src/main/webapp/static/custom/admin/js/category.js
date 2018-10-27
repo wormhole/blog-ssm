@@ -65,7 +65,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         if (layEvent === 'del') {
             layer.confirm('确认删除该分类吗', function (index) {
-                deleteCategoryAjax(data,obj);
+                deleteCategoryAjax(data);
                 layer.close(index);
             });
         }
@@ -113,7 +113,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function deleteCategoryAjax(data,obj) {
+    function deleteCategoryAjax(data) {
         $.ajax({
             url: "/admin/article/category/delete",
             type: "post",
@@ -122,7 +122,6 @@ layui.use(['table', 'jquery', 'layer'], function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.status == 0) {
-                    obj.del();
                     layer.open({
                         type: 0,
                         content: data.message

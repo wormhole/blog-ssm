@@ -22,15 +22,23 @@
     </select>
 
     <select id="getAllComment" resultType="comment" resultMap="commentMap">
-        select * from comment
+        select * from comment order by date desc
+    </select>
+
+    <select id="getLimitComment" resultType="comment" resultMap="commentMap">
+        select * from comment order by date desc limit #{start},#{limit}
     </select>
 
     <select id="getCommentByArticleId" parameterType="string" resultType="comment" resultMap="commentMap">
-        select * from comment where articleid = #{articleId} and review = 1
+        select * from comment where articleid = #{articleId} and review = 1 order by date desc
     </select>
 
     <select id="getCommentCountByArticleId" parameterType="string" resultType="int">
         select count(*) from comment where articleid = #{articleId} and review = 1
+    </select>
+
+    <select id="getCommentCount" resultType="int">
+        select count(*) from comment
     </select>
 
     <insert id="insertComment" parameterType="comment">

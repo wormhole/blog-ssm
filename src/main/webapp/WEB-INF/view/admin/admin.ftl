@@ -12,7 +12,7 @@
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">StackOverflow.xyz</div>
+        <div class="layui-logo">虫洞博客</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;"><i class="layui-icon layui-icon-notice"></i>&nbsp;&nbsp;消息</a>
@@ -38,10 +38,10 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/article/management" data-title="所有文章"
-                               data-id="article">所有文章</a></dd>
-                        <dd><a href="javascript:;" data-url="/admin/article/write" data-title="写文章"
-                               data-id="write">写文章</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/management" data-title="文章管理"
+                               data-id="articleManage">文章管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/article" data-title="写文章"
+                               data-id="article">写文章</a></dd>
                         <dd><a href="javascript:;" data-url="/admin/article/category" data-title="分类"
                                data-id="category">分类</a></dd>
                     </dl>
@@ -49,7 +49,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;&nbsp;评论</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="" data-title="所有评论" data-id="">所有评论</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/comment/management" data-title="评论管理" data-id="commentManage">评论管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
