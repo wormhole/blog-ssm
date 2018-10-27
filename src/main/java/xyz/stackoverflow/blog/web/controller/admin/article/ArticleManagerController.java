@@ -23,7 +23,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ManagerController {
+public class ArticleManagerController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
