@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/admin/css/personal.css">
     <script src="/static/layui/layui.js"></script>
-    <script src="/static/knockout/knockout-3.4.2.js"></script>
     <title>溢栈</title>
 </head>
 <body>
@@ -16,22 +15,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-inline">
-                <input name="email" class="layui-input" type="email" required id="email" data-bind="value:user().email">
+                <input name="email" class="layui-input" type="email" required id="email" value="${Session.user.email}">
             </div>
             <div class="layui-form-mid error-color hidden" id="email-error"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-inline">
-                <input name="nickname" class="layui-input" type="text" required id="nickname"
-                       data-bind="value:user().nickname">
+                <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
             </div>
             <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">签名</label>
             <div class="layui-input-inline">
-                <textarea name="signature" class="layui-textarea" id="signature" data-bind="value:user().signature"></textarea>
+                <textarea name="signature" class="layui-textarea" id="signature" value="${Session.user.signature}"></textarea>
             </div>
             <div class="layui-form-mid error-color hidden" id="signature-error"></div>
         </div>
@@ -48,14 +46,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">旧密码</label>
             <div class="layui-input-inline">
-                <input name="oldPassword" class="layui-input" type="password" id="old-password" data-bind="value:user().oldPassword">
+                <input name="oldPassword" class="layui-input" type="password" id="old-password">
             </div>
             <div class="layui-form-mid error-color hidden" id="old-password-error"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">新密码</label>
             <div class="layui-input-inline">
-                <input name="newPassword" class="layui-input" type="password" id="new-password" data-bind="value:user().newPassword">
+                <input name="newPassword" class="layui-input" type="password" id="new-password">
             </div>
             <div class="layui-form-mid error-color hidden" id="new-password-error"></div>
         </div>
@@ -77,7 +75,7 @@
     <div class="layui-card-header">头像设置</div>
     <div class="layui-card-body">
         <div class="layui-row">
-            <img src="" class="layui-circle" id="head">
+            <img src="${Session.user.headUrl}" class="layui-circle" id="head">
         </div>
         <input type="file" name="headImg" id="head-img" class="hidden">
         <div class="layui-row">

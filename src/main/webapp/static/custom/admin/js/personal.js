@@ -2,52 +2,6 @@ layui.use(['layer', 'jquery'], function () {
 
     var layer = layui.layer;
     var $ = layui.$;
-    var viewModel = new ViewModel();
-    ko.applyBindings(viewModel);
-
-    function ViewModel() {
-        var self = this;
-        self.initData = {
-            user: {
-                email: '',
-                nickname: '',
-                signature: '',
-                headUrl: '',
-                oldPassword: '',
-                newPassword: ''
-            }
-        };
-        self.user = ko.observable(self.initData.user);
-    }
-
-    $(function () {
-        loadUserAjax();
-    });
-
-    function loadUserAjax() {
-        $.ajax({
-            url: "/admin/user/get",
-            type: 'get',
-            dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    viewModel.user(data.data);
-                    $('#head').attr('src', data.data.headUrl);
-                } else {
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                }
-            },
-            error: function (data) {
-                layer.open({
-                    type: 0,
-                    content: "服务器错误",
-                });
-            }
-        });
-    }
 
     function updateBaseInfoAjax(data) {
         $.ajax({
@@ -128,7 +82,6 @@ layui.use(['layer', 'jquery'], function () {
             dataType: "json",
             success: function (data) {
                 if (data.status == 0) {
-                    viewModel.user(data.data);
                     $('#head').attr('src', data.data.headUrl);
                     layer.open({
                         type: 0,
@@ -177,9 +130,9 @@ layui.use(['layer', 'jquery'], function () {
         $('#nickname-error').addClass('hidden');
         $('#signature-error').addClass('hidden');
 
-        var email = viewModel.user().email;
-        var nickname = viewModel.user().nickname;
-        var signature = viewModel.user().signature;
+        var email = $('#email').val();
+        var nickname = $('#nickname').val();
+        var signature = $('#signature').val();
 
         var data = {};
         data['email'] = email;
@@ -194,8 +147,8 @@ layui.use(['layer', 'jquery'], function () {
         $('#old-password-error').addClass('hidden');
         $('#new-password-error').addClass('hidden');
 
-        var oldPassword = viewModel.user().oldPassword;
-        var newPassword = viewModel.user().newPassword;
+        var oldPassword = $('#old-password').val();
+        var newPassword = $('#new-password').val();
         var checkedPassword = $('#checked-password').val();
 
         if (newPassword != checkedPassword) {
