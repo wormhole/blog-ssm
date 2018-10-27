@@ -151,6 +151,13 @@ public class ArticlePageController {
         return response;
     }
 
+    /**
+     * 评论接口 /article/comment
+     * 方法 POST
+     *
+     * @param commentVO
+     * @return
+     */
     @RequestMapping(value = "/article/comment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO insertComment(@RequestBody CommentVO commentVO) {
