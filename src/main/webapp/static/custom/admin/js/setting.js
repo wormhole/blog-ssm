@@ -196,10 +196,10 @@ layui.use(['layer', 'jquery'], function () {
     });
 
     $('#article-btn').click(function () {
-        var items = $('#items').val();
+        var limit = $('#limit').val();
 
         var data = [];
-        data.push({key: 'items', value: items});
+        data.push({key: 'limit', value: limit});
 
         updateArticleAjax(data);
     });

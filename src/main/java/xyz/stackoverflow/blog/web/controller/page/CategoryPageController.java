@@ -16,6 +16,7 @@ import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
+import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PageParameter;
 
@@ -40,6 +41,8 @@ public class CategoryPageController {
     private UserService userService;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 跳转到某一分类所有文章显示页面 /category/{categoryCode}
@@ -53,10 +56,11 @@ public class CategoryPageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ServletContext application = request.getServletContext();
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
+        int limit = Integer.valueOf((String)settingMap.get("limit"));
 
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
-            PageParameter parameter = new PageParameter(Integer.valueOf(page), 5, category.getId());
+            PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, category.getId());
             List<Article> articleList = articleService.getLimitArticleByCategoryId(parameter);
             List<ArticleVO> articleVOList = new ArrayList<>();
             for (Article article : articleList) {
@@ -64,16 +68,17 @@ public class CategoryPageController {
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
                 vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
                 vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+                vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
                 vo.setHits(article.getHits());
+                vo.setLikes(article.getLikes());
                 vo.setPreview(Jsoup.parse(article.getArticleHtml()).text());
                 vo.setUrl(article.getUrl());
                 vo.setCreateDateString(sdf.format(article.getCreateDate()));
                 articleVOList.add(vo);
             }
 
-            int items = Integer.valueOf((String)settingMap.get("items"));
             int count = articleService.getArticleCountByCategoryId(category.getId());
-            int pageCount = (count % items == 0) ? count / items : count / items + 1;
+            int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
             pageCount = pageCount == 0 ? 1 : pageCount;
             int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
             int end = (start + 4 > pageCount) ? pageCount : start + 4;

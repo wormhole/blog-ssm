@@ -44,7 +44,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 shade: 0.8,
                 area: ['90%', '90%'],
                 maxmin: true,
-                content: '/admin/article/write',
+                content: '/admin/article/article',
                 cancel: function (index, layero) {
                     tableIns.reload(parameter);
                 }
@@ -58,7 +58,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     shade: 0.8,
                     area: ['90%', '90%'],
                     maxmin: true,
-                    content: '/admin/article/write?id=' + checkStatus.data[0].id,
+                    content: '/admin/article/article?id=' + checkStatus.data[0].id,
                     cancel: function (index, layero) {
                         tableIns.reload(parameter);
                     }

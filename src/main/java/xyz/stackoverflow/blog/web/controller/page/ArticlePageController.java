@@ -104,10 +104,10 @@ public class ArticlePageController {
             mv.setViewName("/error/404");
         }
 
-        if (session.getAttribute("isLike") == null) {
-            session.setAttribute("isLike", false);
+        if (session.getAttribute(url) == null) {
+            session.setAttribute(url, false);
         }
-        Boolean isLike = (Boolean) session.getAttribute("isLike");
+        Boolean isLike = (Boolean) session.getAttribute(url);
         mv.addObject("isLike", isLike);
         return mv;
     }
@@ -125,12 +125,12 @@ public class ArticlePageController {
     public ResponseVO like(@RequestBody ArticleVO articleVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
 
-        Boolean isLike = (Boolean) session.getAttribute("isLike");
+        Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
         if (isLike != null && !isLike) {
             Article article = articleService.getArticleByUrl(articleVO.getUrl());
             article.setLikes(article.getLikes() + 1);
             articleService.updateArticle(article);
-            session.setAttribute("isLike", true);
+            session.setAttribute(articleVO.getUrl(), true);
             response.setStatus(SUCCESS);
             response.setMessage("点赞成功");
             response.setData(article.getLikes());

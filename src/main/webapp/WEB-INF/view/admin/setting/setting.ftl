@@ -94,7 +94,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">显示数量</label>
             <div class="layui-input-inline">
-                <input name="items" class="layui-input" type="number" required id="items" value="${Application.setting.items}">
+                <input name="limit" class="layui-input" type="number" required id="limit" value="${Application.setting.limit}">
             </div>
             <div class="layui-form-mid layui-word-aux">只能够填数字,建议为5</div>
         </div>
