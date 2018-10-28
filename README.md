@@ -1,10 +1,11 @@
-# BlOG
+# WORMHOLE BlOG
 [![downloads](https://img.shields.io/github/downloads/wormhole1996/blog/total.svg)](https://github.com/wormhole1996/blog/releases)
 [![repo size](https://img.shields.io/github/repo-size/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/archive/master.zip)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
 
 ## 介绍
-这是一个基于互联网轻量级架构的博客系统, 之后将会推出一个Spring Boot版本的, 敬请期待.
+wordpress用得不爽了, 于是自己写了一个博客系统, 我将它命名为虫洞(wormhole). 部署简单, 完全基于互联网轻量级框架开发, 整合redis缓存, shiro安全认证授权框架, 
+集成MarkDown编辑器, 用程序员最舒服的书写方式写博客. 不管你以学习为目的还是使用为目的, 这个项目都是不错的选择.
 
 ## 技术架构
 * Ioc容器 - [Spring](https://spring.io/projects/spring-framework)
@@ -23,27 +24,11 @@
 * Redis 4.0.9
 
 ## 扩展接口
->该博客系统的后台管理系统虽然采用freemarker模板引擎,但博客主页,单页,分类页均采用前后端分离架构,方便用户自定义主题和扩展
-1. 获取验证码
-* URL- http://host:port/api/vcode
-* method - GET
-2. 获取所有文章
-* URL - http://host:port/api/article?page=number
-* method - GET
-* 说明 - 无参时获取所有文章,有参数时指定页数,默认一页显示五篇文章
-3. 获取单篇文章
-* URL - http://host:port/api/article/{year}/{month}/{day}/{articleCode}
-* method - GET
-4. 获取所有文章分类信息
-* URL - http://host:port/api/category
-* method - GET
-5. 通过分类编码获取该分类下的所有文章
-* URL - http://host:port/api/category/{categoryCode}?page=number
-* method - GET
-6. 未完待补充
+>项目最初的设想是使用前后端分离的架构, 但ajax对搜索引擎并不友好, 后来页面改为了由后端freemarker渲染, 于是乎这部分接口就被废除了.
 
 ## 环境搭建
-### Linux
+>图片较多, 推荐使用CDN或Nginx做动静分离实现负载均衡, 有时间我会附加一个环境自动化搭建shell脚本.
+### Linux 环境部署
 1.下载并解压 [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 >注意不要用linux自带的openjdk
 ```
@@ -95,25 +80,38 @@ redis-server &
 startup.sh
 ```
 7.将打包好的war包放入tomcat的app目录
-### Windows
+### Windows 环境部署
 步骤省略
-### MAC
+### MAC 环境部署
 步骤省略
 
 ## 效果演示
-### 登陆界面
-![登陆](img/login.png)
-### 后台管理
-#### 首页
-![首页](img/index.png)
-#### 文章详情页
-![文章详情页](img/article.png)
-#### 分类管理
-![分类管理](img/category.png)
-#### 写文章
-![写文章](img/write.png)
-#### 个人信息维护
+### 主页
+![主页](img/index.png)
+### 分类页
+![分类](img/category.png)
+### 文章浏览页
+![文章浏览](img/article.png)
+### 写文章界面
+![写文章](img/edit.png)
+### 文章管理界面
+![文章管理](img/articlemanage.png)
+### 分类管理界面
+![分类管理](img/categorymanage.png)
+### 文章更新页面
+![文章更新](img/update.png)
+### 评论管理
+![评论管理](img/commentmanage.png)
+### 网站信息设置
+![网站信息设置](img/setting.png)
+### 个人信息维护
 ![个人信息维护](img/personal.png)
+### 用户注册界面
+![用户注册](img/register.png)
+### 404界面
+![404](img/404.png)
+### 500界面
+![500](img/500.png)
 
 
 
