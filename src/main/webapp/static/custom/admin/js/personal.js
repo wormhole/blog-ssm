@@ -12,7 +12,6 @@ layui.use(['layer', 'jquery'], function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.status == 0) {
-                    viewModel.user(data.data);
                     layer.open({
                         type: 0,
                         content: data.message

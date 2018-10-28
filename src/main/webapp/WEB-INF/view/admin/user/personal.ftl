@@ -29,7 +29,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">签名</label>
             <div class="layui-input-inline">
-                <textarea name="signature" class="layui-textarea" id="signature" value="${Session.user.signature}"></textarea>
+                <textarea name="signature" class="layui-textarea" id="signature">${Session.user.signature}</textarea>
             </div>
             <div class="layui-form-mid error-color hidden" id="signature-error"></div>
         </div>

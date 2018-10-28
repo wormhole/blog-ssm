@@ -44,29 +44,6 @@ public class PersonalController {
     private UserValidator userValidator;
 
     /**
-     * 获取当前用户信息 /admin/user/get
-     * 方法GET
-     *
-     * @param session 会话对象
-     * @return 返回ResponseVO
-     */
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseVO get(HttpSession session) {
-        ResponseVO response = new ResponseVO();
-        User user = (User) session.getAttribute("user");
-        UserVO vo = new UserVO();
-        vo.setNickname(user.getNickname());
-        vo.setEmail(user.getEmail());
-        vo.setSignature(user.getSignature());
-        vo.setHeadUrl(user.getHeadUrl());
-        response.setStatus(SUCCESS);
-        response.setMessage("获取成功");
-        response.setData(vo);
-        return response;
-    }
-
-    /**
      * 更新用户基本信息 /admin/user/update/baseinfo
      * 方法POST
      *
