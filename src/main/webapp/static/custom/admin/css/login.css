@@ -48,6 +48,27 @@ body {
     width: 100%;
 }
 
-a {
+.login a {
     text-decoration: underline;
+}
+
+footer {
+    height: 30px;
+    width: 100%;
+    background-color: #F0F0F0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding-top: 10px;
+    z-index: 1;
+}
+
+footer a {
+    font-size: 17px;
+    color: black;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: black;
 }

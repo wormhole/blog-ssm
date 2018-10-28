@@ -42,8 +42,8 @@
         </form>
         <a href="/admin/register">注册用户</a>
     </div>
-    <p class="copyright">${Application.setting.copyright}</p>
 </div>
+<footer>${Application.setting.copyright}</footer>
 <script type="text/javascript" src="/static/custom/admin/js/login.js"></script>
 </body>
 </html>

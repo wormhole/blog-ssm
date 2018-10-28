@@ -42,8 +42,8 @@
             <button class="layui-btn layui-btn-normal" id="register-btn">注册</button>
         </div>
     </div>
-    <p class="copyright">${Application.setting.copyright}</p>
 </div>
+<footer>${Application.setting.copyright}</footer>
 <script type="text/javascript" src="/static/custom/admin/js/register.js"></script>
 </body>
 </html>
