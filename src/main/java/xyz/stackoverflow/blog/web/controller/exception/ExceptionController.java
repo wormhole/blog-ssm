@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.web.controller.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author 凉衫薄
  */
+@ControllerAdvice
 public class ExceptionController {
 
     private final Integer STATUS = -1;
