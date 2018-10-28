@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/custom/css/category.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <title>溢栈</title>
+    <title>虫洞</title>
 </head>
 <body>
 <div class="container">
@@ -55,6 +55,6 @@
         </div>
     </div>
 </div>
-<footer>copyright &copy; 2018 by 溢栈</footer>
+<footer>copyright &copy; 2018 by 凉衫薄</footer>
 </body>
 </html>

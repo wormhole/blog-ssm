@@ -17,7 +17,7 @@
     <script src="/static/editor.md/editormd.min.js"></script>
     <script src="/static/knockout/knockout-3.4.2.js"></script>
     <script src="/static/layer/layer.js"></script>
-    <title>溢栈</title>
+    <title>虫洞</title>
 </head>
 <body>
 <div class="container">
@@ -149,7 +149,7 @@ ${article.articleMd}
         </div>
     </div>
 </div>
-<footer>copyright &copy; 2018 by 溢栈</footer>
+<footer>copyright &copy; 2018 by 凉衫薄</footer>
 <script src="/static/custom/js/article.js"></script>
 </body>
 </html>
