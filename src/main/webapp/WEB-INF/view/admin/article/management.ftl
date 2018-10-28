@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/admin/css/management.css">
     <script src="/static/layui/layui.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="layui-card">

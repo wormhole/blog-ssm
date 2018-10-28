@@ -112,6 +112,14 @@ footer {
     z-index: 1;
 }
 
+footer a {
+    color: black;
+}
+
+footer a:hover {
+    color: black;
+}
+
 @media (max-width: 970px) {
     footer {
         display: none;

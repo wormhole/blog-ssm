@@ -17,17 +17,20 @@
     <script src="/static/editor.md/editormd.min.js"></script>
     <script src="/static/knockout/knockout-3.4.2.js"></script>
     <script src="/static/layer/layer.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="left">
-                <img src="${user.headUrl}" class="rounded-circle">
-                <div class="nickname">${user.nickname}</div>
+                <img src="${Application.setting.head}" class="rounded-circle">
+                <div class="nickname">${Application.setting.nickname?html}</div>
                 <hr/>
-                <div class="signature">${user.signature}</div>
+                <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
                     <a class="item select btn" href="/">
                         首页
@@ -149,7 +152,7 @@ ${article.articleMd}
         </div>
     </div>
 </div>
-<footer>copyright &copy; 2018 by 凉衫薄</footer>
+<footer>${Application.setting.copyright}</footer>
 <script src="/static/custom/js/article.js"></script>
 </body>
 </html>

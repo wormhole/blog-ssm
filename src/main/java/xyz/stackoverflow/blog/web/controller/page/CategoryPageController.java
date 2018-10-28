@@ -12,18 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
-import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PageParameter;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前端分类页面跳转控制器
@@ -47,15 +48,11 @@ public class CategoryPageController {
      * @return 返回ModelAndView, 查找成功时返回分类页面, 否则返回404页面
      */
     @RequestMapping(value = "/category/{categoryCode}", method = RequestMethod.GET)
-    public ModelAndView categoryArticle(@PathVariable("categoryCode") String categoryCode, @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
+    public ModelAndView categoryArticle(@PathVariable("categoryCode") String categoryCode, @RequestParam(value = "page", required = false, defaultValue = "1") String page, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        User admin = userService.getAdmin();
-        UserVO userVO = new UserVO();
-        userVO.setNickname(HtmlUtils.htmlEscape(admin.getNickname()));
-        userVO.setSignature(HtmlUtils.htmlEscape(admin.getSignature()));
-        userVO.setHeadUrl(admin.getHeadUrl());
+        ServletContext application = request.getServletContext();
+        Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
 
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
@@ -74,8 +71,9 @@ public class CategoryPageController {
                 articleVOList.add(vo);
             }
 
+            int items = Integer.valueOf((String)settingMap.get("items"));
             int count = articleService.getArticleCountByCategoryId(category.getId());
-            int pageCount = (count % 5 == 0) ? count / 5 : count / 5 + 1;
+            int pageCount = (count % items == 0) ? count / items : count / items + 1;
             pageCount = pageCount == 0 ? 1 : pageCount;
             int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
             int end = (start + 4 > pageCount) ? pageCount : start + 4;
@@ -83,7 +81,6 @@ public class CategoryPageController {
                 start = (end - 4 < 1) ? 1 : end - 4;
             }
 
-            mv.addObject("user", userVO);
             mv.addObject("articleList", articleVOList);
             mv.addObject("start", start);
             mv.addObject("end", end);
@@ -93,7 +90,6 @@ public class CategoryPageController {
             mv.setViewName("/index");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
-            mv.addObject("user", userVO);
             mv.setViewName("/error/404");
         }
         return mv;
@@ -108,12 +104,6 @@ public class CategoryPageController {
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
 
-        User admin = userService.getAdmin();
-        UserVO userVO = new UserVO();
-        userVO.setNickname(HtmlUtils.htmlEscape(admin.getNickname()));
-        userVO.setSignature(HtmlUtils.htmlEscape(admin.getSignature()));
-        userVO.setHeadUrl(admin.getHeadUrl());
-
         List<Category> categoryList = categoryService.getAllCategory();
         List<CategoryVO> categoryVOList = new ArrayList<>();
         for (Category category : categoryList) {
@@ -124,7 +114,6 @@ public class CategoryPageController {
             categoryVOList.add(vo);
         }
 
-        mv.addObject("user", userVO);
         mv.addObject("categoryList", categoryVOList);
         mv.setViewName("/category");
         return mv;

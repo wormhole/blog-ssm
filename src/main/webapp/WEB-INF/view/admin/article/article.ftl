@@ -9,7 +9,10 @@
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/layui/layui.js"></script>
     <script src="/static/editor.md/editormd.min.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="layui-row">

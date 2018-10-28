@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.SettingDao">
+
+    <resultMap id="settingMap" type="setting">
+        <id property="id" column="id"/>
+        <result property="key" column="key"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <insert id="insertSetting" parameterType="setting">
+        insert into setting(id,key,value) values(#{id},#{key},#{value})
+    </insert>
+
+    <select id="getAllSetting" resultType="setting" resultMap="settingMap">
+        select * from setting
+    </select>
+
+    <select id="getSetting" parameterType="string" resultType="setting" resultMap="settingMap">
+        select * from setting where `key` = #{key}
+    </select>
+
+    <update id="updateSetting" parameterType="setting">
+        update setting set value = #{value} where `key` = #{key}
+    </update>
+
+</mapper>

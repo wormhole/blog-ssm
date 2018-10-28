@@ -21,8 +21,6 @@ public interface UserDao {
 
     int insertUser(User user);
 
-    int updateHeadUrl(User user);
-
     int updatePassword(User user);
 
     int updateBaseInfo(User user);

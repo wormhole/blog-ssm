@@ -11,8 +11,6 @@
         <result property="nickname" column="nickname"></result>
         <result property="password" column="password"></result>
         <result property="salt" column="salt"></result>
-        <result property="headUrl" column="headurl"></result>
-        <result property="signature" column="signature"></result>
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
@@ -37,18 +35,8 @@
     </select>
 
     <insert id="insertUser" parameterType="user">
-        insert into user(id,email,nickname,password,salt,headurl,signature,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{headUrl},#{signature},#{deleteAble})
+        insert into user(id,email,nickname,password,salt,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{deleteAble})
     </insert>
-
-    <update id="updateHeadUrl" parameterType="user">
-        update user
-        <set>
-            <if test="headUrl!=null">
-                headurl=#{headUrl}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
 
     <update id="updatePassword" parameterType="user">
         update user
@@ -70,10 +58,7 @@
                 nickname=#{nickname},
             </if>
             <if test="email!=null">
-                email=#{email},
-            </if>
-            <if test="signature!=null">
-                signature=#{signature}
+                email=#{email}
             </if>
         </set>
         where id=#{id}

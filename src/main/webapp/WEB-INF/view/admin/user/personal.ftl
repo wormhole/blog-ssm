@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/admin/css/personal.css">
     <script src="/static/layui/layui.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="layui-card" id="base-conf">
@@ -25,13 +28,6 @@
                 <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
             </div>
             <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">签名</label>
-            <div class="layui-input-inline">
-                <textarea name="signature" class="layui-textarea" id="signature">${Session.user.signature}</textarea>
-            </div>
-            <div class="layui-form-mid error-color hidden" id="signature-error"></div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -70,21 +66,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="layui-card" id="head-conf">
-    <div class="layui-card-header">头像设置</div>
-    <div class="layui-card-body">
-        <div class="layui-row">
-            <img src="${Session.user.headUrl}" class="layui-circle" id="head">
-        </div>
-        <input type="file" name="headImg" id="head-img" class="hidden">
-        <div class="layui-row">
-            <button class="layui-btn layui-btn-normal layui-btn-lg layui-show-lg-block" id="savehead-btn">
-                保存头像
-            </button>
-        </div>
-    </div>
-</div>
 </div>
 <script type="text/javascript" src="/static/custom/admin/js/personal.js"></script>
 </body>

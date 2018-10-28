@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/admin/css/register.css">
     <script src="/static/layui/layui.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="register">
@@ -39,7 +42,7 @@
             <button class="layui-btn layui-btn-normal" id="register-btn">注册</button>
         </div>
     </div>
-    <p class="copyright">copyright &copy; 2018 by 凉衫薄</p>
+    <p class="copyright">${Application.setting.copyright}</p>
 </div>
 <script type="text/javascript" src="/static/custom/admin/js/register.js"></script>
 </body>

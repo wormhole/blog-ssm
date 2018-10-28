@@ -9,18 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PageParameter;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 主页跳转控制器
@@ -45,15 +46,11 @@ public class IndexPageController {
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") String page) {
+    public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") String page,HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        User admin = userService.getAdmin();
-        UserVO userVO = new UserVO();
-        userVO.setNickname(HtmlUtils.htmlEscape(admin.getNickname()));
-        userVO.setSignature(HtmlUtils.htmlEscape(admin.getSignature()));
-        userVO.setHeadUrl(admin.getHeadUrl());
+        ServletContext application = request.getServletContext();
+        Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
 
         PageParameter parameter = new PageParameter(Integer.valueOf(page), 5, null);
         List<Article> articleList = articleService.getLimitArticle(parameter);
@@ -72,8 +69,9 @@ public class IndexPageController {
             articleVOList.add(vo);
         }
 
+        int items = Integer.valueOf((String)settingMap.get("items"));
         int count = articleService.getArticleCount();
-        int pageCount = (count % 5 == 0) ? count / 5 : count / 5 + 1;
+        int pageCount = (count % items == 0) ? count / items : count / items + 1;
         pageCount = pageCount == 0 ? 1 : pageCount;
         int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
         int end = (start + 4 > pageCount) ? pageCount : start + 4;
@@ -81,7 +79,6 @@ public class IndexPageController {
             start = (end - 4 < 1) ? 1 : end - 4;
         }
 
-        mv.addObject("user", userVO);
         mv.addObject("articleList", articleVOList);
         mv.addObject("start", start);
         mv.addObject("end", end);
@@ -94,7 +91,7 @@ public class IndexPageController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView root(@RequestParam(value = "page", required = false, defaultValue = "1") String page) {
-        return index(page);
+    public ModelAndView root(@RequestParam(value = "page", required = false, defaultValue = "1") String page, HttpServletRequest request) {
+        return index(page,request);
     }
 }

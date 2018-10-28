@@ -8,11 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
-import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
@@ -65,12 +63,6 @@ public class ArticlePageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat commentSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        User admin = userService.getAdmin();
-        UserVO userVO = new UserVO();
-        userVO.setNickname(HtmlUtils.htmlEscape(admin.getNickname()));
-        userVO.setSignature(HtmlUtils.htmlEscape(admin.getSignature()));
-        userVO.setHeadUrl(admin.getHeadUrl());
-
         Article article = articleService.getArticleByUrl(url);
         if (article != null) {
             article.setHits(article.getHits() + 1);
@@ -104,13 +96,11 @@ public class ArticlePageController {
                 voList.add(commentVO);
             }
 
-            mv.addObject("user", userVO);
             mv.addObject("article", articleVO);
             mv.addObject("commentList", voList);
             mv.setViewName("/article");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
-            mv.addObject("user", userVO);
             mv.setViewName("/error/404");
         }
 

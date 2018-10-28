@@ -31,26 +31,10 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
             map.put("email", "邮箱格式错误或邮箱长度不在0-50之间");
         } else if ((userVO.getNickname() != null) && (!validateNickName(userVO.getNickname()))) {
             map.put("nickname", "昵称长度只能在0-50之间");
-        } else if ((userVO.getSignature() != null) && (!validateSignature(userVO.getSignature()))) {
-            map.put("signature", "签名长度只能在0-50之间");
         } else if ((userVO.getPassword() != null) && (!validatePassword(userVO.getPassword()))) {
             map.put("password", "密码长度只能在6-20之间");
         }
         return map;
-    }
-
-    /**
-     * 校验签名方法
-     *
-     * @param signature
-     * @return 通过返回ture,不通过返回false
-     */
-    private boolean validateSignature(String signature) {
-        if (0 < signature.length() && signature.length() <= 50) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**

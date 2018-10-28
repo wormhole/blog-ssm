@@ -16,8 +16,8 @@ public class UserVO extends User {
 
     }
 
-    public UserVO(String id, String email, String password, String nickname, String salt, String headUrl, String signature, Integer deleteAble, String oldPassword, String vcode) {
-        super(id, email, password, nickname, salt, headUrl, signature, deleteAble);
+    public UserVO(String id, String email, String password, String nickname, String salt, Integer deleteAble, String oldPassword, String vcode) {
+        super(id, email, password, nickname, salt, deleteAble);
         this.oldPassword = oldPassword;
         this.vcode = vcode;
     }
@@ -48,9 +48,7 @@ public class UserVO extends User {
         user.setId(id);
         user.setEmail(email);
         user.setNickname(nickname);
-        user.setSignature(signature);
         user.setPassword(password);
-        user.setHeadUrl(headUrl);
         user.setSalt(salt);
         user.setDeleteAble(deleteAble);
         return user;

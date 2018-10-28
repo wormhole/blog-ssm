@@ -14,22 +14,18 @@ public class User implements Serializable {
     protected String password;
     protected String nickname;
     protected String salt;
-    protected String headUrl;
-    protected String signature;
     protected Integer deleteAble;
 
     public User(){
 
     }
 
-    public User(String id, String email, String password, String nickname, String salt, String headUrl, String signature, Integer deleteAble) {
+    public User(String id, String email, String password, String nickname, String salt, Integer deleteAble) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.salt = salt;
-        this.headUrl = headUrl;
-        this.signature = signature;
         this.deleteAble = deleteAble;
     }
 
@@ -71,22 +67,6 @@ public class User implements Serializable {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public void setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
     }
 
     public Integer getDeleteAble() {

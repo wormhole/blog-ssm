@@ -6,20 +6,28 @@
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/custom/admin/css/admin.css">
     <script src="/static/layui/layui.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}"/>
+    <title>${Application.setting.title}</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">虫洞博客</div>
+        <div class="layui-logo">后台管理</div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item">
+                <a href="/"><i class="layui-icon layui-icon-website" style="font-size:25px"></i></a>
+            </li>
+        </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;"><i class="layui-icon layui-icon-notice"></i>&nbsp;&nbsp;消息</a>
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="${Session.user.headUrl}" class="layui-nav-img layui-circle">
+                    <img src="${Application.setting.head}" class="layui-nav-img layui-circle">
                 ${Session.user.nickname?html}
                 </a>
                 <dl class="layui-nav-child">
@@ -49,7 +57,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;&nbsp;评论</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/comment/management" data-title="评论管理" data-id="commentManage">评论管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/comment/management" data-title="评论管理"
+                               data-id="commentManage">评论管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -68,8 +77,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;&nbsp;设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="" data-title="常规设置" data-id="">常规设置</a></dd>
-                        <dd><a href="javascript:;" data-url="" data-title="SEO设置" data-id="">SEO设置</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/setting/setting" data-title="常规设置"
+                               data-id="setting">常规设置</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -92,7 +101,7 @@
 
     <!-- 底部固定区域 -->
     <div class="layui-footer">
-        <center>copyright &copy; 2018 by 凉衫薄</center>
+        <center>${Application.setting.copyright}</center>
     </div>
 </div>
 <script type="text/javascript" src="/static/custom/admin/js/admin.js"></script>

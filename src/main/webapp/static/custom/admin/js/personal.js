@@ -23,9 +23,6 @@ layui.use(['layer', 'jquery'], function () {
                     } else if (data.data['nickname'] != undefined) {
                         $('#nickname-error').html(data.data['nickname']);
                         $('#nickname-error').removeClass('hidden');
-                    } else if (data.data['signature'] != undefined) {
-                        $('#signature-error').html(data.data['signature']);
-                        $('#signature-error').removeClass('hidden');
                     }
                 }
             },
@@ -70,73 +67,17 @@ layui.use(['layer', 'jquery'], function () {
         });
     }
 
-    function updateHeadAjax(formData){
-        $.ajax({
-            url: "/admin/user/update/head",
-            type: 'POST',
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    $('#head').attr('src', data.data.headUrl);
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                } else {
-                    layer.open({
-                        type: 0,
-                        content: data.message
-                    });
-                }
-            },
-            error: function (data) {
-                layer.open({
-                    type: 0,
-                    content: "服务器错误",
-                });
-            }
-        });
-    }
-
-    function getObjectURL(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) {
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) {
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) {
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    }
-
-    $('#head').click(function () {
-        $('input[type="file"]').click();
-    });
-
-    $('input[type="file"]').change(function () {
-        var file = this.files[0];
-        $('#head').attr('src', getObjectURL(file));
-    });
-
     $('#savebase-btn').click(function () {
 
         $('#email-error').addClass('hidden');
         $('#nickname-error').addClass('hidden');
-        $('#signature-error').addClass('hidden');
 
         var email = $('#email').val();
         var nickname = $('#nickname').val();
-        var signature = $('#signature').val();
 
         var data = {};
         data['email'] = email;
         data['nickname'] = nickname;
-        data['signature'] = signature;
 
         updateBaseInfoAjax(data);
     });
@@ -162,12 +103,6 @@ layui.use(['layer', 'jquery'], function () {
         data['password'] = newPassword;
 
         updatePasswordAjax(data);
-    });
-
-    $('#savehead-btn').click(function () {
-        var formData = new FormData();
-        formData.append('headImg', $('#head-img').get(0).files[0]);
-        updateHeadAjax(formData);
     });
 
 });

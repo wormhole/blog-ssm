@@ -20,8 +20,6 @@ public interface UserService {
 
     User insertUser(User user);
 
-    User updateHeadUrl(User user);
-
     User updatePassword(User user);
 
     User updateBaseInfo(User user);

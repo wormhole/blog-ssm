@@ -8,17 +8,20 @@
     <link rel="stylesheet" href="/static/custom/css/category.css">
     <script src="/static/jquery/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <title>虫洞</title>
+    <meta name="keywords" content="${Application.setting.keywords}"/>
+    <meta name="description" content="${Application.setting.description}"/>
+    <link rel="icon" href="${Application.setting.head}" />
+    <title>${Application.setting.title}</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="left">
-                <img src="${user.headUrl}" class="rounded-circle">
-                <div class="nickname">${user.nickname}</div>
+                <img src="${Application.setting.head}" class="rounded-circle">
+                <div class="nickname">${Application.setting.nickname?html}</div>
                 <hr/>
-                <div class="signature">${user.signature}</div>
+                <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
                     <a class="item btn" href="/">
                         首页
@@ -55,6 +58,6 @@
         </div>
     </div>
 </div>
-<footer>copyright &copy; 2018 by 凉衫薄</footer>
+<footer>${Application.setting.copyright}</footer>
 </body>
 </html>

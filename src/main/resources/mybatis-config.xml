@@ -14,6 +14,7 @@
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.RolePermission" alias="rolePermission"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Category" alias="category"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Comment" alias="comment"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Setting" alias="setting"/>
     </typeAliases>
 
 </configuration>
