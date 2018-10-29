@@ -28,16 +28,15 @@
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。 -->
-        <file>logback.log</file>
+        <file>/var/log/blog/logback.log</file>
 
         <!-- 当发生滚动时的行为  -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <!-- 必须包含“%i”例如，假设最小值和最大值分别为1和2，命名模式为 mylog%i.log,会产生归档文件mylog1.log和mylog2.log。还可以指定文件压缩选项，例如，mylog%i.log.gz 或者 没有log%i.log.zip -->
-            <FileNamePattern>/var/log/blog/logback.%i.log</FileNamePattern>
-            <!-- 窗口索引最小值 -->
-            <minIndex>1</minIndex>
-            <!-- 窗口索引最大值 -->
-            <maxIndex>10</maxIndex>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/blog/logback.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>50MB</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
 
         <!-- 激活滚动的条件。 -->
