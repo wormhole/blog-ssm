@@ -33,7 +33,7 @@
         <!-- 当发生滚动时的行为  -->
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <!-- 必须包含“%i”例如，假设最小值和最大值分别为1和2，命名模式为 mylog%i.log,会产生归档文件mylog1.log和mylog2.log。还可以指定文件压缩选项，例如，mylog%i.log.gz 或者 没有log%i.log.zip -->
-            <FileNamePattern>logback.%i.log</FileNamePattern>
+            <FileNamePattern>/var/log/blog/logback.%i.log</FileNamePattern>
             <!-- 窗口索引最小值 -->
             <minIndex>1</minIndex>
             <!-- 窗口索引最大值 -->
@@ -61,7 +61,7 @@
     <root>
         <level value="DEBUG"/>
         <appender-ref ref="stdout"/>
-        <!--<appender-ref ref="file"/>-->
+        <appender-ref ref="file"/>
     </root>
 
 </configuration>
