@@ -71,7 +71,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-picture"></i>&nbsp;&nbsp;媒体</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="" data-title="图片管理" data-id="">图片管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/media/image" data-title="图片管理" data-id="image">图片管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

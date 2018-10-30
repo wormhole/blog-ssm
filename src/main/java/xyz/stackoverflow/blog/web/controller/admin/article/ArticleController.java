@@ -90,7 +90,7 @@ public class ArticleController {
     @ResponseBody
     public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session) {
         JSONObject result = new JSONObject();
-        User user = (User) session.getAttribute("user");
+
         String fileName = multipartFile.getOriginalFilename();
         String webRootDir = request.getRealPath("");
         String uploadDir = "/uploads" + FileUtil.getDatePath();

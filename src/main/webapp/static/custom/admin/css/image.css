@@ -1,0 +1,9 @@
+body {
+    overflow-x: hidden;
+    background-color: #F2F2F2;
+    padding: 20px;
+}
+
+.layui-show {
+    background-color: white;
+}

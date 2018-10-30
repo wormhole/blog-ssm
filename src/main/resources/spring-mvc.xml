@@ -31,13 +31,14 @@
     <mvc:view-controller path="/admin/article/management" view-name="/admin/article/management"/>
     <mvc:view-controller path="/admin/comment/management" view-name="/admin/comment/management"/>
     <mvc:view-controller path="/admin/setting/setting" view-name="/admin/setting/setting"/>
+    <mvc:view-controller path="/admin/media/image" view-name="/admin/media/image"/>
     <mvc:view-controller path="/error/unauthorized" view-name="/error/unauthorized"/>
     <mvc:view-controller path="/error/404" view-name="/error/404"/>
     <mvc:view-controller path="/error/500" view-name="/error/500"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/" />
+            <mvc:mapping path="/"/>
             <bean class="xyz.stackoverflow.blog.web.interceptor.InitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
