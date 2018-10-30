@@ -12,13 +12,18 @@
     <title>${Application.setting.title}</title>
 </head>
 <body>
+<button class="layui-btn layui-btn-lg layui-btn-normal"><i class="layui-icon layui-icon-delete"></i>删除图片</button>
 <div class="layui-collapse">
+    <#list map?keys as key>
     <div class="layui-colla-item">
-        <h2 class="layui-colla-title"></h2>
+        <h2 class="layui-colla-title">${key}</h2>
         <div class="layui-colla-content layui-show">
-
+            <#list map[key] as url>
+                <img src="${url}"/>
+            </#list>
         </div>
     </div>
+    </#list>
 </div>
 <script type="text/javascript" src="/static/custom/admin/js/image.js"></script>
 </body>
