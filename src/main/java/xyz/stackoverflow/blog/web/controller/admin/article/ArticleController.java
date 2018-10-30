@@ -41,16 +41,16 @@ public class ArticleController {
      * 保存文章 /admin/article/insert
      * 方法 POST
      *
-     * @param articleVO 文章VO
-     * @param session 会话对象
-     * @return 返回ResponseVO
+     * @param articleVO
+     * @param session
+     * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO save(@RequestBody ArticleVO articleVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
 
-        Map<String,String> map = articleValidator.validate(articleVO);
+        Map<String, String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段错误");
@@ -81,9 +81,9 @@ public class ArticleController {
      * 保存图片 /admin/article/image
      * 方法 POST
      *
-     * @param request http请求对象
-     * @param multipartFile multipart对象
-     * @param session 会话对象
+     * @param request
+     * @param multipartFile
+     * @param session
      * @return 返回Map
      */
     @RequestMapping(value = "/image", method = RequestMethod.POST)
@@ -91,16 +91,14 @@ public class ArticleController {
     public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session) {
         JSONObject result = new JSONObject();
         User user = (User) session.getAttribute("user");
-        String webRootDir = request.getRealPath("");
-        String homeDir = webRootDir + "/WEB-INF/uploads/" + user.getId();
-        String dateDir = FileUtil.getDatePath();
-        String uploadDir = homeDir + dateDir;
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdirs();
-        }
         String fileName = multipartFile.getOriginalFilename();
-        File destFile = new File(uploadDirFile, fileName);
+        String webRootDir = request.getRealPath("");
+        String uploadDir = "/uploads" + FileUtil.getDatePath();
+        File uploadFile = new File(webRootDir + uploadDir);
+        if (!uploadFile.exists()) {
+            uploadFile.mkdirs();
+        }
+        File destFile = new File(uploadFile, fileName);
         try {
             multipartFile.transferTo(destFile);
         } catch (IOException e) {
@@ -108,7 +106,7 @@ public class ArticleController {
             result.put("message", "上传失败");
             return result.toMap();
         }
-        String url = "/uploads/" + user.getId() + dateDir + fileName;
+        String url = uploadDir + fileName;
         result.put("success", 1);
         result.put("message", "上传成功");
         result.put("url", url);
