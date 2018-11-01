@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/custom/css/article.css"/>
-    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.preview.min.css"/>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/custom/css/like.css"/>
-    <link rel="stylesheet" href="/static/custom/css/comment.css"/>
-    <script src="/static/jquery/jquery.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/editor.md/lib/marked.min.js"></script>
-    <script src="/static/editor.md/lib/prettify.min.js"></script>
-    <script src="/static/editor.md/editormd.min.js"></script>
-    <script src="/static/knockout/knockout-3.4.2.js"></script>
-    <script src="/static/layer/layer.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/editor.md/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/editor.md/css/editormd.preview.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/left.css"/>
+    <link rel="stylesheet" href="/static/css/middle.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+    <link rel="stylesheet" href="/static/css/like.css"/>
+    <link rel="stylesheet" href="/static/css/comment.css"/>
+    <link rel="stylesheet" href="/static/css/article.css"/>
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/editor.md/lib/marked.min.js"></script>
+    <script src="/static/plugins/editor.md/lib/prettify.min.js"></script>
+    <script src="/static/plugins/editor.md/editormd.min.js"></script>
+    <script src="/static/plugins/knockout/knockout-3.4.2.js"></script>
+    <script src="/static/plugins/layer/layer.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
-    <link rel="icon" href="${Application.setting.head}" />
+    <link rel="icon" href="${Application.setting.head}"/>
     <title>${Application.setting.title}</title>
 </head>
 <body>
@@ -74,7 +77,7 @@
                             <span>${article.commentCount}</span>
                         </div>
                     </div>
-                    <div id="editormd-view" class="content">
+                    <div class="content" id="editormd-view">
                         <textarea style="display:none;">
 ${article.articleMd}
                         </textarea>
@@ -153,6 +156,6 @@ ${article.articleMd}
     </div>
 </div>
 <footer>${Application.setting.copyright}</footer>
-<script src="/static/custom/js/article.js"></script>
+<script src="/static/js/article.js"></script>
 </body>
 </html>

@@ -9,6 +9,6 @@
     <title>${Application.setting.title}</title>
 </head>
 <body>
-
+未授权
 </body>
 </html>

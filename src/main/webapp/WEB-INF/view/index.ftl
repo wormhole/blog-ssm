@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/custom/css/index.css"/>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/plugins/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/left.css"/>
+    <link rel="stylesheet" href="/static/css/middle.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+    <link rel="stylesheet" href="/static/css/index.css"/>
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
     <link rel="icon" href="${Application.setting.head}"/>
