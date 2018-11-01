@@ -9,7 +9,8 @@ button {
 
 img {
     width: 120px;
-    margin: 5px;
+    padding: 5px;
+    border: 1px solid white;
 }
 
 .select {

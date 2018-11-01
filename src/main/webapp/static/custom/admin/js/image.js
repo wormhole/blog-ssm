@@ -11,7 +11,10 @@ layui.use(['element', 'jquery', 'layer'], function () {
     $('button').click(function () {
         var url = $('.select').attr('src');
         if (url != undefined) {
-            deleteImage(url);
+            layer.confirm('确认删除该图片吗', function (index) {
+                deleteImage(url);
+                layer.close(index);
+            });
         }
     });
 
