@@ -62,6 +62,6 @@
                 categorycode = #{categoryCode}
             </if>
         </set>
-        where id = #{id}
+        where id = #{id} and deleteable = 1
     </update>
 </mapper>

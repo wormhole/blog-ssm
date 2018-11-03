@@ -103,8 +103,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Category updateCategory(Category category) {
-        dao.updateCategory(category);
-        return dao.getCategoryById(category.getId());
+        if(dao.updateCategory(category) == 1){
+            return dao.getCategoryById(category.getId());
+        }else{
+            return null;
+        }
     }
 
 }

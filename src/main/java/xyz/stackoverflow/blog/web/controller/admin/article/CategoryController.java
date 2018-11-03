@@ -37,17 +37,17 @@ public class CategoryController {
 
     /**
      * 新增分类 /admin/article/category/insert
-     * 方法POST
+     * 方法 POST
      *
-     * @param categoryVO 分类VO
-     * @return 返回ResponseVO
+     * @param categoryVO
+     * @return
      */
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO insert(@RequestBody CategoryVO categoryVO) {
         ResponseVO response = new ResponseVO();
 
-        Map<String,String> map = categoryValidator.validate(categoryVO);
+        Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段格式有误");
@@ -79,9 +79,9 @@ public class CategoryController {
      * 获取分类 /admin/article/category/list
      * 方法GET
      *
-     * @param page 分页查询页数,允许为空,当为空时,获取所有分类
-     * @param limit 每页的条目数
-     * @return 返回ResponseVO
+     * @param page
+     * @param limit
+     * @return
      */
     @RequestMapping(value = "/category/list", method = RequestMethod.GET)
     @ResponseBody
@@ -89,14 +89,14 @@ public class CategoryController {
         ResponseVO response = new ResponseVO();
         List<Category> list = null;
         if (page != null && limit != null) {
-            PageParameter pageParameter = new PageParameter(Integer.valueOf(page),Integer.valueOf(limit),null);
+            PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
             list = categoryService.getLimitCategory(pageParameter);
         } else {
             list = categoryService.getAllCategory();
         }
         int count = categoryService.getCategoryCount();
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", list);
         response.setStatus(SUCCESS);
@@ -109,8 +109,8 @@ public class CategoryController {
      * 删除分类 /admin/article/category/delete
      * 方法POST
      *
-     * @param categoryVO 分类VO
-     * @return 返回ResponseVO
+     * @param categoryVO
+     * @return
      */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
@@ -139,17 +139,17 @@ public class CategoryController {
 
     /**
      * 更新分类 /admin/article/category/update
-     * 方法POST
+     * 方法 POST
      *
-     * @param categoryVO 分类VO
-     * @return 返回ResponseVO
+     * @param categoryVO
+     * @return
      */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO update(@RequestBody CategoryVO categoryVO) {
         ResponseVO response = new ResponseVO();
 
-        Map<String,String> map = categoryValidator.validate(categoryVO);
+        Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段格式有误");
@@ -166,11 +166,15 @@ public class CategoryController {
                 response.setMessage("新分类编码已经存在");
                 map.put("code", "分类编码重复");
                 response.setData(map);
-            } else {
-                categoryService.updateCategory(categoryVO.toCategory());
+            } else if (categoryService.updateCategory(categoryVO.toCategory()) != null) {
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
                 response.setData(categoryService.getAllCategory());
+            } else {
+                response.setStatus(FAILURE);
+                response.setMessage("更新失败");
+                map.put("other", "该分类不允许修改或未找到该分类");
+                response.setData(map);
             }
         }
         return response;
