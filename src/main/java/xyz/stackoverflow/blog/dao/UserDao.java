@@ -21,9 +21,7 @@ public interface UserDao {
 
     int insertUser(User user);
 
-    int updatePassword(User user);
-
-    int updateBaseInfo(User user);
+    int updateUser(User user);
 
     int isExist(String email);
 

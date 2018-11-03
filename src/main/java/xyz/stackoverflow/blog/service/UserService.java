@@ -20,9 +20,7 @@ public interface UserService {
 
     User insertUser(User user);
 
-    User updatePassword(User user);
-
-    User updateBaseInfo(User user);
+    User updateUser(User user);
 
     boolean isExist(String email);
 

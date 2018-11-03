@@ -42,7 +42,7 @@ layui.use(['jquery'], function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 if (data.status == 0) {
-                    $('blockquote').html('<a href="/admin/login">点击前往登陆页面</a>');
+                    $('blockquote').html('<a href="/login">点击前往登陆页面</a>');
                 } else {
                     if (data.data != undefined) {
                         if (data.data['vcode'] != undefined) {

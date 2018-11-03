@@ -41,7 +41,7 @@
                 <input type="submit" class="layui-btn layui-btn-normal" id="login-btn" value="登陆">
             </div>
         </form>
-        <a href="/admin/register">注册用户</a>
+        <a href="/register">注册用户</a>
     </div>
 </div>
 <footer>${Application.setting.copyright}</footer>

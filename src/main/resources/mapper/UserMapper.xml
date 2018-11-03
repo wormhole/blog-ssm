@@ -38,27 +38,20 @@
         insert into user(id,email,nickname,password,salt,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{deleteAble})
     </insert>
 
-    <update id="updatePassword" parameterType="user">
-        update user
-        <set>
-            <if test="password!=null">
-                password=#{password},
-            </if>
-            <if test="salt!=null">
-                salt=#{salt}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
-
-    <update id="updateBaseInfo" parameterType="user">
+    <update id="updateUser" parameterType="user">
         update user
         <set>
             <if test="nickname!=null">
                 nickname=#{nickname},
             </if>
             <if test="email!=null">
-                email=#{email}
+                email=#{email},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="salt!=null">
+                salt=#{salt}
             </if>
         </set>
         where id=#{id}

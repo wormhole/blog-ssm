@@ -5,7 +5,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateBaseInfoAjax(data) {
         $.ajax({
-            url: "/admin/user/update/baseinfo",
+            url: "/admin/user/update?type=base",
             type: "post",
             data: JSON.stringify(data),
             dataType: "json",
@@ -37,7 +37,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updatePasswordAjax(data){
         $.ajax({
-            url: "/admin/user/update/password",
+            url: "/admin/user/update?type=password",
             type: "post",
             data: JSON.stringify(data),
             dataType: "json",

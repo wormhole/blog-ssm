@@ -33,7 +33,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人信息"
                            data-id="personal">个人信息</a></dd>
-                    <dd><a href="/admin/logout">注销</a></dd>
+                    <dd><a href="/logout">注销</a></dd>
                 </dl>
             </li>
         </ul>

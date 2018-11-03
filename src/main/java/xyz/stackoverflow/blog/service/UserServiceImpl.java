@@ -68,18 +68,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
-    public User updatePassword(User user) {
-        user.setSalt(PasswordUtil.getSalt());
-        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        userDao.updatePassword(user);
-        return userDao.getUserByEmail(user.getEmail());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
-    public User updateBaseInfo(User user) {
-        userDao.updateBaseInfo(user);
+    public User updateUser(User user) {
+        if(user.getPassword()!=null) {
+            user.setSalt(PasswordUtil.getSalt());
+            user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        }
+        userDao.updateUser(user);
         return userDao.getUserByEmail(user.getEmail());
     }
 
