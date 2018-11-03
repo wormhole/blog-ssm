@@ -29,4 +29,6 @@ public interface CommentService {
     Comment commentReview(Comment comment);
 
     List<Comment> getLimitComment(PageParameter parameter);
+
+    int deleteCommentByArticleId(String articleId);
 }

@@ -8,6 +8,7 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
+import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
@@ -34,6 +35,8 @@ public class ArticleManageController {
     private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CommentService commentService;
     @Autowired
     private ArticleValidator articleValidator;
 
@@ -93,8 +96,10 @@ public class ArticleManageController {
     @ResponseBody
     public ResponseVO delete(@RequestBody ArticleVO[] articleVO) {
         ResponseVO response = new ResponseVO();
-        for (ArticleVO vo : articleVO)
+        for (ArticleVO vo : articleVO) {
             articleService.deleteArticleById(vo.getId());
+            commentService.deleteCommentByArticleId(vo.getId());
+        }
         response.setStatus(SUCCESS);
         response.setMessage("删除成功");
         return response;

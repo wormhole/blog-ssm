@@ -59,4 +59,8 @@
         delete from comment where id = #{id}
     </delete>
 
+    <delete id="deleteCommentByArticleId" parameterType="string">
+        delete from comment where articleid = #{articleId}
+    </delete>
+
 </mapper>

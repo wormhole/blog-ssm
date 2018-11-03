@@ -31,4 +31,6 @@ public interface CommentDao {
     int commentReview(Comment comment);
 
     List<Comment> getLimitComment(PageParameter parameter);
+
+    int deleteCommentByArticleId(String articleId);
 }

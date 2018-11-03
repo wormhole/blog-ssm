@@ -79,4 +79,10 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getLimitComment(PageParameter parameter) {
         return commentDao.getLimitComment(parameter);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteCommentByArticleId(String articleId) {
+        return commentDao.deleteCommentByArticleId(articleId);
+    }
 }
