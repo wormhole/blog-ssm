@@ -18,7 +18,7 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

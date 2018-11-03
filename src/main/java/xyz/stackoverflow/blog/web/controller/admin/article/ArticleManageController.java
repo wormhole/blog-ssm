@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 

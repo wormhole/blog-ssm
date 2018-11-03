@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.validator.CategoryValidator;
 
 import java.util.HashMap;

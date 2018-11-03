@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 
 import java.util.List;
 

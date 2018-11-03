@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.pojo.vo.CommentVO;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
