@@ -10,8 +10,8 @@ create table blog.article
   url         varchar(50)                             not null,
   likes       int default '0'                         not null,
   hits        int default '0'                         not null,
-  modifydate  timestamp default '0000-00-00 00:00:00' not null,
-  createdate  timestamp default '0000-00-00 00:00:00' not null,
+  modifydate  datetime                                not null,
+  createdate  datetime                                not null,
   constraint blog_blogcode_uindex
   unique (url)
 );

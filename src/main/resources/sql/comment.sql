@@ -7,7 +7,7 @@ create table  blog.comment
   website   varchar(50)                                 null,
   content   text                                        not null,
   articleid char(36)                                    not null,
-  date      timestamp   default '0000-00-00 00:00:00'   not null,
+  date      datetime                                    not null,
   replyto   varchar(50)                                 null,
   review    int default '0'                             not null
 );
