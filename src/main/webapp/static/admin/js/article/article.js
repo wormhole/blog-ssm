@@ -14,7 +14,7 @@ layui.use(['form', 'layer'], function () {
                 id: "editormd",
                 width: "95%",
                 height: "675px",
-                path: "/static/editor.md/lib/",
+                path: "/static/plugins/editor.md/lib/",
                 placeholder: "请用markdown写博客",
                 saveHTMLToTextarea: true,
                 imageUpload: true,

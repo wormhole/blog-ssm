@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin;
+package xyz.stackoverflow.blog.web.controller.page;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -16,15 +16,14 @@ import javax.servlet.http.HttpServletRequest;
  * @author 凉衫薄
  */
 @Controller
-@RequestMapping("/admin")
-public class LoginController {
+public class LoginPageController {
 
     /**
-     * Shiro登陆失败跳转方法 /admin/login
-     * 方法POST
+     * Shiro登陆失败跳转方法 /login
+     * 方法 POST
      *
-     * @param request http请求对象
-     * @return ModelAndView
+     * @param request
+     * @return
      */
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request){
@@ -41,18 +40,18 @@ public class LoginController {
         } else if(errorClassName != null) {
             mv.addObject("error",errorClassName);
         }
-        mv.setViewName("/admin/login");
+        mv.setViewName("/login");
         return mv;
     }
 
     /**
-     * 登陆页面跳转 /admin/login
-     * 方法GET
+     * 登陆页面跳转 /login
+     * 方法 GET
      *
-     * @return 返回视图名
+     * @return
      */
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String login(){
-        return "/admin/login";
+        return "/login";
     }
 }

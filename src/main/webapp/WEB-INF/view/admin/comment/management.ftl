@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/custom/admin/css/comment.css">
-    <script src="/static/layui/layui.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/admin/css/comment/management.css"/>
+    <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
-    <link rel="icon" href="${Application.setting.head}" />
+    <link rel="icon" href="${Application.setting.head}"/>
     <title>${Application.setting.title}</title>
 </head>
 <body>
@@ -23,6 +23,6 @@
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="unreview"><i class="layui-icon layui-icon-refresh"/>撤回</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"/>删除</a>
 </script>
-<script type="text/javascript" src="/static/custom/admin/js/comment.js"></script>
+<script type="text/javascript" src="/static/admin/js/comment/management.js"></script>
 </body>
 </html>

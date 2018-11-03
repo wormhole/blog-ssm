@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
-    <link rel="stylesheet" href="/static/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/static/custom/admin/css/article.css"/>
-    <script src="/static/jquery/jquery.min.js"></script>
-    <script src="/static/layui/layui.js"></script>
-    <script src="/static/editor.md/editormd.min.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/editor.md/css/editormd.css"/>
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/admin/css/article/article.css"/>
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
+    <script src="/static/plugins/layui/layui.js"></script>
+    <script src="/static/plugins/editor.md/editormd.min.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
-    <link rel="icon" href="${Application.setting.head}" />
+    <link rel="icon" href="${Application.setting.head}"/>
     <title>${Application.setting.title}</title>
 </head>
 <body>
@@ -36,6 +36,6 @@
     <div id="editormd">
     </div>
 </div>
-<script src="/static/custom/admin/js/article.js"></script>
+<script src="/static/admin/js/article/article.js"></script>
 </body>
 </html>

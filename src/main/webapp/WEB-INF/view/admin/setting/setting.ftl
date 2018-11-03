@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/custom/admin/css/setting.css">
-    <script src="/static/layui/layui.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/admin/css/setting/setting.css"/>
+    <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
-    <link rel="icon" href="${Application.setting.head}" />
+    <link rel="icon" href="${Application.setting.head}"/>
     <title>${Application.setting.title}</title>
 </head>
 <body>
@@ -105,6 +105,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static/custom/admin/js/setting.js"></script>
+<script type="text/javascript" src="/static/admin/js/setting/setting.js"></script>
 </body>
 </html>

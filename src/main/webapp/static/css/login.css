@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-image: url("/static/custom/image/weather.png");
+    background-image: url("/static/image/weather.png");
     height: 100%;
 }
 
@@ -54,22 +54,13 @@ body {
 
 footer {
     height: 30px;
-    width: 100%;
-    background-color: #F0F0F0;
-    position: fixed;
-    bottom: 0;
-    text-align: center;
-    padding-top: 10px;
-    z-index: 1;
     font-size: 16px;
 }
 
 footer a {
     font-size: 17px;
-    color: black;
 }
 
 footer a:hover {
     text-decoration: underline;
-    color: black;
 }

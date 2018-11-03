@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/custom/admin/css/image.css">
-    <script src="/static/layui/layui.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/admin/css/media/image.css"/>
+    <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
     <link rel="icon" href="${Application.setting.head}"/>
@@ -25,6 +25,6 @@
     </div>
     </#list>
 </div>
-<script type="text/javascript" src="/static/custom/admin/js/image.js"></script>
+<script type="text/javascript" src="/static/admin/js/media/image.js"></script>
 </body>
 </html>

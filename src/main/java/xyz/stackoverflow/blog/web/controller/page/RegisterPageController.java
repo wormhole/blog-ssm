@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin;
+package xyz.stackoverflow.blog.web.controller.page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,7 @@ import java.util.Map;
  * @author 凉衫薄
  */
 @Controller
-@RequestMapping("/admin")
-public class RegisterController {
+public class RegisterPageController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -34,12 +33,12 @@ public class RegisterController {
     private UserValidator validator;
 
     /**
-     * 注册信息提交 /admin/register
-     * 方法POST
+     * 注册信息提交 /register
+     * 方法 POST
      *
-     * @param userVO 用户类VO
-     * @param session 会话session
-     * @return 返回ResponseVO
+     * @param userVO
+     * @param session
+     * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -89,13 +88,13 @@ public class RegisterController {
     }
 
     /**
-     * 注册页面跳转 /admin/register
-     * 方法GET
+     * 注册页面跳转 /register
+     * 方法 GET
      *
-     * @return 返回视图名
+     * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
-        return "/admin/register";
+        return "/register";
     }
 }

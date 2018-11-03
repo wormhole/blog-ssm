@@ -35,7 +35,7 @@ layui.use(['jquery'], function () {
 
     function registerAjax(data) {
         $.ajax({
-            url: "/admin/register",
+            url: "/register",
             type: "post",
             data: JSON.stringify(data),
             dataType: "json",
