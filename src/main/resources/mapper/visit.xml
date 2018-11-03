@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.VisitDao">
+
+    <resultMap id="visitMap" type="visit">
+        <id property="id" column="id"/>
+        <result property="url" column="url"/>
+        <result property="ip" column="ip"/>
+        <result property="agent" column="agent"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+
+    <insert id="insertVisit" parameterType="visit">
+        insert into visit(id,url,ip,agent,date) values(#{id},#{url},#{ip},#{agent},#{date})
+    </insert>
+
+</mapper>

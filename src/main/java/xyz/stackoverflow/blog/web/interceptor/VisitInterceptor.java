@@ -3,23 +3,25 @@ package xyz.stackoverflow.blog.web.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.pojo.entity.Visit;
+import xyz.stackoverflow.blog.service.VisitService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
- * 初始化拦截器
+ * 访问量拦截器
  *
  * @author 凉衫薄
  */
-public class InitInterceptor implements HandlerInterceptor {
+public class VisitInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private UserService userService;
+    private VisitService visitService;
 
     /**
-     * 处理首页拦截,如果博客未建立管理员用户,则跳转到注册界面
+     * 记录访问量
      *
      * @param request
      * @param response
@@ -29,10 +31,14 @@ public class InitInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (userService.getAdmin() == null) {
-            response.sendRedirect("/register");
-            return false;
-        }
+        String uri = request.getRequestURI();
+        String param = request.getQueryString();
+        String ip = request.getRemoteAddr();
+        String agent = request.getHeader("User-Agent");
+        Date date = new Date();
+        String url = param == null ? uri : uri + "?" + param;
+        Visit visit = new Visit(null, url, ip, agent, date);
+        visitService.insertVisit(visit);
         return true;
     }
 
