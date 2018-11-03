@@ -77,7 +77,7 @@
                     </#list>
                 </div>
             </div>
-            <div class="buttom">
+            <div class="bottom">
                 <ul class="pagination justify-content-center">
                     <#if (page > 1)>
                         <li class="page-item"><a class="page-link" href="${path}?page=${page-1}">上一页</a></li>
