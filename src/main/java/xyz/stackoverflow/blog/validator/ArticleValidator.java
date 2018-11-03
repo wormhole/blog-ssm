@@ -23,7 +23,7 @@ public class ArticleValidator extends AbstractBaseValidator<ArticleVO> {
         Map<String,String> map = new HashMap<>();
 
         if ((articleVO.getTitle() != null) && (!validateTitle(articleVO.getTitle()))) {
-            map.put("title", "标题长度只能在0到50之间");
+            map.put("title", "标题长度只能在0到20之间");
         } else if ((articleVO.getArticleCode() != null) && (!validateCode(articleVO.getArticleCode()))) {
             map.put("code", "编码只能为数字,字母,下划线");
         }
@@ -38,7 +38,7 @@ public class ArticleValidator extends AbstractBaseValidator<ArticleVO> {
      * @return 通过返回true,不通过返回false
      */
     private boolean validateTitle(String title) {
-        if (0 < title.length() && title.length() <= 50) {
+        if (0 < title.length() && title.length() <= 20) {
             return true;
         } else {
             return false;

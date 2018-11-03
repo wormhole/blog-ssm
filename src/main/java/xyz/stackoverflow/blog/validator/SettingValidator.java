@@ -145,7 +145,7 @@ public class SettingValidator extends AbstractBaseValidator<SettingVO[]> {
      * @return
      */
     private boolean validateSignature(String signature) {
-        if (0 < signature.length() && signature.length() <= 100) {
+        if (0 < signature.length() && signature.length() <= 20) {
             return true;
         } else {
             return false;

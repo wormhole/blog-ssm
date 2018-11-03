@@ -28,9 +28,9 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
         Map<String,String> map = new HashMap<>();
 
         if ((userVO.getEmail() != null) && (!validateEmail(userVO.getEmail()))) {
-            map.put("email", "邮箱格式错误或邮箱长度不在0-50之间");
+            map.put("email", "邮箱格式错误或邮箱长度不在0-30之间");
         } else if ((userVO.getNickname() != null) && (!validateNickName(userVO.getNickname()))) {
-            map.put("nickname", "昵称长度只能在0-50之间");
+            map.put("nickname", "昵称长度只能在0-20之间");
         } else if ((userVO.getPassword() != null) && (!validatePassword(userVO.getPassword()))) {
             map.put("password", "密码长度只能在6-20之间");
         }
@@ -44,7 +44,7 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
      * @return 通过返回true,不通过返回false
      */
     private boolean validateNickName(String nickname) {
-        if (0 < nickname.length() && nickname.length() <= 50) {
+        if (0 < nickname.length() && nickname.length() <= 20) {
             return true;
         } else {
             return false;
@@ -59,7 +59,7 @@ public class UserValidator extends AbstractBaseValidator<UserVO> {
      */
     private boolean validateEmail(String email) {
         Matcher m = emailPattern.matcher(email);
-        if (0 < email.length() && email.length() <= 50) {
+        if (0 < email.length() && email.length() <= 30) {
             if (m.find()) {
                 return true;
             } else {

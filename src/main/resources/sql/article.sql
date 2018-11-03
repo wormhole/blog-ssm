@@ -3,7 +3,7 @@ create table blog.article
   id          char(36)                                not null
     primary key,
   userid      char(36)                                not null,
-  title       varchar(50)                             not null,
+  title       varchar(20)                             not null,
   articlemd   text                                    not null,
   articlehtml text                                    not null,
   categoryid  char(36)                                not null,

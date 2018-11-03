@@ -22,15 +22,15 @@ public class CommentValidator extends AbstractBaseValidator<CommentVO> {
         Map<String, String> map = new HashMap<>();
 
         if ((commentVO.getEmail() != null) && (!validateEmail(commentVO.getEmail()))) {
-            map.put("email", "邮箱格式错误或邮箱长度不在0-50之间");
+            map.put("email", "邮箱格式错误或邮箱长度不在0-30之间");
         } else if ((commentVO.getNickname() != null) && (!validateNickName(commentVO.getNickname()))) {
-            map.put("nickname", "昵称长度只能在0-50之间");
+            map.put("nickname", "昵称长度只能在0-20之间");
         } else if ((commentVO.getWebsite() != null) && (!validateWebSite(commentVO.getWebsite()))) {
             map.put("website", "个人网址格式错误或长度不在0-50之间");
         } else if ((commentVO.getContent() != null) && (!validateContent(commentVO.getContent()))) {
-            map.put("content", "评论内容长度不在0-50之间");
+            map.put("content", "评论内容长度不在0-140之间");
         } else if ((commentVO.getReplyTo() != null) && (!validateReplyTo(commentVO.getReplyTo()))) {
-            map.put("replyTo", "回复对象长度不在0-50之间");
+            map.put("replyTo", "回复对象长度不在0-20之间");
         }
         return map;
     }
@@ -42,7 +42,7 @@ public class CommentValidator extends AbstractBaseValidator<CommentVO> {
      * @return 通过返回true, 不通过返回false
      */
     private boolean validateNickName(String nickname) {
-        if (0 < nickname.length() && nickname.length() <= 50) {
+        if (0 < nickname.length() && nickname.length() <= 20) {
             return true;
         } else {
             return false;
@@ -57,7 +57,7 @@ public class CommentValidator extends AbstractBaseValidator<CommentVO> {
      */
     private boolean validateEmail(String email) {
         Matcher m = emailPattern.matcher(email);
-        if (0 < email.length() && email.length() <= 50) {
+        if (0 < email.length() && email.length() <= 30) {
             if (m.find()) {
                 return true;
             } else {
@@ -108,7 +108,7 @@ public class CommentValidator extends AbstractBaseValidator<CommentVO> {
      * @return
      */
     private boolean validateReplyTo(String replyTo) {
-        if (0 < replyTo.length() && replyTo.length() <= 50) {
+        if (0 < replyTo.length() && replyTo.length() <= 20) {
             return true;
         } else {
             return false;

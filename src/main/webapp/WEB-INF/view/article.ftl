@@ -78,14 +78,11 @@
                         </div>
                     </div>
                     <div class="content" id="editormd-view">
-                        <textarea style="display:none;">
-${article.articleMd}
-                        </textarea>
+                        <textarea style="display:none;">${article.articleMd}</textarea>
                     </div>
                 </div>
                 <div class="like">
-                    <div class="heart" <#if (isLike == true)>style="background-position:right"
-                         <#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
+                    <div class="heart" <#if (isLike == true)>style="background-position:right"<#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
                 </div>
                 <div class="comment">
                     <div class="comment-title">
