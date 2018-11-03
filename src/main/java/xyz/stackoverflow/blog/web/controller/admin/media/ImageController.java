@@ -19,7 +19,7 @@ import java.util.TreeMap;
  */
 @Controller
 @RequestMapping("/admin/media")
-public class Image {
+public class ImageController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
