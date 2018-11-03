@@ -34,7 +34,7 @@ public class ImageController {
     @RequestMapping(value = "/image", method = RequestMethod.GET)
     public ModelAndView image(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        String webRootDir = request.getRealPath("");
+        String webRootDir = request.getServletContext().getRealPath("");
         String uploadDir = webRootDir + "/uploads";
         Map<String, List<String>> imageMap = new TreeMap<>();
 
@@ -56,7 +56,7 @@ public class ImageController {
     @ResponseBody
     public ResponseVO delete(HttpServletRequest request, @RequestParam("url") String url) {
         ResponseVO response = new ResponseVO();
-        String webRootDir = request.getRealPath("");
+        String webRootDir = request.getServletContext().getRealPath("");
         File file = new File(webRootDir, url);
         if (file.exists()) {
             file.delete();

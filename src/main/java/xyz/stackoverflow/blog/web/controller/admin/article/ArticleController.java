@@ -92,7 +92,7 @@ public class ArticleController {
         JSONObject result = new JSONObject();
 
         String fileName = multipartFile.getOriginalFilename();
-        String webRootDir = request.getRealPath("");
+        String webRootDir = request.getServletContext().getRealPath("");
         String uploadDir = "/uploads" + FileUtil.getDatePath();
         File uploadFile = new File(webRootDir + uploadDir);
         if (!uploadFile.exists()) {

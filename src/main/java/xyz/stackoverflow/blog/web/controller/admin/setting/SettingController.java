@@ -93,7 +93,7 @@ public class SettingController {
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");
         String fileName = file.getOriginalFilename();
-        String webRootDir = request.getRealPath("");
+        String webRootDir = request.getServletContext().getRealPath("");
         String uploadDir = "/uploads" + FileUtil.getDatePath();
         File uploadFile = new File(webRootDir + uploadDir);
         if (!uploadFile.exists()) {
