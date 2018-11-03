@@ -95,7 +95,7 @@ ${article.articleMd}
                         <#list commentList as comment>
                             <li class="comment-item row">
                                 <div class="comment-item-left">
-                                    <img src="/static/custom/image/default.jpeg" class="rounded-circle img-fluid">
+                                    <img src="/static/image/head.jpeg" class="rounded-circle img-fluid">
                                 </div>
                                 <div class="comment-item-right">
                                     <div class="comment-item-info">

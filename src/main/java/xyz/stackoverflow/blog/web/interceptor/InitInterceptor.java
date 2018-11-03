@@ -30,7 +30,7 @@ public class InitInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (userService.getAdmin() == null) {
-            response.sendRedirect("/admin/register");
+            response.sendRedirect("/register");
             return false;
         }
         return true;
