@@ -34,3 +34,7 @@ body {
 .middle {
     padding-bottom: 25px;
 }
+
+.middle .body {
+    min-height: 400px;
+}
