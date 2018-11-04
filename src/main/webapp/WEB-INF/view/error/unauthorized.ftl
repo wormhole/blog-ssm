@@ -34,10 +34,10 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="header">
-                    500
+                    未授权
                 </div>
                 <div class="body">
-                    <img src="/static/image/404.jpeg" class="img-fluid img-error"/>
+                    <img src="/static/image/unauthorized.jpg" class="img-fluid img-error"/>
                 </div>
             </div>
             <div class="padding">
