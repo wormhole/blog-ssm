@@ -2,6 +2,11 @@
     border: 0;
 }
 
+.layui-layout-admin .layui-logo {
+    color: #666666;
+    font-size: 25px;
+}
+
 .layui-body {
     overflow: hidden;
 }
