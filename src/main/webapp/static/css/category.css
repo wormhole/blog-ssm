@@ -25,6 +25,10 @@ body {
     footer {
         display: none;
     }
+
+    body {
+        padding-top: 20px;
+    }
 }
 
 .middle {
