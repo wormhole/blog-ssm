@@ -26,15 +26,9 @@
                 <hr/>
                 <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
-                    <a class="item btn" href="/">
-                        首页
-                    </a>
-                    <a class="item select btn" href="/category">
-                        分类
-                    </a>
-                    <a class="item btn" href="http://wpa.qq.com/msgrd?v=3&uin=363408268&site=qq&menu=yes">
-                        与我聊聊
-                    </a>
+                    <#list Application.menu as menu>
+                        <a class="item btn <#if menu.url == '/'>select</#if>" href="${menu.url}">${menu.name?html}</a>
+                    </#list>
                 </div>
             </div>
         </div>

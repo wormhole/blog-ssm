@@ -10,5 +10,5 @@ INSERT INTO blog.setting (id, `key`, value) VALUES ('aabee5f3-70fa-4201-a8ae-c16
 INSERT INTO blog.setting (id, `key`, value) VALUES ('ad335e78-2908-4560-9653-b8a27a97d991', 'head', '/static/image/head.jpeg');
 INSERT INTO blog.setting (id, `key`, value) VALUES ('ba059093-aa8f-4306-883b-4602dc3b4e03', 'title', '虫洞');
 INSERT INTO blog.setting (id, `key`, value) VALUES ('e786d6a5-2bf6-43a7-905a-bc438eb099dc', 'description', '个人博客网站');
-INSERT INTO blog.menu (id, name, url, deleteable) VALUES ('189bf822-797e-458b-9f7d-460e61737372', '分类', '/category', 0);
-INSERT INTO blog.menu (id, name, url, deleteable) VALUES ('66876142-3852-4f89-90e1-e4753c903a29', '首页', '/', 0);
+INSERT INTO blog.menu (id, name, url, deleteable) VALUES ('189bf822-797e-458b-9f7d-460e61737372', '首页', '/', 0);
+INSERT INTO blog.menu (id, name, url, deleteable) VALUES ('66876142-3852-4f89-90e1-e4753c903a29', '分类', '/category', 0);

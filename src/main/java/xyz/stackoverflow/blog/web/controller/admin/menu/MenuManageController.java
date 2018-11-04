@@ -3,6 +3,7 @@ package xyz.stackoverflow.blog.web.controller.admin.menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.pojo.vo.MenuVO;
@@ -10,6 +11,8 @@ import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.MenuService;
 import xyz.stackoverflow.blog.validator.MenuValidator;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +61,7 @@ public class MenuManageController {
         for (Menu menu : list) {
             MenuVO vo = new MenuVO();
             vo.setId(menu.getId());
-            vo.setName(menu.getName());
+            vo.setName(HtmlUtils.htmlEscape(menu.getName()));
             vo.setUrl(menu.getUrl());
             vo.setDeleteAble(menu.getDeleteAble());
             if (vo.getDeleteAble() == 0) {
@@ -87,14 +90,25 @@ public class MenuManageController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(@RequestBody MenuVO menuVO) {
+    public ResponseVO delete(@RequestBody MenuVO menuVO, HttpServletRequest request) {
         ResponseVO response = new ResponseVO();
         Menu menu = menuService.getMenuById(menuVO.getId());
         if (menu.getDeleteAble() == 0) {
             response.setStatus(FAILURE);
             response.setMessage("该菜单不允许删除");
         } else {
-            menuService.deleteMenu(menu);
+            Menu delMenu = menuService.deleteMenu(menu);
+
+            ServletContext application = request.getServletContext();
+            List<Menu> list = (List<Menu>) application.getAttribute("menu");
+            for (Menu tmp : list) {
+                if (tmp.getId().equals(delMenu.getId())) {
+                    list.remove(tmp);
+                    break;
+                }
+            }
+            application.setAttribute("menu", list);
+
             response.setStatus(SUCCESS);
             response.setMessage("删除成功");
         }
@@ -103,7 +117,7 @@ public class MenuManageController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO insert(@RequestBody MenuVO menuVO) {
+    public ResponseVO insert(@RequestBody MenuVO menuVO, HttpServletRequest request) {
         ResponseVO response = new ResponseVO();
 
         Map<String, String> map = menuValidator.validate(menuVO);
@@ -114,7 +128,13 @@ public class MenuManageController {
         } else {
             Menu menu = menuVO.toMenu();
             menu.setDeleteAble(1);
-            menuService.insertMenu(menu);
+            Menu addMenu = menuService.insertMenu(menu);
+
+            ServletContext application = request.getServletContext();
+            List<Menu> list = (List<Menu>) application.getAttribute("menu");
+            list.add(addMenu);
+            application.setAttribute("menu", list);
+
             response.setStatus(SUCCESS);
             response.setMessage("新增成功");
         }
@@ -123,7 +143,7 @@ public class MenuManageController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO update(@RequestBody MenuVO menuVO) {
+    public ResponseVO update(@RequestBody MenuVO menuVO, HttpServletRequest request) {
         ResponseVO response = new ResponseVO();
         Map<String, String> map = menuValidator.validate(menuVO);
         if (map.size() != 0) {
@@ -132,7 +152,20 @@ public class MenuManageController {
             response.setData(map);
         } else {
             Menu menu = menuVO.toMenu();
-            if (menuService.updateMenu(menu) != null) {
+            Menu updateMenu = menuService.updateMenu(menu);
+            if (updateMenu != null) {
+
+                ServletContext application = request.getServletContext();
+                List<Menu> list = (List<Menu>) application.getAttribute("menu");
+                for (Menu tmp : list) {
+                    if (tmp.getId().equals(updateMenu.getId())) {
+                        tmp.setName(updateMenu.getName());
+                        tmp.setUrl(updateMenu.getUrl());
+                        break;
+                    }
+                }
+                application.setAttribute("menu", list);
+
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
             } else {
