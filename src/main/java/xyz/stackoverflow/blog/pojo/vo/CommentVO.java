@@ -14,16 +14,18 @@ public class CommentVO extends Comment {
     protected String dateString;
     protected String url;
     protected String articleTitle;
+    protected String reviewTag;
 
     public CommentVO() {
 
     }
 
-    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String dateString, String url, String articleTitle) {
+    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String dateString, String url, String articleTitle, String reviewTag) {
         super(id, nickname, email, website, content, articleId, date, replyTo, review);
         this.dateString = dateString;
         this.url = url;
         this.articleTitle = articleTitle;
+        this.reviewTag = reviewTag;
     }
 
     public String getDateString() {
@@ -48,6 +50,14 @@ public class CommentVO extends Comment {
 
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
+    }
+
+    public String getReviewTag() {
+        return reviewTag;
+    }
+
+    public void setReviewTag(String reviewTag) {
+        this.reviewTag = reviewTag;
     }
 
     /**

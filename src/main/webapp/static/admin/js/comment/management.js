@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#comment-table',
         url: '/admin/comment/list',
         method: 'get',
-        width: 1561,
+        width: 1560,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -28,7 +28,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'articleTitle', width: 150, title: '文章标题'},
             {field: 'replyTo', width: 150, title: '回复'},
             {field: 'content', width: 300, title: '内容'},
-            {field: 'review', width: 100, title: '是否审核'},
+            {field: 'reviewTag', width: 100, title: '是否审核'},
             {fixed: 'right', width: 230, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
