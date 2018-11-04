@@ -26,8 +26,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'website', width: 150, title: '个人主页'},
             {field: 'dateString', width: 170, title: '日期'},
             {field: 'articleTitle', width: 150, title: '文章标题'},
-            {field: 'replyTo', width: 150, title: '回复'},
-            {field: 'content', width: 300, title: '内容'},
+            {field: 'replyTo', width: 150, title: '回复谁'},
+            {field: 'content', width: 300, title: '评论内容'},
             {field: 'reviewTag', width: 100, title: '是否审核'},
             {fixed: 'right', width: 230, title: '操作', toolbar: '#toolbar-col'}
         ]]

@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#menu-table',
         url: '/admin/menu/list',
         method: 'get',
-        width: 975,
+        width: 867,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -21,11 +21,11 @@ layui.use(['table', 'jquery', 'layer'], function () {
             }
         },
         cols: [[
-            {field: 'id', width: 350, title: 'ID'},
+            {field: 'id', width: 300, title: 'ID'},
             {field: 'name', width: 150, title: '菜单名', sort: true, edit: 'text'},
             {field: 'url', width: 200, title: 'URL', sort: true, edit: 'text'},
-            {field: 'deleteTag', width: 150, title: '能否删除'},
-            {fixed: 'right', width: 120, title: '操作', toolbar: '#toolbar-col'}
+            {field: 'deleteTag', width: 110, title: '能否删除'},
+            {fixed: 'right', width: 100, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
