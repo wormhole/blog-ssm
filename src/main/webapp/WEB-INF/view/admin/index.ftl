@@ -62,6 +62,13 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-spread-left"></i>&nbsp;&nbsp;菜单</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/admin/menu/management" data-title="菜单管理" data-id="menu">菜单管理</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;用户</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a>

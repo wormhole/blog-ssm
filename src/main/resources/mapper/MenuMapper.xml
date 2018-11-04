@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybtis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.stackoverflow.blog.dao.MenuDao">
+
+    <resultMap id="menuMap" type="menu">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="deleteAble" column="deleteable"/>
+    </resultMap>
+
+    <insert id="insertMenu" parameterType="menu">
+        insert into menu(id,name,url,deleteable) values(#{id},#{name},#{url},#{deleteAble})
+    </insert>
+
+    <select id="getMenuById" parameterType="string" resultType="menu" resultMap="menuMap">
+        select * from menu where id = #{id}
+    </select>
+
+    <select id="getAllMenu" resultMap="menuMap" resultType="menu">
+        select * from menu;
+    </select>
+
+    <select id="getLimitMenu" resultMap="menuMap" resultType="menu">
+        select * from menu limit #{start},#{limit}
+    </select>
+
+    <select id="getMenuCount" resultType="int">
+        select count(*) from menu;
+    </select>
+
+    <update id="updateMenu" parameterType="menu">
+        update menu
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="url!=null">
+                url = #{url}
+            </if>
+        </set>
+        where id = #{id} and deleteable = 1
+    </update>
+
+    <delete id="deleteMenu" parameterType="menu">
+        delete from menu where id = #{id} and deleteable = 1
+    </delete>
+</mapper>

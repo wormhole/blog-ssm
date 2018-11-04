@@ -73,6 +73,9 @@ public class InitListener extends ContextLoaderListener {
      * 初始化数据库
      */
     public void initDataBase() {
+        String[] scripts = new String[]{"sql/blog.sql", "sql/setting.sql", "sql/menu.sql", "sql/user.sql", "sql/role.sql", "sql/permission.sql",
+                "sql/role_permission.sql", "sql/user_role.sql", "sql/category.sql", "sql/article.sql", "sql/comment.sql", "sql/visit.sql",
+                "sql/visitor.sql", "sql/init.sql"};
         try {
             Properties props = Resources.getResourceAsProperties("db.properties");
             String server = props.getProperty("jdbc.server");
@@ -89,19 +92,9 @@ public class InitListener extends ContextLoaderListener {
                 ScriptRunner runner = new ScriptRunner(conn);
                 runner.setErrorLogWriter(null);
                 runner.setLogWriter(null);
-                runner.runScript(Resources.getResourceAsReader("sql/blog.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/setting.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/user.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/role.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/permission.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/role_permission.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/user_role.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/category.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/article.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/comment.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/visit.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/visitor.sql"));
-                runner.runScript(Resources.getResourceAsReader("sql/init.sql"));
+                for (int i = 0; i < scripts.length; i++) {
+                    runner.runScript(Resources.getResourceAsReader(scripts[i]));
+                }
             }
             ps.close();
             conn.close();
