@@ -48,8 +48,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public boolean isExistUrl(String url) {
+        if (dao.isExistUrl(url) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public int getArticleCount() {
         return dao.getArticleCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int getArticleCountWithHidden() {
+        return dao.getArticleCountWithHidden();
     }
 
     @Override
@@ -72,24 +88,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getArticleByCategoryId(String categoryId) {
-        return dao.getAllArticleByCategoryId(categoryId);
+    public List<Article> getLimitArticleWithHidden(PageParameter parameter) {
+        return dao.getLimitArticleWithHidden(parameter);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<Article> getLimitArticleByCategoryId(PageParameter parameter) {
         return dao.getLimitArticleByCategoryId(parameter);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExistUrl(String url) {
-        if (dao.isExistUrl(url) == 1) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override

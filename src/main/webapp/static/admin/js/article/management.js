@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#article-table',
         url: '/admin/article/list',
         method: 'get',
-        width: 1456,
+        width: 1600,
         cellMinWidth: 100,
         page: true,
         toolbar: 'default',
@@ -22,19 +22,40 @@ layui.use(['table', 'jquery', 'layer'], function () {
         },
         cols: [[
             {type: 'checkbox'},
-            {field: 'id', width: 350, title: 'ID'},
+            {field: 'id', width: 300, title: 'ID'},
             {field: 'title', width: 150, title: '标题', sort: true},
-            {field: 'nickname', width: 150, title: '作者', sort: true},
-            {field: 'categoryName', width: 150, title: '分类', sort: true},
+            {field: 'nickname', width: 120, title: '作者', sort: true},
+            {field: 'categoryName', width: 140, title: '分类', sort: true},
             {field: 'url', width: 200, title: 'URL', sort: true},
-            {field: 'createDateString', width: 200, title: '创建日期', sort: true},
-            {field: 'modifyDateString', width: 200, title: '修改日期', sort: true}
+            {field: 'hiddenTag', width: 100, title: '是否隐藏'},
+            {field: 'createDateString', width: 180, title: '创建日期', sort: true},
+            {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
+            {fixed: 'right', width: 170, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
     var tableIns = table.render(parameter);
 
-    table.on('toolbar(category-table-1)', function (obj) {
+    table.on('tool(article-table-1)', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+
+        if (layEvent === 'show') {
+            var param = {
+                id: data.id,
+                hidden: 0
+            }
+            showHiddenAjax(param);
+        } else if (layEvent === 'hidden') {
+            var param = {
+                id: data.id,
+                hidden: 1
+            }
+            showHiddenAjax(param);
+        }
+    });
+
+    table.on('toolbar(article-table-1)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
         if (obj.event == 'add') {
             layer.open({
@@ -116,6 +137,36 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 layer.open({
                     type: 0,
                     content: "请求失败"
+                });
+            }
+        });
+    }
+
+    function showHiddenAjax(data){
+        $.ajax({
+            url: "/admin/article/visitable",
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 0) {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                } else {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                }
+                tableIns.reload(parameter);
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "服务器错误"
                 });
             }
         });

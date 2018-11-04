@@ -20,12 +20,13 @@ public class Article implements Serializable {
     protected Integer hits;
     protected Integer likes;
     protected String url;
+    protected Integer hidden;
 
     public Article(){
 
     }
 
-    public Article(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url) {
+    public Article(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer hidden) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -37,6 +38,7 @@ public class Article implements Serializable {
         this.hits = hits;
         this.likes = likes;
         this.url = url;
+        this.hidden = hidden;
     }
 
     public String getId() {
@@ -125,5 +127,13 @@ public class Article implements Serializable {
 
     public void setLikes(Integer likes) {
         this.likes = likes;
+    }
+
+    public Integer getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Integer hidden) {
+        this.hidden = hidden;
     }
 }

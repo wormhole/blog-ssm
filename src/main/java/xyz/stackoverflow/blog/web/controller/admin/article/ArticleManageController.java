@@ -44,23 +44,20 @@ public class ArticleManageController {
      * 获取文章 /admin/article/list
      * 方法 GET
      *
-     * @param page 分页查询页码,允许为空,为空时查询所有文章
+     * @param page  分页查询页码
      * @param limit 每页的条目
      * @return 返回ResponseVO
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
+    public ResponseVO list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         ResponseVO response = new ResponseVO();
-        List<Article> list = null;
-        if (page != null && limit != null) {
-            PageParameter pageParameter = new PageParameter(Integer.valueOf(page),Integer.valueOf(limit),null);
-            list = articleService.getLimitArticle(pageParameter);
-        } else {
-            list = articleService.getAllArticle();
-        }
 
-        int count = articleService.getArticleCount();
+        PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<Article> list = articleService.getLimitArticleWithHidden(pageParameter);
+
+
+        int count = articleService.getArticleCountWithHidden();
         List<ArticleVO> voList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Article article : list) {
@@ -73,10 +70,16 @@ public class ArticleManageController {
             vo.setModifyDateString(sdf.format(article.getModifyDate()));
             vo.setHits(article.getHits());
             vo.setUrl(article.getUrl());
+            vo.setHidden(article.getHidden());
+            if (article.getHidden() == 0) {
+                vo.setHiddenTag("否");
+            } else {
+                vo.setHiddenTag("是");
+            }
             voList.add(vo);
         }
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
         response.setStatus(SUCCESS);
@@ -148,7 +151,7 @@ public class ArticleManageController {
         ResponseVO response = new ResponseVO();
         Article article = articleService.getArticleById(articleVO.getId());
 
-        Map<String,String> map = articleValidator.validate(articleVO);
+        Map<String, String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);
             response.setMessage("字段错误");
@@ -159,12 +162,36 @@ public class ArticleManageController {
                 response.setMessage("URL重复");
                 map.put("url", "URL重复");
                 response.setData(map);
-            }else {
+            } else {
                 Article updateArticle = articleVO.toArticle();
                 updateArticle.setModifyDate(new Date());
                 articleService.updateArticle(updateArticle);
                 response.setStatus(SUCCESS);
                 response.setMessage("文章更新成功");
+            }
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/visitable", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO visitable(@RequestBody ArticleVO articleVO) {
+        ResponseVO response = new ResponseVO();
+        Article article = articleVO.toArticle();
+
+        if(articleService.updateArticle(article)!=null) {
+            response.setStatus(SUCCESS);
+            if (article.getHidden() == 1) {
+                response.setMessage("隐藏成功");
+            } else {
+                response.setMessage("显示成功");
+            }
+        }else{
+            response.setStatus(FAILURE);
+            if (article.getHidden() == 1) {
+                response.setMessage("隐藏失败");
+            } else {
+                response.setMessage("显示失败");
             }
         }
         return response;

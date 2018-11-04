@@ -18,13 +18,14 @@ public class ArticleVO extends Article {
     protected String modifyDateString;
     protected String preview;
     protected Integer commentCount;
+    protected String hiddenTag;
 
     public ArticleVO() {
 
     }
 
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString, String preview, Integer commentCount) {
-        super(id, userId, title, articleMd, articleHtml, categoryId, createDate, modifyDate, hits, likes, url);
+    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer hidden, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString, String preview, Integer commentCount, String hiddenTag) {
+        super(id, userId, title, articleMd, articleHtml, categoryId, createDate, modifyDate, hits, likes, url, hidden);
         this.articleCode = articleCode;
         this.nickname = nickname;
         this.categoryName = categoryName;
@@ -32,6 +33,7 @@ public class ArticleVO extends Article {
         this.modifyDateString = modifyDateString;
         this.preview = preview;
         this.commentCount = commentCount;
+        this.hiddenTag = hiddenTag;
     }
 
     public String getArticleCode() {
@@ -90,6 +92,14 @@ public class ArticleVO extends Article {
         this.commentCount = commentCount;
     }
 
+    public String getHiddenTag() {
+        return hiddenTag;
+    }
+
+    public void setHiddenTag(String hiddenTag) {
+        this.hiddenTag = hiddenTag;
+    }
+
     /**
      * 转换成实体类
      *
@@ -108,6 +118,7 @@ public class ArticleVO extends Article {
         article.setUserId(userId);
         article.setHits(hits);
         article.setLikes(likes);
+        article.setHidden(hidden);
         return article;
     }
 }

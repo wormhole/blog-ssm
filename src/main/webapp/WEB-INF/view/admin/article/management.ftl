@@ -15,9 +15,13 @@
 <div class="layui-card">
     <div class="layui-card-header">文章管理</div>
     <div class="layui-card-body">
-        <table class="layui-hide" id="article-table" lay-filter="category-table-1"></table>
+        <table class="layui-hide" id="article-table" lay-filter="article-table-1"></table>
     </div>
 </div>
+<script type="text/html" id="toolbar-col">
+    <a class="layui-btn layui-btn-xs" lay-event="show"><i class="layui-icon layui-icon-ok"/>显示</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="hidden"><i class="layui-icon layui-icon-close"/>隐藏</a>
+</script>
 <script type="text/javascript" src="/static/admin/js/article/management.js"></script>
 </body>
 </html>

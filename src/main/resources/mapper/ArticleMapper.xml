@@ -17,22 +17,35 @@
         <result property="url" column="url"></result>
         <result property="hits" column="hits"></result>
         <result property="likes" column="likes"></result>
+        <result property="hidden" column="hidden"></result>
     </resultMap>
 
     <select id="getAllArticle" resultMap="articleMap" resultType="article">
-        select * from article order by createdate desc
+        select * from article
     </select>
 
     <select id="getLimitArticle" resultMap="articleMap" resultType="article">
+        select * from article where hidden = 0 order by createdate desc limit #{start},#{limit}
+    </select>
+
+    <select id="getLimitArticleWithHidden" resultMap="articleMap" resultType="article">
         select * from article order by createdate desc limit #{start},#{limit}
     </select>
 
+    <select id="getLimitArticleByCategoryId" resultMap="articleMap" resultType="article">
+        select * from article where categoryid = #{where} and hidden = 0 order by createdate desc limit #{start},#{limit}
+    </select>
+
     <select id="getArticleCount" resultType="int">
+        select count(*) from article where hidden = 0
+    </select>
+
+    <select id="getArticleCountWithHidden" resultType="int">
         select count(*) from article
     </select>
 
     <select id="getArticleCountByCategoryId" resultType="int" parameterType="string">
-        select count(*) from article where categoryid = #{categoryId}
+        select count(*) from article where categoryid = #{categoryId} and hidden = 0
     </select>
 
     <select id="getArticleById" resultMap="articleMap" parameterType="string" resultType="article">
@@ -43,20 +56,12 @@
         select * from article where url = #{url}
     </select>
 
-    <select id="getAllArticleByCategoryId" resultMap="articleMap" parameterType="string" resultType="article">
-        select * from article where categoryid = #{categoryId}
-    </select>
-
-    <select id="getLimitArticleByCategoryId" resultMap="articleMap" resultType="article">
-        select * from article where categoryid = #{where} order by createdate desc limit #{start},#{limit}
-    </select>
-
     <select id="isExistUrl" resultType="int" parameterType="string">
         select count(*) from article where url = #{url}
     </select>
 
     <insert id="insertArticle" parameterType="article">
-        insert into article(id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes})
+        insert into article(id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,hidden) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes},#{hidden})
     </insert>
 
     <update id="updateArticle" parameterType="article">
@@ -84,7 +89,10 @@
                 hits = #{hits},
             </if>
             <if test="likes!=null">
-                likes = #{likes}
+                likes = #{likes},
+            </if>
+            <if test="hidden!=null">
+                hidden = #{hidden}
             </if>
         </set>
         where id = #{id}

@@ -17,17 +17,19 @@ public interface ArticleService {
 
     Article getArticleByUrl(String url);
 
+    boolean isExistUrl(String url);
+
     int getArticleCount();
 
-    int getArticleCountByCategoryId(String categoryId);
+    int getArticleCountWithHidden();
 
-    boolean isExistUrl(String url);
+    int getArticleCountByCategoryId(String categoryId);
 
     List<Article> getAllArticle();
 
     List<Article> getLimitArticle(PageParameter parameter);
 
-    List<Article> getArticleByCategoryId(String categoryId);
+    List<Article> getLimitArticleWithHidden(PageParameter pageParameter);
 
     List<Article> getLimitArticleByCategoryId(PageParameter parameter);
 

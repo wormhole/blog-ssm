@@ -19,17 +19,19 @@ public interface ArticleDao {
 
     Article getArticleByUrl(String url);
 
+    int isExistUrl(String url);
+
     int getArticleCount();
 
-    int getArticleCountByCategoryId(String categoryId);
+    int getArticleCountWithHidden();
 
-    int isExistUrl(String url);
+    int getArticleCountByCategoryId(String categoryId);
 
     List<Article> getAllArticle();
 
     List<Article> getLimitArticle(PageParameter parameter);
 
-    List<Article> getAllArticleByCategoryId(String categoryId);
+    List<Article> getLimitArticleWithHidden(PageParameter parameter);
 
     List<Article> getLimitArticleByCategoryId(PageParameter parameter);
 
