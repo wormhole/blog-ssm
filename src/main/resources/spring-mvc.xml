@@ -37,14 +37,12 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/"/>
-            <mvc:mapping path="/index"/>
-            <mvc:mapping path="/article/**"/>
-            <mvc:mapping path="/category/**"/>
-            <mvc:mapping path="/login"/>
-            <mvc:mapping path="/register"/>
-            <mvc:exclude-mapping path="/article/like"/>
-            <mvc:exclude-mapping path="/article/comment"/>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/uploads/**"/>
+            <mvc:exclude-mapping path="/error/**"/>
+            <mvc:exclude-mapping path="/favicon.ico"/>
             <bean class="xyz.stackoverflow.blog.web.interceptor.VisitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

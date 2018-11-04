@@ -3,26 +3,24 @@ package xyz.stackoverflow.blog.web.controller.page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.validator.CommentValidator;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 前端文章页面跳转控制器
@@ -43,8 +41,6 @@ public class ArticlePageController {
     private CategoryService categoryService;
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private CommentValidator commentValidator;
 
     /**
      * 跳转到文章单页 /article/{year}/{month}/{day}/{articleCode}
@@ -110,65 +106,5 @@ public class ArticlePageController {
         Boolean isLike = (Boolean) session.getAttribute(url);
         mv.addObject("isLike", isLike);
         return mv;
-    }
-
-    /**
-     * 点赞接口 /article/like
-     * 方法 POST
-     *
-     * @param articleVO
-     * @param session
-     * @return
-     */
-    @RequestMapping(value = "/article/like", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVO like(@RequestBody ArticleVO articleVO, HttpSession session) {
-        ResponseVO response = new ResponseVO();
-
-        Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
-        if (isLike != null && !isLike) {
-            Article article = articleService.getArticleByUrl(articleVO.getUrl());
-            article.setLikes(article.getLikes() + 1);
-            articleService.updateArticle(article);
-            session.setAttribute(articleVO.getUrl(), true);
-            response.setStatus(SUCCESS);
-            response.setMessage("点赞成功");
-            response.setData(article.getLikes());
-        } else {
-            response.setStatus(FAILURE);
-            response.setMessage("点赞失败");
-        }
-        return response;
-    }
-
-    /**
-     * 评论接口 /article/comment
-     * 方法 POST
-     *
-     * @param commentVO
-     * @return
-     */
-    @RequestMapping(value = "/article/comment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVO insertComment(@RequestBody CommentVO commentVO) {
-        ResponseVO response = new ResponseVO();
-
-        Map<String, String> map = commentValidator.validate(commentVO);
-        if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("评论字段错误");
-            response.setData(map);
-        } else {
-            Article article = articleService.getArticleByUrl(commentVO.getUrl());
-            Comment comment = commentVO.toComment();
-            comment.setDate(new Date());
-            comment.setArticleId(article.getId());
-            comment.setReview(0);
-            commentService.insertComment(comment);
-
-            response.setStatus(SUCCESS);
-            response.setMessage("评论获取成功");
-        }
-        return response;
     }
 }

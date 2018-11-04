@@ -4,27 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 访问量实体类
+ * 访客实体类
  *
  * @author 凉衫薄
  */
-public class Visit implements Serializable {
+public class Visitor implements Serializable {
 
     protected String id;
-    protected String url;
-    protected Integer status;
     protected String ip;
     protected String agent;
     protected Date date;
 
-    public Visit(){
+    public Visitor(){
 
     }
 
-    public Visit(String id, String url, Integer status, String ip, String agent, Date date) {
+    public Visitor(String id, String ip, String agent, Date date) {
         this.id = id;
-        this.url = url;
-        this.status = status;
         this.ip = ip;
         this.agent = agent;
         this.date = date;
@@ -36,22 +32,6 @@ public class Visit implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getIp() {

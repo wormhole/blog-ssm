@@ -46,6 +46,9 @@
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
+    <!-- 会话监听器 -->
+    <bean id="sessionListener" class="xyz.stackoverflow.blog.web.listener.VisitorListener"/>
+
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="sessionIdUrlRewritingEnabled" value="false"/>
@@ -56,6 +59,7 @@
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionListeners" ref="sessionListener"/>
     </bean>
 
     <!-- rememberMe Cookie模板 -->

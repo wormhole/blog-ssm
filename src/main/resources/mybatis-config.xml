@@ -16,6 +16,7 @@
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Comment" alias="comment"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Setting" alias="setting"/>
         <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Visit" alias="visit"/>
+        <typeAlias type="xyz.stackoverflow.blog.pojo.entity.Visitor" alias="visitor"/>
     </typeAliases>
 
 </configuration>

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.pojo.PageParameter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -41,17 +41,18 @@ public class IndexPageController {
     private CommentService commentService;
 
     /**
-     * 进入主页
+     * 进入主页 /index
+     * 方法 GET
      *
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") String page,HttpServletRequest request) {
+    public ModelAndView index(@RequestParam(value = "page", required = false, defaultValue = "1") String page, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ServletContext application = request.getServletContext();
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
-        int limit = Integer.valueOf((String)settingMap.get("limit"));
+        int limit = Integer.valueOf((String) settingMap.get("limit"));
 
         PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, null);
         List<Article> articleList = articleService.getLimitArticle(parameter);
@@ -90,8 +91,16 @@ public class IndexPageController {
         return mv;
     }
 
+    /**
+     * 主页跳转 /
+     * 方法 GET
+     *
+     * @param page
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView root(@RequestParam(value = "page", required = false, defaultValue = "1") String page, HttpServletRequest request) {
-        return index(page,request);
+        return index(page, request);
     }
 }

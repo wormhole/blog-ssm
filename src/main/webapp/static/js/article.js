@@ -80,7 +80,7 @@ function ViewModel() {
 
 function commentAjax(data) {
     $.ajax({
-        url: "/article/comment",
+        url: "/api/comment",
         type: "post",
         data: JSON.stringify(data),
         dataType: "json",
@@ -138,7 +138,7 @@ function likeAjax(url) {
         url: url
     };
     $.ajax({
-        url: "/article/like",
+        url: "/api/like",
         type: "post",
         data: JSON.stringify(data),
         dataType: "json",
