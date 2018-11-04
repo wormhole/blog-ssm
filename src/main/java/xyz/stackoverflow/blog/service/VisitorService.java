@@ -2,6 +2,8 @@ package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
 
+import java.util.Date;
+
 /**
  * 访客服务类接口
  *
@@ -10,4 +12,6 @@ import xyz.stackoverflow.blog.pojo.entity.Visitor;
 public interface VisitorService {
 
     int insertVisitor(Visitor visitor);
+
+    int getVisitorCountByDate(Date startDate, Date endDate);
 }

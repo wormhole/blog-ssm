@@ -24,7 +24,8 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestControllerAdvice"/>
     </context:component-scan>
 
-    <mvc:view-controller path="/admin" view-name="/admin/admin"/>
+    <mvc:view-controller path="/admin" view-name="/admin/index"/>
+    <mvc:view-controller path="/admin/welcome" view-name="/admin/welcome"/>
     <mvc:view-controller path="/admin/user/personal" view-name="/admin/user/personal"/>
     <mvc:view-controller path="/admin/article/article" view-name="/admin/article/article"/>
     <mvc:view-controller path="/admin/article/category" view-name="/admin/article/category"/>

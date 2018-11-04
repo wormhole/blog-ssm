@@ -7,6 +7,8 @@ import xyz.stackoverflow.blog.dao.VisitorDao;
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
 import xyz.stackoverflow.blog.util.IdGenerator;
 
+import java.util.Date;
+
 /**
  * 访客服务实现类
  *
@@ -23,5 +25,11 @@ public class VisitorServiceImpl implements VisitorService {
     public int insertVisitor(Visitor visitor) {
         visitor.setId(IdGenerator.getId());
         return visitorDao.insertVisitor(visitor);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int getVisitorCountByDate(Date startDate, Date endDate) {
+        return visitorDao.getVisitorCountByDate(startDate, endDate);
     }
 }

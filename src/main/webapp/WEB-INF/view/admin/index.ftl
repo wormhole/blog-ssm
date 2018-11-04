@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/static/admin/css/admin.css"/>
+    <link rel="stylesheet" href="/static/admin/css/index.css"/>
     <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
@@ -93,7 +93,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <!--<iframe src="/admin/welcome" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>-->
+                    <iframe src="/admin/welcome" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -104,6 +104,6 @@
         <center>${Application.setting.copyright}</center>
     </div>
 </div>
-<script type="text/javascript" src="/static/admin/js/admin.js"></script>
+<script type="text/javascript" src="/static/admin/js/index.js"></script>
 </body>
 </html>
