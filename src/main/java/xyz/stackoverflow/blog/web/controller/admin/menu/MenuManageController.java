@@ -115,6 +115,14 @@ public class MenuManageController {
         return response;
     }
 
+    /**
+     * 新增菜单 /admin/menu/insert
+     * 方法 POST
+     *
+     * @param menuVO
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO insert(@RequestBody MenuVO menuVO, HttpServletRequest request) {
@@ -141,6 +149,14 @@ public class MenuManageController {
         return response;
     }
 
+    /**
+     * 更新菜单 /admin/menu/update
+     * 方法 POST
+     *
+     * @param menuVO
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO update(@RequestBody MenuVO menuVO, HttpServletRequest request) {
