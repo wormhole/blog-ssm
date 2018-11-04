@@ -3,15 +3,16 @@ package xyz.stackoverflow.blog.web.controller.admin.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.validator.CategoryValidator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,6 @@ public class CategoryController {
                 categoryService.insertCategory(category);
                 response.setStatus(SUCCESS);
                 response.setMessage("添加成功");
-                response.setData(categoryService.getAllCategory());
             }
         }
         return response;
@@ -88,6 +88,7 @@ public class CategoryController {
     public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
         ResponseVO response = new ResponseVO();
         List<Category> list = null;
+        List<CategoryVO> voList = new ArrayList<>();
         if (page != null && limit != null) {
             PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
             list = categoryService.getLimitCategory(pageParameter);
@@ -96,9 +97,23 @@ public class CategoryController {
         }
         int count = categoryService.getCategoryCount();
 
+        for (Category category : list) {
+            CategoryVO vo = new CategoryVO();
+            vo.setId(category.getId());
+            vo.setCategoryName(category.getCategoryName());
+            vo.setCategoryCode(category.getCategoryCode());
+            vo.setDeleteAble(category.getDeleteAble());
+            if (category.getDeleteAble() == 0) {
+                vo.setDeleteTag("否");
+            }else{
+                vo.setDeleteTag("是");
+            }
+            voList.add(vo);
+        }
+
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
-        map.put("items", list);
+        map.put("items", voList);
         response.setStatus(SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
@@ -132,7 +147,6 @@ public class CategoryController {
             categoryService.deleteCategoryById(categoryVO.getId());
             response.setStatus(SUCCESS);
             response.setMessage("删除成功");
-            response.setData(categoryService.getAllCategory());
         }
         return response;
     }
@@ -169,10 +183,9 @@ public class CategoryController {
             } else if (categoryService.updateCategory(categoryVO.toCategory()) != null) {
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
-                response.setData(categoryService.getAllCategory());
             } else {
                 response.setStatus(FAILURE);
-                response.setMessage("更新失败");
+                response.setMessage("该分类不允许修改或未找到该分类");
                 map.put("other", "该分类不允许修改或未找到该分类");
                 response.setData(map);
             }

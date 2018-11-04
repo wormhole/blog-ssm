@@ -10,14 +10,16 @@ import xyz.stackoverflow.blog.pojo.entity.Category;
 public class CategoryVO extends Category {
 
     protected Integer articleCount;
+    protected String deleteTag;
 
     public CategoryVO(){
 
     }
 
-    public CategoryVO(String id, String categoryName, String categoryCode, Integer deleteAble, Integer articleCount) {
+    public CategoryVO(String id, String categoryName, String categoryCode, Integer deleteAble, Integer articleCount, String deleteTag) {
         super(id, categoryName, categoryCode, deleteAble);
         this.articleCount = articleCount;
+        this.deleteTag = deleteTag;
     }
 
     public Integer getArticleCount() {
@@ -26,6 +28,14 @@ public class CategoryVO extends Category {
 
     public void setArticleCount(Integer articleCount) {
         this.articleCount = articleCount;
+    }
+
+    public String getDeleteTag() {
+        return deleteTag;
+    }
+
+    public void setDeleteTag(String deleteTag) {
+        this.deleteTag = deleteTag;
     }
 
     /**
