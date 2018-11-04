@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/left.css"/>
+    <link rel="stylesheet" href="/static/css/middle.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+    <link rel="stylesheet" href="/static/css/error.css"/>
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
-    <link rel="icon" href="${Application.setting.head}" />
+    <link rel="icon" href="${Application.setting.head}"/>
     <title>${Application.setting.title}</title>
 </head>
 <body>
-未授权
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="left">
+                <img src="${Application.setting.head}" class="rounded-circle"/>
+                <div class="nickname">${Application.setting.nickname?html}</div>
+                <hr/>
+                <div class="signature">${Application.setting.signature?html}</div>
+                <div class="menu">
+                    <#list Application.menu as menu>
+                        <a class="item btn <#if menu.url == '/'>select</#if>" href="${menu.url}">${menu.name?html}</a>
+                    </#list>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="middle">
+                <div class="header">
+                    500
+                </div>
+                <div class="body">
+                    <img src="/static/image/404.jpeg" class="img-fluid img-error"/>
+                </div>
+            </div>
+            <div class="padding">
+            </div>
+        </div>
+    </div>
+</div>
+<footer>${Application.setting.copyright}</footer>
 </body>
 </html>
