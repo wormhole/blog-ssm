@@ -19,4 +19,8 @@
     <select id="getVisitorCountByDate" resultType="int">
         select count(*) from visitor where date between #{arg0} and #{arg1}
     </select>
+
+    <select id="getVisitorCount" resultType="int">
+        select count(*) from visitor
+    </select>
 </mapper>

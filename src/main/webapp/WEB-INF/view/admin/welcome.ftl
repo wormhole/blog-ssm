@@ -33,6 +33,42 @@
         <table class="layui-hide" id="error-table" lay-filter="error-table-1"></table>
     </div>
 </div>
+<div class="layui-card">
+    <div class="layui-card-header">数据统计</div>
+    <div class="layui-card-body">
+        <table class="layui-table">
+            <colgroup>
+                <col width="200">
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>项目</th>
+                <th>统计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>今日访问量</td>
+                <td id="todayVisit"></td>
+            </tr>
+            <tr>
+                <td>今日访客量</td>
+                <td id="todayVisitor"></td>
+            </tr>
+            <tr>
+                <td>所有访问量</td>
+                <td id="totalVisit"></td>
+            </tr>
+            <tr>
+                <td>所有访客量</td>
+                <td id="totalVisitor"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <script type="text/javascript" src="/static/admin/js/welcome.js"></script>
 </body>
 </html>

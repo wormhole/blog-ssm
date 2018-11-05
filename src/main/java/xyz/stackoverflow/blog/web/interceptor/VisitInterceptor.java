@@ -32,6 +32,7 @@ public class VisitInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        request.getSession();
         return true;
     }
 

@@ -32,4 +32,10 @@ public class VisitorServiceImpl implements VisitorService {
     public int getVisitorCountByDate(Date startDate, Date endDate) {
         return visitorDao.getVisitorCountByDate(startDate, endDate);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int getVisitorCount() {
+        return visitorDao.getVisitorCount();
+    }
 }

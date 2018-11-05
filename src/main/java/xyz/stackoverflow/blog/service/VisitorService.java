@@ -14,4 +14,6 @@ public interface VisitorService {
     int insertVisitor(Visitor visitor);
 
     int getVisitorCountByDate(Date startDate, Date endDate);
+
+    int getVisitorCount();
 }

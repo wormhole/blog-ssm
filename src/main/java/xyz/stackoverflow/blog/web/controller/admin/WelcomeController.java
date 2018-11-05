@@ -159,4 +159,40 @@ public class WelcomeController {
         response.setData(map);
         return response;
     }
+
+    /**
+     * 获取流量量和访客量数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseVO count() {
+        ResponseVO response = new ResponseVO();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+
+        int todayVisit = visitService.getVisitCountByDate(startDate, endDate);
+        int todayVisitor = visitorService.getVisitorCountByDate(startDate, endDate);
+        int totalVisit = visitService.getVisitCount();
+        int totalVisitor = visitorService.getVisitorCount();
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("todayVisit", todayVisit);
+        map.put("todayVisitor", todayVisitor);
+        map.put("totalVisit", totalVisit);
+        map.put("totalVisitor", totalVisitor);
+
+        response.setStatus(SUCCESS);
+        response.setMessage("获取成功");
+        response.setData(map);
+
+        return response;
+    }
 }

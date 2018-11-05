@@ -9,7 +9,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#today-table',
         url: '/admin/today',
         method: 'get',
-        width: 1250,
+        width: 1257,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -35,7 +35,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#error-table',
         url: '/admin/error',
         method: 'get',
-        width: 1250,
+        width: 1257,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -57,6 +57,8 @@ layui.use(['layer', 'jquery', 'table'], function () {
     };
 
     initFlow('flow');
+
+    initCountTable();
 
     table.render(parameter1);
 
@@ -106,6 +108,10 @@ layui.use(['layer', 'jquery', 'table'], function () {
         flowAjax(option, flow);
     }
 
+    function initCountTable(){
+        countAjax();
+    }
+
     function flowAjax(option, chart) {
         $.ajax({
             url: "/admin/flow",
@@ -117,6 +123,33 @@ layui.use(['layer', 'jquery', 'table'], function () {
                     option.series[0].data = data.data.visitList;
                     option.series[1].data = data.data.visitorList;
                     chart.setOption(option);
+                } else {
+                    layer.open({
+                        type: 0,
+                        content: data.message
+                    });
+                }
+            },
+            error: function (data) {
+                layer.open({
+                    type: 0,
+                    content: "服务器错误"
+                });
+            }
+        });
+    }
+
+    function countAjax(){
+        $.ajax({
+            url: "/admin/count",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 0) {
+                    $('#todayVisit').text(data.data.todayVisit);
+                    $('#todayVisitor').text(data.data.todayVisitor);
+                    $('#totalVisit').text(data.data.totalVisit);
+                    $('#totalVisitor').text(data.data.totalVisitor);
                 } else {
                     layer.open({
                         type: 0,
