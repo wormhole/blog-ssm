@@ -22,4 +22,20 @@
         select count(*) from visit where date between #{arg0} and #{arg1}
     </select>
 
+    <select id="getErrorVisitCount" resultType="int">
+        select count(*) from visit where status like '4__' or status like '5__'
+    </select>
+
+    <select id="getVisitCount" resultType="int">
+        select count(*) from visit
+    </select>
+
+    <select id="getLimitVisitByDate" resultType="visit">
+        select * from visit where date between #{arg0} and #{arg1} order by date desc limit #{arg2.start},#{arg2.limit}
+    </select>
+
+    <select id="getLimitErrorVisit" resultType="visit">
+        select * from visit where status like '4__' or status like '5__' order by date desc limit #{start},#{limit}
+    </select>
+
 </mapper>

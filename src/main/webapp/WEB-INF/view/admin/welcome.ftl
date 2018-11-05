@@ -21,6 +21,18 @@
         </div>
     </div>
 </div>
+<div class="layui-card">
+    <div class="layui-card-header">今日访问</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="today-table" lay-filter="today-table-1"></table>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-header">异常访问</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="error-table" lay-filter="error-table-1"></table>
+    </div>
+</div>
 <script type="text/javascript" src="/static/admin/js/welcome.js"></script>
 </body>
 </html>

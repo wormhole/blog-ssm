@@ -1,11 +1,68 @@
-layui.use(['layer', 'jquery'], function () {
+layui.use(['layer', 'jquery', 'table'], function () {
 
     var layer = layui.layer;
     var $ = layui.$;
+    var table = layui.table;
+
+    var parameter1 = {
+        id: 'today-table',
+        elem: '#today-table',
+        url: '/admin/today',
+        method: 'get',
+        width: 1250,
+        cellMinWidth: 100,
+        page: true,
+        toolbar: '#toolbar-head',
+        parseData: function (response) {
+            return {
+                code: response.status,
+                message: response.message,
+                count: response.data.count,
+                data: response.data.items
+            }
+        },
+        cols: [[
+            {field: 'ip', width: 150, title: 'IP'},
+            {field: 'url', width: 200, title: 'URL'},
+            {field: 'status', width: 100, title: '状态码'},
+            {field: 'agent', width: 600, title: '客户端'},
+            {field: 'dateString', width: 200, title: '日期'},
+        ]]
+    };
+
+    var parameter2 = {
+        id: 'error-table',
+        elem: '#error-table',
+        url: '/admin/error',
+        method: 'get',
+        width: 1250,
+        cellMinWidth: 100,
+        page: true,
+        toolbar: '#toolbar-head',
+        parseData: function (response) {
+            return {
+                code: response.status,
+                message: response.message,
+                count: response.data.count,
+                data: response.data.items
+            }
+        },
+        cols: [[
+            {field: 'ip', width: 150, title: 'IP'},
+            {field: 'url', width: 200, title: 'URL'},
+            {field: 'status', width: 100, title: '状态码'},
+            {field: 'agent', width: 600, title: '客户端'},
+            {field: 'dateString', width: 200, title: '日期'},
+        ]]
+    };
 
     initFlow('flow');
 
-    function initFlow(id){
+    table.render(parameter1);
+
+    table.render(parameter2);
+
+    function initFlow(id) {
         var flow = echarts.init(document.getElementById(id));
         var option = {
             itemStyle: {
@@ -24,7 +81,7 @@ layui.use(['layer', 'jquery'], function () {
                 }
             },
             legend: {
-                data: ['访问量','访客量']
+                data: ['访问量', '访客量']
             },
             xAxis: {
                 type: 'category',
@@ -39,17 +96,17 @@ layui.use(['layer', 'jquery'], function () {
                 type: 'line',
                 data: [],
                 areaStyle: {}
-            },{
+            }, {
                 name: '访客量',
                 type: 'line',
                 data: [],
                 areaStyle: {}
             }]
         };
-        flowAjax(option,flow);
+        flowAjax(option, flow);
     }
 
-    function flowAjax(option,chart){
+    function flowAjax(option, chart) {
         $.ajax({
             url: "/admin/flow",
             type: "get",
