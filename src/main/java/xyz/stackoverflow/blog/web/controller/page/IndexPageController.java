@@ -87,7 +87,7 @@ public class IndexPageController {
         mv.addObject("pageCount", pageCount);
         mv.addObject("path", "/");
         mv.addObject("select", "/");
-        mv.addObject("title", "最新文章");
+        mv.addObject("header", "最新文章");
 
         mv.setViewName("/index");
         return mv;

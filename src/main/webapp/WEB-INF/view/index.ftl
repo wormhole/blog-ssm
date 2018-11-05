@@ -34,7 +34,7 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="header">
-                    ${title}
+                    ${header}
                 </div>
                 <div class="body">
                     <#list articleList as article>

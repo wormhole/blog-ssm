@@ -93,7 +93,7 @@ public class CategoryPageController {
             mv.addObject("pageCount", pageCount);
             mv.addObject("path", "/category/" + categoryCode);
             mv.addObject("select", "/category");
-            mv.addObject("title", category.getCategoryName());
+            mv.addObject("header", category.getCategoryName());
             mv.setViewName("/index");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
@@ -122,6 +122,7 @@ public class CategoryPageController {
         }
 
         mv.addObject("categoryList", categoryVOList);
+        mv.addObject("select", "/category");
         mv.setViewName("/category");
         return mv;
     }
