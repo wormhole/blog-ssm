@@ -2,6 +2,8 @@ package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 
+import java.util.Date;
+
 /**
  * 菜单VO
  *
@@ -15,8 +17,8 @@ public class MenuVO extends Menu {
 
     }
 
-    public MenuVO(String id, String name, String url, Integer deleteAble, String deleteTag) {
-        super(id, name, url, deleteAble);
+    public MenuVO(String id, String name, String url, Integer deleteAble, Date date, String deleteTag) {
+        super(id, name, url, deleteAble, date);
         this.deleteTag = deleteTag;
     }
 
@@ -39,6 +41,7 @@ public class MenuVO extends Menu {
         menu.setName(name);
         menu.setUrl(url);
         menu.setDeleteAble(deleteAble);
+        menu.setDate(date);
         return menu;
     }
 }

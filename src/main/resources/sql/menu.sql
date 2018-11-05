@@ -4,5 +4,7 @@ create table blog.menu
     primary key,
   name       varchar(10) not null,
   url        varchar(50) not null,
-  deleteable int         not null
+  deleteable int         not null,
+  date       datetime    not null
 );
+

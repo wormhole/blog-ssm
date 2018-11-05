@@ -46,7 +46,7 @@ public class InitListener extends ContextLoaderListener {
             String driver = props.getProperty("jdbc.driver");
 
             String sql1 = "select * from setting";
-            String sql2 = "select * from menu order by deleteable";
+            String sql2 = "select * from menu order by date";
 
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url, username, password);

@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.pojo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 菜单实体类
@@ -13,16 +14,18 @@ public class Menu implements Serializable {
     protected String name;
     protected String url;
     protected Integer deleteAble;
+    protected Date date;
 
     public Menu(){
 
     }
 
-    public Menu(String id, String name, String url, Integer deleteAble) {
+    public Menu(String id, String name, String url, Integer deleteAble, Date date) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.deleteAble = deleteAble;
+        this.date = date;
     }
 
     public String getId() {
@@ -55,5 +58,13 @@ public class Menu implements Serializable {
 
     public void setDeleteAble(Integer deleteAble) {
         this.deleteAble = deleteAble;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

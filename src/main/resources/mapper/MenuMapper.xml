@@ -10,10 +10,11 @@
         <result property="name" column="name"/>
         <result property="url" column="url"/>
         <result property="deleteAble" column="deleteable"/>
+        <result property="date" column="date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <insert id="insertMenu" parameterType="menu">
-        insert into menu(id,name,url,deleteable) values(#{id},#{name},#{url},#{deleteAble})
+        insert into menu(id,name,url,deleteable,date) values(#{id},#{name},#{url},#{deleteAble},#{date})
     </insert>
 
     <select id="getMenuById" parameterType="string" resultType="menu" resultMap="menuMap">
@@ -21,15 +22,15 @@
     </select>
 
     <select id="getAllMenu" resultMap="menuMap" resultType="menu">
-        select * from menu;
+        select * from menu order by date
     </select>
 
     <select id="getLimitMenu" resultMap="menuMap" resultType="menu">
-        select * from menu limit #{start},#{limit}
+        select * from menu order by date limit #{start},#{limit}
     </select>
 
     <select id="getMenuCount" resultType="int">
-        select count(*) from menu;
+        select count(*) from menu
     </select>
 
     <update id="updateMenu" parameterType="menu">

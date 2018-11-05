@@ -56,7 +56,7 @@ public class CategoryPageController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ServletContext application = request.getServletContext();
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
-        int limit = Integer.valueOf((String)settingMap.get("limit"));
+        int limit = Integer.valueOf((String) settingMap.get("limit"));
 
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
@@ -92,6 +92,8 @@ public class CategoryPageController {
             mv.addObject("page", Integer.valueOf(page));
             mv.addObject("pageCount", pageCount);
             mv.addObject("path", "/category/" + categoryCode);
+            mv.addObject("select", "/category");
+            mv.addObject("title", category.getCategoryName());
             mv.setViewName("/index");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);

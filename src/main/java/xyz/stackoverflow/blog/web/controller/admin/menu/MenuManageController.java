@@ -13,10 +13,7 @@ import xyz.stackoverflow.blog.validator.MenuValidator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 菜单管理控制器
@@ -64,6 +61,7 @@ public class MenuManageController {
             vo.setName(HtmlUtils.htmlEscape(menu.getName()));
             vo.setUrl(menu.getUrl());
             vo.setDeleteAble(menu.getDeleteAble());
+            vo.setDate(menu.getDate());
             if (vo.getDeleteAble() == 0) {
                 vo.setDeleteTag("否");
             } else {
@@ -97,16 +95,10 @@ public class MenuManageController {
             response.setStatus(FAILURE);
             response.setMessage("该菜单不允许删除");
         } else {
-            Menu delMenu = menuService.deleteMenu(menu);
+            menuService.deleteMenu(menu);
 
             ServletContext application = request.getServletContext();
-            List<Menu> list = (List<Menu>) application.getAttribute("menu");
-            for (Menu tmp : list) {
-                if (tmp.getId().equals(delMenu.getId())) {
-                    list.remove(tmp);
-                    break;
-                }
-            }
+            List<Menu> list = menuService.getAllMenu();
             application.setAttribute("menu", list);
 
             response.setStatus(SUCCESS);
@@ -136,11 +128,11 @@ public class MenuManageController {
         } else {
             Menu menu = menuVO.toMenu();
             menu.setDeleteAble(1);
-            Menu addMenu = menuService.insertMenu(menu);
+            menu.setDate(new Date());
+            menuService.insertMenu(menu);
 
             ServletContext application = request.getServletContext();
-            List<Menu> list = (List<Menu>) application.getAttribute("menu");
-            list.add(addMenu);
+            List<Menu> list = menuService.getAllMenu();
             application.setAttribute("menu", list);
 
             response.setStatus(SUCCESS);
@@ -172,14 +164,7 @@ public class MenuManageController {
             if (updateMenu != null) {
 
                 ServletContext application = request.getServletContext();
-                List<Menu> list = (List<Menu>) application.getAttribute("menu");
-                for (Menu tmp : list) {
-                    if (tmp.getId().equals(updateMenu.getId())) {
-                        tmp.setName(updateMenu.getName());
-                        tmp.setUrl(updateMenu.getUrl());
-                        break;
-                    }
-                }
+                List<Menu> list = menuService.getAllMenu();
                 application.setAttribute("menu", list);
 
                 response.setStatus(SUCCESS);

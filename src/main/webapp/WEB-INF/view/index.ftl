@@ -26,7 +26,7 @@
                 <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
                     <#list Application.menu as menu>
-                        <a class="item btn <#if menu.url == '/'>select</#if>" href="${menu.url}">${menu.name?html}</a>
+                        <a class="item btn <#if menu.url == select>select</#if>" href="${menu.url}">${menu.name?html}</a>
                     </#list>
                 </div>
             </div>
@@ -34,7 +34,7 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="header">
-                    最新文章
+                    ${title}
                 </div>
                 <div class="body">
                     <#list articleList as article>
