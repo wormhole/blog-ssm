@@ -16,6 +16,10 @@ wordpress用得不爽了, 于是自己写了一个博客系统, 我将它命名�
 * 模板渲染引擎 - [Freemarker](https://freemarker.apache.org/)
 * 模块化前端框架 - [Layui](https://www.layui.com/)
 * markdown编辑器 - [editor.md](http://pandao.github.io/editor.md/examples/)
+* 日志系统 - [slf4j](https://www.slf4j.org/) + [logback](https://logback.qos.ch/)
+
+## 使用说明
+只需要将db.properties中的jdbc.username和jdbc.password改为你的数据库账户和密码,然后将war包扔进webapp目录即可,容器初始化时会自动建表,无需手动建表.
 
 ## 运行环境
 * JDK 1.8
@@ -92,6 +96,8 @@ startup.sh
 ![分类](img/category.png)
 ### 文章浏览页
 ![文章浏览](img/article.png)
+### 流量分析
+![流量分析](img/data.png)
 ### 写文章界面
 ![写文章](img/edit.png)
 ### 文章管理界面
@@ -102,6 +108,10 @@ startup.sh
 ![文章更新](img/update.png)
 ### 评论管理
 ![评论管理](img/commentmanage.png)
+### 自定义菜单管理
+![自定义菜单管理](img/menumanage.png)
+### 图片管理
+![图片管理](img/imagemanage.png)
 ### 网站信息设置
 ![网站信息设置](img/setting.png)
 ### 个人信息维护
