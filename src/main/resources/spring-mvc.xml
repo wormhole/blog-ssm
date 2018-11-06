@@ -41,7 +41,7 @@
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/api/**"/>
             <mvc:exclude-mapping path="/static/**"/>
-            <mvc:exclude-mapping path="/uploads/**"/>
+            <mvc:exclude-mapping path="/upload/**"/>
             <mvc:exclude-mapping path="/error/**"/>
             <mvc:exclude-mapping path="/admin/**"/>
             <mvc:exclude-mapping path="/favicon.ico"/>
