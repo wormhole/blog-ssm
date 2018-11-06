@@ -89,7 +89,7 @@ public class ArticleController {
      */
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
-    public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile, HttpSession session) {
+    public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile) {
         JSONObject result = new JSONObject();
 
         String fileName = multipartFile.getOriginalFilename();
