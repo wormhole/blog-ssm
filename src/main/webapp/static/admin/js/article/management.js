@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#article-table',
         url: '/admin/article/list',
         method: 'get',
-        width: 1600,
+        width: 1522,
         cellMinWidth: 100,
         page: true,
         toolbar: 'default',
@@ -22,15 +22,17 @@ layui.use(['table', 'jquery', 'layer'], function () {
         },
         cols: [[
             {type: 'checkbox'},
-            {field: 'id', width: 300, title: 'ID'},
             {field: 'title', width: 150, title: '标题', sort: true},
-            {field: 'nickname', width: 120, title: '作者', sort: true},
-            {field: 'categoryName', width: 140, title: '分类', sort: true},
+            {field: 'nickname', width: 100, title: '作者', sort: true},
+            {field: 'categoryName', width: 100, title: '分类', sort: true},
             {field: 'url', width: 200, title: 'URL', sort: true},
+            {field: 'likes', width: 100, title: '点赞', sort: true},
+            {field: 'hits', width: 100, title: '点击量', sort: true},
+            {field: 'commentCount', width: 100, title: '评论量', sort: true},
             {field: 'hiddenTag', width: 100, title: '是否隐藏'},
             {field: 'createDateString', width: 180, title: '创建日期', sort: true},
             {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
-            {fixed: 'right', width: 170, title: '操作', toolbar: '#toolbar-col'}
+            {fixed: 'right', width: 150, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
@@ -142,7 +144,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function showHiddenAjax(data){
+    function showHiddenAjax(data) {
         $.ajax({
             url: "/admin/article/visitable",
             type: "post",

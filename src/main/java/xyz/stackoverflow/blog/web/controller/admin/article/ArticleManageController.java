@@ -69,6 +69,8 @@ public class ArticleManageController {
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
             vo.setModifyDateString(sdf.format(article.getModifyDate()));
             vo.setHits(article.getHits());
+            vo.setLikes(article.getLikes());
+            vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setUrl(article.getUrl());
             vo.setHidden(article.getHidden());
             if (article.getHidden() == 0) {

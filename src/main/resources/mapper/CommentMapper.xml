@@ -34,7 +34,7 @@
     </select>
 
     <select id="getCommentCountByArticleId" parameterType="string" resultType="int">
-        select count(*) from comment where articleid = #{articleId} and review = 1
+        select count(*) from comment where articleid = #{articleId}
     </select>
 
     <select id="getCommentCount" resultType="int">
