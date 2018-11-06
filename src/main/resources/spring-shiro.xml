@@ -99,6 +99,9 @@
         <property name="rememberMeParam" value="rememberMe"/>
     </bean>
 
+    <!-- UserFilter过滤器 -->
+    <bean id="userFilter" class="xyz.stackoverflow.blog.web.shiro.filter.UserFilter"/>
+
     <!-- logout过滤器 -->
     <bean id="logoutFilter" class="xyz.stackoverflow.blog.web.shiro.filter.LogoutFilter">
         <property name="redirectUrl" value="/login"/>
@@ -112,6 +115,7 @@
         <property name="filters">
             <map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="user" value-ref="userFilter"/>
                 <entry key="logout" value-ref="logoutFilter"/>
             </map>
         </property>
