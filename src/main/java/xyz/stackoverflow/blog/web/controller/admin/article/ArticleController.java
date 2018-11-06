@@ -94,7 +94,7 @@ public class ArticleController {
 
         String fileName = multipartFile.getOriginalFilename();
         String webRootDir = request.getServletContext().getRealPath("");
-        String uploadDir = "/uploads" + FileUtil.getDatePath();
+        String uploadDir = "/upload" + FileUtil.getDatePath();
         File uploadFile = new File(webRootDir + uploadDir);
         if (!uploadFile.exists()) {
             uploadFile.mkdirs();

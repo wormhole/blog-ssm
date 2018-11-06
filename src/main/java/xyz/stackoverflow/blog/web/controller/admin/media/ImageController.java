@@ -35,7 +35,7 @@ public class ImageController {
     public ModelAndView image(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         String webRootDir = request.getServletContext().getRealPath("");
-        String uploadDir = webRootDir + "/uploads";
+        String uploadDir = webRootDir + "/upload";
         Map<String, List<String>> imageMap = new TreeMap<>();
 
         traverseFolder(uploadDir, imageMap);
