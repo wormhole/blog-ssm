@@ -17,14 +17,17 @@
 <body>
 <div class="layui-row">
     <div class="layui-col-md-offset3 layui-col-md3">
-        <input type="text" name="title" id="title" required placeholder="请输入标题" class="layui-input">
+        <input type="text" name="title" id="title" required placeholder="请输入标题" class="layui-input" value="${(article.title)!}">
     </div>
     <div class="layui-col-md1">
-        <input type="text" name="article-code" id="article-code" required placeholder="请输入文章编码" class="layui-input">
+        <input type="text" name="article-code" id="article-code" required placeholder="请输入文章编码" class="layui-input" value="${(article.articleCode)!}">
     </div>
     <div class="layui-col-md1">
         <div class="layui-form">
             <select id="category-select">
+                <#list categoryList as category>
+                    <option value="${category.id}" <#if category.id == selected>selected</#if>>${category.categoryName}</option>
+                </#list>
             </select>
         </div>
     </div>
@@ -34,6 +37,7 @@
 </div>
 <div id="layout">
     <div id="editormd">
+        <textarea style="display:none;">${(article.articleMd)!}</textarea>
     </div>
 </div>
 <script src="/static/admin/js/article/article.js"></script>

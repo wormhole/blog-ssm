@@ -111,70 +111,11 @@ public class ArticleManageController {
     }
 
     /**
-     * 获取单篇文章 /admin/article/get
-     * 方法 POST
+     * 设置文章是否显示
      *
-     * @param articleVO 文章VO
-     * @return 返回ResponseVO
+     * @param articleVO
+     * @return
      */
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVO get(@RequestBody ArticleVO articleVO) {
-        ResponseVO response = new ResponseVO();
-        Article article = articleService.getArticleById(articleVO.getId());
-        ArticleVO vo = null;
-        if (article != null) {
-            vo = new ArticleVO();
-            vo.setId(article.getId());
-            vo.setCategoryId(article.getCategoryId());
-            vo.setTitle(article.getTitle());
-            vo.setUrl(article.getUrl());
-            vo.setArticleMd(article.getArticleMd());
-            response.setStatus(SUCCESS);
-            response.setMessage("文章获取成功");
-            response.setData(vo);
-        } else {
-            response.setStatus(FAILURE);
-            response.setMessage("文章获取失败");
-        }
-        return response;
-    }
-
-    /**
-     * 更新文章 /admin/article/update
-     * 方法 POST
-     *
-     * @param articleVO 文章VO
-     * @return 返回ResponseVO
-     */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVO update(@RequestBody ArticleVO articleVO) {
-        ResponseVO response = new ResponseVO();
-        Article article = articleService.getArticleById(articleVO.getId());
-
-        Map<String, String> map = articleValidator.validate(articleVO);
-        if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段错误");
-            response.setData(map);
-        } else {
-            if (!article.getUrl().equals(articleVO.getUrl()) && articleService.isExistUrl(articleVO.getUrl())) {
-                response.setStatus(FAILURE);
-                response.setMessage("URL重复");
-                map.put("url", "URL重复");
-                response.setData(map);
-            } else {
-                Article updateArticle = articleVO.toArticle();
-                updateArticle.setModifyDate(new Date());
-                articleService.updateArticle(updateArticle);
-                response.setStatus(SUCCESS);
-                response.setMessage("文章更新成功");
-            }
-        }
-        return response;
-    }
-
     @RequestMapping(value = "/visitable", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO visitable(@RequestBody ArticleVO articleVO) {
