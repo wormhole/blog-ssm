@@ -84,7 +84,6 @@ public class ArticleController {
      *
      * @param request
      * @param multipartFile
-     * @param session
      * @return 返回Map
      */
     @RequestMapping(value = "/image", method = RequestMethod.POST)
