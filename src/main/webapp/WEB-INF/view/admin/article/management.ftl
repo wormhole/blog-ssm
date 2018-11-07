@@ -21,6 +21,7 @@
 <script type="text/html" id="toolbar-col">
     <a class="layui-btn layui-btn-xs" lay-event="show"><i class="layui-icon layui-icon-ok"/>显示</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="hidden"><i class="layui-icon layui-icon-close"/>隐藏</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="export"><i class="layui-icon layui-icon-file"/>导出</a>
 </script>
 <script type="text/javascript" src="/static/admin/js/article/management.js"></script>
 </body>

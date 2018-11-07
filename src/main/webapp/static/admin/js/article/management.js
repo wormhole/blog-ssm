@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#article-table',
         url: '/admin/article/list',
         method: 'get',
-        width: 1522,
+        width: 1500,
         cellMinWidth: 100,
         page: true,
         toolbar: 'default',
@@ -32,7 +32,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'hiddenTag', width: 100, title: '是否隐藏'},
             {field: 'createDateString', width: 180, title: '创建日期', sort: true},
             {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
-            {fixed: 'right', width: 150, title: '操作', toolbar: '#toolbar-col'}
+            {fixed: 'right', width: 220, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
@@ -54,6 +54,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 hidden: 1
             }
             showHiddenAjax(param);
+        } else if (layEvent === 'export') {
+            window.location.href = "/admin/article/export?id=" + data.id;
         }
     });
 

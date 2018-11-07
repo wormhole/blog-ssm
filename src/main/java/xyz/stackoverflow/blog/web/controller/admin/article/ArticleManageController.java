@@ -1,21 +1,30 @@
 package xyz.stackoverflow.blog.web.controller.admin.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
+import xyz.stackoverflow.blog.pojo.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.pojo.PageParameter;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 后台管理系统文章管理控制器
@@ -122,14 +131,14 @@ public class ArticleManageController {
         ResponseVO response = new ResponseVO();
         Article article = articleVO.toArticle();
 
-        if(articleService.updateArticle(article)!=null) {
+        if (articleService.updateArticle(article) != null) {
             response.setStatus(SUCCESS);
             if (article.getHidden() == 1) {
                 response.setMessage("隐藏成功");
             } else {
                 response.setMessage("显示成功");
             }
-        }else{
+        } else {
             response.setStatus(FAILURE);
             if (article.getHidden() == 1) {
                 response.setMessage("隐藏失败");
@@ -139,4 +148,31 @@ public class ArticleManageController {
         }
         return response;
     }
+
+    /**
+     * 导出markdown格式备份
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> export(@RequestParam("id") String id) throws IOException {
+        Article article = articleService.getArticleById(id);
+        String filename = article.getTitle() + ".md";
+        filename = new String(filename.getBytes("UTF-8"),"ISO-8859-1");
+
+        InputStream is = new ByteArrayInputStream(article.getArticleMd().getBytes());
+        byte[] body = new byte[is.available()];
+        is.read(body);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename=" + filename);
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, status);
+        return entity;
+    }
+
+
 }
