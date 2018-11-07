@@ -83,6 +83,13 @@
                                data-id="setting">常规设置</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-upload"></i>&nbsp;&nbsp;备份</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-url="/admin/backup/backup" data-title="数据备份"
+                               data-id="backup">数据备份</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>
