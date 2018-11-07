@@ -79,14 +79,14 @@ public class ArticleController {
     }
 
     /**
-     * 保存文章 /admin/article/article/insert
+     * 保存文章 /admin/article/insert
      * 方法 POST
      *
      * @param articleVO
      * @param session
      * @return
      */
-    @RequestMapping(value = "/article/insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO save(@RequestBody ArticleVO articleVO, HttpSession session) {
         ResponseVO response = new ResponseVO();
@@ -120,13 +120,13 @@ public class ArticleController {
     }
 
     /**
-     * 更新文章 /admin/article/article/update
+     * 更新文章 /admin/article/update
      * 方法 POST
      *
      * @param articleVO 文章VO
      * @return 返回ResponseVO
      */
-    @RequestMapping(value = "/article/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO update(@RequestBody ArticleVO articleVO) {
         ResponseVO response = new ResponseVO();
@@ -159,14 +159,14 @@ public class ArticleController {
     }
 
     /**
-     * 保存图片 /admin/article/article/image
+     * 保存图片 /admin/article/image
      * 方法 POST
      *
      * @param request
      * @param multipartFile
      * @return 返回Map
      */
-    @RequestMapping(value = "/article/image", method = RequestMethod.POST)
+    @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
     public Map image(HttpServletRequest request, @RequestParam("editormd-image-file") MultipartFile multipartFile) {
         JSONObject result = new JSONObject();
