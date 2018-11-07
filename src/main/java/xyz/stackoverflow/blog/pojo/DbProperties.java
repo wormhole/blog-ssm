@@ -3,15 +3,26 @@ package xyz.stackoverflow.blog.pojo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * db配置文件类
+ *
+ * @author 凉衫薄
+ */
 @Component
-public class DBProperties {
+public class DbProperties {
 
     @Value("${jdbc.username}")
     private String username;
     @Value("${jdbc.password}")
     private String password;
-    @Value(("${jdbc.url}"))
+    @Value("${jdbc.url}")
     private String url;
+    @Value("${jdbc.host}")
+    private String host;
+    @Value("${jdbc.db}")
+    private String db;
+    @Value("${jdbc.port}")
+    private Integer port;
 
     public String getUsername() {
         return username;
@@ -35,5 +46,29 @@ public class DBProperties {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 }

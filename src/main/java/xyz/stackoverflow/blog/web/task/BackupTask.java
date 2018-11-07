@@ -27,7 +27,9 @@ public class BackupTask extends TimerTask {
             props = Resources.getResourceAsProperties("db.properties");
             String username = props.getProperty("jdbc.username");
             String password = props.getProperty("jdbc.password");
-            DbUtil.backup("localhost", username, password, backupPath, "blog.sql", "blog");
+            String host = props.getProperty("jdbc.host");
+            String db = props.getProperty("jdbc.db");
+            DbUtil.backup(host, username, password, backupPath, "blog.sql", db);
         } catch (IOException e) {
 
         }

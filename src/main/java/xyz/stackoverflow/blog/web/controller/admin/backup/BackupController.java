@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.DBProperties;
+import xyz.stackoverflow.blog.pojo.DbProperties;
 import xyz.stackoverflow.blog.util.DbUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ import java.io.InputStream;
 public class BackupController {
 
     @Autowired
-    private DBProperties properties;
+    private DbProperties properties;
 
     /**
      * 导出sql备份文件
@@ -40,9 +40,8 @@ public class BackupController {
     @ResponseBody
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
-        String database = "blog";
         String backupPath = request.getServletContext().getRealPath("backup");
-        DbUtil.backup("localhost", properties.getUsername(), properties.getPassword(), backupPath, filename, database);
+        DbUtil.backup(properties.getHost(), properties.getUsername(), properties.getPassword(), backupPath, filename, properties.getDb());
 
         InputStream is = new FileInputStream(new File(backupPath, filename));
         byte[] body = new byte[is.available()];
