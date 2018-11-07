@@ -8,7 +8,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#comment-table',
         url: '/admin/comment/list',
         method: 'get',
-        width: 1560,
+        width: 1500,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -21,12 +21,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
             }
         },
         cols: [[
-            {field: 'nickname', width: 150, title: '昵称'},
-            {field: 'email', width: 150, title: '邮箱'},
-            {field: 'website', width: 150, title: '个人主页'},
-            {field: 'dateString', width: 170, title: '日期'},
-            {field: 'articleTitle', width: 150, title: '文章标题'},
-            {field: 'replyTo', width: 150, title: '回复谁'},
+            {field: 'dateString', width: 170, title: '日期', sort: true},
+            {field: 'nickname', width: 120, title: '昵称', sort: true},
+            {field: 'email', width: 150, title: '邮箱', sort: true},
+            {field: 'website', width: 150, title: '个人主页', sort: true},
+            {field: 'articleTitle', width: 150, title: '文章标题', sort: true},
+            {field: 'replyTo', width: 120, title: '回复谁', sort: true},
             {field: 'content', width: 300, title: '评论内容'},
             {field: 'reviewTag', width: 100, title: '是否审核'},
             {fixed: 'right', width: 230, title: '操作', toolbar: '#toolbar-col'}
@@ -92,7 +92,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function reviewAjax(data){
+    function reviewAjax(data) {
         $.ajax({
             url: "/admin/comment/review",
             type: "post",

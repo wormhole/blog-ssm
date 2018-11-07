@@ -9,7 +9,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#today-table',
         url: '/admin/today',
         method: 'get',
-        width: 1257,
+        width: 1300,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -23,10 +23,10 @@ layui.use(['layer', 'jquery', 'table'], function () {
         },
         cols: [[
             {field: 'ip', width: 150, title: 'IP'},
-            {field: 'url', width: 200, title: 'URL'},
+            {field: 'url', width: 300, title: 'URL'},
             {field: 'status', width: 100, title: '状态码'},
             {field: 'agent', width: 600, title: '客户端'},
-            {field: 'dateString', width: 200, title: '日期'},
+            {fixed: 'right', field: 'dateString', width: 200, title: '日期'},
         ]]
     };
 
@@ -35,7 +35,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#error-table',
         url: '/admin/error',
         method: 'get',
-        width: 1257,
+        width: 1300,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -49,10 +49,10 @@ layui.use(['layer', 'jquery', 'table'], function () {
         },
         cols: [[
             {field: 'ip', width: 150, title: 'IP'},
-            {field: 'url', width: 200, title: 'URL'},
+            {field: 'url', width: 300, title: 'URL'},
             {field: 'status', width: 100, title: '状态码'},
             {field: 'agent', width: 600, title: '客户端'},
-            {field: 'dateString', width: 200, title: '日期'},
+            {fixed: 'right', field: 'dateString', width: 200, title: '日期'},
         ]]
     };
 
@@ -108,7 +108,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         flowAjax(option, flow);
     }
 
-    function initCountTable(){
+    function initCountTable() {
         countAjax();
     }
 
@@ -139,7 +139,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         });
     }
 
-    function countAjax(){
+    function countAjax() {
         $.ajax({
             url: "/admin/count",
             type: "get",
