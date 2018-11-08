@@ -1,25 +1,86 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.User;
+import xyz.stackoverflow.blog.util.AbstractVO;
 
 /**
  * 用户VO
  *
  * @author 凉衫薄
  */
-public class UserVO extends User {
+public class UserVO implements AbstractVO {
 
-    protected String oldPassword;
-    protected String vcode;
+    private String id;
+    private String email;
+    private String password;
+    private String nickname;
+    private String salt;
+    private Integer deleteAble;
+
+    private String oldPassword;
+    private String vcode;
 
     public UserVO(){
 
     }
 
     public UserVO(String id, String email, String password, String nickname, String salt, Integer deleteAble, String oldPassword, String vcode) {
-        super(id, email, password, nickname, salt, deleteAble);
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.salt = salt;
+        this.deleteAble = deleteAble;
         this.oldPassword = oldPassword;
         this.vcode = vcode;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Integer getDeleteAble() {
+        return deleteAble;
+    }
+
+    public void setDeleteAble(Integer deleteAble) {
+        this.deleteAble = deleteAble;
     }
 
     public String getOldPassword() {

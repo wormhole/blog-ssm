@@ -3,13 +3,15 @@ package xyz.stackoverflow.blog.pojo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * db配置文件类
  *
  * @author 凉衫薄
  */
 @Component
-public class DbProperties {
+public class DbProperties implements Serializable {
 
     @Value("${jdbc.username}")
     private String username;

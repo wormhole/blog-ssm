@@ -9,12 +9,12 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    protected String id;
-    protected String email;
-    protected String password;
-    protected String nickname;
-    protected String salt;
-    protected Integer deleteAble;
+    private String id;
+    private String email;
+    private String password;
+    private String nickname;
+    private String salt;
+    private Integer deleteAble;
 
     public User(){
 

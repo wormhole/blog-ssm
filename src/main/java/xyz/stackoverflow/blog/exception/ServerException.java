@@ -5,8 +5,8 @@ package xyz.stackoverflow.blog.exception;
  *
  * @author 凉衫薄
  */
-public class ServiceException extends RuntimeException {
-    public ServiceException(String message) {
+public class ServerException extends RuntimeException {
+    public ServerException(String message) {
         super(message);
     }
 }

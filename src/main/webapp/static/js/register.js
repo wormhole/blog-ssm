@@ -24,38 +24,39 @@ layui.use(['jquery'], function () {
             return;
         }
 
-        var data = {};
-        data['email'] = email;
-        data['nickname'] = nickname;
-        data['password'] = password;
-        data['vcode'] = vcode;
+        var user = {};
+        user['email'] = email;
+        user['nickname'] = nickname;
+        user['password'] = password;
+        user['vcode'] = vcode;
+        var param = {'data': {"user": [user]}};
 
-        registerAjax(data);
+        registerAjax(param);
     });
 
-    function registerAjax(data) {
+    function registerAjax(param) {
         $.ajax({
             url: "/register",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     $('blockquote').html('<a href="/login">点击前往登陆页面</a>');
                 } else {
-                    if (data.data != undefined) {
-                        if (data.data['vcode'] != undefined) {
-                            $('blockquote').html(data.data['vcode']);
+                    if (response.data !== undefined) {
+                        if (response.data['vcode'] !== undefined) {
+                            $('blockquote').html(response.data['vcode']);
                             $('#vcode').val('');
-                        } else if (data.data['email'] != undefined) {
-                            $('blockquote').html(data.data['email']);
+                        } else if (response.data['email'] !== undefined) {
+                            $('blockquote').html(response.data['email']);
                             $('#email').val('');
-                        } else if (data.data['nickname'] != undefined) {
-                            $('blockquote').html(data.data['nickname']);
+                        } else if (response.data['nickname'] !== undefined) {
+                            $('blockquote').html(response.data['nickname']);
                             $('#nickname').val('');
-                        } else if (data.data['password'] != undefined) {
-                            $('blockquote').html(data.data['password']);
+                        } else if (response.data['password'] !== undefined) {
+                            $('blockquote').html(response.data['password']);
                             $("#password").val('');
                             $('#checked-password').val('');
                         }
@@ -66,7 +67,7 @@ layui.use(['jquery'], function () {
                 $('blockquote').removeClass('hidden');
                 $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
             },
-            error: function (data) {
+            error: function (response) {
                 $('blockquote').html('服务器错误');
                 $('blockquote').removeClass('hidden');
                 $('#verif-img').attr('src', '/api/vcode' + '?' + Math.random());
