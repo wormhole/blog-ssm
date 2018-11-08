@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.util.IdGenerator;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
     public Article insertArticle(Article article) {
-        article.setId(IdGenerator.getId());
+        article.setId(UUIDGenerator.getId());
         dao.insertArticle(article);
         return dao.getArticleById(article.getId());
     }

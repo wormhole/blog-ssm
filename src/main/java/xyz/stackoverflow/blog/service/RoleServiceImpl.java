@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.dao.RolePermissionDao;
 import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Role insertRole(Role role) {
-        role.setId(IdGenerator.getId());
+        role.setId(UUIDGenerator.getId());
         roleDao.insertRole(role);
         return roleDao.getRoleById(role.getId());
     }
@@ -59,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
     public RolePermission grantPermission(String roleId, String permissionCode) {
         Permission permission = permissionDao.getPermissionByCode(permissionCode);
         RolePermission rolePermission = new RolePermission();
-        rolePermission.setId(IdGenerator.getId());
+        rolePermission.setId(UUIDGenerator.getId());
         rolePermission.setRoleId(roleId);
         rolePermission.setPermissionId(permission.getId());
         rolePermissionDao.insertRolePermission(rolePermission);

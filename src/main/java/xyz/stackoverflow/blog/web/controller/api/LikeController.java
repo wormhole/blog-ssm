@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 
 import javax.servlet.http.HttpSession;
@@ -38,8 +38,8 @@ public class LikeController {
      */
     @RequestMapping(value = "/like", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO like(@RequestBody ArticleVO articleVO, HttpSession session) {
-        ResponseVO response = new ResponseVO();
+    public Response like(@RequestBody ArticleVO articleVO, HttpSession session) {
+        Response response = new Response();
 
         Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
         if (isLike != null && !isLike) {

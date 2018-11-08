@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class CommentManageController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
+        Response response = new Response();
 
         List<Comment> list = null;
         if (page != null && limit != null) {
@@ -83,8 +83,8 @@ public class CommentManageController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(@RequestBody CommentVO commentVO) {
-        ResponseVO response = new ResponseVO();
+    public Response delete(@RequestBody CommentVO commentVO) {
+        Response response = new Response();
 
         if (commentService.deleteCommentById(commentVO.getId()) != null) {
             response.setStatus(SUCCESS);
@@ -99,8 +99,8 @@ public class CommentManageController {
 
     @RequestMapping(value = "/review", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO review(@RequestBody CommentVO commentVO) {
-        ResponseVO response = new ResponseVO();
+    public Response review(@RequestBody CommentVO commentVO) {
+        Response response = new Response();
 
         Comment comment = commentVO.toComment();
         if (commentService.commentReview(comment) != null) {

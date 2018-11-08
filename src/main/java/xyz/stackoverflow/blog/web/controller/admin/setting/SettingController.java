@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.pojo.vo.SettingVO;
 import xyz.stackoverflow.blog.service.SettingService;
-import xyz.stackoverflow.blog.util.FileUtil;
+import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.validator.SettingValidator;
 
 import javax.servlet.ServletContext;
@@ -49,8 +49,8 @@ public class SettingController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO update(@RequestBody SettingVO[] settingVOS, HttpServletRequest request) {
-        ResponseVO response = new ResponseVO();
+    public Response update(@RequestBody SettingVO[] settingVOS, HttpServletRequest request) {
+        Response response = new Response();
         ServletContext application = request.getServletContext();
 
         Map<String, String> map = settingValidator.validate(settingVOS);
@@ -86,15 +86,15 @@ public class SettingController {
      */
     @RequestMapping(value = "/update/head", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO updateHead(HttpServletRequest request) {
-        ResponseVO response = new ResponseVO();
+    public Response updateHead(HttpServletRequest request) {
+        Response response = new Response();
         ServletContext application = request.getServletContext();
 
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");
         String fileName = file.getOriginalFilename();
         String webRootDir = request.getServletContext().getRealPath("");
-        String uploadDir = "/upload" + FileUtil.getDatePath();
+        String uploadDir = "/upload" + DateUtil.getDatePath();
         File uploadFile = new File(webRootDir + uploadDir);
         if (!uploadFile.exists()) {
             uploadFile.mkdirs();

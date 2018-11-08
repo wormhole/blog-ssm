@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CategoryDao;
 import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.util.IdGenerator;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Category insertCategory(Category category) {
-        category.setId(IdGenerator.getId());
+        category.setId(UUIDGenerator.getId());
         dao.insertCategory(category);
         return dao.getCategoryById(category.getId());
     }

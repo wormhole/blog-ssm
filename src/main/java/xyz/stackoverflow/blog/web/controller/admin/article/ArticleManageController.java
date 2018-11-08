@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
@@ -59,8 +59,8 @@ public class ArticleManageController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
+        Response response = new Response();
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
         List<Article> list = articleService.getLimitArticleWithHidden(pageParameter);
@@ -108,8 +108,8 @@ public class ArticleManageController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(@RequestBody ArticleVO[] articleVO) {
-        ResponseVO response = new ResponseVO();
+    public Response delete(@RequestBody ArticleVO[] articleVO) {
+        Response response = new Response();
         for (ArticleVO vo : articleVO) {
             articleService.deleteArticleById(vo.getId());
             commentService.deleteCommentByArticleId(vo.getId());
@@ -127,8 +127,8 @@ public class ArticleManageController {
      */
     @RequestMapping(value = "/visitable", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO visitable(@RequestBody ArticleVO articleVO) {
-        ResponseVO response = new ResponseVO();
+    public Response visitable(@RequestBody ArticleVO articleVO) {
+        Response response = new Response();
         Article article = articleVO.toArticle();
 
         if (articleService.updateArticle(article) != null) {

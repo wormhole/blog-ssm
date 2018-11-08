@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.validator.CommentValidator;
@@ -45,8 +45,8 @@ public class CommentController {
      */
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO insertComment(@RequestBody CommentVO commentVO) {
-        ResponseVO response = new ResponseVO();
+    public Response insertComment(@RequestBody CommentVO commentVO) {
+        Response response = new Response();
 
         Map<String, String> map = commentValidator.validate(commentVO);
         if (map.size() != 0) {

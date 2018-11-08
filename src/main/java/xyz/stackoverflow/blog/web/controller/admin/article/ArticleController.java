@@ -10,10 +10,10 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.FileUtil;
+import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,8 +88,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO save(@RequestBody ArticleVO articleVO, HttpSession session) {
-        ResponseVO response = new ResponseVO();
+    public Response save(@RequestBody ArticleVO articleVO, HttpSession session) {
+        Response response = new Response();
 
         Map<String, String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
@@ -128,8 +128,8 @@ public class ArticleController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO update(@RequestBody ArticleVO articleVO) {
-        ResponseVO response = new ResponseVO();
+    public Response update(@RequestBody ArticleVO articleVO) {
+        Response response = new Response();
         Article article = articleService.getArticleById(articleVO.getId());
 
         Map<String, String> map = articleValidator.validate(articleVO);
@@ -173,7 +173,7 @@ public class ArticleController {
 
         String fileName = multipartFile.getOriginalFilename();
         String webRootDir = request.getServletContext().getRealPath("");
-        String uploadDir = "/upload" + FileUtil.getDatePath();
+        String uploadDir = "/upload" + DateUtil.getDatePath();
         File uploadFile = new File(webRootDir + uploadDir);
         if (!uploadFile.exists()) {
             uploadFile.mkdirs();

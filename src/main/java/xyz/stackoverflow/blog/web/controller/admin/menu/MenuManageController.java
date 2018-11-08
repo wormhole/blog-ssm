@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.pojo.vo.MenuVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.MenuService;
 import xyz.stackoverflow.blog.validator.MenuValidator;
 
@@ -42,8 +42,8 @@ public class MenuManageController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
+        Response response = new Response();
         List<Menu> list = null;
         List<MenuVO> voList = new ArrayList<>();
 
@@ -88,8 +88,8 @@ public class MenuManageController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(@RequestBody MenuVO menuVO, HttpServletRequest request) {
-        ResponseVO response = new ResponseVO();
+    public Response delete(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+        Response response = new Response();
         Menu menu = menuService.getMenuById(menuVO.getId());
         if (menu.getDeleteAble() == 0) {
             response.setStatus(FAILURE);
@@ -117,8 +117,8 @@ public class MenuManageController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO insert(@RequestBody MenuVO menuVO, HttpServletRequest request) {
-        ResponseVO response = new ResponseVO();
+    public Response insert(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+        Response response = new Response();
 
         Map<String, String> map = menuValidator.validate(menuVO);
         if (map.size() != 0) {
@@ -151,8 +151,8 @@ public class MenuManageController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO update(@RequestBody MenuVO menuVO, HttpServletRequest request) {
-        ResponseVO response = new ResponseVO();
+    public Response update(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+        Response response = new Response();
         Map<String, String> map = menuValidator.validate(menuVO);
         if (map.size() != 0) {
             response.setStatus(FAILURE);

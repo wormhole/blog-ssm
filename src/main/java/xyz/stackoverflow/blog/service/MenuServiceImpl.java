@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.MenuDao;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu insertMenu(Menu menu) {
-        menu.setId(IdGenerator.getId());
+        menu.setId(UUIDGenerator.getId());
         menuDao.insertMenu(menu);
         return menuDao.getMenuById(menu.getId());
     }

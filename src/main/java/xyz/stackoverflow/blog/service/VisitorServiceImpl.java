@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.VisitorDao;
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 
 import java.util.Date;
 
@@ -23,7 +23,7 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertVisitor(Visitor visitor) {
-        visitor.setId(IdGenerator.getId());
+        visitor.setId(UUIDGenerator.getId());
         return visitorDao.insertVisitor(visitor);
     }
 

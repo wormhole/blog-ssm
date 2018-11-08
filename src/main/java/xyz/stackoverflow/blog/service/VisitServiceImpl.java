@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.VisitDao;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 
 import java.util.Date;
 import java.util.List;
@@ -25,7 +25,7 @@ public class VisitServiceImpl implements VisitService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertVisit(Visit visit) {
-        visit.setId(IdGenerator.getId());
+        visit.setId(UUIDGenerator.getId());
         return visitDao.insertVisit(visit);
     }
 

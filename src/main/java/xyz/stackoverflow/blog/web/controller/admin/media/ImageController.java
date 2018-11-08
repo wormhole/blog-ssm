@@ -3,7 +3,7 @@ package xyz.stackoverflow.blog.web.controller.admin.media;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -54,8 +54,8 @@ public class ImageController {
      */
     @RequestMapping(value = "/image/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(HttpServletRequest request, @RequestParam("url") String url) {
-        ResponseVO response = new ResponseVO();
+    public Response delete(HttpServletRequest request, @RequestParam("url") String url) {
+        Response response = new Response();
         String webRootDir = request.getServletContext().getRealPath("");
         File file = new File(webRootDir, url);
         if (file.exists()) {

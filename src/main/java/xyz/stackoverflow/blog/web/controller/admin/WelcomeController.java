@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.pojo.vo.VisitVO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
@@ -40,8 +40,8 @@ public class WelcomeController {
      */
     @RequestMapping(value = "/flow", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO flow() {
-        ResponseVO response = new ResponseVO();
+    public Response flow() {
+        Response response = new Response();
         List<String> dateList = new ArrayList<>();
         List<Integer> visitList = new ArrayList<>();
         List<Integer> visitorList = new ArrayList<>();
@@ -83,8 +83,8 @@ public class WelcomeController {
      */
     @RequestMapping(value = "/today", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
+        Response response = new Response();
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
         Calendar calendar = Calendar.getInstance();
@@ -129,8 +129,8 @@ public class WelcomeController {
      */
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO error(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response error(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
+        Response response = new Response();
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
 
@@ -167,8 +167,8 @@ public class WelcomeController {
      */
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO count() {
-        ResponseVO response = new ResponseVO();
+    public Response count() {
+        Response response = new Response();
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);

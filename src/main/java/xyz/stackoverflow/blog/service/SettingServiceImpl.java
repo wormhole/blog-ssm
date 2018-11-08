@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.SettingDao;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class SettingServiceImpl implements SettingService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'setting:'+#result.key", condition = "#result != null")
     public Setting insertSetting(Setting setting) {
-        setting.setId(IdGenerator.getId());
+        setting.setId(UUIDGenerator.getId());
         dao.insertSetting(setting);
         return dao.getSetting(setting.getKey());
     }

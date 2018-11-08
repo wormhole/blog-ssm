@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.web.task;
 
 import org.apache.ibatis.io.Resources;
-import xyz.stackoverflow.blog.util.DbUtil;
+import xyz.stackoverflow.blog.util.DBUtil;
 
 import java.io.*;
 import java.util.Properties;
@@ -29,7 +29,7 @@ public class BackupTask extends TimerTask {
             String password = props.getProperty("jdbc.password");
             String host = props.getProperty("jdbc.host");
             String db = props.getProperty("jdbc.db");
-            DbUtil.backup(host, username, password, backupPath, "blog.sql", db);
+            DBUtil.backup(host, username, password, backupPath, "blog.sql", db);
         } catch (IOException e) {
 
         }

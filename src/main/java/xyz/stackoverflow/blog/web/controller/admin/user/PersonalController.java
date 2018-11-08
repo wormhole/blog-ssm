@@ -6,7 +6,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.PasswordUtil;
@@ -46,8 +46,8 @@ public class PersonalController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO updateUser(@RequestParam("type") String type, @RequestBody UserVO userVO, HttpSession session) {
-        ResponseVO response = new ResponseVO();
+    public Response updateUser(@RequestParam("type") String type, @RequestBody UserVO userVO, HttpSession session) {
+        Response response = new Response();
         User user = (User) session.getAttribute("user");
         Map<String, String> map = new HashMap<>();
 

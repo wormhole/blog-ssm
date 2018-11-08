@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.entity.*;
-import xyz.stackoverflow.blog.util.IdGenerator;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 
 import java.util.HashSet;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User insertUser(User user) {
-        user.setId(IdGenerator.getId());
+        user.setId(UUIDGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
         userDao.insertUser(user);
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     public UserRole grantRole(String roleCode, String userId) {
         Role role = roleDao.getRoleByCode(roleCode);
         UserRole userRole = new UserRole();
-        userRole.setId(IdGenerator.getId());
+        userRole.setId(UUIDGenerator.getId());
         userRole.setRoleId(role.getId());
         userRole.setUserId(userId);
         userRoleDao.insertUserRole(userRole);

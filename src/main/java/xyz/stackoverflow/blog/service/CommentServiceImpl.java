@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.IdGenerator;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.UUIDGenerator;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Comment insertComment(Comment comment) {
-        comment.setId(IdGenerator.getId());
+        comment.setId(UUIDGenerator.getId());
         commentDao.insertComment(comment);
         return commentDao.getCommentById(comment.getId());
     }

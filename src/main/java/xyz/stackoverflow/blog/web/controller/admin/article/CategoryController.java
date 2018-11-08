@@ -3,11 +3,11 @@ package xyz.stackoverflow.blog.web.controller.admin.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import xyz.stackoverflow.blog.pojo.PageParameter;
+import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
-import xyz.stackoverflow.blog.pojo.vo.ResponseVO;
+import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.validator.CategoryValidator;
@@ -45,8 +45,8 @@ public class CategoryController {
      */
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO insert(@RequestBody CategoryVO categoryVO) {
-        ResponseVO response = new ResponseVO();
+    public Response insert(@RequestBody CategoryVO categoryVO) {
+        Response response = new Response();
 
         Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
@@ -85,8 +85,8 @@ public class CategoryController {
      */
     @RequestMapping(value = "/category/list", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseVO list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
-        ResponseVO response = new ResponseVO();
+    public Response list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "limit", required = false) String limit) {
+        Response response = new Response();
         List<Category> list = null;
         List<CategoryVO> voList = new ArrayList<>();
         if (page != null && limit != null) {
@@ -129,8 +129,8 @@ public class CategoryController {
      */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO delete(@RequestBody CategoryVO categoryVO) {
-        ResponseVO response = new ResponseVO();
+    public Response delete(@RequestBody CategoryVO categoryVO) {
+        Response response = new Response();
         Category category = categoryService.getCategoryById(categoryVO.getId());
         if (category.getDeleteAble() == 0) {
             response.setStatus(FAILURE);
@@ -160,8 +160,8 @@ public class CategoryController {
      */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO update(@RequestBody CategoryVO categoryVO) {
-        ResponseVO response = new ResponseVO();
+    public Response update(@RequestBody CategoryVO categoryVO) {
+        Response response = new Response();
 
         Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
