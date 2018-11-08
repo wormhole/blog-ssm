@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 文件工具类
+ * 日期工具类
  *
  * @author 凉衫薄
  */
-public class FileUtil {
+public class DateUtil {
 
     /**
      * 获取日期格式路径

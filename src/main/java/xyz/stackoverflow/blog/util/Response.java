@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.util;
 
 import java.io.Serializable;
 
@@ -7,17 +7,17 @@ import java.io.Serializable;
  *
  * @author 凉衫薄
  */
-public class ResponseVO implements Serializable {
+public class Response implements Serializable {
 
     private Integer status;
     private String message;
     private Object data;
 
-    public ResponseVO(){
+    public Response(){
 
     }
 
-    public ResponseVO(Integer status, String message, Object data) {
+    public Response(Integer status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;

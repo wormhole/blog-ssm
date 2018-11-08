@@ -7,7 +7,7 @@ import java.util.UUID;
  *
  * @author 凉衫薄
  */
-public class IdGenerator {
+public class UUIDGenerator {
 
     /**
      * 获取ID
