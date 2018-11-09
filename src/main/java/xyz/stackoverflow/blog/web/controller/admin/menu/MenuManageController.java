@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.pojo.vo.MenuVO;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.MenuService;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.MenuValidator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -22,7 +23,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin/menu")
-public class MenuManageController {
+public class MenuManageController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -61,7 +62,6 @@ public class MenuManageController {
             vo.setName(HtmlUtils.htmlEscape(menu.getName()));
             vo.setUrl(menu.getUrl());
             vo.setDeleteAble(menu.getDeleteAble());
-            vo.setDate(menu.getDate());
             if (vo.getDeleteAble() == 0) {
                 vo.setDeleteTag("否");
             } else {
@@ -83,17 +83,25 @@ public class MenuManageController {
      * 删除菜单 /admin/menu/delete
      * 方法 GET
      *
-     * @param menuVO
+     * @param dto
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response delete(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+    public Response delete(@RequestBody BaseDTO dto, HttpServletRequest request) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("menu", MenuVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("未找到请求数据");
+        }
+        MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
         Menu menu = menuService.getMenuById(menuVO.getId());
         if (menu.getDeleteAble() == 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("该菜单不允许删除");
+            throw new BusinessException("该菜单不允许删除");
         } else {
             menuService.deleteMenu(menu);
 
@@ -111,20 +119,27 @@ public class MenuManageController {
      * 新增菜单 /admin/menu/insert
      * 方法 POST
      *
-     * @param menuVO
+     * @param dto
      * @param request
      * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Response insert(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+    public Response insert(@RequestBody BaseDTO dto, HttpServletRequest request) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("menu", MenuVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("未找到请求数据");
+        }
+        MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
 
         Map<String, String> map = menuValidator.validate(menuVO);
         if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段格式有误");
-            response.setData(map);
+            throw new BusinessException("字段格式有误", map);
         } else {
             Menu menu = menuVO.toMenu();
             menu.setDeleteAble(1);
@@ -145,19 +160,26 @@ public class MenuManageController {
      * 更新菜单 /admin/menu/update
      * 方法 POST
      *
-     * @param menuVO
+     * @param dto
      * @param request
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response update(@RequestBody MenuVO menuVO, HttpServletRequest request) {
+    public Response update(@RequestBody BaseDTO dto, HttpServletRequest request) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("menu", MenuVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("未找到请求数据");
+        }
+        MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
         Map<String, String> map = menuValidator.validate(menuVO);
         if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段格式有误");
-            response.setData(map);
+            throw new BusinessException("字段格式错误", map);
         } else {
             Menu menu = menuVO.toMenu();
             Menu updateMenu = menuService.updateMenu(menu);
@@ -170,8 +192,7 @@ public class MenuManageController {
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
             } else {
-                response.setStatus(FAILURE);
-                response.setMessage("该菜单不允许修改");
+                throw new BusinessException("该菜单不允许修改");
             }
         }
         return response;

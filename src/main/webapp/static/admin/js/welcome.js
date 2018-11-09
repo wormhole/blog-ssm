@@ -117,20 +117,20 @@ layui.use(['layer', 'jquery', 'table'], function () {
             url: "/admin/flow",
             type: "get",
             dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    option.xAxis.data = data.data.dateList;
-                    option.series[0].data = data.data.visitList;
-                    option.series[1].data = data.data.visitorList;
+            success: function (response) {
+                if (response.status === 0) {
+                    option.xAxis.data = response.data.dateList;
+                    option.series[0].data = response.data.visitList;
+                    option.series[1].data = response.data.visitorList;
                     chart.setOption(option);
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -144,20 +144,20 @@ layui.use(['layer', 'jquery', 'table'], function () {
             url: "/admin/count",
             type: "get",
             dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    $('#todayVisit').text(data.data.todayVisit);
-                    $('#todayVisitor').text(data.data.todayVisitor);
-                    $('#totalVisit').text(data.data.totalVisit);
-                    $('#totalVisitor').text(data.data.totalVisitor);
+            success: function (response) {
+                if (response.status === 0) {
+                    $('#todayVisit').text(response.data.todayVisit);
+                    $('#todayVisitor').text(response.data.todayVisitor);
+                    $('#totalVisit').text(response.data.totalVisit);
+                    $('#totalVisitor').text(response.data.totalVisitor);
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"

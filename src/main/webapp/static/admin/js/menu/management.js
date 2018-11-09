@@ -32,7 +32,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var tableIns = table.render(parameter);
 
     table.on('toolbar(menu-table-1)', function (obj) {
-        if (obj.event == 'add') {
+        if (obj.event === 'add') {
             layer.open({
                 type: 1,
                 title: '新增',
@@ -52,7 +52,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         var data = {};
                         data['name'] = name;
                         data['url'] = url;
-                        insertMenuAjax(data);
+
+                        var param = {
+                            data: {
+                                menu: [data]
+                            }
+                        };
+                        insertMenuAjax(param);
                         layer.close(index);
                     }
                 }
@@ -66,7 +72,13 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         if (layEvent === 'del') {
             layer.confirm('确认删除该菜单吗', function (index) {
-                deleteMenuAjax(data);
+
+                var param = {
+                    data: {
+                        menu: [data]
+                    }
+                };
+                deleteMenuAjax(param);
                 layer.close(index);
             });
         }
@@ -80,32 +92,37 @@ layui.use(['table', 'jquery', 'layer'], function () {
             });
             tableIns.reload(parameter);
         } else {
-            updateMenuAjax(obj.data);
+            var param = {
+                data: {
+                    menu: [obj.data]
+                }
+            };
+            updateMenuAjax(param);
         }
     });
 
-    function updateMenuAjax(data) {
+    function updateMenuAjax(param) {
         $.ajax({
             url: "/admin/menu/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -114,28 +131,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function deleteMenuAjax(data) {
+    function deleteMenuAjax(param) {
         $.ajax({
             url: "/admin/menu/delete",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -144,28 +161,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function insertMenuAjax(data) {
+    function insertMenuAjax(param) {
         $.ajax({
             url: "/admin/menu/insert",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"

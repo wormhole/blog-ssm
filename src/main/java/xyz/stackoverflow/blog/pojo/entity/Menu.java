@@ -10,11 +10,11 @@ import java.util.Date;
  */
 public class Menu implements Serializable {
 
-    protected String id;
-    protected String name;
-    protected String url;
-    protected Integer deleteAble;
-    protected Date date;
+    private String id;
+    private String name;
+    private String url;
+    private Integer deleteAble;
+    private Date date;
 
     public Menu(){
 
