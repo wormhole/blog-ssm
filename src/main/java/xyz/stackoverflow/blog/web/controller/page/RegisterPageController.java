@@ -32,9 +32,6 @@ public class RegisterPageController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
-    private final Map<String, Class<? extends AbstractVO>> clazzMap = new HashMap<String, Class<? extends AbstractVO>>() {{
-        put("user", UserVO.class);
-    }};
 
     @Autowired
     private UserService userService;
@@ -47,7 +44,10 @@ public class RegisterPageController extends BaseController {
 
         Response response = new Response();
 
-        Map<String, List<AbstractVO>> voMap = dto2vo(clazzMap, dto);
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("user", UserVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
         if (voMap == null || voMap.size() == 0) {
             throw new BusinessException("没有找到请求数据");
         }

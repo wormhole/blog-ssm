@@ -9,18 +9,18 @@ import java.util.Date;
  * @author 凉衫薄
  */
 public class Article implements Serializable {
-    protected String id;
-    protected String userId;
-    protected String title;
-    protected String articleMd;
-    protected String articleHtml;
-    protected String categoryId;
-    protected Date createDate;
-    protected Date modifyDate;
-    protected Integer hits;
-    protected Integer likes;
-    protected String url;
-    protected Integer hidden;
+    private String id;
+    private String userId;
+    private String title;
+    private String articleMd;
+    private String articleHtml;
+    private String categoryId;
+    private Date createDate;
+    private Date modifyDate;
+    private Integer hits;
+    private Integer likes;
+    private String url;
+    private Integer hidden;
 
     public Article(){
 

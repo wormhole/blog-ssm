@@ -10,15 +10,15 @@ import java.util.Date;
  */
 public class Comment implements Serializable {
 
-    protected String id;
-    protected String nickname;
-    protected String email;
-    protected String website;
-    protected String content;
-    protected String articleId;
-    protected Date date;
-    protected String replyTo;
-    protected Integer review;
+    private String id;
+    private String nickname;
+    private String email;
+    private String website;
+    private String content;
+    private String articleId;
+    private Date date;
+    private String replyTo;
+    private Integer review;
 
     public Comment(){
 

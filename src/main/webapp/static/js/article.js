@@ -6,24 +6,20 @@ $(function () {
     ko.applyBindings(viewModel);
 
     $('.heart').click(function () {
-        if ($(this).attr("rel") == "true") {
+        if ($(this).attr("rel") === "true") {
             return;
         } else {
-            $(this).css("background-position", "right");
-            $(this).addClass("heartAnimation");
             likeAjax(window.location.pathname);
         }
     });
 
-    $('.reply').click(function(){
+    $('.reply').click(function () {
         viewModel.reply(true);
-        console.log($(this).html());
         var replyRef = $(this).closest('li').find('.name').text();
-        console.log(replyRef);
         viewModel.replyRef(replyRef);
     });
 
-    $('.cancel').click(function(){
+    $('.cancel').click(function () {
         viewModel.reply(false);
     });
 
@@ -35,11 +31,11 @@ $(function () {
             url: window.location.pathname
         };
 
-        if ($('#website').val() != '') {
+        if ($('#website').val() !== '') {
             data['website'] = $('#website').val();
         }
 
-        if (viewModel.reply() == true) {
+        if (viewModel.reply() === true) {
             data['replyTo'] = viewModel.replyRef();
         }
 
@@ -67,7 +63,13 @@ $(function () {
             return;
         }
 
-        commentAjax(data);
+        var param = {
+            data: {
+                comment: [data]
+            }
+        };
+
+        commentAjax(param);
     });
 });
 
@@ -78,15 +80,15 @@ function ViewModel() {
     self.replyRef = ko.observable('');
 }
 
-function commentAjax(data) {
+function commentAjax(param) {
     $.ajax({
         url: "/api/comment",
         type: "post",
-        data: JSON.stringify(data),
+        data: JSON.stringify(param),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
+        success: function (response) {
+            if (response.status === 0) {
                 layer.open({
                     type: 0,
                     content: '评论成功,待管理员审核后显示'
@@ -96,35 +98,37 @@ function commentAjax(data) {
                 $('#nickname').val('');
                 $('#website').val('');
             } else {
-                if (data.data['email'] != undefined) {
-                    layer.open({
-                        type: 0,
-                        content: data.data['email']
-                    });
-                } else if (data.data['nickname'] != undefined) {
-                    layer.open({
-                        type: 0,
-                        content: data.data['nickname']
-                    });
-                } else if (data.data['website'] != undefined) {
-                    layer.open({
-                        type: 0,
-                        content: data.data['website']
-                    });
-                } else if (data.data['content'] != undefined) {
-                    layer.open({
-                        type: 0,
-                        content: data.data['content']
-                    });
-                } else if (data.data['replyTo'] != undefined) {
-                    layer.open({
-                        type: 0,
-                        content: data.data['replyTo']
-                    });
+                if (response.data !== undefined) {
+                    if (response.data['email'] !== undefined) {
+                        layer.open({
+                            type: 0,
+                            content: response.data['email']
+                        });
+                    } else if (response.data['nickname'] !== undefined) {
+                        layer.open({
+                            type: 0,
+                            content: response.data['nickname']
+                        });
+                    } else if (response.data['website'] !== undefined) {
+                        layer.open({
+                            type: 0,
+                            content: response.data['website']
+                        });
+                    } else if (response.data['content'] !== undefined) {
+                        layer.open({
+                            type: 0,
+                            content: response.data['content']
+                        });
+                    } else if (response.data['replyTo'] !== undefined) {
+                        layer.open({
+                            type: 0,
+                            content: response.data['replyTo']
+                        });
+                    }
                 }
             }
         },
-        error: function (data) {
+        error: function (response) {
             layer.open({
                 type: 0,
                 content: '服务器错误'
@@ -137,21 +141,26 @@ function likeAjax(url) {
     var data = {
         url: url
     };
+    var param = {
+        data: {
+            article: [data]
+        }
+    };
     $.ajax({
         url: "/api/like",
         type: "post",
-        data: JSON.stringify(data),
+        data: JSON.stringify(param),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            if (data.status == 0) {
-                $('#likes').text(data.data);
-            } else {
-                $(this).css("background-position", "left");
-                $(this).removeClass("heartAnimation");
+        success: function (response) {
+            if (response.status === 0) {
+                $('#likes').text(response.data);
+                $('.heart').css("background-position", "right");
+                $('.heart').addClass("heartAnimation");
+                $('.heart').attr('rel', 'true');
             }
         },
-        error: function (data) {
+        error: function (response) {
 
         }
     });

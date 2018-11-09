@@ -6,12 +6,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
+import xyz.stackoverflow.blog.util.AbstractVO;
+import xyz.stackoverflow.blog.util.BaseController;
+import xyz.stackoverflow.blog.util.BaseDTO;
+import xyz.stackoverflow.blog.util.Response;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 点赞接口
@@ -20,7 +28,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/api")
-public class LikeController {
+public class LikeController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -32,14 +40,23 @@ public class LikeController {
      * 点赞接口 /api/like
      * 方法 POST
      *
-     * @param articleVO
+     * @param dto
      * @param session
      * @return
      */
     @RequestMapping(value = "/like", method = RequestMethod.POST)
     @ResponseBody
-    public Response like(@RequestBody ArticleVO articleVO, HttpSession session) {
+    public Response like(@RequestBody BaseDTO dto, HttpSession session) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("article", ArticleVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("没有找到请求数据");
+        }
+        ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
 
         Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
         if (isLike != null && !isLike) {
@@ -51,8 +68,7 @@ public class LikeController {
             response.setMessage("点赞成功");
             response.setData(article.getLikes());
         } else {
-            response.setStatus(FAILURE);
-            response.setMessage("点赞失败");
+            throw new BusinessException("不能重复点赞");
         }
         return response;
     }
