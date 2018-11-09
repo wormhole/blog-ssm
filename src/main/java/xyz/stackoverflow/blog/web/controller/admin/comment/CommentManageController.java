@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
-import xyz.stackoverflow.blog.util.Response;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.PageParameter;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/comment")
-public class CommentManageController {
+public class CommentManageController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -83,15 +84,23 @@ public class CommentManageController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response delete(@RequestBody CommentVO commentVO) {
+    public Response delete(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("comment", CommentVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
 
         if (commentService.deleteCommentById(commentVO.getId()) != null) {
             response.setStatus(SUCCESS);
             response.setMessage("评论删除成功");
         } else {
-            response.setStatus(FAILURE);
-            response.setMessage("评论删除失败");
+            throw new BusinessException("评论删除失败");
         }
 
         return response;
@@ -99,8 +108,17 @@ public class CommentManageController {
 
     @RequestMapping(value = "/review", method = RequestMethod.POST)
     @ResponseBody
-    public Response review(@RequestBody CommentVO commentVO) {
+    public Response review(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("comment", CommentVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
 
         Comment comment = commentVO.toComment();
         if (commentService.commentReview(comment) != null) {
@@ -111,11 +129,10 @@ public class CommentManageController {
                 response.setMessage("撤回成功");
             }
         } else {
-            response.setStatus(FAILURE);
             if (comment.getReview() == 1) {
-                response.setMessage("审核失败");
+                throw new BusinessException("审核失败");
             } else {
-                response.setMessage("撤回失败");
+                throw new BusinessException("撤回失败");
             }
         }
         return response;

@@ -3,6 +3,7 @@ package xyz.stackoverflow.blog.web.controller.admin.media;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.util.Response;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,8 +64,7 @@ public class ImageController {
             response.setStatus(SUCCESS);
             response.setMessage("图片删除成功");
         } else {
-            response.setStatus(FAILURE);
-            response.setMessage("图片删除失败");
+            throw new BusinessException("图片删除失败");
         }
         return response;
     }

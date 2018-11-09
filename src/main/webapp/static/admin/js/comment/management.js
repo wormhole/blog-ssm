@@ -42,48 +42,60 @@ layui.use(['table', 'jquery', 'layer'], function () {
         if (layEvent === 'del') {
             layer.confirm('确认删除该评论吗', function (index) {
                 var param = {
-                    id: data.id
+                    data: {
+                        comment: [{
+                            id: data.id
+                        }]
+                    }
                 };
                 deleteAjax(param);
                 layer.close(index);
             });
         } else if (layEvent === 'review') {
             var param = {
-                id: data.id,
-                review: 1
-            }
+                data: {
+                    comment:[{
+                        id: data.id,
+                        review: 1
+                    }]
+                }
+            };
             reviewAjax(param);
         } else if (layEvent === 'unreview') {
             var param = {
-                id: data.id,
-                review: 0
-            }
+                data: {
+                    comment:[{
+                        id: data.id,
+                        review: 0
+                    }]
+                }
+            };
             reviewAjax(param);
         }
     });
 
-    function deleteAjax(data) {
+    function deleteAjax(param) {
         $.ajax({
             url: "/admin/comment/delete",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -92,28 +104,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function reviewAjax(data) {
+    function reviewAjax(param) {
         $.ajax({
             url: "/admin/comment/review",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"

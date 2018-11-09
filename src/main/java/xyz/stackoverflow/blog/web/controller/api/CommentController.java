@@ -56,7 +56,7 @@ public class CommentController extends BaseController {
         Response response = new Response();
 
         Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
-            put("user", CommentVO.class);
+            put("comment", CommentVO.class);
         }};
         Map<String, List<AbstractVO>> voMap = dto2vo(classMap,dto);
         if (voMap == null || voMap.size() == 0) {
