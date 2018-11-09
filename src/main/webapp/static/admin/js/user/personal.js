@@ -3,30 +3,30 @@ layui.use(['layer', 'jquery'], function () {
     var layer = layui.layer;
     var $ = layui.$;
 
-    function updateBaseInfoAjax(data) {
+    function updateBaseInfoAjax(param) {
         $.ajax({
             url: "/admin/user/update?type=base",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
-                    if (data.data['email'] != undefined) {
-                        $('#email-error').html(data.data['email']);
+                    if (response.data['email'] !== undefined) {
+                        $('#email-error').html(response.data['email']);
                         $('#email-error').removeClass('hidden');
-                    } else if (data.data['nickname'] != undefined) {
-                        $('#nickname-error').html(data.data['nickname']);
+                    } else if (response.data['nickname'] !== undefined) {
+                        $('#nickname-error').html(response.data['nickname']);
                         $('#nickname-error').removeClass('hidden');
                     }
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -35,30 +35,30 @@ layui.use(['layer', 'jquery'], function () {
         });
     }
 
-    function updatePasswordAjax(data){
+    function updatePasswordAjax(param) {
         $.ajax({
             url: "/admin/user/update?type=password",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
-                    if (data.data['oldPassword'] != undefined) {
-                        $('#old-password-error').html(data.data['oldPassword']);
+                    if (response.data['oldPassword'] !== undefined) {
+                        $('#old-password-error').html(response.data['oldPassword']);
                         $('#old-password-error').removeClass('hidden');
-                    } else if (data.data['password'] != undefined) {
-                        $('#new-password-error').html(data.data['password']);
+                    } else if (response.data['password'] !== undefined) {
+                        $('#new-password-error').html(response.data['password']);
                         $('#new-password-error').removeClass('hidden');
                     }
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -79,7 +79,12 @@ layui.use(['layer', 'jquery'], function () {
         data['email'] = email;
         data['nickname'] = nickname;
 
-        updateBaseInfoAjax(data);
+        var param = {
+            data: {
+                user: [data]
+            }
+        };
+        updateBaseInfoAjax(param);
     });
 
     $('#savepwd-btn').click(function () {
@@ -102,7 +107,13 @@ layui.use(['layer', 'jquery'], function () {
         data['oldPassword'] = oldPassword;
         data['password'] = newPassword;
 
-        updatePasswordAjax(data);
+        var param = {
+            data: {
+                user: [data]
+            }
+        };
+
+        updatePasswordAjax(param);
     });
 
 });

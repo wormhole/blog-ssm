@@ -5,15 +5,17 @@ import org.springframework.cache.Cache;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.UserValidator;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/user")
-public class PersonalController {
+public class PersonalController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -40,25 +42,31 @@ public class PersonalController {
      * 方法 POST
      *
      * @param type
-     * @param userVO
+     * @param dto
      * @param session
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response updateUser(@RequestParam("type") String type, @RequestBody UserVO userVO, HttpSession session) {
+    public Response updateUser(@RequestParam("type") String type, @RequestBody BaseDTO dto, HttpSession session) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
-        User user = (User) session.getAttribute("user");
-        Map<String, String> map = new HashMap<>();
 
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("user", UserVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("未找到请求数据");
+        }
+        UserVO userVO = (UserVO) voMap.get("user").get(0);
+        User user = (User) session.getAttribute("user");
+
+        Map<String, String> map = new HashMap<>();
         if (type.equals("base")) {
             if (!userVO.getEmail().equals(user.getEmail())) {
                 if (userService.isExist(userVO.getEmail())) {
                     map.put("email", "邮箱已经存在");
-                    response.setStatus(FAILURE);
-                    response.setData(map);
-                    response.setMessage("邮箱已经存在");
-                    return response;
+                    throw new BusinessException("邮箱已经存在", map);
                 }
             }
 
@@ -83,17 +91,12 @@ public class PersonalController {
                 response.setMessage("修改成功");
                 response.setData(vo);
             } else {
-                response.setStatus(FAILURE);
-                response.setMessage("字段格式错误");
-                response.setData(map);
+                throw new BusinessException("字段错误", map);
             }
         } else if (type.equals("password")) {
             if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userVO.getOldPassword()))) {
                 map.put("oldPassword", "旧密码不匹配");
-                response.setStatus(FAILURE);
-                response.setMessage("旧密码不匹配");
-                response.setData(map);
-                return response;
+                throw new BusinessException("旧密码不匹配", map);
             }
 
             map = userValidator.validate(userVO);
@@ -110,13 +113,10 @@ public class PersonalController {
                 response.setStatus(SUCCESS);
                 response.setMessage("修改成功");
             } else {
-                response.setStatus(FAILURE);
-                response.setMessage("字段格式错误");
-                response.setData(map);
+                throw new BusinessException("字段格式错误", map);
             }
         } else {
-            response.setStatus(FAILURE);
-            response.setMessage("类型错误");
+            throw new BusinessException("类型错误");
         }
         return response;
     }
