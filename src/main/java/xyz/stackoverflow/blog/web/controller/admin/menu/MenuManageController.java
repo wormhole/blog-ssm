@@ -61,8 +61,7 @@ public class MenuManageController extends BaseController {
             vo.setId(menu.getId());
             vo.setName(HtmlUtils.htmlEscape(menu.getName()));
             vo.setUrl(menu.getUrl());
-            vo.setDeleteAble(menu.getDeleteAble());
-            if (vo.getDeleteAble() == 0) {
+            if (menu.getDeleteAble() == 0) {
                 vo.setDeleteTag("否");
             } else {
                 vo.setDeleteTag("是");

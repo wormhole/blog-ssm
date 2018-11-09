@@ -17,12 +17,14 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data['email'] !== undefined) {
-                        $('#email-error').html(response.data['email']);
-                        $('#email-error').removeClass('hidden');
-                    } else if (response.data['nickname'] !== undefined) {
-                        $('#nickname-error').html(response.data['nickname']);
-                        $('#nickname-error').removeClass('hidden');
+                    if (response.data !== undefined) {
+                        if (response.data['email'] !== undefined) {
+                            $('#email-error').html(response.data['email']);
+                            $('#email-error').removeClass('hidden');
+                        } else if (response.data['nickname'] !== undefined) {
+                            $('#nickname-error').html(response.data['nickname']);
+                            $('#nickname-error').removeClass('hidden');
+                        }
                     }
                 }
             },
@@ -49,12 +51,14 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data['oldPassword'] !== undefined) {
-                        $('#old-password-error').html(response.data['oldPassword']);
-                        $('#old-password-error').removeClass('hidden');
-                    } else if (response.data['password'] !== undefined) {
-                        $('#new-password-error').html(response.data['password']);
-                        $('#new-password-error').removeClass('hidden');
+                    if (response.data !== undefined) {
+                        if (response.data['oldPassword'] !== undefined) {
+                            $('#old-password-error').html(response.data['oldPassword']);
+                            $('#old-password-error').removeClass('hidden');
+                        } else if (response.data['password'] !== undefined) {
+                            $('#new-password-error').html(response.data['password']);
+                            $('#new-password-error').removeClass('hidden');
+                        }
                     }
                 }
             },

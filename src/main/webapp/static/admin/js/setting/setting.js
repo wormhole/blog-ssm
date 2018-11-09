@@ -17,26 +17,28 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data['title'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['title']
-                        });
-                    } else if (response.data['keywords'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['keywords']
-                        });
-                    } else if (response.data['description'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['description']
-                        });
-                    } else if (response.data['copyright'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['copyright']
-                        });
+                    if (response.data !== undefined) {
+                        if (response.data['title'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['title']
+                            });
+                        } else if (response.data['keywords'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['keywords']
+                            });
+                        } else if (response.data['description'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['description']
+                            });
+                        } else if (response.data['copyright'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['copyright']
+                            });
+                        }
                     }
                 }
             },
@@ -63,16 +65,18 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data['nickname'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['nickname']
-                        });
-                    } else if (response.data['signature'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['signature']
-                        });
+                    if (response.data !== undefined) {
+                        if (response.data['nickname'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['nickname']
+                            });
+                        } else if (response.data['signature'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['signature']
+                            });
+                        }
                     }
                 }
             },
@@ -99,11 +103,13 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data['limit'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['limit']
-                        });
+                    if (response.data !== undefined) {
+                        if (response.data['limit'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['limit']
+                            });
+                        }
                     }
                 }
             },

@@ -10,7 +10,7 @@ layui.use(['element', 'jquery', 'layer'], function () {
 
     $('button').click(function () {
         var url = $('.select').attr('src');
-        if (url != undefined) {
+        if (url !== undefined) {
             layer.confirm('确认删除该图片吗', function (index) {
                 deleteImage(url);
                 layer.close(index);
@@ -23,21 +23,21 @@ layui.use(['element', 'jquery', 'layer'], function () {
             url: "/admin/media/image/delete?url=" + url,
             type: "post",
             dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status == 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                     $('.select').remove();
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"

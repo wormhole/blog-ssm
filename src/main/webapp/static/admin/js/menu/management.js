@@ -75,7 +75,9 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
                 var param = {
                     data: {
-                        menu: [data]
+                        menu: [{
+                            id: data.id
+                        }]
                     }
                 };
                 deleteMenuAjax(param);
@@ -94,7 +96,11 @@ layui.use(['table', 'jquery', 'layer'], function () {
         } else {
             var param = {
                 data: {
-                    menu: [obj.data]
+                    menu: [{
+                        id: obj.data.id,
+                        name: obj.data.name,
+                        url: obj.data.url
+                    }]
                 }
             };
             updateMenuAjax(param);

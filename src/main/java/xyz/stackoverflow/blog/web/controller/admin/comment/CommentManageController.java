@@ -61,7 +61,6 @@ public class CommentManageController extends BaseController {
             vo.setDateString(sdf.format(comment.getDate()));
             vo.setContent(HtmlUtils.htmlEscape(comment.getContent()));
             vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.getArticleById(comment.getArticleId()).getTitle()));
-            vo.setReview(comment.getReview());
             if (comment.getReview() == 0) {
                 vo.setReviewTag("否");
             } else {
