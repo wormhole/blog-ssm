@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.Response;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.pojo.vo.SettingVO;
 import xyz.stackoverflow.blog.service.SettingService;
-import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.validator.SettingValidator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/setting")
-public class SettingController {
+public class SettingController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -43,20 +44,30 @@ public class SettingController {
     /**
      * 更改基础设置
      *
-     * @param settingVOS
+     * @param dto
      * @param request
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response update(@RequestBody SettingVO[] settingVOS, HttpServletRequest request) {
+    public Response update(@RequestBody BaseDTO dto, HttpServletRequest request) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
         ServletContext application = request.getServletContext();
 
-        Map<String, String> map = settingValidator.validate(settingVOS);
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("setting", SettingVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("未找到请求数据");
+        }
+        List<AbstractVO> voList = voMap.get("setting");
+        SettingVO[] vos = voList.toArray(new SettingVO[0]);
+
+        Map<String, String> map = settingValidator.validate(vos);
 
         if (map.size() == 0) {
-            for (SettingVO settingVO : settingVOS) {
+            for (SettingVO settingVO : vos) {
                 Setting setting = settingVO.toSetting();
                 settingService.updateSetting(setting);
             }
@@ -71,9 +82,7 @@ public class SettingController {
             response.setStatus(SUCCESS);
             response.setMessage("配置更改成功");
         } else {
-            response.setStatus(FAILURE);
-            response.setMessage("字段验证出错");
-            response.setData(map);
+            throw new BusinessException("字段格式错误", map);
         }
         return response;
     }

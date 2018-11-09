@@ -56,9 +56,9 @@ public class SettingValidator extends AbstractBaseValidator<SettingVO[]> {
                         map.put("signature", "签名长度应该在0到20之间");
                     }
                     break;
-                case "items":
+                case "limit":
                     if (!validateItems(settingVO.getValue())) {
-                        map.put("items", "每页显示的文章数只能为数字");
+                        map.put("limit", "每页显示的文章数只能为数字");
                     }
                     break;
                 default:

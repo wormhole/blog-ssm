@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class Setting implements Serializable {
 
-    protected String id;
-    protected String key;
-    protected String value;
+    private String id;
+    private String key;
+    private String value;
 
     public Setting(){
 

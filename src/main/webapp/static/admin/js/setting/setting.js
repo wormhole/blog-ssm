@@ -3,44 +3,44 @@ layui.use(['layer', 'jquery'], function () {
     var layer = layui.layer;
     var $ = layui.$;
 
-    function updateSEOAjax(data) {
+    function updateSEOAjax(param) {
         $.ajax({
             url: "/admin/setting/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
-                    if (data.data['title'] != undefined) {
+                    if (response.data['title'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['title']
+                            content: response.data['title']
                         });
-                    } else if (data.data['keywords'] != undefined) {
+                    } else if (response.data['keywords'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['keywords']
+                            content: response.data['keywords']
                         });
-                    } else if (data.data['description'] != undefined) {
+                    } else if (response.data['description'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['description']
+                            content: response.data['description']
                         });
-                    } else if (data.data['copyright'] != undefined) {
+                    } else if (response.data['copyright'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['copyright']
+                            content: response.data['copyright']
                         });
                     }
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -49,34 +49,34 @@ layui.use(['layer', 'jquery'], function () {
         });
     }
 
-    function updateBaseAjax(data) {
+    function updateBaseAjax(param) {
         $.ajax({
             url: "/admin/setting/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
-                    if (data.data['nickname'] != undefined) {
+                    if (response.data['nickname'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['nickname']
+                            content: response.data['nickname']
                         });
-                    } else if (data.data['signature'] != undefined) {
+                    } else if (response.data['signature'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['signature']
+                            content: response.data['signature']
                         });
                     }
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -85,29 +85,29 @@ layui.use(['layer', 'jquery'], function () {
         });
     }
 
-    function updateArticleAjax(data) {
+    function updateLimitAjax(param) {
         $.ajax({
             url: "/admin/setting/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
-                    if (data.data['items'] != undefined) {
+                    if (response.data['limit'] !== undefined) {
                         layer.open({
                             type: 0,
-                            content: data.data['items']
+                            content: response.data['limit']
                         });
                     }
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -125,21 +125,21 @@ layui.use(['layer', 'jquery'], function () {
             processData: false,
             contentType: false,
             dataType: "json",
-            success: function (data) {
-                if (data.status == 0) {
-                    $('#head').attr('src', data.data.head);
+            success: function (response) {
+                if (response.status === 0) {
+                    $('#head').attr('src', response.data.head);
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -181,7 +181,13 @@ layui.use(['layer', 'jquery'], function () {
         data.push({key: 'description', value: description});
         data.push({key: 'copyright', value: copyright});
 
-        updateSEOAjax(data);
+        var param = {
+            data: {
+                setting: data
+            }
+        };
+
+        updateSEOAjax(param);
     });
 
     $('#base-btn').click(function () {
@@ -192,7 +198,13 @@ layui.use(['layer', 'jquery'], function () {
         data.push({key: 'nickname', value: nickname});
         data.push({key: 'signature', value: signature});
 
-        updateBaseAjax(data);
+        var param = {
+            data: {
+                setting: data
+            }
+        };
+
+        updateBaseAjax(param);
     });
 
     $('#article-btn').click(function () {
@@ -201,7 +213,13 @@ layui.use(['layer', 'jquery'], function () {
         var data = [];
         data.push({key: 'limit', value: limit});
 
-        updateArticleAjax(data);
+        var param = {
+            data: {
+                setting: data
+            }
+        };
+
+        updateLimitAjax(param);
     });
 
     $('#head-btn').click(function () {
