@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class Permission implements Serializable {
 
-    protected String id;
-    protected String permissionName;
-    protected String permissionCode;
+    private String id;
+    private String permissionName;
+    private String permissionCode;
 
     public Permission(){
 

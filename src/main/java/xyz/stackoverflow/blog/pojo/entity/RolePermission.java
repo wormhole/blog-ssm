@@ -6,9 +6,9 @@ package xyz.stackoverflow.blog.pojo.entity;
  * @author 凉衫薄
  */
 public class RolePermission {
-    protected String id;
-    protected String roleId;
-    protected String permissionId;
+    private String id;
+    private String roleId;
+    private String permissionId;
 
     public RolePermission(){
 

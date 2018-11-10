@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class Role implements Serializable {
 
-    protected String id;
-    protected String roleName;
-    protected String roleCode;
+    private String id;
+    private String roleName;
+    private String roleCode;
 
     public Role(){
 

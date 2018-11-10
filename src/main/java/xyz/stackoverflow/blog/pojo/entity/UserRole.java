@@ -8,9 +8,9 @@ import java.io.Serializable;
  * @author 凉衫薄
  */
 public class UserRole implements Serializable {
-    protected String id;
-    protected String userId;
-    protected String roleId;
+    private String id;
+    private String userId;
+    private String roleId;
 
     public UserRole(){
 

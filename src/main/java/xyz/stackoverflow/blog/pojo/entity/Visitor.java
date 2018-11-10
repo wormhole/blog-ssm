@@ -10,10 +10,10 @@ import java.util.Date;
  */
 public class Visitor implements Serializable {
 
-    protected String id;
-    protected String ip;
-    protected String agent;
-    protected Date date;
+    private String id;
+    private String ip;
+    private String agent;
+    private Date date;
 
     public Visitor(){
 
