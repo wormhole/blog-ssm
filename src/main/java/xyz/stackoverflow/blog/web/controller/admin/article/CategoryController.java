@@ -3,15 +3,16 @@ package xyz.stackoverflow.blog.web.controller.admin.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.CategoryValidator;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class CategoryController {
+public class CategoryController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -40,31 +41,34 @@ public class CategoryController {
      * 新增分类 /admin/article/category/insert
      * 方法 POST
      *
-     * @param categoryVO
+     * @param dto
      * @return
      */
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Response insert(@RequestBody CategoryVO categoryVO) {
+    public Response insert(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("category", CategoryVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
 
         Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段格式有误");
-            response.setData(map);
+            throw new BusinessException("字段错误", map);
         } else {
             Category category = categoryVO.toCategory();
             if (categoryService.isExistName(categoryVO.getCategoryName())) {
-                response.setStatus(FAILURE);
-                response.setMessage("分类名已经存在");
                 map.put("name", "分类名重复");
-                response.setData(map);
+                throw new BusinessException("分类名已经存在", map);
             } else if (categoryService.isExistCode(categoryVO.getCategoryCode())) {
-                response.setStatus(FAILURE);
-                response.setMessage("分类编码已经存在");
                 map.put("code", "分类编码重复");
-                response.setData(map);
+                throw new BusinessException("分类编码已经存在", map);
             } else {
                 category.setDeleteAble(1);
                 categoryService.insertCategory(category);
@@ -124,17 +128,26 @@ public class CategoryController {
      * 删除分类 /admin/article/category/delete
      * 方法POST
      *
-     * @param categoryVO
+     * @param dto
      * @return
      */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response delete(@RequestBody CategoryVO categoryVO) {
+    public Response delete(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("category", CategoryVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
+
         Category category = categoryService.getCategoryById(categoryVO.getId());
         if (category.getDeleteAble() == 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("该分类不允许删除");
+            throw new BusinessException("改分类不允许删除");
         } else {
             Category unCategory = categoryService.getCategoryByCode("uncategory");
             List<Article> list = articleService.getAllArticle();
@@ -155,13 +168,22 @@ public class CategoryController {
      * 更新分类 /admin/article/category/update
      * 方法 POST
      *
-     * @param categoryVO
+     * @param dto
      * @return
      */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response update(@RequestBody CategoryVO categoryVO) {
+    public Response update(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("category", CategoryVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
 
         Map<String, String> map = categoryValidator.validate(categoryVO);
         if (map.size() != 0) {
@@ -171,23 +193,17 @@ public class CategoryController {
         } else {
             Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
             if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.isExistName(categoryVO.getCategoryName())) {
-                response.setStatus(FAILURE);
-                response.setMessage("新分类名已经存在");
                 map.put("name", "分类名重复");
-                response.setData(map);
+                throw new BusinessException("新分类名已经存在", map);
             } else if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.isExistCode(categoryVO.getCategoryCode())) {
-                response.setStatus(FAILURE);
-                response.setMessage("新分类编码已经存在");
                 map.put("code", "分类编码重复");
-                response.setData(map);
+                throw new BusinessException("新分类编码已经存在", map);
             } else if (categoryService.updateCategory(categoryVO.toCategory()) != null) {
                 response.setStatus(SUCCESS);
                 response.setMessage("更新成功");
             } else {
-                response.setStatus(FAILURE);
-                response.setMessage("该分类不允许修改或未找到该分类");
                 map.put("other", "该分类不允许修改或未找到该分类");
-                response.setData(map);
+                throw new BusinessException("该分类不允许修改或未找到该分类", map);
             }
         }
         return response;

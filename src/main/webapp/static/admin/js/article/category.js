@@ -32,7 +32,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var tableIns = table.render(parameter);
 
     table.on('toolbar(category-table-1)', function (obj) {
-        if (obj.event == 'add') {
+        if (obj.event === 'add') {
             layer.open({
                 type: 1,
                 title: '新增',
@@ -52,7 +52,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         var data = {};
                         data['categoryCode'] = categoryCode;
                         data['categoryName'] = categoryName;
-                        insertCategoryAjax(data);
+                        var param = {
+                            data: {
+                                category: [data]
+                            }
+                        };
+                        insertCategoryAjax(param);
                         layer.close(index);
                     }
                 }
@@ -66,7 +71,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         if (layEvent === 'del') {
             layer.confirm('确认删除该分类吗', function (index) {
-                deleteCategoryAjax(data);
+                var param = {
+                    data: {
+                        category: [{id: data.id}]
+                    }
+                };
+                deleteCategoryAjax(param);
                 layer.close(index);
             });
         }
@@ -80,32 +90,42 @@ layui.use(['table', 'jquery', 'layer'], function () {
             });
             tableIns.reload(parameter);
         } else {
-            updateCategoryAjax(obj.data);
+            var data = {
+                id: obj.data.id,
+                categoryCode: obj.data.categoryCode,
+                categoryName: obj.data.categoryName
+            };
+            var param = {
+                data: {
+                    category: [data]
+                }
+            };
+            updateCategoryAjax(param);
         }
     });
 
-    function updateCategoryAjax(data) {
+    function updateCategoryAjax(param) {
         $.ajax({
             url: "/admin/article/category/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -114,28 +134,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function deleteCategoryAjax(data) {
+    function deleteCategoryAjax(param) {
         $.ajax({
             url: "/admin/article/category/delete",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
@@ -144,28 +164,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function insertCategoryAjax(data) {
+    function insertCategoryAjax(param) {
         $.ajax({
             url: "/admin/article/category/insert",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
