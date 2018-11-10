@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author 凉衫薄
  */
 @Component
-public class DbProperties implements Serializable {
+public class DBProperties implements Serializable {
 
     @Value("${jdbc.username}")
     private String username;

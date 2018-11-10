@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.DbProperties;
+import xyz.stackoverflow.blog.pojo.DBProperties;
 import xyz.stackoverflow.blog.util.DBUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ import java.io.InputStream;
 public class BackupController {
 
     @Autowired
-    private DbProperties properties;
+    private DBProperties properties;
 
     /**
      * 导出sql备份文件
