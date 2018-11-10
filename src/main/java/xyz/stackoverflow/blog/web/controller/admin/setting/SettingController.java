@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.pojo.vo.SettingVO;
 import xyz.stackoverflow.blog.service.SettingService;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.SettingValidator;
 
 import javax.servlet.ServletContext;
@@ -125,8 +125,7 @@ public class SettingController extends BaseController {
             response.setMessage("修改成功");
             response.setData(setting);
         } catch (IOException e) {
-            response.setStatus(FAILURE);
-            response.setMessage("头像上传失败");
+            throw new BusinessException("头像上传失败");
         }
         return response;
     }

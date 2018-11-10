@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.pojo.vo.VisitVO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
+import xyz.stackoverflow.blog.util.DateUtil;
+import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.util.Response;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -46,7 +46,6 @@ public class WelcomeController {
         List<Integer> visitList = new ArrayList<>();
         List<Integer> visitorList = new ArrayList<>();
         Map<String, List> map = new HashMap<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -60,7 +59,7 @@ public class WelcomeController {
             Date endDate = calendar.getTime();
             int visitCount = visitService.getVisitCountByDate(startDate, endDate);
             int visitorCount = visitorService.getVisitorCountByDate(startDate, endDate);
-            dateList.add(sdf.format(startDate));
+            dateList.add(DateUtil.formatDate(startDate));
             visitList.add(visitCount);
             visitorList.add(visitorCount);
         }
@@ -99,7 +98,6 @@ public class WelcomeController {
         int count = visitService.getVisitCountByDate(startDate, endDate);
 
         List<VisitVO> voList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (Visit visit : list) {
             VisitVO vo = new VisitVO();
@@ -107,7 +105,7 @@ public class WelcomeController {
             vo.setUrl(visit.getUrl());
             vo.setStatus(visit.getStatus());
             vo.setAgent(visit.getAgent());
-            vo.setDateString(sdf.format(visit.getDate()));
+            vo.setDateString(DateUtil.formatDateTime(visit.getDate()));
             voList.add(vo);
         }
 
@@ -139,15 +137,14 @@ public class WelcomeController {
 
 
         List<VisitVO> voList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (Visit visit : list) {
             VisitVO vo = new VisitVO();
             vo.setIp(visit.getIp());
             vo.setUrl(visit.getUrl());
-            vo.setStatus(visit.getStatus());
             vo.setAgent(visit.getAgent());
-            vo.setDateString(sdf.format(visit.getDate()));
+            vo.setStatus(visit.getStatus());
+            vo.setDateString(DateUtil.formatDateTime(visit.getDate()));
             voList.add(vo);
         }
 

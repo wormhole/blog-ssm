@@ -15,13 +15,11 @@ import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.*;
-import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,8 +45,6 @@ public class ArticleManageController extends BaseController {
     private CategoryService categoryService;
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private ArticleValidator articleValidator;
 
     /**
      * 获取文章 /admin/article/list
@@ -68,15 +64,15 @@ public class ArticleManageController extends BaseController {
 
         int count = articleService.getArticleCountWithHidden();
         List<ArticleVO> voList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         for (Article article : list) {
             ArticleVO vo = new ArticleVO();
             vo.setId(article.getId());
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
-            vo.setCreateDateString(sdf.format(article.getCreateDate()));
-            vo.setModifyDateString(sdf.format(article.getModifyDate()));
+            vo.setCreateDateString(DateUtil.formatDateTime(article.getCreateDate()));
+            vo.setModifyDateString(DateUtil.formatDateTime(article.getModifyDate()));
             vo.setHits(article.getHits());
             vo.setLikes(article.getLikes());
             vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
@@ -187,7 +183,7 @@ public class ArticleManageController extends BaseController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment;filename=" + filename);
         HttpStatus status = HttpStatus.OK;
-        ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, status);
+        ResponseEntity<byte[]> entity = new ResponseEntity<>(body, headers, status);
         return entity;
     }
 

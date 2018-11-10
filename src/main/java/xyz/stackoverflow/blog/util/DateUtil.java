@@ -21,4 +21,26 @@ public class DateUtil {
         String datePath = sdf.format(date);
         return datePath;
     }
+
+    /**
+     * 格式化日期(只格式化日期，不格式化时间)
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+
+    /**
+     * 格式化日期(格式化日期和时间)
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDateTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
 }

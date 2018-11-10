@@ -16,9 +16,9 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.util.DateUtil;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +56,6 @@ public class ArticlePageController {
     public ModelAndView article(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("day") String day, @PathVariable("articleCode") String articleCode, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat commentSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Article article = articleService.getArticleByUrl(url);
         if (article != null) {
@@ -71,7 +69,7 @@ public class ArticlePageController {
             articleVO.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             articleVO.setHits(article.getHits());
             articleVO.setLikes(article.getLikes());
-            articleVO.setCreateDateString(sdf.format(article.getCreateDate()));
+            articleVO.setCreateDateString(DateUtil.formatDate(article.getCreateDate()));
             articleVO.setArticleMd(article.getArticleMd());
 
             List<Comment> commentList = commentService.getCommentByArticleId(article.getId());
@@ -79,7 +77,7 @@ public class ArticlePageController {
             for (Comment comment : commentList) {
                 CommentVO commentVO = new CommentVO();
                 commentVO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
-                commentVO.setDateString(commentSdf.format(comment.getDate()));
+                commentVO.setDateString(DateUtil.formatDateTime(comment.getDate()));
                 commentVO.setContent(HtmlUtils.htmlEscape(comment.getContent()));
                 if (comment.getReplyTo() != null) {
                     commentVO.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));

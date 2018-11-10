@@ -18,11 +18,11 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.PageParameter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,6 @@ public class CategoryPageController {
     @RequestMapping(value = "/category/{categoryCode}", method = RequestMethod.GET)
     public ModelAndView categoryArticle(@PathVariable("categoryCode") String categoryCode, @RequestParam(value = "page", required = false, defaultValue = "1") String page, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ServletContext application = request.getServletContext();
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
@@ -73,7 +72,7 @@ public class CategoryPageController {
                 vo.setLikes(article.getLikes());
                 vo.setPreview(Jsoup.parse(article.getArticleHtml()).text());
                 vo.setUrl(article.getUrl());
-                vo.setCreateDateString(sdf.format(article.getCreateDate()));
+                vo.setCreateDateString(DateUtil.formatDate(article.getCreateDate()));
                 articleVOList.add(vo);
             }
 

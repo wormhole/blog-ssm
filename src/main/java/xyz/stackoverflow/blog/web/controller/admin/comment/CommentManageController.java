@@ -7,12 +7,11 @@ import org.springframework.web.util.HtmlUtils;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
-import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
+import xyz.stackoverflow.blog.util.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +49,6 @@ public class CommentManageController extends BaseController {
 
         int count = commentService.getCommentCount();
         List<CommentVO> voList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         for (Comment comment : list) {
             CommentVO vo = new CommentVO();
@@ -58,7 +56,7 @@ public class CommentManageController extends BaseController {
             vo.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
             vo.setEmail(HtmlUtils.htmlEscape(comment.getEmail()));
             vo.setWebsite(comment.getWebsite());
-            vo.setDateString(sdf.format(comment.getDate()));
+            vo.setDateString(DateUtil.formatDateTime(comment.getDate()));
             vo.setContent(HtmlUtils.htmlEscape(comment.getContent()));
             vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.getArticleById(comment.getArticleId()).getTitle()));
             if (comment.getReview() == 0) {
