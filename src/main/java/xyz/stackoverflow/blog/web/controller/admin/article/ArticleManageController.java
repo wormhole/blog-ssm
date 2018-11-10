@@ -7,19 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ArticleManageController {
+public class ArticleManageController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -53,9 +54,9 @@ public class ArticleManageController {
      * 获取文章 /admin/article/list
      * 方法 GET
      *
-     * @param page  分页查询页码
-     * @param limit 每页的条目
-     * @return 返回ResponseVO
+     * @param page
+     * @param limit
+     * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -64,7 +65,6 @@ public class ArticleManageController {
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
         List<Article> list = articleService.getLimitArticleWithHidden(pageParameter);
-
 
         int count = articleService.getArticleCountWithHidden();
         List<ArticleVO> voList = new ArrayList<>();
@@ -81,7 +81,6 @@ public class ArticleManageController {
             vo.setLikes(article.getLikes());
             vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setUrl(article.getUrl());
-            vo.setHidden(article.getHidden());
             if (article.getHidden() == 0) {
                 vo.setHiddenTag("否");
             } else {
@@ -103,16 +102,26 @@ public class ArticleManageController {
      * 文章删除 /admin/article/delete
      * 方法 POST
      *
-     * @param articleVO 文章VO数组
-     * @return 返回ResponseVO
+     * @param dto
+     * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response delete(@RequestBody ArticleVO[] articleVO) {
+    public Response delete(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
-        for (ArticleVO vo : articleVO) {
-            articleService.deleteArticleById(vo.getId());
-            commentService.deleteCommentByArticleId(vo.getId());
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("article", ArticleVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        List<AbstractVO> voList = voMap.get("article");
+        for (AbstractVO vo : voList) {
+            ArticleVO articleVO = (ArticleVO) vo;
+            articleService.deleteArticleById(articleVO.getId());
+            commentService.deleteCommentByArticleId(articleVO.getId());
         }
         response.setStatus(SUCCESS);
         response.setMessage("删除成功");
@@ -122,13 +131,22 @@ public class ArticleManageController {
     /**
      * 设置文章是否显示
      *
-     * @param articleVO
+     * @param dto
      * @return
      */
-    @RequestMapping(value = "/visitable", method = RequestMethod.POST)
+    @RequestMapping(value = "/visible", method = RequestMethod.POST)
     @ResponseBody
-    public Response visitable(@RequestBody ArticleVO articleVO) {
+    public Response visible(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String, Class<? extends AbstractVO>> classMap = new HashMap<String, Class<? extends AbstractVO>>() {{
+            put("article", ArticleVO.class);
+        }};
+        Map<String, List<AbstractVO>> voMap = dto2vo(classMap, dto);
+        if (voMap == null || voMap.size() == 0) {
+            throw new BusinessException("找不到请求数据");
+        }
+        ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
         Article article = articleVO.toArticle();
 
         if (articleService.updateArticle(article) != null) {
@@ -139,11 +157,10 @@ public class ArticleManageController {
                 response.setMessage("显示成功");
             }
         } else {
-            response.setStatus(FAILURE);
             if (article.getHidden() == 1) {
-                response.setMessage("隐藏失败");
+                throw new BusinessException("隐藏失败");
             } else {
-                response.setMessage("显示失败");
+                throw new BusinessException("显示失败");
             }
         }
         return response;

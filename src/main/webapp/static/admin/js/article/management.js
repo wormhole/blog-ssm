@@ -44,15 +44,23 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         if (layEvent === 'show') {
             var param = {
-                id: data.id,
-                hidden: 0
-            }
+                data: {
+                    article: [{
+                        id: data.id,
+                        hidden: 0
+                    }]
+                }
+            };
             showHiddenAjax(param);
         } else if (layEvent === 'hidden') {
             var param = {
-                id: data.id,
-                hidden: 1
-            }
+                data: {
+                    article: [{
+                        id: data.id,
+                        hidden: 1
+                    }]
+                }
+            };
             showHiddenAjax(param);
         } else if (layEvent === 'export') {
             window.location.href = "/admin/article/export?id=" + data.id;
@@ -61,7 +69,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
     table.on('toolbar(article-table-1)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
-        if (obj.event == 'add') {
+        if (obj.event === 'add') {
             layer.open({
                 type: 2,
                 title: '写文章',
@@ -74,8 +82,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     tableIns.reload(parameter);
                 }
             });
-        } else if (obj.event == 'update') {
-            if (checkStatus.data.length == 1) {
+        } else if (obj.event === 'update') {
+            if (checkStatus.data.length === 1) {
                 layer.open({
                     type: 2,
                     title: '写文章',
@@ -94,8 +102,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     content: "只能选中一篇进行编辑"
                 });
             }
-        } else if (obj.event == 'delete') {
-            if (checkStatus.data.length == 0) {
+        } else if (obj.event === 'delete') {
+            if (checkStatus.data.length === 0) {
                 layer.open({
                     type: 0,
                     content: "至少选中一条"
@@ -109,35 +117,40 @@ layui.use(['table', 'jquery', 'layer'], function () {
                         };
                         data.push(item);
                     }
-                    deleteArticleAjax(data);
+                    var param = {
+                        data: {
+                            article: data
+                        }
+                    };
+                    deleteArticleAjax(param);
                     layer.close(index);
                 });
             }
         }
     });
 
-    function deleteArticleAjax(data) {
+    function deleteArticleAjax(param) {
         $.ajax({
             url: "/admin/article/delete",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     tableIns.reload(parameter);
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (reponse) {
                 layer.open({
                     type: 0,
                     content: "请求失败"
@@ -146,28 +159,28 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function showHiddenAjax(data) {
+    function showHiddenAjax(param) {
         $.ajax({
-            url: "/admin/article/visitable",
+            url: "/admin/article/visible",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
                 tableIns.reload(parameter);
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误"
