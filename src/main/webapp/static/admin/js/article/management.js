@@ -29,7 +29,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'likes', width: 100, title: '点赞', sort: true},
             {field: 'hits', width: 100, title: '点击量', sort: true},
             {field: 'commentCount', width: 100, title: '评论量', sort: true},
-            {field: 'hiddenTag', width: 100, title: '是否隐藏'},
+            {field: 'visibleTag', width: 100, title: '是否隐藏'},
             {field: 'createDateString', width: 180, title: '创建日期', sort: true},
             {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
             {fixed: 'right', width: 220, title: '操作', toolbar: '#toolbar-col'}
@@ -47,7 +47,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 data: {
                     article: [{
                         id: data.id,
-                        hidden: 0
+                        visible: 1
                     }]
                 }
             };
@@ -57,7 +57,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 data: {
                     article: [{
                         id: data.id,
-                        hidden: 1
+                        visible: 0
                     }]
                 }
             };

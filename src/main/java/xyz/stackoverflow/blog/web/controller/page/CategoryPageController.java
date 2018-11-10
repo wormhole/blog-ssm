@@ -66,7 +66,7 @@ public class CategoryPageController {
             for (Article article : articleList) {
                 ArticleVO vo = new ArticleVO();
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-                vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
+                vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
                 vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
                 vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
                 vo.setHits(article.getHits());

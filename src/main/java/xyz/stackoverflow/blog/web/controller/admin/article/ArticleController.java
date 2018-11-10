@@ -123,7 +123,7 @@ public class ArticleController extends BaseController {
                 article.setUserId(user.getId());
                 article.setHits(0);
                 article.setLikes(0);
-                article.setHidden(0);
+                article.setVisible(1);
                 articleService.insertArticle(article);
                 response.setStatus(SUCCESS);
                 response.setMessage("保存成功");

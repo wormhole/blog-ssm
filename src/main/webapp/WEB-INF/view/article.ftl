@@ -52,7 +52,7 @@
                         </div>
                         <div>
                             <span class="oi oi-person" aria-hidden="true"></span>
-                            <span>${article.nickname}</span>
+                            <span>${article.author}</span>
                         </div>
                         <div>
                             <span class="oi oi-tags" aria-hidden="true"></span>

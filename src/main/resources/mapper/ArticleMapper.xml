@@ -17,7 +17,7 @@
         <result property="url" column="url"></result>
         <result property="hits" column="hits"></result>
         <result property="likes" column="likes"></result>
-        <result property="hidden" column="hidden"></result>
+        <result property="visible" column="visible"></result>
     </resultMap>
 
     <select id="getAllArticle" resultMap="articleMap" resultType="article">
@@ -25,7 +25,7 @@
     </select>
 
     <select id="getLimitArticle" resultMap="articleMap" resultType="article">
-        select * from article where hidden = 0 order by createdate desc limit #{start},#{limit}
+        select * from article where visible = 1 order by createdate desc limit #{start},#{limit}
     </select>
 
     <select id="getLimitArticleWithHidden" resultMap="articleMap" resultType="article">
@@ -33,11 +33,11 @@
     </select>
 
     <select id="getLimitArticleByCategoryId" resultMap="articleMap" resultType="article">
-        select * from article where categoryid = #{where} and hidden = 0 order by createdate desc limit #{start},#{limit}
+        select * from article where categoryid = #{where} and visible = 1 order by createdate desc limit #{start},#{limit}
     </select>
 
     <select id="getArticleCount" resultType="int">
-        select count(*) from article where hidden = 0
+        select count(*) from article where visible = 1
     </select>
 
     <select id="getArticleCountWithHidden" resultType="int">
@@ -45,7 +45,7 @@
     </select>
 
     <select id="getArticleCountByCategoryId" resultType="int" parameterType="string">
-        select count(*) from article where categoryid = #{categoryId} and hidden = 0
+        select count(*) from article where categoryid = #{categoryId} and visible = 1
     </select>
 
     <select id="getArticleById" resultMap="articleMap" parameterType="string" resultType="article">
@@ -61,7 +61,7 @@
     </select>
 
     <insert id="insertArticle" parameterType="article">
-        insert into article(id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,hidden) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes},#{hidden})
+        insert into article(id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes},#{visible})
     </insert>
 
     <update id="updateArticle" parameterType="article">
@@ -91,8 +91,8 @@
             <if test="likes!=null">
                 likes = #{likes},
             </if>
-            <if test="hidden!=null">
-                hidden = #{hidden}
+            <if test="visible!=null">
+                visible = #{visible}
             </if>
         </set>
         where id = #{id}

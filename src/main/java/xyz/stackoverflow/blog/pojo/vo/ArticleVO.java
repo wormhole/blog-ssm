@@ -23,22 +23,22 @@ public class ArticleVO implements AbstractVO {
     private Integer hits;
     private Integer likes;
     private String url;
-    private Integer hidden;
+    private Integer visible;
 
     private String articleCode;
-    private String nickname;
+    private String author;
     private String categoryName;
     private String createDateString;
     private String modifyDateString;
     private String preview;
     private Integer commentCount;
-    private String hiddenTag;
+    private String visibleTag;
 
     public ArticleVO() {
 
     }
 
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer hidden, String articleCode, String nickname, String categoryName, String createDateString, String modifyDateString, String preview, Integer commentCount, String hiddenTag) {
+    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer visible, String articleCode, String author, String categoryName, String createDateString, String modifyDateString, String preview, Integer commentCount, String visibleTag) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -50,15 +50,15 @@ public class ArticleVO implements AbstractVO {
         this.hits = hits;
         this.likes = likes;
         this.url = url;
-        this.hidden = hidden;
+        this.visible = visible;
         this.articleCode = articleCode;
-        this.nickname = nickname;
+        this.author = author;
         this.categoryName = categoryName;
         this.createDateString = createDateString;
         this.modifyDateString = modifyDateString;
         this.preview = preview;
         this.commentCount = commentCount;
-        this.hiddenTag = hiddenTag;
+        this.visibleTag = visibleTag;
     }
 
     public String getId() {
@@ -149,12 +149,12 @@ public class ArticleVO implements AbstractVO {
         this.url = url;
     }
 
-    public Integer getHidden() {
-        return hidden;
+    public Integer getVisible() {
+        return visible;
     }
 
-    public void setHidden(Integer hidden) {
-        this.hidden = hidden;
+    public void setVisible(Integer visible) {
+        this.visible = visible;
     }
 
     public String getArticleCode() {
@@ -165,12 +165,12 @@ public class ArticleVO implements AbstractVO {
         this.articleCode = articleCode;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getCategoryName() {
@@ -213,12 +213,12 @@ public class ArticleVO implements AbstractVO {
         this.commentCount = commentCount;
     }
 
-    public String getHiddenTag() {
-        return hiddenTag;
+    public String getVisibleTag() {
+        return visibleTag;
     }
 
-    public void setHiddenTag(String hiddenTag) {
-        this.hiddenTag = hiddenTag;
+    public void setVisibleTag(String visibleTag) {
+        this.visibleTag = visibleTag;
     }
 
     /**
@@ -239,7 +239,7 @@ public class ArticleVO implements AbstractVO {
         article.setUserId(userId);
         article.setHits(hits);
         article.setLikes(likes);
-        article.setHidden(hidden);
+        article.setVisible(visible);
         return article;
     }
 }

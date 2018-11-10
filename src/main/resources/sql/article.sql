@@ -7,7 +7,7 @@ create table blog.article
   articlemd   text        not null,
   articlehtml text        not null,
   categoryid  char(36)    not null,
-  hidden      int         not null,
+  visible     int         not null,
   url         varchar(50) not null,
   likes       int         not null,
   hits        int         not null,

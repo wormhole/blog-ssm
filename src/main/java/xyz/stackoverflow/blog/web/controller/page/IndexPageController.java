@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
+import xyz.stackoverflow.blog.util.PageParameter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +60,7 @@ public class IndexPageController {
         for (Article article : articleList) {
             ArticleVO vo = new ArticleVO();
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
+            vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setHits(article.getHits());

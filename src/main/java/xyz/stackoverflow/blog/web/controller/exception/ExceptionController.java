@@ -56,8 +56,8 @@ public class ExceptionController {
         if (isAjaxRequest(request)) {
             Response response = new Response();
             response.setStatus(SERVER_STATUS);
-            response.setMessage(e.getClass().getName());
-            response.setData(e.getMessage());
+            response.setMessage(e.getMessage());
+            response.setData(e.getStackTrace());
             return response;
         } else {
             throw new ServerException(e.getClass().getName());

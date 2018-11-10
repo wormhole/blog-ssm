@@ -73,7 +73,7 @@ public class ArticleManageController extends BaseController {
             ArticleVO vo = new ArticleVO();
             vo.setId(article.getId());
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            vo.setNickname(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
+            vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
             vo.setCreateDateString(sdf.format(article.getCreateDate()));
             vo.setModifyDateString(sdf.format(article.getModifyDate()));
@@ -81,10 +81,10 @@ public class ArticleManageController extends BaseController {
             vo.setLikes(article.getLikes());
             vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setUrl(article.getUrl());
-            if (article.getHidden() == 0) {
-                vo.setHiddenTag("否");
+            if (article.getVisible() == 0) {
+                vo.setVisibleTag("否");
             } else {
-                vo.setHiddenTag("是");
+                vo.setVisibleTag("是");
             }
             voList.add(vo);
         }
@@ -151,13 +151,13 @@ public class ArticleManageController extends BaseController {
 
         if (articleService.updateArticle(article) != null) {
             response.setStatus(SUCCESS);
-            if (article.getHidden() == 1) {
+            if (article.getVisible() == 0) {
                 response.setMessage("隐藏成功");
             } else {
                 response.setMessage("显示成功");
             }
         } else {
-            if (article.getHidden() == 1) {
+            if (article.getVisible() == 0) {
                 throw new BusinessException("隐藏失败");
             } else {
                 throw new BusinessException("显示失败");
