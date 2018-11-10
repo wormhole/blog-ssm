@@ -6,21 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.util.Response;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.DateUtil;
+import xyz.stackoverflow.blog.util.*;
 import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ArticleController {
+public class ArticleController extends BaseController {
 
     private final Integer SUCCESS = 0;
     private final Integer FAILURE = 1;
@@ -43,6 +45,12 @@ public class ArticleController {
     @Autowired
     private ArticleValidator articleValidator;
 
+    /**
+     * 通过文章url获取code
+     *
+     * @param url
+     * @return
+     */
     private String urlToCode(String url) {
         String[] list = url.split("/");
         return list[list.length - 1];
@@ -82,26 +90,31 @@ public class ArticleController {
      * 保存文章 /admin/article/insert
      * 方法 POST
      *
-     * @param articleVO
+     * @param dto
      * @param session
      * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Response save(@RequestBody ArticleVO articleVO, HttpSession session) {
+    public Response save(@RequestBody BaseDTO dto, HttpSession session) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String,Class<? extends AbstractVO>> classMap = new HashMap<String,Class<? extends AbstractVO>>(){{
+           put("article",ArticleVO.class);
+        }};
+        Map<String,List<AbstractVO>> voMap = dto2vo(classMap,dto);
+        if(voMap==null || voMap.size()==0){
+            throw new BusinessException("找不到请求数据");
+        }
+        ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
 
         Map<String, String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段错误");
-            response.setData(map);
+            throw new BusinessException("字段错误",map);
         } else {
             if (articleService.isExistUrl(articleVO.getUrl())) {
-                response.setStatus(FAILURE);
-                response.setMessage("URL重复");
                 map.put("url", "URL重复");
-                response.setData(map);
+                throw new BusinessException("url重复",map);
             } else {
                 User user = (User) session.getAttribute("user");
                 Article article = articleVO.toArticle();
@@ -123,29 +136,34 @@ public class ArticleController {
      * 更新文章 /admin/article/update
      * 方法 POST
      *
-     * @param articleVO 文章VO
-     * @return 返回ResponseVO
+     * @param dto
+     * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response update(@RequestBody ArticleVO articleVO) {
+    public Response update(@RequestBody BaseDTO dto) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Response response = new Response();
+
+        Map<String,Class<? extends AbstractVO>> classMap = new HashMap<String,Class<? extends AbstractVO>>(){{
+            put("article",ArticleVO.class);
+        }};
+        Map<String,List<AbstractVO>> voMap = dto2vo(classMap,dto);
+        if(voMap==null || voMap.size()==0){
+            throw new BusinessException("找不到请求数据");
+        }
+        ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
         Article article = articleService.getArticleById(articleVO.getId());
 
         Map<String, String> map = articleValidator.validate(articleVO);
         if (map.size() != 0) {
-            response.setStatus(FAILURE);
-            response.setMessage("字段错误");
-            response.setData(map);
+            throw new BusinessException("字段错误",map);
         } else {
             String[] list = article.getUrl().split("/");
             list[list.length - 1] = articleVO.getArticleCode();
             String url = String.join("/", list);
             if (!urlToCode(article.getUrl()).equals(articleVO.getArticleCode()) && articleService.isExistUrl(url)) {
-                response.setStatus(FAILURE);
-                response.setMessage("URL重复");
                 map.put("url", "URL重复");
-                response.setData(map);
+                throw new BusinessException("url重复",map);
             } else {
                 Article updateArticle = articleVO.toArticle();
                 updateArticle.setModifyDate(new Date());

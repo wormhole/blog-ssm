@@ -30,27 +30,27 @@ layui.use(['form', 'layer'], function () {
         return null;
     }
 
-    function saveArticleAjax(data) {
+    function saveArticleAjax(param) {
         $.ajax({
             url: "/admin/article/insert",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -59,27 +59,27 @@ layui.use(['form', 'layer'], function () {
         });
     }
 
-    function updateArticleAjax(data) {
+    function updateArticleAjax(param) {
         $.ajax({
             url: "/admin/article/update",
             type: "post",
-            data: JSON.stringify(data),
+            data: JSON.stringify(param),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.status == 0) {
+            success: function (response) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 } else {
                     layer.open({
                         type: 0,
-                        content: data.message
+                        content: response.message
                     });
                 }
             },
-            error: function (data) {
+            error: function (response) {
                 layer.open({
                     type: 0,
                     content: "服务器错误",
@@ -110,7 +110,7 @@ layui.use(['form', 'layer'], function () {
         var articleCode = $('#article-code').val();
         var categoryId = $('#category-select').val();
 
-        if (title.length == 0) {
+        if (title.length === 0) {
             layer.open({
                 type: 0,
                 content: "标题不能为空"
@@ -118,14 +118,14 @@ layui.use(['form', 'layer'], function () {
             return;
         }
 
-        if (articleCode.length == 0) {
+        if (articleCode.length === 0) {
             layer.open({
                 type: 0,
                 content: "博客编码不能为空"
             });
         }
 
-        if (articleMd.length == 0) {
+        if (articleMd.length === 0) {
             layer.open({
                 type: 0,
                 content: "内容不能为空"
@@ -143,11 +143,21 @@ layui.use(['form', 'layer'], function () {
 
         if (id == null) {
             data['url'] = getDateUrl(articleCode);
-            saveArticleAjax(data);
+            var param = {
+                data:{
+                    article:[data]
+                }
+            };
+            saveArticleAjax(param);
         }
         else {
             data['id'] = id;
-            updateArticleAjax(data);
+            var param = {
+                data:{
+                    article:[data]
+                }
+            };
+            updateArticleAjax(param);
         }
     });
 });
