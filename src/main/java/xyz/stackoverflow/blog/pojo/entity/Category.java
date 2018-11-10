@@ -8,10 +8,10 @@ import java.io.Serializable;
  * @author 凉衫薄
  */
 public class Category implements Serializable {
-    protected String id;
-    protected String categoryName;
-    protected String categoryCode;
-    protected Integer deleteAble;
+    private String id;
+    private String categoryName;
+    private String categoryCode;
+    private Integer deleteAble;
 
     public Category(){
 
