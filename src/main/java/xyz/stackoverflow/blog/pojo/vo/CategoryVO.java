@@ -1,14 +1,14 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.util.AbstractVO;
+import xyz.stackoverflow.blog.util.web.SuperVO;
 
 /**
  * 分类VO
  *
  * @author 凉衫薄
  */
-public class CategoryVO implements AbstractVO {
+public class CategoryVO implements SuperVO {
 
     private String id;
     private String categoryName;

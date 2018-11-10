@@ -1,14 +1,14 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.util.AbstractVO;
+import xyz.stackoverflow.blog.util.web.SuperVO;
 
 /**
  * 用户VO
  *
  * @author 凉衫薄
  */
-public class UserVO implements AbstractVO {
+public class UserVO implements SuperVO {
 
     private String id;
     private String email;

@@ -1,32 +1,26 @@
-package xyz.stackoverflow.blog.web.controller.admin;
+package xyz.stackoverflow.blog.web.controller.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
 import xyz.stackoverflow.blog.pojo.vo.VisitVO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
 import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.PageParameter;
-import xyz.stackoverflow.blog.util.Response;
+import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.web.Response;
+import xyz.stackoverflow.blog.util.web.StatusConst;
 
 import java.util.*;
 
 /**
- * 后端欢迎页控制器
+ * 浏览量数据获取接口Controller
  *
  * @author 凉衫薄
  */
-@Controller
-@RequestMapping("/admin")
-public class WelcomeController {
-
-    private final Integer SUCCESS = 0;
-    private final Integer FAILURE = 1;
+@RestController
+@RequestMapping("/api/admin")
+public class VisitDataController {
 
     @Autowired
     private VisitService visitService;
@@ -34,12 +28,13 @@ public class WelcomeController {
     private VisitorService visitorService;
 
     /**
-     * 获取三十天内的流量记录
+     * 获取三十天内的流量记录接口
+     * /api/admin/visit/flow
+     * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/flow", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/visit/flow", method = RequestMethod.GET)
     public Response flow() {
         Response response = new Response();
         List<String> dateList = new ArrayList<>();
@@ -67,20 +62,22 @@ public class WelcomeController {
         map.put("dateList", dateList);
         map.put("visitList", visitList);
         map.put("visitorList", visitorList);
-        response.setStatus(SUCCESS);
-        response.setMessage("获取成功");
+        response.setStatus(StatusConst.SUCCESS);
+        response.setMessage("流量记录获取成功");
         response.setData(map);
         return response;
     }
 
     /**
-     * 获取今日访问记录
+     * 获取今日访问记录接口
+     * /api/admin/visit/today
+     * 方法 GET
      *
      * @param page
      * @param limit
      * @return
      */
-    @RequestMapping(value = "/today", method = RequestMethod.GET)
+    @RequestMapping(value = "/visit/today", method = RequestMethod.GET)
     @ResponseBody
     public Response today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
@@ -112,20 +109,22 @@ public class WelcomeController {
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
-        response.setStatus(SUCCESS);
+        response.setStatus(StatusConst.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
         return response;
     }
 
     /**
-     * 异常访问数据
+     * 获取异常访问记录接口
+     * /api/admin/visit/error
+     * 方法 GET
      *
      * @param page
      * @param limit
      * @return
      */
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    @RequestMapping(value = "/visit/error", method = RequestMethod.GET)
     @ResponseBody
     public Response error(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
@@ -151,18 +150,20 @@ public class WelcomeController {
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
-        response.setStatus(SUCCESS);
+        response.setStatus(StatusConst.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
         return response;
     }
 
     /**
-     * 获取流量量和访客量数据
+     * 获取访问量和访客量数据接口
+     * /api/admin/visit/count
+     * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/visit/count", method = RequestMethod.GET)
     @ResponseBody
     public Response count() {
         Response response = new Response();
@@ -186,7 +187,7 @@ public class WelcomeController {
         map.put("totalVisit", totalVisit);
         map.put("totalVisitor", totalVisitor);
 
-        response.setStatus(SUCCESS);
+        response.setStatus(StatusConst.SUCCESS);
         response.setMessage("获取成功");
         response.setData(map);
 

@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.dao.RolePermissionDao;
 import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
-import xyz.stackoverflow.blog.util.UUIDGenerator;
+import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 

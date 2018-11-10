@@ -1,15 +1,14 @@
-package xyz.stackoverflow.blog.web.controller.admin.backup;
+package xyz.stackoverflow.blog.web.controller.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.pojo.DBProperties;
-import xyz.stackoverflow.blog.util.DBUtil;
+import org.springframework.web.bind.annotation.RestController;
+import xyz.stackoverflow.blog.util.db.DBProperties;
+import xyz.stackoverflow.blog.util.db.DBUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -18,26 +17,26 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 数据库备份控制器
+ * 数据库备份接口Controller
  *
  * @author 凉衫薄
  */
-@Controller
-@RequestMapping("/admin/backup")
+@RestController
+@RequestMapping("/api/admin")
 public class BackupController {
 
     @Autowired
     private DBProperties properties;
 
     /**
-     * 导出sql备份文件
+     * 导出sql备份文件 /api/admin/backup/sql
+     * 方法 GET
      *
      * @param request
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/sql", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/backup/sql", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
         String backupPath = request.getServletContext().getRealPath("backup");
@@ -54,5 +53,4 @@ public class BackupController {
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, status);
         return entity;
     }
-
 }

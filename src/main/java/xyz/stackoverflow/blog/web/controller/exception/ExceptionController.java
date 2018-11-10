@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.exception.ServerException;
-import xyz.stackoverflow.blog.util.Response;
+import xyz.stackoverflow.blog.util.web.Response;
+import xyz.stackoverflow.blog.util.web.StatusConst;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 public class ExceptionController {
-
-    private final Integer SERVER_STATUS = 2;
-    private final Integer BUSINESS_STATUS = 1;
 
     /**
      * 处理业务异常
@@ -34,7 +32,7 @@ public class ExceptionController {
     public Response handleBusinessException(BusinessException e, HttpServletRequest request) {
         if (isAjaxRequest(request)) {
             Response response = new Response();
-            response.setStatus(BUSINESS_STATUS);
+            response.setStatus(StatusConst.FAILURE);
             response.setMessage(e.getMessage());
             response.setData(e.getData());
             return response;
@@ -55,7 +53,7 @@ public class ExceptionController {
     public Response handleException(Exception e, HttpServletRequest request) {
         if (isAjaxRequest(request)) {
             Response response = new Response();
-            response.setStatus(SERVER_STATUS);
+            response.setStatus(StatusConst.SERVER_ERROR);
             response.setMessage(e.getMessage());
             response.setData(e.getStackTrace());
             return response;
@@ -64,6 +62,12 @@ public class ExceptionController {
         }
     }
 
+    /**
+     * 判断请求是否为ajax请求
+     *
+     * @param request
+     * @return
+     */
     private boolean isAjaxRequest(HttpServletRequest request) {
         if ((request.getHeader("accept") != null && request.getHeader("accept").contains("application/json")) || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").contains("XMLHttpRequest"))) {
             return true;

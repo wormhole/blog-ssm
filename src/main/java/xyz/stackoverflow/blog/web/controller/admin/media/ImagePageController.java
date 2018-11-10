@@ -1,10 +1,9 @@
 package xyz.stackoverflow.blog.web.controller.admin.media;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.util.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -14,16 +13,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * 图片管理控制器
+ * 图片管理页面跳转Controller
  *
  * @author 凉衫薄
  */
 @Controller
 @RequestMapping("/admin/media")
-public class ImageController {
-
-    private final Integer SUCCESS = 0;
-    private final Integer FAILURE = 1;
+public class ImagePageController {
 
     /**
      * 页面跳转 /admin/media/image
@@ -35,38 +31,14 @@ public class ImageController {
     @RequestMapping(value = "/image", method = RequestMethod.GET)
     public ModelAndView image(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        String webRootDir = request.getServletContext().getRealPath("");
-        String uploadDir = webRootDir + "/upload";
+        String uploadDir = request.getServletContext().getRealPath("upload");
+
         Map<String, List<String>> imageMap = new TreeMap<>();
 
         traverseFolder(uploadDir, imageMap);
         mv.addObject("map", imageMap);
         mv.setViewName("/admin/media/image");
         return mv;
-    }
-
-    /**
-     * 图片删除接口 /admin/media/image/delete
-     * 方法 POST
-     *
-     * @param request
-     * @param url
-     * @return
-     */
-    @RequestMapping(value = "/image/delete", method = RequestMethod.POST)
-    @ResponseBody
-    public Response delete(HttpServletRequest request, @RequestParam("url") String url) {
-        Response response = new Response();
-        String webRootDir = request.getServletContext().getRealPath("");
-        File file = new File(webRootDir, url);
-        if (file.exists()) {
-            file.delete();
-            response.setStatus(SUCCESS);
-            response.setMessage("图片删除成功");
-        } else {
-            throw new BusinessException("图片删除失败");
-        }
-        return response;
     }
 
     /**

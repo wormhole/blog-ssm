@@ -1,9 +1,9 @@
 package xyz.stackoverflow.blog.web.task;
 
 import org.apache.ibatis.io.Resources;
-import xyz.stackoverflow.blog.util.DBUtil;
+import xyz.stackoverflow.blog.util.db.DBUtil;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.TimerTask;
 

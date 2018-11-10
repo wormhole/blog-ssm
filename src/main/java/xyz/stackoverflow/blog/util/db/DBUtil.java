@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.util;
+package xyz.stackoverflow.blog.util.db;
 
 import java.io.*;
 

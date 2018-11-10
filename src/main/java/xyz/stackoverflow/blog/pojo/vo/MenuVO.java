@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
 import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.util.AbstractVO;
+import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class MenuVO implements AbstractVO {
+public class MenuVO implements SuperVO {
 
     private String id;
     private String name;

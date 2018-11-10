@@ -30,22 +30,18 @@ public class VCodeController {
      * 方法 GET
      *
      * @param response http响应对象
-     * @param session 会话对象
+     * @param session  会话对象
      */
     @RequestMapping(value = "/vcode", method = RequestMethod.GET)
-    public void vcode(HttpServletResponse response, HttpSession session) {
+    public void vcode(HttpServletResponse response, HttpSession session) throws IOException {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String verifyCode = drawImg(output);
 
         session.setAttribute("vcode", verifyCode);
 
-        try {
-            ServletOutputStream out = response.getOutputStream();
-            output.writeTo(out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ServletOutputStream out = response.getOutputStream();
+        output.writeTo(out);
     }
 
     /**

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.UUIDGenerator;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 

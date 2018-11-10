@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
-import xyz.stackoverflow.blog.util.PageParameter;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
+import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.Date;
 import java.util.List;

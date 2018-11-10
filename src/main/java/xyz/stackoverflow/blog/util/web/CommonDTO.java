@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.util;
+package xyz.stackoverflow.blog.util.web;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -8,14 +8,14 @@ import java.util.Map;
  *
  * @author 凉衫薄
  */
-public class BaseDTO implements Serializable {
+public class CommonDTO implements Serializable {
 
     private Map<String, Map<String,Object>[]> data;
 
-    public BaseDTO() {
+    public CommonDTO() {
     }
 
-    public BaseDTO(Map<String, Map<String, Object>[]> data) {
+    public CommonDTO(Map<String, Map<String, Object>[]> data) {
         this.data = data;
     }
 

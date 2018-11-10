@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo;
+package xyz.stackoverflow.blog.util.db;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

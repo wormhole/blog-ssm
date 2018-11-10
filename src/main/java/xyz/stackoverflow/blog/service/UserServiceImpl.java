@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.entity.*;
-import xyz.stackoverflow.blog.util.UUIDGenerator;
 import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.HashSet;
 import java.util.List;

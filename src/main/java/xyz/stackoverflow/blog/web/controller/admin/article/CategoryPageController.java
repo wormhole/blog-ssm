@@ -7,24 +7,24 @@ import org.springframework.web.servlet.ModelAndView;
 import xyz.stackoverflow.blog.util.web.BaseController;
 
 /**
- * 后台管理系统文章管理页面Controller
+ * 后台管理系统分类管理控制器
  *
  * @author 凉衫薄
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ArticleManageController extends BaseController {
+public class CategoryPageController extends BaseController {
 
     /**
-     * 文章管理页面跳转Controller
+     * 分类管理页面跳转 /admin/article/category
+     * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
-    public ModelAndView management() {
+    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/article/management");
+        mv.setViewName("/admin/article/category");
         return mv;
     }
-
 }

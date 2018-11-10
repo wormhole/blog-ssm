@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.page;
+package xyz.stackoverflow.blog.web.controller.front;
 
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.PageParameter;
+import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

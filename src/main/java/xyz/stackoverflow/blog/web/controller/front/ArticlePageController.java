@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.page;
+package xyz.stackoverflow.blog.web.controller.front;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +29,6 @@ import java.util.List;
  */
 @Controller
 public class ArticlePageController {
-
-    private final Integer SUCCESS = 0;
-    private final Integer FAILURE = 1;
 
     @Autowired
     private ArticleService articleService;
