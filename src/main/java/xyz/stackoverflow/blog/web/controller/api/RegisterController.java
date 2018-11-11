@@ -65,7 +65,7 @@ public class RegisterController extends BaseController {
                 throw new BusinessException("验证码错误", map);
             }
 
-            if (userService.isExist(userVO.getEmail())) {
+            if (userService.isExistEmail(userVO.getEmail())) {
                 map.put("email", "邮箱已经存在");
                 throw new BusinessException("邮箱已经存在", map);
             }

@@ -22,7 +22,7 @@ public interface UserService {
 
     User updateUser(User user);
 
-    boolean isExist(String email);
+    boolean isExistEmail(String email);
 
     int getUserCount();
 

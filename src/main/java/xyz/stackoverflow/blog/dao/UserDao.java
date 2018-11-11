@@ -23,7 +23,7 @@ public interface UserDao {
 
     int updateUser(User user);
 
-    int isExist(String email);
+    int isExistEmail(String email);
 
     int deleteUserById(String userId);
 }

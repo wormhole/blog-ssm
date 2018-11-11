@@ -22,7 +22,7 @@
         select * from user where email = #{email}
     </select>
 
-    <select id="isExist" resultType="int" parameterType="string">
+    <select id="isExistEmail" resultType="int" parameterType="string">
         select count(*) from user where email=#{email}
     </select>
 

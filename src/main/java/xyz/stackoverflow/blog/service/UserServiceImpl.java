@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean isExist(String email) {
-        if (userDao.isExist(email) != 0) {
+    public boolean isExistEmail(String email) {
+        if (userDao.isExistEmail(email) != 0) {
             return true;
         } else {
             return false;

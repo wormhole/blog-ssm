@@ -61,7 +61,7 @@ public class UserController extends BaseController {
         User user = (User) session.getAttribute("user");
 
         if (type.equals("base")) {
-            if (!userVO.getEmail().equals(user.getEmail()) && userService.isExist(userVO.getEmail())) {
+            if (!userVO.getEmail().equals(user.getEmail()) && userService.isExistEmail(userVO.getEmail())) {
                 throw new BusinessException("邮箱已经存在");
             }
 
