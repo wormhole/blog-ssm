@@ -10,13 +10,17 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.vo.UserVO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.web.*;
-import xyz.stackoverflow.blog.validator.UserValidator;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 注册接口Controller
@@ -30,7 +34,7 @@ public class RegisterController extends BaseController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserValidator validator;
+    private ValidatorFactory validatorFactory;
 
     /**
      * 注册接口 /register
@@ -70,7 +74,9 @@ public class RegisterController extends BaseController {
                 throw new BusinessException("邮箱已经存在", map);
             }
 
-            map = validator.validate(userVO);
+            Validator validator = validatorFactory.getValidator();
+            Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.RegisterGroup.class);
+            map = ValidationUtil.errorMap(violations);
             if (!MapUtil.isEmpty(map)) {
                 throw new BusinessException("注册信息格式出错", map);
             }

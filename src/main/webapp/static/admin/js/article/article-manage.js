@@ -32,7 +32,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'visibleTag', width: 100, title: '是否隐藏'},
             {field: 'createDateString', width: 180, title: '创建日期', sort: true},
             {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
-            {fixed: 'right', width: 220, title: '操作', toolbar: '#toolbar-col'}
+            {fixed: 'right', width: 290, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
@@ -64,6 +64,19 @@ layui.use(['table', 'jquery', 'layer'], function () {
             showHiddenAjax(param);
         } else if (layEvent === 'export') {
             window.location.href = "/api/admin/article/export?id=" + data.id;
+        } else if (layEvent === 'edit') {
+            layer.open({
+                type: 2,
+                title: '写文章',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                maxmin: true,
+                content: '/admin/article/edit?id=' + data.id,
+                cancel: function (index, layero) {
+                    tableIns.reload(parameter);
+                }
+            });
         }
     });
 

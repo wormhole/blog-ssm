@@ -1,7 +1,12 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.util.web.SuperVO;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * 用户VO
@@ -11,16 +16,36 @@ import xyz.stackoverflow.blog.util.web.SuperVO;
 public class UserVO implements SuperVO {
 
     private String id;
+
+    @NotNull(message = "不能为空", groups = {RegisterGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间", groups = {RegisterGroup.class, UpdateGroup.class})
+    @Email(message = "邮箱格式错误", groups = {RegisterGroup.class, UpdateGroup.class})
     private String email;
+
+    @NotNull(message = "不能为空", groups = {RegisterGroup.class, UpdateGroup.class})
+    @Length(min = 6, max = 20, message = "密码长度只能在6到20之间", groups = {RegisterGroup.class, UpdateGroup.class})
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "密码只能为数字字母下划线", groups = {RegisterGroup.class, UpdateGroup.class})
     private String password;
+
+    @NotNull(message = "不能为空", groups = {RegisterGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间", groups = {RegisterGroup.class, UpdateGroup.class})
     private String nickname;
+
     private String salt;
     private Integer deleteAble;
 
+    @NotNull(message = "不能为空", groups = {UpdateGroup.class})
     private String oldPassword;
+
     private String vcode;
 
-    public UserVO(){
+    public interface RegisterGroup {
+    }
+
+    public interface UpdateGroup {
+    }
+
+    public UserVO() {
 
     }
 
@@ -104,7 +129,7 @@ public class UserVO implements SuperVO {
      *
      * @return 转换后的实体类
      */
-    public User toUser(){
+    public User toUser() {
         User user = new User();
         user.setId(id);
         user.setEmail(email);

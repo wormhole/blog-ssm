@@ -22,6 +22,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="show"><i class="layui-icon layui-icon-ok"/>显示</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="hidden"><i class="layui-icon layui-icon-close"/>隐藏</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="export"><i class="layui-icon layui-icon-file"/>导出</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"/>编辑</a>
 </script>
 <script type="text/javascript" src="/static/admin/js/article/article-manage.js"></script>
 </body>

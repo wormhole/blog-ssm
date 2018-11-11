@@ -26,6 +26,8 @@
         </property>
     </bean>
 
+    <bean id="validatorFactory" class="javax.validation.Validation" factory-method="buildDefaultValidatorFactory"/>
+
     <bean id="userValidator" class="xyz.stackoverflow.blog.validator.UserValidator"/>
     <bean id="categoryValidator" class="xyz.stackoverflow.blog.validator.CategoryValidator"/>
     <bean id="articleValidator" class="xyz.stackoverflow.blog.validator.ArticleValidator"/>
