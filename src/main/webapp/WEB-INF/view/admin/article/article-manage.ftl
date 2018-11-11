@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/static/admin/css/article/articlemanage.css"/>
+    <link rel="stylesheet" href="/static/admin/css/article/article-manage.css"/>
     <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
@@ -23,6 +23,6 @@
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="hidden"><i class="layui-icon layui-icon-close"/>隐藏</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="export"><i class="layui-icon layui-icon-file"/>导出</a>
 </script>
-<script type="text/javascript" src="/static/admin/js/article/articlemanage.js"></script>
+<script type="text/javascript" src="/static/admin/js/article/article-manage.js"></script>
 </body>
 </html>

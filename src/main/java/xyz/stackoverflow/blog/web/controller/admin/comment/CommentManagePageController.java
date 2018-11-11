@@ -16,15 +16,15 @@ import xyz.stackoverflow.blog.util.web.BaseController;
 public class CommentManagePageController extends BaseController {
 
     /**
-     * 评论管理页面跳转 /admin/comment/management
+     * 评论管理页面跳转 /admin/comment/comment-manage
      * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
+    @RequestMapping(value = "/comment-manage", method = RequestMethod.GET)
     public ModelAndView management() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/comment/management");
+        mv.setViewName("/admin/comment/comment-manage");
         return mv;
     }
 }

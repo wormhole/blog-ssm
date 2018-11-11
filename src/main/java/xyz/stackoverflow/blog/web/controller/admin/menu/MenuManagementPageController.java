@@ -15,10 +15,10 @@ import xyz.stackoverflow.blog.util.web.BaseController;
 @RequestMapping("/admin/menu")
 public class MenuManagementPageController extends BaseController {
 
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
+    @RequestMapping(value = "/menu-manage", method = RequestMethod.GET)
     public ModelAndView management() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/menu/management");
+        mv.setViewName("/admin/menu/menu-manage");
         return mv;
     }
 }

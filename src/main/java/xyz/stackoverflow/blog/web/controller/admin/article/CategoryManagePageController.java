@@ -16,15 +16,15 @@ import xyz.stackoverflow.blog.util.web.BaseController;
 public class CategoryManagePageController extends BaseController {
 
     /**
-     * 分类管理页面跳转 /admin/article/category
+     * 分类管理页面跳转 /admin/article/category-manage
      * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    @RequestMapping(value = "/category-manage", method = RequestMethod.GET)
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/article/category");
+        mv.setViewName("/admin/article/category-manage");
         return mv;
     }
 }

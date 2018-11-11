@@ -98,7 +98,7 @@ function commentAjax(param) {
                 $('#nickname').val('');
                 $('#website').val('');
             } else {
-                if (response.data !== undefined) {
+                if (response.data !== null) {
                     if (response.data['email'] !== undefined) {
                         layer.open({
                             type: 0,

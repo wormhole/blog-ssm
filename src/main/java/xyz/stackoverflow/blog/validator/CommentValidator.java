@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class CommentValidator extends AbstractBaseValidator<CommentVO> {
 
     private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_\\-]+@([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$");
-    private final Pattern websitePattern = Pattern.compile("^(http://|https://)([a-zA-Z\\-]+\\.)+[a-zA-Z]+$");
+    private final Pattern websitePattern = Pattern.compile("^(http://|https://)([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$");
 
     @Override
     public Map<String, String> validate(CommentVO commentVO) {

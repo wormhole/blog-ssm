@@ -17,7 +17,7 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data !== undefined) {
+                    if (response.data !== null) {
                         if (response.data['email'] !== undefined) {
                             layer.open({
                                 type: 0,
@@ -60,13 +60,8 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data !== undefined) {
-                        if (response.data['oldPassword'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['oldPassword']
-                            });
-                        } else if (response.data['password'] !== undefined) {
+                    if (response.data !== null) {
+                        if (response.data['password'] !== undefined) {
                             layer.open({
                                 type: 0,
                                 content: response.data['password']
@@ -112,7 +107,7 @@ layui.use(['layer', 'jquery'], function () {
         var newPassword = $('#new-password').val();
         var checkedPassword = $('#checked-password').val();
 
-        if (newPassword != checkedPassword) {
+        if (newPassword !== checkedPassword) {
             $('#checked-password').val('');
             layer.open({
                 type: 0,
@@ -134,4 +129,5 @@ layui.use(['layer', 'jquery'], function () {
         updatePasswordAjax(param);
     });
 
-});
+})
+;

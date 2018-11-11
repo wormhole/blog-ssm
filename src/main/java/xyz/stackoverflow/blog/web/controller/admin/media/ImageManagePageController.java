@@ -22,13 +22,13 @@ import java.util.TreeMap;
 public class ImageManagePageController {
 
     /**
-     * 页面跳转 /admin/media/image
+     * 页面跳转 /admin/media/image-manage
      * 方法 GET
      *
      * @param request
      * @return
      */
-    @RequestMapping(value = "/image", method = RequestMethod.GET)
+    @RequestMapping(value = "/image-manage", method = RequestMethod.GET)
     public ModelAndView image(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         String uploadDir = request.getServletContext().getRealPath("upload");
@@ -37,7 +37,7 @@ public class ImageManagePageController {
 
         traverseFolder(uploadDir, imageMap);
         mv.addObject("map", imageMap);
-        mv.setViewName("/admin/media/image");
+        mv.setViewName("/admin/media/image-manage");
         return mv;
     }
 

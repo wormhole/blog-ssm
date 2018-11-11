@@ -15,10 +15,10 @@ import xyz.stackoverflow.blog.util.web.BaseController;
 @RequestMapping("/admin/setting")
 public class SettingPageController extends BaseController {
 
-    @RequestMapping(value = "/setting", method = RequestMethod.GET)
+    @RequestMapping(value = "/configure", method = RequestMethod.GET)
     public ModelAndView setting() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/setting/setting");
+        mv.setViewName("/admin/setting/configure");
         return mv;
     }
 }

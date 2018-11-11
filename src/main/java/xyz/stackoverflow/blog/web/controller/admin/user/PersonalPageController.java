@@ -18,7 +18,7 @@ public class PersonalPageController extends BaseController {
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public ModelAndView personal() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/personal");
+        mv.setViewName("/admin/user/personal");
         return mv;
     }
 }

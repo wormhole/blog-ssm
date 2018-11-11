@@ -16,14 +16,15 @@ import xyz.stackoverflow.blog.util.web.BaseController;
 public class ArticleManageController extends BaseController {
 
     /**
-     * 文章管理页面跳转Controller
+     * 文章管理页面跳转Controller /article-manage
+     * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/management", method = RequestMethod.GET)
+    @RequestMapping(value = "/article-manage", method = RequestMethod.GET)
     public ModelAndView management() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/article/management");
+        mv.setViewName("/admin/article/article-manage");
         return mv;
     }
 

@@ -41,26 +41,26 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;文章</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/article/articlemanage" data-title="文章管理"
-                               data-id="articleManage">文章管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/article-manage" data-title="文章管理"
+                               data-id="article-manage">文章管理</a></dd>
                         <dd><a href="javascript:;" data-url="/admin/article/edit" data-title="文章编辑"
                                data-id="edit">文章编辑</a></dd>
-                        <dd><a href="javascript:;" data-url="/admin/article/categorymanage" data-title="分类管理"
-                               data-id="categoryManage">分类管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/article/category-manage" data-title="分类管理"
+                               data-id="category-manage">分类管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;&nbsp;评论</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/comment/commentmanage" data-title="评论管理"
-                               data-id="commentManage">评论管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/comment/comment-manage" data-title="评论管理"
+                               data-id="comment-manage">评论管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-spread-left"></i>&nbsp;&nbsp;菜单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/menu/menumanage" data-title="菜单管理"
-                               data-id="menuManage">菜单管理</a>
+                        <dd><a href="javascript:;" data-url="/admin/menu/menu-manage" data-title="菜单管理"
+                               data-id="menu-manage">菜单管理</a>
                         </dd>
                     </dl>
                 </li>
@@ -74,8 +74,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-picture"></i>&nbsp;&nbsp;媒体</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/admin/media/imagemanage" data-title="图片管理"
-                               data-id="imageManage">图片管理</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/media/image-manage" data-title="图片管理"
+                               data-id="image-manage">图片管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

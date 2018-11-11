@@ -17,7 +17,7 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data !== undefined) {
+                    if (response.data !== null) {
                         if (response.data['title'] !== undefined) {
                             layer.open({
                                 type: 0,
@@ -70,7 +70,7 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data !== undefined) {
+                    if (response.data !== null) {
                         if (response.data['nickname'] !== undefined) {
                             layer.open({
                                 type: 0,
@@ -113,7 +113,7 @@ layui.use(['layer', 'jquery'], function () {
                         content: response.message
                     });
                 } else {
-                    if (response.data !== undefined) {
+                    if (response.data !== null) {
                         if (response.data['limit'] !== undefined) {
                             layer.open({
                                 type: 0,

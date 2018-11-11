@@ -44,10 +44,24 @@ layui.use(['form', 'layer'], function () {
                         content: response.message
                     });
                 } else {
-                    layer.open({
-                        type: 0,
-                        content: response.message
-                    });
+                    if (response.data !== null) {
+                        if (response.data['title'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['title']
+                            });
+                        } else if (response.data['code'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['code']
+                            });
+                        }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
+                    }
                 }
             },
             error: function (response) {
@@ -73,10 +87,24 @@ layui.use(['form', 'layer'], function () {
                         content: response.message
                     });
                 } else {
-                    layer.open({
-                        type: 0,
-                        content: response.message
-                    });
+                    if (response.data !== null) {
+                        if (response.data['title'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['title']
+                            });
+                        } else if (response.data['code'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['code']
+                            });
+                        }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
+                    }
                 }
             },
             error: function (response) {
@@ -129,8 +157,8 @@ layui.use(['form', 'layer'], function () {
 
         if (id == null) {
             var param = {
-                data:{
-                    article:[data]
+                data: {
+                    article: [data]
                 }
             };
             saveArticleAjax(param);
@@ -138,8 +166,8 @@ layui.use(['form', 'layer'], function () {
         else {
             data['id'] = id;
             var param = {
-                data:{
-                    article:[data]
+                data: {
+                    article: [data]
                 }
             };
             updateArticleAjax(param);

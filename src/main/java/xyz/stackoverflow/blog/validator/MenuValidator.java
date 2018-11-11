@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class MenuValidator extends AbstractBaseValidator<MenuVO> {
 
-    private final Pattern urlPattern = Pattern.compile("^((http://|https://)([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+)|(/?([a-zA-Z0-9\\-]+/)*[a-zA-Z0-9]+)$");
+    private final Pattern urlPattern = Pattern.compile("(^(http://|https://)([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$)|(^/?([a-zA-Z0-9\\-]+/)*[a-zA-Z0-9]+/?$)");
 
     @Override
     public Map<String, String> validate(MenuVO menuVO) {

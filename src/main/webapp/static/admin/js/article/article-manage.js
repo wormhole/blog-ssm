@@ -23,7 +23,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         cols: [[
             {type: 'checkbox'},
             {field: 'title', width: 150, title: '标题', sort: true},
-            {field: 'nickname', width: 100, title: '作者', sort: true},
+            {field: 'author', width: 100, title: '作者', sort: true},
             {field: 'categoryName', width: 100, title: '分类', sort: true},
             {field: 'url', width: 200, title: 'URL', sort: true},
             {field: 'likes', width: 100, title: '点赞', sort: true},

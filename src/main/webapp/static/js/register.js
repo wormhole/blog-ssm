@@ -45,7 +45,7 @@ layui.use(['jquery'], function () {
                 if (response.status === 0) {
                     $('blockquote').html('<a href="/login">点击前往登陆页面</a>');
                 } else {
-                    if (response.data !== undefined) {
+                    if (response.data !== null) {
                         if (response.data['vcode'] !== undefined) {
                             $('blockquote').html(response.data['vcode']);
                             $('#vcode').val('');
