@@ -65,7 +65,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;用户</a>
+                    <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;用户</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/admin/user/personal" data-title="个人中心" data-id="personal">个人信息</a>
                         </dd>

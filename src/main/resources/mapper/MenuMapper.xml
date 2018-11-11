@@ -46,7 +46,7 @@
         where id = #{id} and deleteable = 1
     </update>
 
-    <delete id="deleteMenu" parameterType="menu">
+    <delete id="deleteMenuById" parameterType="string">
         delete from menu where id = #{id} and deleteable = 1
     </delete>
 </mapper>

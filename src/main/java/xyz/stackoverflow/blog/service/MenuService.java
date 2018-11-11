@@ -22,7 +22,7 @@ public interface MenuService {
 
     Menu updateMenu(Menu menu);
 
-    Menu deleteMenu(Menu menu);
+    Menu deleteMenuById(String id);
 
     int getMenuCount();
 }

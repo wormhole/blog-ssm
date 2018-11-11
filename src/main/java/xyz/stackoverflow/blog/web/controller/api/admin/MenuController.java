@@ -90,16 +90,11 @@ public class MenuController extends BaseController {
         }
 
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
-        Menu menu = menuService.getMenuById(menuVO.getId());
+        Menu menu = menuService.deleteMenuById(menuVO.getId());
 
         if (menu == null) {
-            throw new BusinessException("未找到该菜单");
+            throw new BusinessException("未找到该菜单或该菜单不允许删除");
         }
-        if (menu.getDeleteAble() == 0) {
-            throw new BusinessException("该菜单不允许删除");
-        }
-
-        menuService.deleteMenu(menu);
 
         ServletContext application = request.getServletContext();
         List<Menu> list = menuService.getAllMenu();
