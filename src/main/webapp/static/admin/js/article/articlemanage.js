@@ -6,7 +6,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var parameter = {
         id: 'article-table',
         elem: '#article-table',
-        url: '/admin/article/list',
+        url: '/api/admin/article/list',
         method: 'get',
         width: 1500,
         cellMinWidth: 100,
@@ -63,7 +63,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             };
             showHiddenAjax(param);
         } else if (layEvent === 'export') {
-            window.location.href = "/admin/article/export?id=" + data.id;
+            window.location.href = "/api/admin/article/export?id=" + data.id;
         }
     });
 
@@ -77,7 +77,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 shade: 0.8,
                 area: ['90%', '90%'],
                 maxmin: true,
-                content: '/admin/article/article',
+                content: '/admin/article/edit',
                 cancel: function (index, layero) {
                     tableIns.reload(parameter);
                 }
@@ -91,7 +91,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     shade: 0.8,
                     area: ['90%', '90%'],
                     maxmin: true,
-                    content: '/admin/article/article?id=' + checkStatus.data[0].id,
+                    content: '/admin/article/edit?id=' + checkStatus.data[0].id,
                     cancel: function (index, layero) {
                         tableIns.reload(parameter);
                     }
@@ -131,7 +131,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
     function deleteArticleAjax(param) {
         $.ajax({
-            url: "/admin/article/delete",
+            url: "/api/admin/article/delete",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -161,7 +161,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
     function showHiddenAjax(param) {
         $.ajax({
-            url: "/admin/article/visible",
+            url: "/api/admin/article/visible",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",

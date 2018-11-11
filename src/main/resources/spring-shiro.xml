@@ -124,6 +124,7 @@
                 /login = authc
                 /logout = logout
                 /admin/** = user
+                /api/admin/** = user
                 /api/** = anon
                 /static/** = anon
                 /uploads/** = anon

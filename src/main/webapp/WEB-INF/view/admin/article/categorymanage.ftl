@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" href="/static/plugins/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/static/admin/css/menu/management.css"/>
+    <link rel="stylesheet" href="/static/admin/css/article/categorymanage.css"/>
     <script src="/static/plugins/layui/layui.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
@@ -13,9 +13,9 @@
 </head>
 <body>
 <div class="layui-card">
-    <div class="layui-card-header">菜单</div>
+    <div class="layui-card-header">分类</div>
     <div class="layui-card-body">
-        <table class="layui-hide" id="menu-table" lay-filter="menu-table-1"></table>
+        <table class="layui-hide" id="category-table" lay-filter="category-table-1"></table>
     </div>
 </div>
 <script type="text/html" id="toolbar-head">
@@ -24,22 +24,22 @@
 <script type="text/html" id="toolbar-col">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"/>删除</a>
 </script>
-<script type="text/html" id="add">
+<script type="text/html" id="add-edit">
     <div style="margin:20px">
         <div class="layui-form-item">
-            <label class="layui-form-label">菜单名称</label>
+            <label class="layui-form-label">分类名称</label>
             <div class="layui-input-inline">
-                <input name="name" class="layui-input" type="text" required id="name" value="">
+                <input name="categoryName" class="layui-input" type="text" required id="categoryName" value="">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">菜单URL</label>
+            <label class="layui-form-label">分类编码</label>
             <div class="layui-input-inline">
-                <input name="url" class="layui-input" type="text" required id="url" value="">
+                <input name="categoryCode" class="layui-input" type="text" required id="categoryCode" value="">
             </div>
         </div>
     </div>
 </script>
-<script type="text/javascript" src="/static/admin/js/menu/management.js"></script>
+<script type="text/javascript" src="/static/admin/js/article/categorymanage.js"></script>
 </body>
 </html>

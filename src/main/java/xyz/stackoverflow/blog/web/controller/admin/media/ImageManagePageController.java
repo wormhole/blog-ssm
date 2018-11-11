@@ -19,7 +19,7 @@ import java.util.TreeMap;
  */
 @Controller
 @RequestMapping("/admin/media")
-public class ImagePageController {
+public class ImageManagePageController {
 
     /**
      * 页面跳转 /admin/media/image

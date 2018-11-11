@@ -5,7 +5,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateBaseInfoAjax(param) {
         $.ajax({
-            url: "/admin/user/update?type=base",
+            url: "/api/admin/user/update?type=base",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -19,12 +19,21 @@ layui.use(['layer', 'jquery'], function () {
                 } else {
                     if (response.data !== undefined) {
                         if (response.data['email'] !== undefined) {
-                            $('#email-error').html(response.data['email']);
-                            $('#email-error').removeClass('hidden');
+                            layer.open({
+                                type: 0,
+                                content: response.data['email']
+                            });
                         } else if (response.data['nickname'] !== undefined) {
-                            $('#nickname-error').html(response.data['nickname']);
-                            $('#nickname-error').removeClass('hidden');
+                            layer.open({
+                                type: 0,
+                                content: response.data['nickname']
+                            });
                         }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
                     }
                 }
             },
@@ -39,7 +48,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updatePasswordAjax(param) {
         $.ajax({
-            url: "/admin/user/update?type=password",
+            url: "/api/admin/user/update?type=password",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -53,12 +62,21 @@ layui.use(['layer', 'jquery'], function () {
                 } else {
                     if (response.data !== undefined) {
                         if (response.data['oldPassword'] !== undefined) {
-                            $('#old-password-error').html(response.data['oldPassword']);
-                            $('#old-password-error').removeClass('hidden');
+                            layer.open({
+                                type: 0,
+                                content: response.data['oldPassword']
+                            });
                         } else if (response.data['password'] !== undefined) {
-                            $('#new-password-error').html(response.data['password']);
-                            $('#new-password-error').removeClass('hidden');
+                            layer.open({
+                                type: 0,
+                                content: response.data['password']
+                            });
                         }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
                     }
                 }
             },
@@ -72,9 +90,6 @@ layui.use(['layer', 'jquery'], function () {
     }
 
     $('#savebase-btn').click(function () {
-
-        $('#email-error').addClass('hidden');
-        $('#nickname-error').addClass('hidden');
 
         var email = $('#email').val();
         var nickname = $('#nickname').val();
@@ -92,9 +107,6 @@ layui.use(['layer', 'jquery'], function () {
     });
 
     $('#savepwd-btn').click(function () {
-        $('#checked-password-error').addClass('hidden');
-        $('#old-password-error').addClass('hidden');
-        $('#new-password-error').addClass('hidden');
 
         var oldPassword = $('#old-password').val();
         var newPassword = $('#new-password').val();
@@ -102,8 +114,10 @@ layui.use(['layer', 'jquery'], function () {
 
         if (newPassword != checkedPassword) {
             $('#checked-password').val('');
-            $('#checked-password-error').html("两次密码不匹配");
-            $('#checked-password-error').removeClass('hidden');
+            layer.open({
+                type: 0,
+                content: "两次密码不匹配"
+            });
             return;
         }
 

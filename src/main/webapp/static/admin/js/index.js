@@ -13,7 +13,6 @@ layui.use(['element','jquery'], function(){
 
         var isActive = $('.layui-body .layui-tab-title').find("li[lay-id=" + id + "]");
         if(isActive.length > 0) {
-            //切换到选项卡
             element.tabChange('tabs', id);
         } else {
             element.tabAdd('tabs', {

@@ -7,13 +7,13 @@ import org.springframework.web.servlet.ModelAndView;
 import xyz.stackoverflow.blog.util.web.BaseController;
 
 /**
- * 后台管理系统分类管理控制器
+ * 后台管理系统分类管理页面Controller
  *
  * @author 凉衫薄
  */
 @Controller
 @RequestMapping("/admin/article")
-public class CategoryPageController extends BaseController {
+public class CategoryManagePageController extends BaseController {
 
     /**
      * 分类管理页面跳转 /admin/article/category

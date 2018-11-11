@@ -125,6 +125,11 @@ function commentAjax(param) {
                             content: response.data['replyTo']
                         });
                     }
+                } else {
+                    layer.open({
+                        type: 0,
+                        content: response.message
+                    });
                 }
             }
         },

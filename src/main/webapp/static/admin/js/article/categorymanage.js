@@ -4,11 +4,11 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var layer = layui.layer;
 
     var parameter = {
-        id: 'menu-table',
-        elem: '#menu-table',
-        url: '/admin/menu/list',
+        id: 'category-table',
+        elem: '#category-table',
+        url: '/api/admin/category/list',
         method: 'get',
-        width: 867,
+        width: 827,
         cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
@@ -22,16 +22,16 @@ layui.use(['table', 'jquery', 'layer'], function () {
         },
         cols: [[
             {field: 'id', width: 300, title: 'ID'},
-            {field: 'name', width: 150, title: '菜单名', sort: true, edit: 'text'},
-            {field: 'url', width: 200, title: 'URL', sort: true, edit: 'text'},
-            {field: 'deleteTag', width: 110, title: '能否删除'},
+            {field: 'categoryName', width: 150, title: '分类名', sort: true, edit: 'text'},
+            {field: 'categoryCode', width: 150, title: '编码', sort: true, edit: 'text'},
+            {field: 'deleteTag', width: 120, title: '是否能删除'},
             {fixed: 'right', width: 100, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
     var tableIns = table.render(parameter);
 
-    table.on('toolbar(menu-table-1)', function (obj) {
+    table.on('toolbar(category-table-1)', function (obj) {
         if (obj.event === 'add') {
             layer.open({
                 type: 1,
@@ -39,26 +39,25 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 skin: 'layui-layer-rim',
                 area: ['420px', '240px'],
                 btn: ['新增'],
-                content: $('#add').text(),
+                content: $('#add-edit').text(),
                 yes: function (index, layero) {
-                    var name = $('#name').val();
-                    var url = $('#url').val();
-                    if (!(name.length && url.length)) {
+                    var categoryName = $('#categoryName').val();
+                    var categoryCode = $('#categoryCode').val();
+                    if (!(categoryCode.length && categoryName.length)) {
                         layer.open({
                             type: 0,
                             content: "不能为空"
                         });
                     } else {
                         var data = {};
-                        data['name'] = name;
-                        data['url'] = url;
-
+                        data['categoryCode'] = categoryCode;
+                        data['categoryName'] = categoryName;
                         var param = {
                             data: {
-                                menu: [data]
+                                category: [data]
                             }
                         };
-                        insertMenuAjax(param);
+                        insertCategoryAjax(param);
                         layer.close(index);
                     }
                 }
@@ -66,27 +65,24 @@ layui.use(['table', 'jquery', 'layer'], function () {
         }
     });
 
-    table.on('tool(menu-table-1)', function (obj) {
+    table.on('tool(category-table-1)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
 
         if (layEvent === 'del') {
-            layer.confirm('确认删除该菜单吗', function (index) {
-
+            layer.confirm('确认删除该分类吗', function (index) {
                 var param = {
                     data: {
-                        menu: [{
-                            id: data.id
-                        }]
+                        category: [{id: data.id}]
                     }
                 };
-                deleteMenuAjax(param);
+                deleteCategoryAjax(param);
                 layer.close(index);
             });
         }
     });
 
-    table.on('edit(menu-table-1)', function (obj) {
+    table.on('edit(category-table-1)', function (obj) {
         if (!obj.value.length) {
             layer.open({
                 type: 0,
@@ -94,22 +90,23 @@ layui.use(['table', 'jquery', 'layer'], function () {
             });
             tableIns.reload(parameter);
         } else {
+            var data = {
+                id: obj.data.id,
+                categoryCode: obj.data.categoryCode,
+                categoryName: obj.data.categoryName
+            };
             var param = {
                 data: {
-                    menu: [{
-                        id: obj.data.id,
-                        name: obj.data.name,
-                        url: obj.data.url
-                    }]
+                    category: [data]
                 }
             };
-            updateMenuAjax(param);
+            updateCategoryAjax(param);
         }
     });
 
-    function updateMenuAjax(param) {
+    function updateCategoryAjax(param) {
         $.ajax({
-            url: "/admin/menu/update",
+            url: "/api/admin/category/update",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -137,9 +134,9 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function deleteMenuAjax(param) {
+    function deleteCategoryAjax(param) {
         $.ajax({
-            url: "/admin/menu/delete",
+            url: "/api/admin/category/delete",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -167,9 +164,9 @@ layui.use(['table', 'jquery', 'layer'], function () {
         });
     }
 
-    function insertMenuAjax(param) {
+    function insertCategoryAjax(param) {
         $.ajax({
-            url: "/admin/menu/insert",
+            url: "/api/admin/category/insert",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",

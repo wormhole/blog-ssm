@@ -24,15 +24,6 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestControllerAdvice"/>
     </context:component-scan>
 
-    <mvc:view-controller path="/admin" view-name="/admin/index"/>
-    <mvc:view-controller path="/admin/welcome" view-name="/admin/welcome"/>
-    <mvc:view-controller path="/admin/user/personal" view-name="/admin/user/personal"/>
-    <mvc:view-controller path="/admin/article/category" view-name="/admin/article/category"/>
-    <mvc:view-controller path="/admin/article/management" view-name="/admin/article/management"/>
-    <mvc:view-controller path="/admin/comment/management" view-name="/admin/comment/management"/>
-    <mvc:view-controller path="/admin/setting/setting" view-name="/admin/setting/setting"/>
-    <mvc:view-controller path="/admin/menu/management" view-name="/admin/menu/management"/>
-    <mvc:view-controller path="/admin/backup/backup" view-name="/admin/backup/backup"/>
     <mvc:view-controller path="/error/unauthorized" view-name="/error/unauthorized"/>
     <mvc:view-controller path="/error/404" view-name="/error/404"/>
     <mvc:view-controller path="/error/500" view-name="/error/500"/>

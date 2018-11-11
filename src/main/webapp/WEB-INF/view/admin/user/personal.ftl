@@ -20,14 +20,14 @@
             <div class="layui-input-inline">
                 <input name="email" class="layui-input" type="email" required id="email" value="${Session.user.email}">
             </div>
-            <div class="layui-form-mid error-color hidden" id="email-error"></div>
+            <div class="layui-form-mid layui-word-aux">邮箱长度在0到30之间</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-inline">
                 <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
             </div>
-            <div class="layui-form-mid error-color hidden" id="nickname-error"></div>
+            <div class="layui-form-mid layui-word-aux">昵称长度只能在0-20之间</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -44,21 +44,21 @@
             <div class="layui-input-inline">
                 <input name="oldPassword" class="layui-input" type="password" id="old-password">
             </div>
-            <div class="layui-form-mid error-color hidden" id="old-password-error"></div>
+            <div class="layui-form-mid layui-word-aux">请输入旧密码</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">新密码</label>
             <div class="layui-input-inline">
                 <input name="newPassword" class="layui-input" type="password" id="new-password">
             </div>
-            <div class="layui-form-mid error-color hidden" id="new-password-error"></div>
+            <div class="layui-form-mid layui-word-aux">密码只能是英文数字下划线,长度在6-20之间</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
                 <input name="checkedPassword" class="layui-input" type="password" id="checked-password">
             </div>
-            <div class="layui-form-mid error-color hidden" id="checked-password-error"></div>
+            <div class="layui-form-mid layui-word-aux">请重新输入新密码</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">

@@ -14,7 +14,7 @@ layui.use(['form', 'layer'], function () {
             saveHTMLToTextarea: true,
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "/admin/article/image",
+            imageUploadURL: "/api/admin/article/image",
         });
     });
 
@@ -23,7 +23,7 @@ layui.use(['form', 'layer'], function () {
         var vars = query.split("&");
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split("=");
-            if (pair[0] == variable) {
+            if (pair[0] === variable) {
                 return pair[1];
             }
         }
@@ -32,7 +32,7 @@ layui.use(['form', 'layer'], function () {
 
     function saveArticleAjax(param) {
         $.ajax({
-            url: "/admin/article/insert",
+            url: "/api/admin/article/insert",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -61,7 +61,7 @@ layui.use(['form', 'layer'], function () {
 
     function updateArticleAjax(param) {
         $.ajax({
-            url: "/admin/article/update",
+            url: "/api/admin/article/update",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -86,20 +86,6 @@ layui.use(['form', 'layer'], function () {
                 });
             }
         });
-    }
-
-    function getDateUrl(code) {
-        var date = new Date();
-
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        month = month < 10 ? "0" + month : month;
-        day = day < 10 ? "0" + day : day;
-
-        var result = "/article/" + year + "/" + month + "/" + day + "/" + code;
-        return result;
     }
 
     $('#save-btn').click(function () {
@@ -142,7 +128,6 @@ layui.use(['form', 'layer'], function () {
         };
 
         if (id == null) {
-            data['url'] = getDateUrl(articleCode);
             var param = {
                 data:{
                     article:[data]

@@ -7,7 +7,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
     var parameter1 = {
         id: 'today-table',
         elem: '#today-table',
-        url: '/admin/today',
+        url: '/api/admin/visit/today',
         method: 'get',
         width: 1300,
         cellMinWidth: 100,
@@ -33,7 +33,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
     var parameter2 = {
         id: 'error-table',
         elem: '#error-table',
-        url: '/admin/error',
+        url: '/api/admin/visit/error',
         method: 'get',
         width: 1300,
         cellMinWidth: 100,
@@ -114,7 +114,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
 
     function flowAjax(option, chart) {
         $.ajax({
-            url: "/admin/flow",
+            url: "/api/admin/visit/flow",
             type: "get",
             dataType: "json",
             success: function (response) {
@@ -141,7 +141,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
 
     function countAjax() {
         $.ajax({
-            url: "/admin/count",
+            url: "/api/admin/visit/count",
             type: "get",
             dataType: "json",
             success: function (response) {

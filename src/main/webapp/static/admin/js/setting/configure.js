@@ -5,7 +5,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateSEOAjax(param) {
         $.ajax({
-            url: "/admin/setting/update",
+            url: "/api/admin/setting/update",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -39,6 +39,11 @@ layui.use(['layer', 'jquery'], function () {
                                 content: response.data['copyright']
                             });
                         }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
                     }
                 }
             },
@@ -53,7 +58,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateBaseAjax(param) {
         $.ajax({
-            url: "/admin/setting/update",
+            url: "/api/admin/setting/update",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -77,6 +82,11 @@ layui.use(['layer', 'jquery'], function () {
                                 content: response.data['signature']
                             });
                         }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
                     }
                 }
             },
@@ -91,7 +101,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateLimitAjax(param) {
         $.ajax({
-            url: "/admin/setting/update",
+            url: "/api/admin/setting/update",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -110,6 +120,11 @@ layui.use(['layer', 'jquery'], function () {
                                 content: response.data['limit']
                             });
                         }
+                    } else {
+                        layer.open({
+                            type: 0,
+                            content: response.message
+                        });
                     }
                 }
             },
@@ -124,7 +139,7 @@ layui.use(['layer', 'jquery'], function () {
 
     function updateHeadAjax(formData) {
         $.ajax({
-            url: "/admin/setting/update/head",
+            url: "/api/admin/setting/update/head",
             type: 'POST',
             data: formData,
             cache: false,

@@ -6,7 +6,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
     var parameter = {
         id: 'comment-table',
         elem: '#comment-table',
-        url: '/admin/comment/list',
+        url: '/api/admin/comment/list',
         method: 'get',
         width: 1500,
         cellMinWidth: 100,
@@ -76,7 +76,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
     function deleteAjax(param) {
         $.ajax({
-            url: "/admin/comment/delete",
+            url: "/api/admin/comment/delete",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",
@@ -106,7 +106,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
     function reviewAjax(param) {
         $.ajax({
-            url: "/admin/comment/review",
+            url: "/api/admin/comment/review",
             type: "post",
             data: JSON.stringify(param),
             dataType: "json",

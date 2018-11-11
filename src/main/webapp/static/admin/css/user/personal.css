@@ -11,11 +11,3 @@ body{
 .layui-card{
     margin-bottom:20px;
 }
-
-.hidden{
-    display:none;
-}
-
-.error-color{
-    color:red;
-}

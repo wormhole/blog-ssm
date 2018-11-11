@@ -17,13 +17,13 @@ import xyz.stackoverflow.blog.validator.ArticleValidator;
 import java.util.List;
 
 /**
- * 后台管理系统写文章控制器
+ * 后台管理系统文章编辑页面Controller
  *
  * @author 凉衫薄
  */
 @Controller
 @RequestMapping("/admin/article")
-public class ArticlePageController extends BaseController {
+public class EditPageController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
@@ -44,12 +44,12 @@ public class ArticlePageController extends BaseController {
     }
 
     /**
-     * 跳转到文章编辑页面
+     * 跳转到文章编辑页面 /admin/article/edit
      *
      * @param id
      * @return
      */
-    @RequestMapping(value = "/article", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView article(@RequestParam(value = "id", required = false) String id) {
         ModelAndView mv = new ModelAndView();
 
@@ -68,7 +68,7 @@ public class ArticlePageController extends BaseController {
         }
 
         mv.addObject("categoryList", list);
-        mv.setViewName("/admin/article/article");
+        mv.setViewName("/admin/article/edit");
 
         return mv;
     }
