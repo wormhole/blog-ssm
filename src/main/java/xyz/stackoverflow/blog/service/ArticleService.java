@@ -19,19 +19,19 @@ public interface ArticleService {
 
     boolean isExistUrl(String url);
 
+    int getVisibleArticleCount();
+
     int getArticleCount();
 
-    int getArticleCountWithHidden();
-
-    int getArticleCountByCategoryId(String categoryId);
+    int getVisibleArticleCountByCategoryId(String categoryId);
 
     List<Article> getAllArticle();
 
-    List<Article> getLimitArticle(PageParameter parameter);
+    List<Article> getLimitVisibleArticle(PageParameter parameter);
 
-    List<Article> getLimitArticleWithHidden(PageParameter pageParameter);
+    List<Article> getLimitArticle(PageParameter pageParameter);
 
-    List<Article> getLimitArticleByCategoryId(PageParameter parameter);
+    List<Article> getLimitVisibleArticleByCategoryId(PageParameter parameter);
 
     Article updateArticle(Article article);
 

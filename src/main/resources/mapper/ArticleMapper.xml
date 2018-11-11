@@ -24,27 +24,27 @@
         select * from article
     </select>
 
-    <select id="getLimitArticle" resultMap="articleMap" resultType="article">
+    <select id="getLimitVisibleArticle" resultMap="articleMap" resultType="article">
         select * from article where visible = 1 order by createdate desc limit #{start},#{limit}
     </select>
 
-    <select id="getLimitArticleWithHidden" resultMap="articleMap" resultType="article">
+    <select id="getLimitArticle" resultMap="articleMap" resultType="article">
         select * from article order by createdate desc limit #{start},#{limit}
     </select>
 
-    <select id="getLimitArticleByCategoryId" resultMap="articleMap" resultType="article">
+    <select id="getLimitVisibleArticleByCategoryId" resultMap="articleMap" resultType="article">
         select * from article where categoryid = #{where} and visible = 1 order by createdate desc limit #{start},#{limit}
     </select>
 
-    <select id="getArticleCount" resultType="int">
+    <select id="getVisibleArticleCount" resultType="int">
         select count(*) from article where visible = 1
     </select>
 
-    <select id="getArticleCountWithHidden" resultType="int">
+    <select id="getArticleCount" resultType="int">
         select count(*) from article
     </select>
 
-    <select id="getArticleCountByCategoryId" resultType="int" parameterType="string">
+    <select id="getVisibleArticleCountByCategoryId" resultType="int" parameterType="string">
         select count(*) from article where categoryid = #{categoryId} and visible = 1
     </select>
 

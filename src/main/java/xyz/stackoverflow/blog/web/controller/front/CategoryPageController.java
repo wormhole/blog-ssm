@@ -60,7 +60,7 @@ public class CategoryPageController {
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
             PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, category.getId());
-            List<Article> articleList = articleService.getLimitArticleByCategoryId(parameter);
+            List<Article> articleList = articleService.getLimitVisibleArticleByCategoryId(parameter);
             List<ArticleVO> articleVOList = new ArrayList<>();
             for (Article article : articleList) {
                 ArticleVO vo = new ArticleVO();
@@ -76,7 +76,7 @@ public class CategoryPageController {
                 articleVOList.add(vo);
             }
 
-            int count = articleService.getArticleCountByCategoryId(category.getId());
+            int count = articleService.getVisibleArticleCountByCategoryId(category.getId());
             int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
             pageCount = pageCount == 0 ? 1 : pageCount;
             int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
@@ -116,7 +116,7 @@ public class CategoryPageController {
             CategoryVO vo = new CategoryVO();
             vo.setCategoryName(category.getCategoryName());
             vo.setCategoryCode(category.getCategoryCode());
-            vo.setArticleCount(articleService.getArticleCountByCategoryId(category.getId()));
+            vo.setArticleCount(articleService.getVisibleArticleCountByCategoryId(category.getId()));
             categoryVOList.add(vo);
         }
 

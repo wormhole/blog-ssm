@@ -58,20 +58,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int getVisibleArticleCount() {
+        return dao.getVisibleArticleCount();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public int getArticleCount() {
         return dao.getArticleCount();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int getArticleCountWithHidden() {
-        return dao.getArticleCountWithHidden();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getArticleCountByCategoryId(String categoryId) {
-        return dao.getArticleCountByCategoryId(categoryId);
+    public int getVisibleArticleCountByCategoryId(String categoryId) {
+        return dao.getVisibleArticleCountByCategoryId(categoryId);
     }
 
     @Override
@@ -82,20 +82,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public List<Article> getLimitVisibleArticle(PageParameter parameter) {
+        return dao.getLimitVisibleArticle(parameter);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<Article> getLimitArticle(PageParameter parameter) {
         return dao.getLimitArticle(parameter);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitArticleWithHidden(PageParameter parameter) {
-        return dao.getLimitArticleWithHidden(parameter);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitArticleByCategoryId(PageParameter parameter) {
-        return dao.getLimitArticleByCategoryId(parameter);
+    public List<Article> getLimitVisibleArticleByCategoryId(PageParameter parameter) {
+        return dao.getLimitVisibleArticleByCategoryId(parameter);
     }
 
     @Override

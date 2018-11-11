@@ -222,9 +222,9 @@ public class ArticleController extends BaseController {
         Response response = new Response();
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Article> list = articleService.getLimitArticleWithHidden(pageParameter);
+        List<Article> list = articleService.getLimitArticle(pageParameter);
 
-        int count = articleService.getArticleCountWithHidden();
+        int count = articleService.getArticleCount();
         List<ArticleVO> voList = new ArrayList<>();
 
         for (Article article : list) {
