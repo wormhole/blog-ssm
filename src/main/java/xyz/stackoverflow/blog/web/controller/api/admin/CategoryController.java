@@ -57,11 +57,11 @@ public class CategoryController extends BaseController {
         CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO);
+        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.InsertGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("分类字段格式错误", map);
+            throw new BusinessException("字段格式错误", map);
         }
 
         Category category = categoryVO.toCategory();
@@ -140,6 +140,15 @@ public class CategoryController extends BaseController {
         }
 
         CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.DeleteGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式错误", map);
+        }
+
         Category category = categoryService.getCategoryById(categoryVO.getId());
 
         if (category == null) {
@@ -157,7 +166,7 @@ public class CategoryController extends BaseController {
                 articleService.updateArticle(article);
             }
         }
-        categoryService.deleteCategoryById(categoryVO.getId());
+        categoryService.deleteCategoryById(category.getId());
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("分类删除成功");
 
@@ -187,26 +196,33 @@ public class CategoryController extends BaseController {
         CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO);
+        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.UpdateGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("分类字段格式错误", map);
+            throw new BusinessException("字段格式错误", map);
         }
 
         Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
+
+        if (oldCategory == null) {
+            throw new BusinessException("未找到该分类");
+        }
+        if (oldCategory.getDeleteAble() == 0) {
+            throw new BusinessException("该分类不允许修改");
+        }
+
         if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.isExistName(categoryVO.getCategoryName())) {
             throw new BusinessException("新分类名已经存在");
         }
         if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.isExistCode(categoryVO.getCategoryCode())) {
             throw new BusinessException("新分类编码已经存在");
         }
-        if (categoryService.updateCategory(categoryVO.toCategory()) != null) {
-            response.setStatus(StatusConst.SUCCESS);
-            response.setMessage("更新成功");
-        } else {
-            throw new BusinessException("该分类不允许修改或未找到该分类");
-        }
+
+        categoryService.updateCategory(categoryVO.toCategory());
+        response.setStatus(StatusConst.SUCCESS);
+        response.setMessage("更新成功");
+
         return response;
     }
 }
