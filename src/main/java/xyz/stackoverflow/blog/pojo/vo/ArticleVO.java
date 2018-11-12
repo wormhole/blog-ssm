@@ -1,8 +1,11 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -14,10 +17,22 @@ public class ArticleVO implements SuperVO {
 
     private String id;
     private String userId;
+
+    @NotNull(message = "标题不能为空")
+    @Length(min = 1, max = 20, message = "长度只能在1到20之内")
     private String title;
+
+    @NotNull(message = "文章不能为空")
+    @Length(min = 1, message = "文章长度要大于等于1")
     private String articleMd;
+
+    @NotNull(message = "文章不能为空")
+    @Length(min = 1, message = "文章长度要大于等于1")
     private String articleHtml;
+
+    @NotNull(message = "分类不能为空")
     private String categoryId;
+
     private Date createDate;
     private Date modifyDate;
     private Integer hits;
@@ -25,7 +40,12 @@ public class ArticleVO implements SuperVO {
     private String url;
     private Integer visible;
 
+
+    @NotNull(message = "文章编码不能为空")
+    @Length(min = 1, max = 20, message = "编码长度只能在1到20之间")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线")
     private String articleCode;
+
     private String author;
     private String categoryName;
     private String createDateString;

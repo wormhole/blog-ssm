@@ -18,12 +18,15 @@ import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.web.*;
-import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -44,11 +47,11 @@ public class ArticleController extends BaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private ArticleValidator articleValidator;
-    @Autowired
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private ValidatorFactory validatorFactory;
 
     /**
      * 通过文章url获取code
@@ -93,7 +96,10 @@ public class ArticleController extends BaseController {
         }
 
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
-        Map<String, String> map = articleValidator.validate(articleVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
@@ -140,10 +146,13 @@ public class ArticleController extends BaseController {
         }
 
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
-        Map<String, String> map = articleValidator.validate(articleVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("字段错误", map);
+            throw new BusinessException("字段格式错误", map);
         }
 
         Article article = articleService.getArticleById(articleVO.getId());
@@ -166,7 +175,6 @@ public class ArticleController extends BaseController {
         articleService.updateArticle(updateArticle);
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("文章更新成功");
-
 
         return response;
     }

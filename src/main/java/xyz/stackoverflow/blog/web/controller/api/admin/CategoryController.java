@@ -9,14 +9,14 @@ import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.web.*;
-import xyz.stackoverflow.blog.validator.CategoryValidator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.*;
 
 /**
  * 分类管理接口Controller
@@ -30,9 +30,9 @@ public class CategoryController extends BaseController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private CategoryValidator categoryValidator;
-    @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ValidatorFactory validatorFactory;
 
     /**
      * 新增分类 /api/admin/category/insert
@@ -55,10 +55,13 @@ public class CategoryController extends BaseController {
         }
 
         CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
-        Map<String, String> map = categoryValidator.validate(categoryVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("字段错误", map);
+            throw new BusinessException("分类字段格式错误", map);
         }
 
         Category category = categoryVO.toCategory();
@@ -182,10 +185,13 @@ public class CategoryController extends BaseController {
         }
 
         CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
-        Map<String, String> map = categoryValidator.validate(categoryVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("字段格式有误", map);
+            throw new BusinessException("分类字段格式错误", map);
         }
 
         Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
