@@ -39,8 +39,11 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public Comment deleteCommentById(String id) {
         Comment comment = commentDao.getCommentById(id);
-        commentDao.deleteCommentById(id);
-        return comment;
+        if (commentDao.deleteCommentById(id) == 1) {
+            return comment;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -70,8 +73,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Comment commentReview(Comment comment) {
-        commentDao.commentReview(comment);
-        return commentDao.getCommentById(comment.getId());
+        Comment comment1 = commentDao.getCommentById(comment.getId());
+        if (commentDao.commentReview(comment) == 1) {
+            return comment1;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -10,13 +10,14 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.web.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.*;
 
 /**
  * 评论管理接口Controller
@@ -31,6 +32,8 @@ public class CommentController extends BaseController {
     private CommentService commentService;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ValidatorFactory validatorFactory;
 
     /**
      * 获取评论列表接口 /api/admin/comment/list
@@ -101,11 +104,19 @@ public class CommentController extends BaseController {
 
         CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
 
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO, CommentVO.DeleteGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式出错", map);
+        }
+
         if (commentService.deleteCommentById(commentVO.getId()) != null) {
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("评论删除成功");
         } else {
-            throw new BusinessException("评论删除失败");
+            throw new BusinessException("评论删除失败,找不到该评论");
         }
 
         return response;
@@ -132,6 +143,15 @@ public class CommentController extends BaseController {
         }
 
         CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO, CommentVO.ReviewGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式出错", map);
+        }
+
         Comment comment = commentVO.toComment();
 
         if (commentService.commentReview(comment) != null) {

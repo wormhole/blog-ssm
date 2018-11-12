@@ -61,7 +61,7 @@ public class CommentAndLikeController extends BaseController {
         CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO);
+        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO, CommentVO.InsertGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
@@ -118,7 +118,7 @@ public class CommentAndLikeController extends BaseController {
             response.setMessage("点赞成功");
             response.setData(article.getLikes());
         } else {
-            throw new BusinessException("不能重复点赞");
+            throw new BusinessException("不能重复点赞或找不到该url对应文章");
         }
 
         return response;
