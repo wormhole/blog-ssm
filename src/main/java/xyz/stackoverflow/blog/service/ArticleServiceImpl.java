@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.ArticleDao;
+import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
@@ -23,6 +24,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao dao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -112,6 +115,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article deleteArticleById(String id) {
         Article article = dao.getArticleById(id);
         dao.deleteArticleById(id);
+        commentDao.deleteCommentByArticleId(id);
         return article;
     }
 

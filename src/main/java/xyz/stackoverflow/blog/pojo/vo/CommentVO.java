@@ -48,9 +48,8 @@ public class CommentVO implements SuperVO {
     private String articleId;
     private Date date;
 
-
     //以下为扩展字段
-    @NotNull(message = "文章url不能为空")
+    @NotNull(message = "文章url不能为空", groups = {InsertGroup.class})
     private String url;
 
     private String dateString;

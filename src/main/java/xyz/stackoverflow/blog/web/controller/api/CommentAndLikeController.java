@@ -65,7 +65,7 @@ public class CommentAndLikeController extends BaseController {
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("评论字段格式错误", map);
+            throw new BusinessException("字段格式错误", map);
         }
 
         Article article = articleService.getArticleByUrl(commentVO.getUrl());
@@ -107,6 +107,15 @@ public class CommentAndLikeController extends BaseController {
         }
 
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO, ArticleVO.LikeGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式错误", map);
+        }
+
         Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
 
         if (isLike != null && !isLike) {

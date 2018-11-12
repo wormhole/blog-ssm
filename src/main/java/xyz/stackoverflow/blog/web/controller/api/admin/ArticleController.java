@@ -98,7 +98,7 @@ public class ArticleController extends BaseController {
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO);
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO, ArticleVO.InsertGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
@@ -148,7 +148,7 @@ public class ArticleController extends BaseController {
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO);
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO, ArticleVO.UpdateGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
@@ -285,10 +285,21 @@ public class ArticleController extends BaseController {
         }
 
         List<SuperVO> voList = voMap.get("article");
+
+        for (SuperVO vo : voList) {
+            ArticleVO articleVO = (ArticleVO) vo;
+            Validator validator = validatorFactory.getValidator();
+            Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO, ArticleVO.DeleteGroup.class);
+            Map<String, String> map = ValidationUtil.errorMap(violations);
+
+            if (!MapUtil.isEmpty(map)) {
+                throw new BusinessException("字段格式错误", map);
+            }
+        }
+
         for (SuperVO vo : voList) {
             ArticleVO articleVO = (ArticleVO) vo;
             articleService.deleteArticleById(articleVO.getId());
-            commentService.deleteCommentByArticleId(articleVO.getId());
         }
 
         response.setStatus(StatusConst.SUCCESS);
@@ -317,6 +328,15 @@ public class ArticleController extends BaseController {
         }
 
         ArticleVO articleVO = (ArticleVO) voMap.get("article").get(0);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<ArticleVO>> violations = validator.validate(articleVO, ArticleVO.VisibleGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式错误", map);
+        }
+
         Article article = articleVO.toArticle();
 
         if (articleService.updateArticle(article) != null) {

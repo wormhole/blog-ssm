@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
@@ -15,44 +17,67 @@ import java.util.Date;
  */
 public class ArticleVO implements SuperVO {
 
+    @NotNull(message = "主键不能为空", groups = {UpdateGroup.class, DeleteGroup.class, VisibleGroup.class})
     private String id;
+
     private String userId;
 
-    @NotNull(message = "标题不能为空")
-    @Length(min = 1, max = 20, message = "长度只能在1到20之内")
+    @NotNull(message = "标题不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, max = 20, message = "长度只能在1到20之内", groups = {UpdateGroup.class, InsertGroup.class})
     private String title;
 
-    @NotNull(message = "文章不能为空")
-    @Length(min = 1, message = "文章长度要大于等于1")
+    @NotNull(message = "文章不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, message = "文章长度要大于等于1", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleMd;
 
-    @NotNull(message = "文章不能为空")
-    @Length(min = 1, message = "文章长度要大于等于1")
+    @NotNull(message = "文章不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, message = "文章长度要大于等于1", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleHtml;
 
-    @NotNull(message = "分类不能为空")
+    @NotNull(message = "分类不能为空", groups = {UpdateGroup.class, InsertGroup.class})
     private String categoryId;
+
+    @NotNull(message = "可视化标志不能为空", groups = {VisibleGroup.class})
+    @DecimalMax(value = "1", message = "可视化标志只能为1或0", groups = {VisibleGroup.class})
+    @DecimalMin(value = "0", message = "可视化标志只能为1或0", groups = {VisibleGroup.class})
+    private Integer visible;
+
+    @NotNull(message = "url不能为空", groups = {LikeGroup.class})
+    private String url;
 
     private Date createDate;
     private Date modifyDate;
     private Integer hits;
     private Integer likes;
-    private String url;
-    private Integer visible;
 
-
-    @NotNull(message = "文章编码不能为空")
-    @Length(min = 1, max = 20, message = "编码长度只能在1到20之间")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线")
+    //以下为扩展字段
+    @NotNull(message = "文章编码不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, max = 20, message = "编码长度只能在1到20之间", groups = {UpdateGroup.class, InsertGroup.class})
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleCode;
 
+    private String preview;
     private String author;
     private String categoryName;
     private String createDateString;
     private String modifyDateString;
-    private String preview;
     private Integer commentCount;
     private String visibleTag;
+
+    public interface UpdateGroup {
+    }
+
+    public interface InsertGroup {
+    }
+
+    public interface DeleteGroup {
+    }
+
+    public interface VisibleGroup {
+    }
+
+    public interface LikeGroup {
+    }
 
     public ArticleVO() {
 
