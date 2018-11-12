@@ -93,6 +93,15 @@ public class MenuController extends BaseController {
         }
 
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO, MenuVO.DeleteGroup.class);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
+
+        if (!MapUtil.isEmpty(map)) {
+            throw new BusinessException("字段格式出错", map);
+        }
+
         Menu menu = menuService.deleteMenuById(menuVO.getId());
 
         if (menu == null) {
@@ -133,7 +142,7 @@ public class MenuController extends BaseController {
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO);
+        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO, MenuVO.InsertGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
@@ -179,7 +188,7 @@ public class MenuController extends BaseController {
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO);
+        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO, MenuVO.UpdateGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
