@@ -61,7 +61,14 @@ public class RegisterController extends BaseController {
         User admin = userService.getAdmin();
 
         if (admin == null) {
-            Map<String, String> map = new HashMap<>();
+
+            Validator validator = validatorFactory.getValidator();
+            Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.RegisterGroup.class);
+            Map<String, String> map = ValidationUtil.errorMap(violations);
+
+            if (!MapUtil.isEmpty(map)) {
+                throw new BusinessException("注册信息格式出错", map);
+            }
 
             String vcode = (String) session.getAttribute("vcode");
             if (!vcode.equalsIgnoreCase(userVO.getVcode())) {
@@ -72,13 +79,6 @@ public class RegisterController extends BaseController {
             if (userService.isExistEmail(userVO.getEmail())) {
                 map.put("email", "邮箱已经存在");
                 throw new BusinessException("邮箱已经存在", map);
-            }
-
-            Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.RegisterGroup.class);
-            map = ValidationUtil.errorMap(violations);
-            if (!MapUtil.isEmpty(map)) {
-                throw new BusinessException("注册信息格式出错", map);
             }
 
             User user = userVO.toUser();
