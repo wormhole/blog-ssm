@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.validator;
 
+import org.springframework.stereotype.Component;
 import xyz.stackoverflow.blog.pojo.vo.SettingVO;
 
 import java.util.HashMap;
@@ -9,10 +10,13 @@ import java.util.regex.Pattern;
 
 /**
  * 设置信息字段校验器
+ *
+ * @author 凉衫薄
  */
-public class SettingValidator extends AbstractBaseValidator<SettingVO[]> {
+@Component
+public class SettingValidator implements Validator<SettingVO[]> {
 
-    Pattern pattern = Pattern.compile("^[0-9]+$");
+    Pattern numPattern = Pattern.compile("^[0-9]+$");
 
     /**
      * 校验SettingVO数组
@@ -28,32 +32,32 @@ public class SettingValidator extends AbstractBaseValidator<SettingVO[]> {
             switch (settingVO.getKey()) {
                 case "title":
                     if (!validateTitle(settingVO.getValue())) {
-                        map.put("title", "标题长度应该在0到20之间");
+                        map.put("title", "标题长度应该在1到20之间");
                     }
                     break;
                 case "keywords":
                     if (!validateKeywords(settingVO.getValue())) {
-                        map.put("keywords", "关键字长度应该在0到20之间");
+                        map.put("keywords", "关键字长度应该在1到20之间");
                     }
                     break;
                 case "description":
                     if (!validateDescription(settingVO.getValue())) {
-                        map.put("description", "描述长度应该在0到50之间");
+                        map.put("description", "描述长度应该在1到50之间");
                     }
                     break;
                 case "copyright":
                     if (!validateCopyright(settingVO.getValue())) {
-                        map.put("copyright", "版权长度应该在0到100之间");
+                        map.put("copyright", "版权长度应该在1到100之间");
                     }
                     break;
                 case "nickname":
                     if (!validateNickname(settingVO.getValue())) {
-                        map.put("nickname", "昵称长度应该在0到20之间");
+                        map.put("nickname", "昵称长度应该在1到20之间");
                     }
                     break;
                 case "signature":
                     if (!validateSignature(settingVO.getValue())) {
-                        map.put("signature", "签名长度应该在0到20之间");
+                        map.put("signature", "签名长度应该在1到20之间");
                     }
                     break;
                 case "limit":
@@ -159,7 +163,7 @@ public class SettingValidator extends AbstractBaseValidator<SettingVO[]> {
      * @return
      */
     private boolean validateItems(String items) {
-        Matcher matcher = pattern.matcher(items);
+        Matcher matcher = numPattern.matcher(items);
         if (matcher.find()) {
             return true;
         } else {

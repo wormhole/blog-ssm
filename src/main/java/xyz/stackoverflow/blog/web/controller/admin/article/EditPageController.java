@@ -12,7 +12,6 @@ import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.web.BaseController;
-import xyz.stackoverflow.blog.validator.ArticleValidator;
 
 import java.util.List;
 
@@ -29,8 +28,6 @@ public class EditPageController extends BaseController {
     private ArticleService articleService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ArticleValidator articleValidator;
 
     /**
      * 通过文章url获取code

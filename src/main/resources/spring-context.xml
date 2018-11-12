@@ -28,13 +28,6 @@
 
     <bean id="validatorFactory" class="javax.validation.Validation" factory-method="buildDefaultValidatorFactory"/>
 
-    <bean id="userValidator" class="xyz.stackoverflow.blog.validator.UserValidator"/>
-    <bean id="categoryValidator" class="xyz.stackoverflow.blog.validator.CategoryValidator"/>
-    <bean id="articleValidator" class="xyz.stackoverflow.blog.validator.ArticleValidator"/>
-    <bean id="commentValidator" class="xyz.stackoverflow.blog.validator.CommentValidator"/>
-    <bean id="settingValidator" class="xyz.stackoverflow.blog.validator.SettingValidator"/>
-    <bean id="menuValidator" class="xyz.stackoverflow.blog.validator.MenuValidator"/>
-
     <import resource="spring-redis.xml"/>
     <import resource="spring-mybatis.xml"/>
     <import resource="spring-shiro.xml"/>
