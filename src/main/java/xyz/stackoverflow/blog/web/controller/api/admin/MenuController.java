@@ -8,12 +8,15 @@ import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.pojo.vo.MenuVO;
 import xyz.stackoverflow.blog.service.MenuService;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.web.*;
-import xyz.stackoverflow.blog.validator.MenuValidator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.*;
 
 /**
@@ -28,7 +31,7 @@ public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
     @Autowired
-    private MenuValidator menuValidator;
+    private ValidatorFactory validatorFactory;
 
     /**
      * 获取菜单列表 /api/admin/menu/list
@@ -128,10 +131,13 @@ public class MenuController extends BaseController {
         }
 
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
-        Map<String, String> map = menuValidator.validate(menuVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
-            throw new BusinessException("字段格式有误", map);
+            throw new BusinessException("字段格式出错", map);
         }
 
         Menu menu = menuVO.toMenu();
@@ -171,7 +177,10 @@ public class MenuController extends BaseController {
         }
 
         MenuVO menuVO = (MenuVO) voMap.get("menu").get(0);
-        Map<String, String> map = menuValidator.validate(menuVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<MenuVO>> violations = validator.validate(menuVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);

@@ -13,14 +13,14 @@ import xyz.stackoverflow.blog.pojo.vo.CommentVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.web.*;
-import xyz.stackoverflow.blog.validator.CommentValidator;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.*;
 
 /**
  * 评论与点赞接口Controller
@@ -36,7 +36,7 @@ public class CommentAndLikeController extends BaseController {
     @Autowired
     private CommentService commentService;
     @Autowired
-    private CommentValidator commentValidator;
+    private ValidatorFactory validatorFactory;
 
     /**
      * 评论接口 /api/comment
@@ -59,7 +59,10 @@ public class CommentAndLikeController extends BaseController {
         }
 
         CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
-        Map<String, String> map = commentValidator.validate(commentVO);
+
+        Validator validator = validatorFactory.getValidator();
+        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO);
+        Map<String, String> map = ValidationUtil.errorMap(violations);
 
         if (!MapUtil.isEmpty(map)) {
             throw new BusinessException("评论字段格式错误", map);

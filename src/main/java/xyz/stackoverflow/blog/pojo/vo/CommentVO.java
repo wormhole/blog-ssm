@@ -1,8 +1,12 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -13,17 +17,36 @@ import java.util.Date;
 public class CommentVO implements SuperVO {
 
     private String id;
+
+    @NotNull(message = "昵称不能为空")
+    @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间")
     private String nickname;
+
+    @NotNull(message = "邮箱不能为空")
+    @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间")
+    @Email(message = "邮箱格式错误")
     private String email;
+
+    @Length(min = 1, max = 50, message = "网站地址只能在1到50之间")
+    @URL(message = "网址格式错误")
     private String website;
+
+    @NotNull(message = "评论内容不能为空")
+    @Length(min = 1, max = 140, message = "评论内容长度只能在1到140之间")
     private String content;
+
+    @Length(min = 1, max = 20, message = "回复人的昵称只能在1到20之间")
+    private String replyTo;
+
     private String articleId;
     private Date date;
-    private String replyTo;
     private Integer review;
 
-    private String dateString;
+
+    @NotNull(message = "文章url不能为空")
     private String url;
+
+    private String dateString;
     private String articleTitle;
     private String reviewTag;
 
@@ -156,7 +179,7 @@ public class CommentVO implements SuperVO {
      *
      * @return
      */
-    public Comment toComment(){
+    public Comment toComment() {
         Comment comment = new Comment();
         comment.setId(id);
         comment.setEmail(email);

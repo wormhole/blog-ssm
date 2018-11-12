@@ -21,9 +21,9 @@ public class MenuValidator extends AbstractBaseValidator<MenuVO> {
         Map<String, String> map = new HashMap<>();
 
         if ((menuVO.getName() != null) && (!validateName(menuVO.getName()))) {
-            map.put("name", "菜单名称长度应该在0到20之间");
+            map.put("name", "菜单名称长度应该在0到10之间");
         } else if ((menuVO.getUrl() != null) && (!validateUrl(menuVO.getUrl()))) {
-            map.put("url", "url格式错误,或长度不在0到20之间");
+            map.put("url", "url格式错误,或长度不在0到50之间");
         }
 
         return map;

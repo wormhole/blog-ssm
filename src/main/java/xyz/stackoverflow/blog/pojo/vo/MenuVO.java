@@ -1,8 +1,10 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -13,10 +15,18 @@ import java.util.Date;
 public class MenuVO implements SuperVO {
 
     private String id;
+
+    @NotNull(message = "菜单名不能为空")
+    @Length(min = 1, max = 10, message = "菜单名的长度必须在1到10之间")
     private String name;
+
+    @NotNull(message = "链接不能为空")
+    @Length(min = 1, max = 50, message = "链接的长度必须在1到50之间")
     private String url;
+
     private Integer deleteAble;
     private Date date;
+
 
     private String deleteTag;
 
