@@ -1,10 +1,10 @@
 package xyz.stackoverflow.blog.util;
 
 import javax.validation.ConstraintViolation;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * 校验工具类
@@ -20,7 +20,7 @@ public class ValidationUtil {
      * @return
      */
     public static <T> Map<String, String> errorMap(Set<ConstraintViolation<T>> violations) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new TreeMap<>();
         Iterator<ConstraintViolation<T>> iter = violations.iterator();
         while (iter.hasNext()) {
             ConstraintViolation<T> violation = iter.next();

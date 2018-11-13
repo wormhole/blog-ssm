@@ -117,16 +117,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['name'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['name']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['url'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['url']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({
@@ -191,16 +187,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['name'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['name']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['url'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['url']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({

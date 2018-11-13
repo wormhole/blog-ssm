@@ -42,19 +42,9 @@ layui.use(['jquery'], function () {
                     $('blockquote').html('<a href="/login">点击前往登陆页面</a>');
                 } else {
                     if (response.data !== null) {
-                        if (response.data['vcode'] !== undefined) {
-                            $('blockquote').html(response.data['vcode']);
-                            $('#vcode').val('');
-                        } else if (response.data['email'] !== undefined) {
-                            $('blockquote').html(response.data['email']);
-                            $('#email').val('');
-                        } else if (response.data['nickname'] !== undefined) {
-                            $('blockquote').html(response.data['nickname']);
-                            $('#nickname').val('');
-                        } else if (response.data['password'] !== undefined) {
-                            $('blockquote').html(response.data['password']);
-                            $("#password").val('');
-                            $('#re-password').val('');
+                        for (var attr in response.data) {
+                            $('blockquote').html(response.data[attr]);
+                            break;
                         }
                     } else {
                         $('blockquote').html(data.message);

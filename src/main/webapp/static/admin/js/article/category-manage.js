@@ -108,16 +108,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['name'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['name']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['code'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['code']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({
@@ -182,16 +178,12 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['categoryName'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['categoryName']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['categoryCode'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['categoryCode']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({

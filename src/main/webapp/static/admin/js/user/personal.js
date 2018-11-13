@@ -18,16 +18,12 @@ layui.use(['layer', 'jquery'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['email'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['email']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['nickname'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['nickname']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({
@@ -61,16 +57,12 @@ layui.use(['layer', 'jquery'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['oldPassword'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['oldPassword']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['password'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['password']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({

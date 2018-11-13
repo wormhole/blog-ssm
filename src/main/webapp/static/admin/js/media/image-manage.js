@@ -24,7 +24,7 @@ layui.use(['element', 'jquery', 'layer'], function () {
             type: "post",
             dataType: "json",
             success: function (response) {
-                if (response.status == 0) {
+                if (response.status === 0) {
                     layer.open({
                         type: 0,
                         content: response.message
