@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.util.web.SuperVO;
@@ -15,19 +16,21 @@ import java.util.Date;
  */
 public class MenuVO implements SuperVO {
 
-    @NotNull(message = "主键不能为空", groups = {DeleteGroup.class, UpdateGroup.class})
+    @NotNull(message = "缺少主键字段", groups = {DeleteGroup.class, UpdateGroup.class})
     private String id;
 
-    @NotNull(message = "菜单名不能为空", groups = {InsertGroup.class, UpdateGroup.class})
+    @NotNull(message = "缺少菜单名字段", groups = {InsertGroup.class, UpdateGroup.class})
     @Length(min = 1, max = 10, message = "菜单名的长度必须在1到10之间", groups = {InsertGroup.class, UpdateGroup.class})
     private String name;
 
-    @NotNull(message = "链接不能为空", groups = {InsertGroup.class, UpdateGroup.class})
-    @Length(min = 1, max = 50, message = "链接的长度必须在1到50之间")
+    @NotNull(message = "缺少URL字段", groups = {InsertGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 50, message = "URL的长度必须在1到50之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "(^(http://|https://)([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$)|(^/([a-zA-Z0-9\\-]+/)*[a-zA-Z0-9]+/?$)", message = "URL格式错误", groups = {InsertGroup.class, UpdateGroup.class})
     private String url;
 
     private Integer deleteAble;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
 
     //以下为扩展字段

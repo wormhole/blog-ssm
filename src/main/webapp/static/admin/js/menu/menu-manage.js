@@ -43,24 +43,19 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 yes: function (index, layero) {
                     var name = $('#name').val();
                     var url = $('#url').val();
-                    if (!(name.length && url.length)) {
-                        layer.open({
-                            type: 0,
-                            content: "不能为空"
-                        });
-                    } else {
-                        var data = {};
-                        data['name'] = name;
-                        data['url'] = url;
 
-                        var param = {
-                            data: {
-                                menu: [data]
-                            }
-                        };
-                        insertMenuAjax(param);
-                        layer.close(index);
-                    }
+                    var data = {};
+                    data['name'] = name;
+                    data['url'] = url;
+
+                    var param = {
+                        data: {
+                            menu: [data]
+                        }
+                    };
+                    insertMenuAjax(param);
+                    layer.close(index);
+
                 }
             });
         }
