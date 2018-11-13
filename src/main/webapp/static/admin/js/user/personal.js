@@ -61,7 +61,12 @@ layui.use(['layer', 'jquery'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['password'] !== undefined) {
+                        if (response.data['oldPassword'] !== undefined) {
+                            layer.open({
+                                type: 0,
+                                content: response.data['oldPassword']
+                            });
+                        } else if (response.data['password'] !== undefined) {
                             layer.open({
                                 type: 0,
                                 content: response.data['password']
@@ -84,7 +89,7 @@ layui.use(['layer', 'jquery'], function () {
         });
     }
 
-    $('#savebase-btn').click(function () {
+    $('#save-base-btn').click(function () {
 
         var email = $('#email').val();
         var nickname = $('#nickname').val();
@@ -101,14 +106,14 @@ layui.use(['layer', 'jquery'], function () {
         updateBaseInfoAjax(param);
     });
 
-    $('#savepwd-btn').click(function () {
+    $('#save-pwd-btn').click(function () {
 
         var oldPassword = $('#old-password').val();
         var newPassword = $('#new-password').val();
-        var checkedPassword = $('#checked-password').val();
+        var rePassword = $('#re-password').val();
 
-        if (newPassword !== checkedPassword) {
-            $('#checked-password').val('');
+        if (newPassword !== rePassword) {
+            $('#re-password').val('');
             layer.open({
                 type: 0,
                 content: "两次密码不匹配"

@@ -24,7 +24,14 @@ public class ValidationUtil {
         Iterator<ConstraintViolation<T>> iter = violations.iterator();
         while (iter.hasNext()) {
             ConstraintViolation<T> violation = iter.next();
-            map.put(violation.getPropertyPath().toString(), violation.getMessage());
+            String key = violation.getPropertyPath().toString();
+            if (map.get(key) == null) {
+                map.put(key, violation.getMessage());
+            } else {
+                String errInfo = map.get(key);
+                errInfo += "," + violation.getMessage();
+                map.replace(key, errInfo);
+            }
         }
         return map;
     }

@@ -18,20 +18,20 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-inline">
-                <input name="email" class="layui-input" type="email" required id="email" value="${Session.user.email}">
+                <input class="layui-input" type="email" required id="email" value="${Session.user.email}">
             </div>
-            <div class="layui-form-mid layui-word-aux">邮箱长度在0到30之间</div>
+            <div class="layui-form-mid layui-word-aux">邮箱长度在1到30之间</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-inline">
-                <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
+                <input class="layui-input" type="text" required id="nickname" value="${Session.user.nickname}">
             </div>
-            <div class="layui-form-mid layui-word-aux">昵称长度只能在0-20之间</div>
+            <div class="layui-form-mid layui-word-aux">昵称长度只能在1-20之间</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" id="savebase-btn">保存修改</button>
+                <button class="layui-btn layui-btn-normal" id="save-base-btn">保存修改</button>
             </div>
         </div>
     </div>
@@ -42,27 +42,27 @@
         <div class="layui-form-item">
             <label class="layui-form-label">旧密码</label>
             <div class="layui-input-inline">
-                <input name="oldPassword" class="layui-input" type="password" id="old-password">
+                <input class="layui-input" type="password" id="old-password">
             </div>
             <div class="layui-form-mid layui-word-aux">请输入旧密码</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">新密码</label>
             <div class="layui-input-inline">
-                <input name="newPassword" class="layui-input" type="password" id="new-password">
+                <input class="layui-input" type="password" id="new-password">
             </div>
             <div class="layui-form-mid layui-word-aux">密码只能是英文数字下划线,长度在6-20之间</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
-                <input name="checkedPassword" class="layui-input" type="password" id="checked-password">
+                <input class="layui-input" type="password" id="re-password">
             </div>
             <div class="layui-form-mid layui-word-aux">请重新输入新密码</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" id="savepwd-btn">保存密码</button>
+                <button class="layui-btn layui-btn-normal" id="save-pwd-btn">保存密码</button>
             </div>
         </div>
     </div>

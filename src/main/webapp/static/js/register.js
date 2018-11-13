@@ -9,15 +9,11 @@ layui.use(['jquery'], function () {
         var email = $('#email').val();
         var nickname = $('#nickname').val();
         var password = $('#password').val();
-        var checkedPassword = $('#checked-password').val();
+        var rePassword = $('#re-password').val();
         var vcode = $('#vcode').val();
 
-        if (!(email.length && nickname.length && password.length && checkedPassword.length && vcode.length)) {
-            return;
-        }
-
-        if (password != checkedPassword) {
-            $('#checked-password').val('');
+        if (password !== rePassword) {
+            $('#re-password').val('');
             $('blockquote').html('两次密码不一致');
             $('blockquote').removeClass('hidden');
             $('#verify-img').attr('src', '/api/vcode' + '?' + Math.random());
@@ -58,7 +54,7 @@ layui.use(['jquery'], function () {
                         } else if (response.data['password'] !== undefined) {
                             $('blockquote').html(response.data['password']);
                             $("#password").val('');
-                            $('#checked-password').val('');
+                            $('#re-password').val('');
                         }
                     } else {
                         $('blockquote').html(data.message);

@@ -5,6 +5,7 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -17,17 +18,17 @@ public class UserVO implements SuperVO {
 
     private String id;
 
-    @NotNull(message = "邮箱不能为空", groups = {RegisterGroup.class, UpdateBaseGroup.class})
+    @NotNull(message = "缺少邮箱字段", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     @Email(message = "邮箱格式错误", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     private String email;
 
-    @NotNull(message = "密码不能为空", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
+    @NotNull(message = "缺少密码字段", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
     @Length(min = 6, max = 20, message = "密码长度只能在6到20之间", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "密码只能为数字字母下划线", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
     private String password;
 
-    @NotNull(message = "昵称不能为空", groups = {RegisterGroup.class, UpdateBaseGroup.class})
+    @NotNull(message = "缺少昵称字段", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     private String nickname;
 
@@ -35,10 +36,12 @@ public class UserVO implements SuperVO {
     private Integer deleteAble;
 
     //以下为扩展字段
-    @NotNull(message = "旧密码不能为空", groups = {UpdatePasswordGroup.class})
+    @NotNull(message = "缺少旧密码字段", groups = {UpdatePasswordGroup.class})
+    @NotBlank(message = "旧密码不能为空", groups = {UpdatePasswordGroup.class})
     private String oldPassword;
 
-    @NotNull(message = "验证码不能为空", groups = {RegisterGroup.class})
+    @NotNull(message = "缺少验证码字段", groups = {RegisterGroup.class})
+    @NotBlank(message = "验证码不能为空", groups = {RegisterGroup.class})
     private String vcode;
 
     public interface RegisterGroup {

@@ -19,20 +19,20 @@
         <blockquote class="layui-elem-quote hidden"></blockquote>
         <form class="layui-form">
             <div class="layui-form-item">
-                <input type="email" name="email" id="email" required placeholder="邮箱" class="layui-input">
+                <input type="email" id="email" required placeholder="邮箱" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="text" name="nickname" id="nickname" required placeholder="昵称" class="layui-input">
+                <input type="text" id="nickname" required placeholder="昵称" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="password" id="password" required placeholder="密码" class="layui-input">
+                <input type="password" id="password" required placeholder="密码" class="layui-input">
             </div>
             <div class="layui-form-item">
-                <input type="password" name="checked-password" id="checked-password" required placeholder="确认密码" class="layui-input">
+                <input type="password" id="re-password" required placeholder="确认密码" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <input type="text" name="vcode" id="vcode" required placeholder="验证码" class="layui-input">
+                    <input type="text" id="vcode" required placeholder="验证码" class="layui-input">
                 </div>
                 <div class="layui-inline">
                     <img src="/api/vcode" class="verify-img" id="verify-img"/>
