@@ -30,8 +30,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
             {field: 'hits', width: 100, title: '点击量', sort: true},
             {field: 'commentCount', width: 100, title: '评论量', sort: true},
             {field: 'visibleTag', width: 100, title: '是否隐藏'},
-            {field: 'createDateString', width: 180, title: '创建日期', sort: true},
-            {field: 'modifyDateString', width: 180, title: '修改日期', sort: true},
+            {field: 'createDate', width: 180, title: '创建日期', sort: true},
+            {field: 'modifyDate', width: 180, title: '修改日期', sort: true},
             {fixed: 'right', width: 290, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };

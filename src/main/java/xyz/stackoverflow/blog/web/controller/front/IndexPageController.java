@@ -14,7 +14,6 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import javax.servlet.ServletContext;
@@ -65,7 +64,7 @@ public class IndexPageController {
             vo.setHits(article.getHits());
             vo.setLikes(article.getLikes());
             vo.setUrl(article.getUrl());
-            vo.setCreateDateString(DateUtil.formatDate(article.getCreateDate()));
+            vo.setCreateDate(article.getCreateDate());
             vo.setPreview(HtmlUtils.htmlEscape(Jsoup.parse(article.getArticleHtml()).text()));
             articleVOList.add(vo);
         }

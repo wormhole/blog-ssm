@@ -66,7 +66,7 @@ public class ArticlePageController {
             articleVO.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             articleVO.setHits(article.getHits());
             articleVO.setLikes(article.getLikes());
-            articleVO.setCreateDateString(DateUtil.formatDate(article.getCreateDate()));
+            articleVO.setCreateDate(article.getCreateDate());
             articleVO.setArticleMd(article.getArticleMd());
 
             List<Comment> commentList = commentService.getCommentByArticleId(article.getId());

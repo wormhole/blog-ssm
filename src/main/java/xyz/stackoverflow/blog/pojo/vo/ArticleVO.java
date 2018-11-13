@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.web.SuperVO;
@@ -17,32 +18,32 @@ import java.util.Date;
  */
 public class ArticleVO implements SuperVO {
 
-    @NotNull(message = "主键不能为空", groups = {UpdateGroup.class, DeleteGroup.class, VisibleGroup.class})
+    @NotNull(message = "缺少主键字段", groups = {UpdateGroup.class, DeleteGroup.class, VisibleGroup.class})
     private String id;
 
     private String userId;
 
-    @NotNull(message = "标题不能为空", groups = {UpdateGroup.class, InsertGroup.class})
-    @Length(min = 1, max = 20, message = "长度只能在1到20之内", groups = {UpdateGroup.class, InsertGroup.class})
+    @NotNull(message = "缺少标题字段", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, max = 20, message = "标题长度只能在1到20之内", groups = {UpdateGroup.class, InsertGroup.class})
     private String title;
 
-    @NotNull(message = "文章不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @NotNull(message = "缺少文章md字段", groups = {UpdateGroup.class, InsertGroup.class})
     @Length(min = 1, message = "文章长度要大于等于1", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleMd;
 
-    @NotNull(message = "文章不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @NotNull(message = "缺少文章html字段", groups = {UpdateGroup.class, InsertGroup.class})
     @Length(min = 1, message = "文章长度要大于等于1", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleHtml;
 
-    @NotNull(message = "分类不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @NotNull(message = "缺少分类字段", groups = {UpdateGroup.class, InsertGroup.class})
     private String categoryId;
 
-    @NotNull(message = "可视化标志不能为空", groups = {VisibleGroup.class})
+    @NotNull(message = "缺少可视化标志字段", groups = {VisibleGroup.class})
     @DecimalMax(value = "1", message = "可视化标志只能为1或0", groups = {VisibleGroup.class})
     @DecimalMin(value = "0", message = "可视化标志只能为1或0", groups = {VisibleGroup.class})
     private Integer visible;
 
-    @NotNull(message = "url不能为空", groups = {LikeGroup.class})
+    @NotNull(message = "缺少url字段", groups = {LikeGroup.class})
     private String url;
 
     private Date createDate;
@@ -51,7 +52,7 @@ public class ArticleVO implements SuperVO {
     private Integer likes;
 
     //以下为扩展字段
-    @NotNull(message = "文章编码不能为空", groups = {UpdateGroup.class, InsertGroup.class})
+    @NotNull(message = "缺少文章编码字段", groups = {UpdateGroup.class, InsertGroup.class})
     @Length(min = 1, max = 20, message = "编码长度只能在1到20之间", groups = {UpdateGroup.class, InsertGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleCode;
@@ -59,8 +60,6 @@ public class ArticleVO implements SuperVO {
     private String preview;
     private String author;
     private String categoryName;
-    private String createDateString;
-    private String modifyDateString;
     private Integer commentCount;
     private String visibleTag;
 
@@ -83,7 +82,7 @@ public class ArticleVO implements SuperVO {
 
     }
 
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer visible, String articleCode, String author, String categoryName, String createDateString, String modifyDateString, String preview, Integer commentCount, String visibleTag) {
+    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer visible, String articleCode, String author, String categoryName, String preview, Integer commentCount, String visibleTag) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -99,8 +98,6 @@ public class ArticleVO implements SuperVO {
         this.articleCode = articleCode;
         this.author = author;
         this.categoryName = categoryName;
-        this.createDateString = createDateString;
-        this.modifyDateString = modifyDateString;
         this.preview = preview;
         this.commentCount = commentCount;
         this.visibleTag = visibleTag;
@@ -154,6 +151,7 @@ public class ArticleVO implements SuperVO {
         this.categoryId = categoryId;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateDate() {
         return createDate;
     }
@@ -162,6 +160,7 @@ public class ArticleVO implements SuperVO {
         this.createDate = createDate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getModifyDate() {
         return modifyDate;
     }
@@ -224,22 +223,6 @@ public class ArticleVO implements SuperVO {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public String getCreateDateString() {
-        return createDateString;
-    }
-
-    public void setCreateDateString(String createDateString) {
-        this.createDateString = createDateString;
-    }
-
-    public String getModifyDateString() {
-        return modifyDateString;
-    }
-
-    public void setModifyDateString(String modifyDateString) {
-        this.modifyDateString = modifyDateString;
     }
 
     public String getPreview() {

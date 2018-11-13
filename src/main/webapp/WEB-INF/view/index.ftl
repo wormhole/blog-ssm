@@ -26,7 +26,8 @@
                 <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
                     <#list Application.menu as menu>
-                        <a class="item btn <#if menu.url == select>select</#if>" href="${menu.url}">${menu.name?html}</a>
+                        <a class="item btn <#if menu.url == select>select</#if>"
+                           href="${menu.url}">${menu.name?html}</a>
                     </#list>
                 </div>
             </div>
@@ -34,26 +35,13 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="header">
-                    ${header}
+                ${header}
                 </div>
                 <div class="body">
                     <#list articleList as article>
                         <div class="article">
-                            <div class="title"><a href="${article.url}">${article.title}</a></div>
-                            <div class="content">${article.preview}</div>
-                            <div class="footer">
-                                <div>
-                                    <span class="oi oi-calendar" aria-hidden="true"></span>
-                                    <span>${article.createDateString}</span>
-                                </div>
-                                <div>
-                                    <span class="oi oi-person" aria-hidden="true"></span>
-                                    <span>${article.author}</span>
-                                </div>
-                                <div>
-                                    <span class="oi oi-tags" aria-hidden="true"></span>
-                                    <span>${article.categoryName}</span>
-                                </div>
+                            <div class="title">
+                                <a href="${article.url}">${article.title}</a>
                                 <div>
                                     <span class="oi oi-eye" aria-hidden="true"></span>
                                     <span>${article.hits}</span>
@@ -65,6 +53,21 @@
                                 <div>
                                     <span class="oi oi-chat" aria-hidden="true"></span>
                                     <span>${article.commentCount}</span>
+                                </div>
+                            </div>
+                            <div class="content">${article.preview}</div>
+                            <div class="footer">
+                                <div>
+                                    <span class="oi oi-calendar" aria-hidden="true"></span>
+                                    <span>${article.createDate?string('yyyy-MM-dd')}</span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-person" aria-hidden="true"></span>
+                                    <span>${article.author}</span>
+                                </div>
+                                <div>
+                                    <span class="oi oi-tags" aria-hidden="true"></span>
+                                    <span>${article.categoryName}</span>
                                 </div>
                             </div>
                         </div>

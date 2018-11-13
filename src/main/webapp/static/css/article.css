@@ -21,6 +21,13 @@ body {
     margin-top: 5px;
 }
 
+.article .title div {
+    display: inline;
+    font-size: 15px;
+    color: #707070;
+    margin-left: 15px;
+}
+
 .article .info {
     margin: 15px 0;
 }

@@ -29,6 +29,13 @@ body {
     color: black;
 }
 
+.article .title div {
+    display: inline;
+    margin-left: 15px;
+    font-size: 15px;
+    color: #707070;
+}
+
 .article .content {
     font-size: 16px;
     margin: 15px 0;
@@ -71,6 +78,14 @@ body {
     }
 
     body {
-        padding-top: 20px;
+        padding-top: 2px;
+    }
+
+    .col-md-3 {
+        padding: 0 5px;
+    }
+
+    .col-md-9 {
+        padding: 0 5px;
     }
 }

@@ -44,20 +44,8 @@
         <div class="col-md-9">
             <div class="middle">
                 <div class="article">
-                    <div class="title">${article.title}</div>
-                    <div class="info">
-                        <div>
-                            <span class="oi oi-calendar" aria-hidden="true"></span>
-                            <span>${article.createDateString}</span>
-                        </div>
-                        <div>
-                            <span class="oi oi-person" aria-hidden="true"></span>
-                            <span>${article.author}</span>
-                        </div>
-                        <div>
-                            <span class="oi oi-tags" aria-hidden="true"></span>
-                            <span>${article.categoryName}</span>
-                        </div>
+                    <div class="title">
+                    ${article.title}
                         <div>
                             <span class="oi oi-eye" aria-hidden="true"></span>
                             <span>${article.hits}</span>
@@ -71,12 +59,27 @@
                             <span>${article.commentCount}</span>
                         </div>
                     </div>
+                    <div class="info">
+                        <div>
+                            <span class="oi oi-calendar" aria-hidden="true"></span>
+                            <span>${article.createDate?string('yyyy-MM-dd')}</span>
+                        </div>
+                        <div>
+                            <span class="oi oi-person" aria-hidden="true"></span>
+                            <span>${article.author}</span>
+                        </div>
+                        <div>
+                            <span class="oi oi-tags" aria-hidden="true"></span>
+                            <span>${article.categoryName}</span>
+                        </div>
+                    </div>
                     <div class="content" id="editormd-view">
                         <textarea style="display:none;">${article.articleMd}</textarea>
                     </div>
                 </div>
                 <div class="like">
-                    <div class="heart" <#if (isLike == true)>style="background-position:right"<#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
+                    <div class="heart" <#if (isLike == true)>style="background-position:right"
+                         <#else>style="background-position:left"</#if> rel="${isLike?string("true","false")}"></div>
                 </div>
                 <div class="comment">
                     <div class="comment-title">

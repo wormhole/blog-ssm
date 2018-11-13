@@ -45,16 +45,12 @@ layui.use(['form', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['title'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['title']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['code'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['code']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({
@@ -88,16 +84,12 @@ layui.use(['form', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['title'] !== undefined) {
+                        for (var attr in response.data) {
                             layer.open({
                                 type: 0,
-                                content: response.data['title']
+                                content: response.data[attr]
                             });
-                        } else if (response.data['code'] !== undefined) {
-                            layer.open({
-                                type: 0,
-                                content: response.data['code']
-                            });
+                            break;
                         }
                     } else {
                         layer.open({
@@ -123,29 +115,6 @@ layui.use(['form', 'layer'], function () {
         var articleHtml = mdEditor.getPreviewedHTML();
         var articleCode = $('#article-code').val();
         var categoryId = $('#category-select').val();
-
-        if (title.length === 0) {
-            layer.open({
-                type: 0,
-                content: "标题不能为空"
-            });
-            return;
-        }
-
-        if (articleCode.length === 0) {
-            layer.open({
-                type: 0,
-                content: "博客编码不能为空"
-            });
-        }
-
-        if (articleMd.length === 0) {
-            layer.open({
-                type: 0,
-                content: "内容不能为空"
-            });
-            return;
-        }
 
         var data = {
             title: title,
