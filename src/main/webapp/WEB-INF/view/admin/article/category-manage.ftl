@@ -29,13 +29,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">分类名称</label>
             <div class="layui-input-inline">
-                <input name="categoryName" class="layui-input" type="text" required id="categoryName" value="">
+                <input class="layui-input" type="text" required id="categoryName" value="">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">分类编码</label>
             <div class="layui-input-inline">
-                <input name="categoryCode" class="layui-input" type="text" required id="categoryCode" value="">
+                <input class="layui-input" type="text" required id="categoryCode" value="">
             </div>
         </div>
     </div>

@@ -29,8 +29,6 @@ public class MenuVO implements SuperVO {
     private String url;
 
     private Integer deleteAble;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
 
     //以下为扩展字段
@@ -90,6 +88,7 @@ public class MenuVO implements SuperVO {
         this.deleteAble = deleteAble;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }

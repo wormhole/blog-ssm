@@ -43,23 +43,18 @@ layui.use(['table', 'jquery', 'layer'], function () {
                 yes: function (index, layero) {
                     var categoryName = $('#categoryName').val();
                     var categoryCode = $('#categoryCode').val();
-                    if (!(categoryCode.length && categoryName.length)) {
-                        layer.open({
-                            type: 0,
-                            content: "不能为空"
-                        });
-                    } else {
-                        var data = {};
-                        data['categoryCode'] = categoryCode;
-                        data['categoryName'] = categoryName;
-                        var param = {
-                            data: {
-                                category: [data]
-                            }
-                        };
-                        insertCategoryAjax(param);
-                        layer.close(index);
-                    }
+
+                    var data = {};
+                    data['categoryCode'] = categoryCode;
+                    data['categoryName'] = categoryName;
+                    var param = {
+                        data: {
+                            category: [data]
+                        }
+                    };
+                    insertCategoryAjax(param);
+                    layer.close(index);
+
                 }
             });
         }
@@ -83,25 +78,19 @@ layui.use(['table', 'jquery', 'layer'], function () {
     });
 
     table.on('edit(category-table-1)', function (obj) {
-        if (!obj.value.length) {
-            layer.open({
-                type: 0,
-                content: "不能为空"
-            });
-            tableIns.reload(parameter);
-        } else {
-            var data = {
-                id: obj.data.id,
-                categoryCode: obj.data.categoryCode,
-                categoryName: obj.data.categoryName
-            };
-            var param = {
-                data: {
-                    category: [data]
-                }
-            };
-            updateCategoryAjax(param);
-        }
+
+        var data = {
+            id: obj.data.id,
+            categoryCode: obj.data.categoryCode,
+            categoryName: obj.data.categoryName
+        };
+        var param = {
+            data: {
+                category: [data]
+            }
+        };
+        updateCategoryAjax(param);
+
     });
 
     function updateCategoryAjax(param) {
@@ -193,15 +182,15 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     });
                 } else {
                     if (response.data !== null) {
-                        if (response.data['name'] !== undefined) {
+                        if (response.data['categoryName'] !== undefined) {
                             layer.open({
                                 type: 0,
-                                content: response.data['name']
+                                content: response.data['categoryName']
                             });
-                        } else if (response.data['code'] !== undefined) {
+                        } else if (response.data['categoryCode'] !== undefined) {
                             layer.open({
                                 type: 0,
-                                content: response.data['code']
+                                content: response.data['categoryCode']
                             });
                         }
                     } else {
