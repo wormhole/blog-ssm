@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
@@ -19,20 +20,17 @@ public class VisitVO implements SuperVO {
     private String agent;
     private Date date;
 
-    private String dateString;
-
     public VisitVO() {
 
     }
 
-    public VisitVO(String id, String url, Integer status, String ip, String agent, Date date, String dateString) {
+    public VisitVO(String id, String url, Integer status, String ip, String agent, Date date) {
         this.id = id;
         this.url = url;
         this.status = status;
         this.ip = ip;
         this.agent = agent;
         this.date = date;
-        this.dateString = dateString;
     }
 
     public String getId() {
@@ -75,20 +73,13 @@ public class VisitVO implements SuperVO {
         this.agent = agent;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getDateString() {
-        return dateString;
-    }
-
-    public void setDateString(String dateString) {
-        this.dateString = dateString;
     }
 
     /**

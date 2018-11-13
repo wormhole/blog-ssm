@@ -102,7 +102,7 @@ public class VisitDataController {
             vo.setUrl(visit.getUrl());
             vo.setStatus(visit.getStatus());
             vo.setAgent(visit.getAgent());
-            vo.setDateString(DateUtil.formatDateTime(visit.getDate()));
+            vo.setDate(visit.getDate());
             voList.add(vo);
         }
 
@@ -143,7 +143,7 @@ public class VisitDataController {
             vo.setUrl(visit.getUrl());
             vo.setAgent(visit.getAgent());
             vo.setStatus(visit.getStatus());
-            vo.setDateString(DateUtil.formatDateTime(visit.getDate()));
+            vo.setDate(visit.getDate());
             voList.add(vo);
         }
 
