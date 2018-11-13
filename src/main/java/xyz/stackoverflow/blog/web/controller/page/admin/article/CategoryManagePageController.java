@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin.comment;
+package xyz.stackoverflow.blog.web.controller.page.admin.article;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,24 +7,24 @@ import org.springframework.web.servlet.ModelAndView;
 import xyz.stackoverflow.blog.util.web.BaseController;
 
 /**
- * 评论管理页面跳转Controller
+ * 后台管理系统分类管理页面Controller
  *
  * @author 凉衫薄
  */
 @Controller
-@RequestMapping("/admin/comment")
-public class CommentManagePageController extends BaseController {
+@RequestMapping("/admin/article")
+public class CategoryManagePageController extends BaseController {
 
     /**
-     * 评论管理页面跳转 /admin/comment/comment-manage
+     * 分类管理页面跳转 /admin/article/category-manage
      * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/comment-manage", method = RequestMethod.GET)
-    public ModelAndView management() {
+    @RequestMapping(value = "/category-manage", method = RequestMethod.GET)
+    public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/comment/comment-manage");
+        mv.setViewName("/admin/article/category-manage");
         return mv;
     }
 }

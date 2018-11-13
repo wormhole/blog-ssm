@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin.media;
+package xyz.stackoverflow.blog.web.controller.page.admin.media;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

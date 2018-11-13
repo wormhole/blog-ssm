@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin.article;
+package xyz.stackoverflow.blog.web.controller.page.admin.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

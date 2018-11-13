@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.front;
+package xyz.stackoverflow.blog.web.controller.page.front;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

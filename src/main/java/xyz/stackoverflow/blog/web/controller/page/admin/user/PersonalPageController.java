@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.web.controller.admin.menu;
+package xyz.stackoverflow.blog.web.controller.page.admin.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,18 +7,18 @@ import org.springframework.web.servlet.ModelAndView;
 import xyz.stackoverflow.blog.util.web.BaseController;
 
 /**
- * 菜单管理页面跳转Controller
+ * 个人信息维护页面控制器
  *
  * @author 凉衫薄
  */
 @Controller
-@RequestMapping("/admin/menu")
-public class MenuManagementPageController extends BaseController {
+@RequestMapping("/admin/user")
+public class PersonalPageController extends BaseController {
 
-    @RequestMapping(value = "/menu-manage", method = RequestMethod.GET)
-    public ModelAndView management() {
+    @RequestMapping(value = "/personal", method = RequestMethod.GET)
+    public ModelAndView personal() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/admin/menu/menu-manage");
+        mv.setViewName("/admin/user/personal");
         return mv;
     }
 }
