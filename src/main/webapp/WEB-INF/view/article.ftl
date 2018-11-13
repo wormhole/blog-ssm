@@ -96,7 +96,7 @@
                                         <span>
                                             <a href="${comment.website}" class="name">${comment.nickname}</a>
                                         </span>
-                                        <span class="time">${comment.dateString}</span>
+                                        <span class="time">${comment.date?string('yyyy-MM-dd HH:mm:ss')}</span>
                                         <span>
                                             <a href="javascript:;" class="reply">回复</a>
                                         </span>

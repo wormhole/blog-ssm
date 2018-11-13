@@ -16,7 +16,6 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.DateUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class ArticlePageController {
             for (Comment comment : commentList) {
                 CommentVO commentVO = new CommentVO();
                 commentVO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
-                commentVO.setDateString(DateUtil.formatDateTime(comment.getDate()));
+                commentVO.setDate(comment.getDate());
                 commentVO.setContent(HtmlUtils.htmlEscape(comment.getContent()));
                 if (comment.getReplyTo() != null) {
                     commentVO.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));

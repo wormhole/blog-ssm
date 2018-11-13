@@ -39,30 +39,6 @@ $(function () {
             data['replyTo'] = viewModel.replyRef();
         }
 
-        if (!data['nickname'].length) {
-            layer.open({
-                type: 0,
-                content: '昵称不能为空'
-            });
-            return;
-        }
-
-        if (!data['email'].length) {
-            layer.open({
-                type: 0,
-                content: '邮箱不能为空'
-            });
-            return;
-        }
-
-        if (!data['content'].length) {
-            layer.open({
-                type: 0,
-                content: '评论内容不能为空'
-            });
-            return;
-        }
-
         var param = {
             data: {
                 comment: [data]
@@ -99,31 +75,12 @@ function commentAjax(param) {
                 $('#website').val('');
             } else {
                 if (response.data !== null) {
-                    if (response.data['email'] !== undefined) {
+                    for (var attr in response.data) {
                         layer.open({
                             type: 0,
-                            content: response.data['email']
+                            content: response.data[attr]
                         });
-                    } else if (response.data['nickname'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['nickname']
-                        });
-                    } else if (response.data['website'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['website']
-                        });
-                    } else if (response.data['content'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['content']
-                        });
-                    } else if (response.data['replyTo'] !== undefined) {
-                        layer.open({
-                            type: 0,
-                            content: response.data['replyTo']
-                        });
+                        break;
                     }
                 } else {
                     layer.open({

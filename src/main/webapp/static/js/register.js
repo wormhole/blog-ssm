@@ -47,7 +47,7 @@ layui.use(['jquery'], function () {
                             break;
                         }
                     } else {
-                        $('blockquote').html(data.message);
+                        $('blockquote').html(response.message);
                     }
                 }
                 $('blockquote').removeClass('hidden');

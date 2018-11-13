@@ -8,7 +8,6 @@ import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.pojo.vo.CommentVO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.MapUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
 import xyz.stackoverflow.blog.util.db.PageParameter;
@@ -59,7 +58,7 @@ public class CommentController extends BaseController {
             vo.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
             vo.setEmail(HtmlUtils.htmlEscape(comment.getEmail()));
             vo.setWebsite(comment.getWebsite());
-            vo.setDateString(DateUtil.formatDateTime(comment.getDate()));
+            vo.setDate(comment.getDate());
             vo.setContent(HtmlUtils.htmlEscape(comment.getContent()));
             vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.getArticleById(comment.getArticleId()).getTitle()));
             if (comment.getReview() == 0) {

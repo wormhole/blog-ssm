@@ -21,7 +21,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             }
         },
         cols: [[
-            {field: 'dateString', width: 170, title: '日期', sort: true},
+            {field: 'date', width: 170, title: '日期', sort: true},
             {field: 'nickname', width: 120, title: '昵称', sort: true},
             {field: 'email', width: 150, title: '邮箱', sort: true},
             {field: 'website', width: 150, title: '个人主页', sort: true},

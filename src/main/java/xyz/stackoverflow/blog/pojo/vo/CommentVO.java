@@ -1,5 +1,6 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
@@ -18,14 +19,14 @@ import java.util.Date;
  */
 public class CommentVO implements SuperVO {
 
-    @NotNull(message = "主键不能为空", groups = {ReviewGroup.class, DeleteGroup.class})
+    @NotNull(message = "缺少主键字段", groups = {ReviewGroup.class, DeleteGroup.class})
     private String id;
 
-    @NotNull(message = "昵称不能为空", groups = {InsertGroup.class})
+    @NotNull(message = "缺少昵称字段", groups = {InsertGroup.class})
     @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间", groups = {InsertGroup.class})
     private String nickname;
 
-    @NotNull(message = "邮箱不能为空", groups = {InsertGroup.class})
+    @NotNull(message = "缺少邮箱字段", groups = {InsertGroup.class})
     @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间", groups = {InsertGroup.class})
     @Email(message = "邮箱格式错误", groups = {InsertGroup.class})
     private String email;
@@ -34,7 +35,7 @@ public class CommentVO implements SuperVO {
     @URL(message = "网址格式错误", groups = {InsertGroup.class})
     private String website;
 
-    @NotNull(message = "评论内容不能为空", groups = {InsertGroup.class})
+    @NotNull(message = "缺少评论字段", groups = {InsertGroup.class})
     @Length(min = 1, max = 140, message = "评论内容长度只能在1到140之间", groups = {InsertGroup.class})
     private String content;
 
@@ -52,7 +53,6 @@ public class CommentVO implements SuperVO {
     @NotNull(message = "文章url不能为空", groups = {InsertGroup.class})
     private String url;
 
-    private String dateString;
     private String articleTitle;
     private String reviewTag;
 
@@ -69,7 +69,7 @@ public class CommentVO implements SuperVO {
 
     }
 
-    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String dateString, String url, String articleTitle, String reviewTag) {
+    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String url, String articleTitle, String reviewTag) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
@@ -79,7 +79,6 @@ public class CommentVO implements SuperVO {
         this.date = date;
         this.replyTo = replyTo;
         this.review = review;
-        this.dateString = dateString;
         this.url = url;
         this.articleTitle = articleTitle;
         this.reviewTag = reviewTag;
@@ -133,6 +132,7 @@ public class CommentVO implements SuperVO {
         this.articleId = articleId;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }
@@ -155,14 +155,6 @@ public class CommentVO implements SuperVO {
 
     public void setReview(Integer review) {
         this.review = review;
-    }
-
-    public String getDateString() {
-        return dateString;
-    }
-
-    public void setDateString(String dateString) {
-        this.dateString = dateString;
     }
 
     public String getUrl() {
