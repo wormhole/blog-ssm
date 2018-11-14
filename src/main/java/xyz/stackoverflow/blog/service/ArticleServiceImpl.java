@@ -105,6 +105,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "defaultCache", allEntries = true)
     public int updateArticleCategory(String newCategoryId, String oldCategoryId) {
         return dao.updateArticleCategory(newCategoryId, oldCategoryId);
     }
