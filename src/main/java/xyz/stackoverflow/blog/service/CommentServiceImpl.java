@@ -39,23 +39,8 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public Comment deleteCommentById(String id) {
         Comment comment = commentDao.getCommentById(id);
-        if (commentDao.deleteCommentById(id) == 1) {
-            return comment;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Comment> getAllComment() {
-        return commentDao.getAllComment();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Comment getCommentById(String id) {
-        return commentDao.getCommentById(id);
+        commentDao.deleteCommentById(id);
+        return comment;
     }
 
     @Override
@@ -74,11 +59,8 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public Comment commentReview(Comment comment) {
         Comment comment1 = commentDao.getCommentById(comment.getId());
-        if (commentDao.commentReview(comment) == 1) {
-            return comment1;
-        } else {
-            return null;
-        }
+        commentDao.commentReview(comment);
+        return comment1;
     }
 
     @Override
@@ -87,9 +69,4 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.getLimitComment(parameter);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int deleteCommentByArticleId(String articleId) {
-        return commentDao.deleteCommentByArticleId(articleId);
-    }
 }

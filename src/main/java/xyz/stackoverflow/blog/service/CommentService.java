@@ -18,10 +18,6 @@ public interface CommentService {
 
     Comment deleteCommentById(String id);
 
-    List<Comment> getAllComment();
-
-    Comment getCommentById(String id);
-
     int getCommentCountByArticleId(String articleId);
 
     int getCommentCount();
@@ -30,5 +26,4 @@ public interface CommentService {
 
     List<Comment> getLimitComment(PageParameter parameter);
 
-    int deleteCommentByArticleId(String articleId);
 }

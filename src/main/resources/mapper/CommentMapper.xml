@@ -21,10 +21,6 @@
         select * from comment where id = #{id}
     </select>
 
-    <select id="getAllComment" resultType="comment" resultMap="commentMap">
-        select * from comment order by date desc
-    </select>
-
     <select id="getLimitComment" resultType="comment" resultMap="commentMap">
         select * from comment order by date desc limit #{start},#{limit}
     </select>

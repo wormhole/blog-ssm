@@ -20,8 +20,6 @@ public interface CommentDao {
 
     int deleteCommentById(String id);
 
-    List<Comment> getAllComment();
-
     Comment getCommentById(String id);
 
     int getCommentCountByArticleId(String articleId);
