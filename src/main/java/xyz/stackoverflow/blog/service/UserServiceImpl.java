@@ -35,12 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public User getUserById(String userId) {
-        return userDao.getUserById(userId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     @Cacheable(value = "defaultCache", key = "'user:'+#email", unless = "#result == null")
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
