@@ -79,12 +79,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getAllArticle() {
-        return dao.getAllArticle();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public List<Article> getLimitVisibleArticle(PageParameter parameter) {
         return dao.getLimitVisibleArticle(parameter);
     }
@@ -107,6 +101,12 @@ public class ArticleServiceImpl implements ArticleService {
     public Article updateArticle(Article article) {
         dao.updateArticle(article);
         return dao.getArticleById(article.getId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateArticleCategory(String newCategoryId, String oldCategoryId) {
+        return dao.updateArticleCategory(newCategoryId, oldCategoryId);
     }
 
     @Override

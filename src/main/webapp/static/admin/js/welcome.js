@@ -26,7 +26,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
             {field: 'url', width: 300, title: 'URL'},
             {field: 'status', width: 100, title: '状态码'},
             {field: 'agent', width: 600, title: '客户端'},
-            {fixed: 'right', field: 'dateString', width: 200, title: '日期'},
+            {fixed: 'right', field: 'date', width: 200, title: '日期'},
         ]]
     };
 
@@ -52,7 +52,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
             {field: 'url', width: 300, title: 'URL'},
             {field: 'status', width: 100, title: '状态码'},
             {field: 'agent', width: 600, title: '客户端'},
-            {fixed: 'right', field: 'dateString', width: 200, title: '日期'},
+            {fixed: 'right', field: 'date', width: 200, title: '日期'},
         ]]
     };
 

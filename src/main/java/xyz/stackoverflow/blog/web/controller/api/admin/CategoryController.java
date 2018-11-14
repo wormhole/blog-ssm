@@ -3,7 +3,6 @@ package xyz.stackoverflow.blog.web.controller.api.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
 import xyz.stackoverflow.blog.service.ArticleService;
@@ -159,13 +158,7 @@ public class CategoryController extends BaseController {
         }
 
         Category unCategory = categoryService.getCategoryByCode("uncategory");
-        List<Article> list = articleService.getAllArticle();
-        for (Article article : list) {
-            if (article.getCategoryId().equals(categoryVO.getId())) {
-                article.setCategoryId(unCategory.getId());
-                articleService.updateArticle(article);
-            }
-        }
+        articleService.updateArticleCategory(unCategory.getId(), category.getId());
         categoryService.deleteCategoryById(category.getId());
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("分类删除成功");

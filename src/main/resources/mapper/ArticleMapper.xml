@@ -20,10 +20,6 @@
         <result property="visible" column="visible"></result>
     </resultMap>
 
-    <select id="getAllArticle" resultMap="articleMap" resultType="article">
-        select * from article
-    </select>
-
     <select id="getLimitVisibleArticle" resultMap="articleMap" resultType="article">
         select * from article where visible = 1 order by createdate desc limit #{start},#{limit}
     </select>
@@ -101,5 +97,9 @@
     <delete id="deleteArticleById" parameterType="string">
         delete from article where id = #{id}
     </delete>
+
+    <update id="updateArticleCategory">
+        update article set categoryid=#{arg0} where categoryid=#{arg1}
+    </update>
 
 </mapper>

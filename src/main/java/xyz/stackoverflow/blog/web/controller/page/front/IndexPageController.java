@@ -53,7 +53,7 @@ public class IndexPageController {
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
         PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, null);
-        List<Article> articleList = articleService.getLimitArticle(parameter);
+        List<Article> articleList = articleService.getLimitVisibleArticle(parameter);
         List<ArticleVO> articleVOList = new ArrayList<>();
         for (Article article : articleList) {
             ArticleVO vo = new ArticleVO();
@@ -69,7 +69,7 @@ public class IndexPageController {
             articleVOList.add(vo);
         }
 
-        int count = articleService.getArticleCount();
+        int count = articleService.getVisibleArticleCount();
         int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
         pageCount = pageCount == 0 ? 1 : pageCount;
         int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;

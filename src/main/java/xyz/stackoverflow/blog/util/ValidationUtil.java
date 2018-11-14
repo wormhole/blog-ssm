@@ -29,7 +29,7 @@ public class ValidationUtil {
                 map.put(key, violation.getMessage());
             } else {
                 String errInfo = map.get(key);
-                errInfo += "," + violation.getMessage();
+                errInfo += "；" + violation.getMessage();
                 map.replace(key, errInfo);
             }
         }

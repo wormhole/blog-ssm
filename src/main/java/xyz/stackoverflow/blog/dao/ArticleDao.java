@@ -27,8 +27,6 @@ public interface ArticleDao {
 
     int getVisibleArticleCountByCategoryId(String categoryId);
 
-    List<Article> getAllArticle();
-
     List<Article> getLimitVisibleArticle(PageParameter parameter);
 
     List<Article> getLimitArticle(PageParameter parameter);
@@ -38,4 +36,6 @@ public interface ArticleDao {
     int updateArticle(Article article);
 
     int deleteArticleById(String id);
+
+    int updateArticleCategory(String newCategoryId, String oldCategoryId);
 }

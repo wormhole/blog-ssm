@@ -25,8 +25,6 @@ public interface ArticleService {
 
     int getVisibleArticleCountByCategoryId(String categoryId);
 
-    List<Article> getAllArticle();
-
     List<Article> getLimitVisibleArticle(PageParameter parameter);
 
     List<Article> getLimitArticle(PageParameter pageParameter);
@@ -34,6 +32,8 @@ public interface ArticleService {
     List<Article> getLimitVisibleArticleByCategoryId(PageParameter parameter);
 
     Article updateArticle(Article article);
+
+    int updateArticleCategory(String newCategoryId, String oldCategoryId);
 
     Article deleteArticleById(String id);
 }
