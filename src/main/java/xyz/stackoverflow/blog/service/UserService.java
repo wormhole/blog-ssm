@@ -24,13 +24,9 @@ public interface UserService {
 
     boolean isExistEmail(String email);
 
-    int getUserCount();
-
     UserRole grantRole(String roleCode,String userId);
 
     Set<String> getRoleCodeByUserId(String userId);
 
     Set<String> getPermissionCodeByUserId(String userId);
-
-    User deleteUserById(String userId);
 }

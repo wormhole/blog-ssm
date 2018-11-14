@@ -18,8 +18,6 @@ public interface MenuService {
 
     List<Menu> getLimitMenu(PageParameter pageParameter);
 
-    Menu getMenuById(String id);
-
     Menu updateMenu(Menu menu);
 
     Menu deleteMenuById(String id);

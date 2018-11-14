@@ -1,7 +1,6 @@
 package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -89,12 +88,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int getUserCount() {
-        return userDao.getUserCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public UserRole grantRole(String roleCode, String userId) {
         Role role = roleDao.getRoleByCode(roleCode);
         UserRole userRole = new UserRole();
@@ -111,7 +104,7 @@ public class UserServiceImpl implements UserService {
         List<UserRole> userRoleList = userRoleDao.getUserRoleByUserId(userId);
         Set<String> retSet = null;
         if ((null != userRoleList) && (userRoleList.size() != 0)) {
-            retSet = new HashSet();
+            retSet = new HashSet<>();
             for (UserRole userRole : userRoleList) {
                 Role role = roleDao.getRoleById(userRole.getRoleId());
                 retSet.add(role.getRoleCode());
@@ -129,7 +122,7 @@ public class UserServiceImpl implements UserService {
             Role role = roleDao.getRoleByCode(roleCode);
             List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
             if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
-                retSet = new HashSet();
+                retSet = new HashSet<>();
                 for (RolePermission rolePermission : rolePermissionList) {
                     Permission permission = permissionDao.getPermissionById(rolePermission.getPermissionId());
                     retSet.add(permission.getPermissionCode());
@@ -139,15 +132,4 @@ public class UserServiceImpl implements UserService {
         return retSet;
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", key = "'user:'+#result.email", condition = "#result!=null", beforeInvocation = false)
-    public User deleteUserById(String userId) {
-        User user = userDao.getUserById(userId);
-        if (userDao.deleteUserById(userId) == 1) {
-            return user;
-        } else {
-            return null;
-        }
-    }
 }

@@ -43,12 +43,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Menu getMenuById(String id) {
-        return menuDao.getMenuById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public Menu updateMenu(Menu menu) {
         if (menuDao.updateMenu(menu) != 0) {
             return menuDao.getMenuById(menu.getId());

@@ -26,10 +26,6 @@
         select count(*) from user where email=#{email}
     </select>
 
-    <select id="getUserCount" resultType="int">
-        select count(*) from user
-    </select>
-
     <select id="getAdmin" resultMap="userMap" resultType="user">
         select * from user where deleteable = 0
     </select>
@@ -56,9 +52,5 @@
         </set>
         where id=#{id}
     </update>
-
-    <delete id="deleteUserById" parameterType="string">
-        delete from user where id = #{userId} and deleteable = 1
-    </delete>
 
 </mapper>
