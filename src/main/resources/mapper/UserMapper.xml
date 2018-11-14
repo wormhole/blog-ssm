@@ -14,6 +14,10 @@
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
+    <select id="getUserById" resultMap="userMap" resultType="user" parameterType="string">
+        select * from user where id = #{userId}
+    </select>
+
     <select id="getUserByEmail" resultMap="userMap" resultType="user" parameterType="string">
         select * from user where email = #{email}
     </select>

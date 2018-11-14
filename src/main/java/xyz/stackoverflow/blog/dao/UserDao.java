@@ -11,6 +11,8 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 @Repository
 public interface UserDao {
 
+    User getUserById(String userId);
+
     User getUserByEmail(String email);
 
     User getAdmin();
