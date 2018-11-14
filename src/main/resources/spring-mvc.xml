@@ -36,7 +36,6 @@
             <mvc:exclude-mapping path="/upload/**"/>
             <mvc:exclude-mapping path="/error/**"/>
             <mvc:exclude-mapping path="/admin/**"/>
-            <mvc:exclude-mapping path="/favicon.ico"/>
             <bean class="xyz.stackoverflow.blog.web.interceptor.VisitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
