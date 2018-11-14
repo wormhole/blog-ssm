@@ -18,8 +18,6 @@ public interface CategoryService {
 
     boolean isExistCode(String categoryCode);
 
-    boolean isExist(String id);
-
     int getCategoryCount();
 
     Category getCategoryByCode(String categoryCode);

@@ -44,10 +44,6 @@
         select count(*) from category where categoryname = #{categoryName}
     </select>
 
-    <select id="isExist" parameterType="string" resultType="int">
-        select count(*) from category where id = #{id}
-    </select>
-
     <delete id="deleteCategoryById" parameterType="string">
         delete from category where id = #{id} and deleteable = 1
     </delete>

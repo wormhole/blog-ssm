@@ -51,16 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean isExist(String id) {
-        if (dao.isExist(id) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public int getCategoryCount() {
         return dao.getCategoryCount();
     }

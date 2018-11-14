@@ -23,8 +23,6 @@ public interface CategoryDao {
 
     int isExistCode(String categoryCode);
 
-    int isExist(String id);
-
     int getCategoryCount();
 
     List<Category> getAllCategory();
