@@ -83,9 +83,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public Category deleteCategoryById(String id) {
         Category retCategory = dao.getCategoryById(id);
-        if(dao.deleteCategoryById(id)==1){
+        if (dao.deleteCategoryById(id) == 1) {
             return retCategory;
-        }else{
+        } else {
             return null;
         }
     }
@@ -93,9 +93,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Category updateCategory(Category category) {
-        if(dao.updateCategory(category) == 1){
-            return dao.getCategoryById(category.getId());
-        }else{
+        Category retCategory = dao.getCategoryById(category.getId());
+        if (dao.updateCategory(category) == 1) {
+            return retCategory;
+        } else {
             return null;
         }
     }
