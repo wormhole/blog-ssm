@@ -51,7 +51,7 @@
             <div class="layui-input-inline">
                 <input class="layui-input" type="password" id="new-password">
             </div>
-            <div class="layui-form-mid layui-word-aux">密码只能是英文数字下划线,长度在6-20之间</div>
+            <div class="layui-form-mid layui-word-aux">密码只能是英文数字下划线，长度在6-20之间</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">确认密码</label>

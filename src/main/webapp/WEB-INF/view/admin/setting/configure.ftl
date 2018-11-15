@@ -20,14 +20,14 @@
             <div class="layui-input-inline">
                 <input name="title" class="layui-input" type="text" required id="title" value="${Application.setting.title}">
             </div>
-            <div class="layui-form-mid layui-word-aux">网页标题,长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">网页标题，长度小于等于20</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">关键字</label>
             <div class="layui-input-inline">
                 <input name="keywords" class="layui-input" type="text" required id="keywords" value="${Application.setting.keywords}">
             </div>
-            <div class="layui-form-mid layui-word-aux">每个单词用英文逗号隔开,否则无效,长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">每个单词用英文逗号隔开，否则无效，长度小于等于20</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">描述</label>
@@ -41,7 +41,7 @@
             <div class="layui-input-inline">
                 <textarea name="copyright" class="layui-textarea" id="copyright">${Application.setting.copyright}</textarea>
             </div>
-            <div class="layui-form-mid layui-word-aux">页面底部的版权信息,一般为备案号等,长度小于等于100</div>
+            <div class="layui-form-mid layui-word-aux">页面底部的版权信息，一般为备案号等，长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -58,14 +58,14 @@
             <div class="layui-input-inline">
                 <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Application.setting.nickname}">
             </div>
-            <div class="layui-form-mid layui-word-aux">页面左边栏显示昵称,建议与管理员昵称保持一致,长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">页面左边栏显示昵称，建议与管理员昵称保持一致，长度小于等于20</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">签名</label>
             <div class="layui-input-inline">
                 <textarea name="signature" class="layui-textarea" id="signature">${Application.setting.signature}</textarea>
             </div>
-            <div class="layui-form-mid layui-word-aux">页面左边栏签名,长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">页面左边栏签名，长度小于等于20</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -96,7 +96,7 @@
             <div class="layui-input-inline">
                 <input name="limit" class="layui-input" type="number" required id="limit" value="${Application.setting.limit}">
             </div>
-            <div class="layui-form-mid layui-word-aux">只能够填数字,建议为5</div>
+            <div class="layui-form-mid layui-word-aux">只能够填数字，建议为5</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
