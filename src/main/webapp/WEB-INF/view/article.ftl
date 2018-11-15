@@ -46,18 +46,6 @@
                 <div class="article">
                     <div class="title">
                     ${article.title}
-                        <div>
-                            <span class="oi oi-eye" aria-hidden="true"></span>
-                            <span>${article.hits}</span>
-                        </div>
-                        <div>
-                            <span class="oi oi-thumb-up" aria-hidden="true"></span>
-                            <span id="likes">${article.likes}</span>
-                        </div>
-                        <div>
-                            <span class="oi oi-chat" aria-hidden="true"></span>
-                            <span>${article.commentCount}</span>
-                        </div>
                     </div>
                     <div class="info">
                         <div>
@@ -71,6 +59,18 @@
                         <div>
                             <span class="oi oi-tags" aria-hidden="true"></span>
                             <span>${article.categoryName}</span>
+                        </div>
+                        <div>
+                            <span class="oi oi-eye" aria-hidden="true"></span>
+                            <span>${article.hits}</span>
+                        </div>
+                        <div>
+                            <span class="oi oi-thumb-up" aria-hidden="true"></span>
+                            <span id="likes">${article.likes}</span>
+                        </div>
+                        <div>
+                            <span class="oi oi-chat" aria-hidden="true"></span>
+                            <span>${article.commentCount}</span>
                         </div>
                     </div>
                     <div class="content" id="editormd-view">

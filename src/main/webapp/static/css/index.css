@@ -68,6 +68,16 @@ body {
     padding-top: 20px;
 }
 
+.bottom .page-item.active .page-link {
+    background-color: rgb(70, 205, 245);
+    border-color: rgb(70, 205, 245);
+    color: white;
+}
+
+.bottom .page-item:not(.active):not(.disabled) .page-link {
+    color: rgb(70, 205, 245);
+}
+
 .padding {
     height: 60px;
 }
