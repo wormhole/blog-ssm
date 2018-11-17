@@ -39,7 +39,7 @@ public class InitListener extends ContextLoaderListener {
      */
     public void initTimeTask(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
-        String backupPath = application.getRealPath("backup");
+        String backupPath = application.getRealPath("WEB-INF/backup");
         TimerTask task = new BackupTask(backupPath);
         Timer timer = new Timer();
         timer.schedule(task, 10000, 600000);

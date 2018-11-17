@@ -39,7 +39,7 @@ public class BackupController {
     @RequestMapping(value = "/backup/sql", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
-        String backupPath = request.getServletContext().getRealPath("backup");
+        String backupPath = request.getServletContext().getRealPath("WEB-INF/backup");
         DBUtil.backup(properties.getHost(), properties.getUsername(), properties.getPassword(), backupPath, filename, properties.getDb());
 
         InputStream is = new FileInputStream(new File(backupPath, filename));
