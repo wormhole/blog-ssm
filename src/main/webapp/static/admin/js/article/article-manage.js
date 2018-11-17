@@ -8,8 +8,6 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#article-table',
         url: '/api/admin/article/list',
         method: 'get',
-        width: 1500,
-        cellMinWidth: 100,
         page: true,
         toolbar: 'default',
         parseData: function (response) {
@@ -22,17 +20,17 @@ layui.use(['table', 'jquery', 'layer'], function () {
         },
         cols: [[
             {type: 'checkbox'},
-            {field: 'title', width: 150, title: '标题', sort: true},
-            {field: 'author', width: 100, title: '作者', sort: true},
-            {field: 'categoryName', width: 100, title: '分类', sort: true},
-            {field: 'url', width: 200, title: 'URL', sort: true},
-            {field: 'likes', width: 100, title: '点赞', sort: true},
-            {field: 'hits', width: 100, title: '点击量', sort: true},
-            {field: 'commentCount', width: 100, title: '评论量', sort: true},
-            {field: 'visibleTag', width: 100, title: '是否隐藏'},
-            {field: 'createDate', width: 180, title: '创建日期', sort: true},
-            {field: 'modifyDate', width: 180, title: '修改日期', sort: true},
-            {fixed: 'right', width: 290, title: '操作', toolbar: '#toolbar-col'}
+            {field: 'title', title: '标题', sort: true},
+            {field: 'author', title: '作者', sort: true},
+            {field: 'categoryName', title: '分类', sort: true},
+            {field: 'url', title: 'URL', sort: true},
+            {field: 'likes', title: '点赞', sort: true},
+            {field: 'hits', title: '点击量', sort: true},
+            {field: 'commentCount', title: '评论量', sort: true},
+            {field: 'visibleTag', title: '是否隐藏'},
+            {field: 'createDate', title: '创建日期', sort: true},
+            {field: 'modifyDate', title: '修改日期', sort: true},
+            {fixed: 'right', width: 270, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 

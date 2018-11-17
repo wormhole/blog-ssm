@@ -8,8 +8,6 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#category-table',
         url: '/api/admin/category/list',
         method: 'get',
-        width: 827,
-        cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
         parseData: function (response) {
@@ -21,11 +19,11 @@ layui.use(['table', 'jquery', 'layer'], function () {
             }
         },
         cols: [[
-            {field: 'id', width: 300, title: 'ID'},
-            {field: 'categoryName', width: 150, title: '分类名', sort: true, edit: 'text'},
-            {field: 'categoryCode', width: 150, title: '编码', sort: true, edit: 'text'},
-            {field: 'deleteTag', width: 120, title: '是否能删除'},
-            {fixed: 'right', width: 100, title: '操作', toolbar: '#toolbar-col'}
+            {field: 'id', title: 'ID'},
+            {field: 'categoryName', title: '分类名', sort: true, edit: 'text'},
+            {field: 'categoryCode', title: '编码', sort: true, edit: 'text'},
+            {field: 'deleteTag', title: '是否能删除'},
+            {fixed: 'right', width: 80, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 

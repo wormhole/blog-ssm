@@ -8,8 +8,6 @@ layui.use(['table', 'jquery', 'layer'], function () {
         elem: '#comment-table',
         url: '/api/admin/comment/list',
         method: 'get',
-        width: 1500,
-        cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
         parseData: function (response) {
@@ -21,15 +19,15 @@ layui.use(['table', 'jquery', 'layer'], function () {
             }
         },
         cols: [[
-            {field: 'date', width: 170, title: '日期', sort: true},
-            {field: 'nickname', width: 120, title: '昵称', sort: true},
-            {field: 'email', width: 150, title: '邮箱', sort: true},
-            {field: 'website', width: 150, title: '个人主页', sort: true},
-            {field: 'articleTitle', width: 150, title: '文章标题', sort: true},
-            {field: 'replyTo', width: 120, title: '回复谁', sort: true},
-            {field: 'content', width: 300, title: '评论内容'},
-            {field: 'reviewTag', width: 100, title: '是否审核'},
-            {fixed: 'right', width: 230, title: '操作', toolbar: '#toolbar-col'}
+            {field: 'date', title: '日期', sort: true},
+            {field: 'nickname', title: '昵称', sort: true},
+            {field: 'email', title: '邮箱', sort: true},
+            {field: 'website', title: '个人主页', sort: true},
+            {field: 'articleTitle', title: '文章标题', sort: true},
+            {field: 'replyTo', title: '回复谁', sort: true},
+            {field: 'content', title: '评论内容'},
+            {field: 'reviewTag', title: '是否审核'},
+            {fixed: 'right', width: 210, title: '操作', toolbar: '#toolbar-col'}
         ]]
     };
 
@@ -54,7 +52,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         } else if (layEvent === 'review') {
             var param = {
                 data: {
-                    comment:[{
+                    comment: [{
                         id: data.id,
                         review: 1
                     }]
@@ -64,7 +62,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         } else if (layEvent === 'unreview') {
             var param = {
                 data: {
-                    comment:[{
+                    comment: [{
                         id: data.id,
                         review: 0
                     }]

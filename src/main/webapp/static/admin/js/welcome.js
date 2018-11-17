@@ -9,8 +9,6 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#today-table',
         url: '/api/admin/visit/today',
         method: 'get',
-        width: 1300,
-        cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
         parseData: function (response) {
@@ -22,11 +20,11 @@ layui.use(['layer', 'jquery', 'table'], function () {
             }
         },
         cols: [[
-            {field: 'ip', width: 150, title: 'IP'},
-            {field: 'url', width: 300, title: 'URL'},
-            {field: 'status', width: 100, title: '状态码'},
-            {field: 'agent', width: 600, title: '客户端'},
-            {fixed: 'right', field: 'date', width: 200, title: '日期'},
+            {field: 'ip', title: 'IP'},
+            {field: 'url', title: 'URL'},
+            {field: 'status', title: '状态码'},
+            {field: 'agent', title: '客户端'},
+            {fixed: 'right', field: 'date', title: '日期'},
         ]]
     };
 
@@ -35,8 +33,6 @@ layui.use(['layer', 'jquery', 'table'], function () {
         elem: '#error-table',
         url: '/api/admin/visit/error',
         method: 'get',
-        width: 1300,
-        cellMinWidth: 100,
         page: true,
         toolbar: '#toolbar-head',
         parseData: function (response) {
@@ -48,11 +44,11 @@ layui.use(['layer', 'jquery', 'table'], function () {
             }
         },
         cols: [[
-            {field: 'ip', width: 150, title: 'IP'},
-            {field: 'url', width: 300, title: 'URL'},
-            {field: 'status', width: 100, title: '状态码'},
-            {field: 'agent', width: 600, title: '客户端'},
-            {fixed: 'right', field: 'date', width: 200, title: '日期'},
+            {field: 'ip', title: 'IP'},
+            {field: 'url', title: 'URL'},
+            {field: 'status', title: '状态码'},
+            {field: 'agent', title: '客户端'},
+            {fixed: 'right', field: 'date', title: '日期'},
         ]]
     };
 
