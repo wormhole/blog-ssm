@@ -15,18 +15,20 @@ public class Visit implements Serializable {
     private Integer status;
     private String ip;
     private String agent;
+    private String referer;
     private Date date;
 
     public Visit(){
 
     }
 
-    public Visit(String id, String url, Integer status, String ip, String agent, Date date) {
+    public Visit(String id, String url, Integer status, String ip, String agent, String referer, Date date) {
         this.id = id;
         this.url = url;
         this.status = status;
         this.ip = ip;
         this.agent = agent;
+        this.referer = referer;
         this.date = date;
     }
 
@@ -68,6 +70,14 @@ public class Visit implements Serializable {
 
     public void setAgent(String agent) {
         this.agent = agent;
+    }
+
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
     }
 
     public Date getDate() {

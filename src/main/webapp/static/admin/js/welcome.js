@@ -7,7 +7,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
     var parameter1 = {
         id: 'today-table',
         elem: '#today-table',
-        url: '/api/admin/visit/today',
+        url: '/api/admin/visit/list',
         method: 'get',
         page: true,
         toolbar: '#toolbar-head',
@@ -22,6 +22,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         cols: [[
             {field: 'ip', title: 'IP'},
             {field: 'url', title: 'URL'},
+            {field: 'referer', title: 'Referer'},
             {field: 'status', title: '状态码'},
             {field: 'agent', title: '客户端'},
             {fixed: 'right', field: 'date', title: '日期'},
@@ -52,7 +53,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
         ]]
     };
 
-    initFlow('flow');
+    initChart('flow');
 
     initCountTable();
 
@@ -60,7 +61,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
 
     table.render(parameter2);
 
-    function initFlow(id) {
+    function initChart(id) {
         var flow = echarts.init(document.getElementById(id));
         var option = {
             itemStyle: {
@@ -110,7 +111,7 @@ layui.use(['layer', 'jquery', 'table'], function () {
 
     function flowAjax(option, chart) {
         $.ajax({
-            url: "/api/admin/visit/flow",
+            url: "/api/admin/visit/chart",
             type: "get",
             dataType: "json",
             success: function (response) {

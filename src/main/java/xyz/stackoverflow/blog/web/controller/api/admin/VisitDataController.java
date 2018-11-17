@@ -29,12 +29,12 @@ public class VisitDataController {
 
     /**
      * 获取三十天内的流量记录接口
-     * /api/admin/visit/flow
+     * /api/admin/visit/chart
      * 方法 GET
      *
      * @return
      */
-    @RequestMapping(value = "/visit/flow", method = RequestMethod.GET)
+    @RequestMapping(value = "/visit/chart", method = RequestMethod.GET)
     public Response flow() {
         Response response = new Response();
         List<String> dateList = new ArrayList<>();
@@ -69,30 +69,23 @@ public class VisitDataController {
     }
 
     /**
-     * 获取今日访问记录接口
-     * /api/admin/visit/today
+     * 获取访问记录接口
+     * /api/admin/visit/list
      * 方法 GET
      *
      * @param page
      * @param limit
      * @return
      */
-    @RequestMapping(value = "/visit/today", method = RequestMethod.GET)
+    @RequestMapping(value = "/visit/list", method = RequestMethod.GET)
     @ResponseBody
     public Response today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
         PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        Date startDate = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date endDate = calendar.getTime();
 
-        List<Visit> list = visitService.getLimitVisitByDate(startDate, endDate, pageParameter);
-        int count = visitService.getVisitCountByDate(startDate, endDate);
+        List<Visit> list = visitService.getLimitVisit(pageParameter);
+        int count = visitService.getVisitCount();
 
         List<VisitVO> voList = new ArrayList<>();
 
@@ -102,6 +95,7 @@ public class VisitDataController {
             vo.setUrl(visit.getUrl());
             vo.setStatus(visit.getStatus());
             vo.setAgent(visit.getAgent());
+            vo.setReferer(visit.getReferer());
             vo.setDate(visit.getDate());
             voList.add(vo);
         }
@@ -143,6 +137,7 @@ public class VisitDataController {
             vo.setUrl(visit.getUrl());
             vo.setAgent(visit.getAgent());
             vo.setStatus(visit.getStatus());
+            vo.setReferer(visit.getReferer());
             vo.setDate(visit.getDate());
             voList.add(vo);
         }

@@ -18,18 +18,20 @@ public class VisitVO implements SuperVO {
     private Integer status;
     private String ip;
     private String agent;
+    private String referer;
     private Date date;
 
     public VisitVO() {
 
     }
 
-    public VisitVO(String id, String url, Integer status, String ip, String agent, Date date) {
+    public VisitVO(String id, String url, Integer status, String ip, String agent, String referer, Date date) {
         this.id = id;
         this.url = url;
         this.status = status;
         this.ip = ip;
         this.agent = agent;
+        this.referer = referer;
         this.date = date;
     }
 
@@ -73,6 +75,14 @@ public class VisitVO implements SuperVO {
         this.agent = agent;
     }
 
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
@@ -94,6 +104,7 @@ public class VisitVO implements SuperVO {
         visit.setId(ip);
         visit.setAgent(agent);
         visit.setStatus(status);
+        visit.setReferer(referer);
         visit.setDate(date);
         return visit;
     }

@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="layui-card">
-    <div class="layui-card-header">今日访问</div>
+    <div class="layui-card-header">所有访问</div>
     <div class="layui-card-body">
         <table class="layui-hide" id="today-table" lay-filter="today-table-1"></table>
     </div>

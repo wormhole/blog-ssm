@@ -26,4 +26,6 @@ public interface VisitDao {
     List<Visit> getLimitVisitByDate(Date startDate, Date endDate, PageParameter pageParameter);
 
     List<Visit> getLimitErrorVisit(PageParameter pageParameter);
+
+    List<Visit> getLimitVisit(PageParameter pageParameter);
 }

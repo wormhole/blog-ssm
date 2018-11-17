@@ -58,4 +58,10 @@ public class VisitServiceImpl implements VisitService {
     public List<Visit> getLimitErrorVisit(PageParameter pageParameter) {
         return visitDao.getLimitErrorVisit(pageParameter);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Visit> getLimitVisit(PageParameter pageParameter) {
+        return visitDao.getLimitVisit(pageParameter);
+    }
 }
