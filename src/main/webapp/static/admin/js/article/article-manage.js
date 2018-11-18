@@ -65,7 +65,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         } else if (layEvent === 'edit') {
             layer.open({
                 type: 2,
-                title: '写文章',
+                title: '更新文章',
                 shadeClose: true,
                 shade: 0.8,
                 area: ['90%', '90%'],
@@ -83,7 +83,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
         if (obj.event === 'add') {
             layer.open({
                 type: 2,
-                title: '写文章',
+                title: '新增文章',
                 shadeClose: true,
                 shade: 0.8,
                 area: ['90%', '90%'],
@@ -97,7 +97,7 @@ layui.use(['table', 'jquery', 'layer'], function () {
             if (checkStatus.data.length === 1) {
                 layer.open({
                     type: 2,
-                    title: '写文章',
+                    title: '更新文章',
                     shadeClose: true,
                     shade: 0.8,
                     area: ['90%', '90%'],

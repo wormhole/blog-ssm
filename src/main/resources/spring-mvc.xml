@@ -34,6 +34,9 @@
             <mvc:exclude-mapping path="/api/**"/>
             <mvc:exclude-mapping path="/static/**"/>
             <mvc:exclude-mapping path="/upload/**"/>
+            <mvc:exclude-mapping path="/error/**"/>
+            <mvc:exclude-mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/favicon.ico"/>
             <bean class="xyz.stackoverflow.blog.web.interceptor.VisitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -50,7 +53,7 @@
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="prefix" value="/WEB-INF/view"/>
         <property name="suffix" value=".ftl"/>
-        <property name="cache" value="false"/>
+        <property name="cache" value="true"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
     </bean>
 
