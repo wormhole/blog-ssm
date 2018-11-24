@@ -58,7 +58,17 @@ public class CategoryPageController {
 
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
-            PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, category.getId());
+
+            Integer p;
+            try {
+                p = Integer.valueOf(page);
+            } catch (Exception e) {
+                mv.setStatus(HttpStatus.NOT_FOUND);
+                mv.setViewName("/error/404");
+                return mv;
+            }
+
+            PageParameter parameter = new PageParameter(p, limit, category.getId());
             List<Article> articleList = articleService.getLimitVisibleArticleByCategoryId(parameter);
             List<ArticleVO> articleVOList = new ArrayList<>();
             for (Article article : articleList) {

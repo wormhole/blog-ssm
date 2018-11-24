@@ -2,6 +2,7 @@ package xyz.stackoverflow.blog.web.controller.page.front;
 
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +53,16 @@ public class IndexPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        PageParameter parameter = new PageParameter(Integer.valueOf(page), limit, null);
+        Integer p;
+        try {
+            p = Integer.valueOf(page);
+        } catch (Exception e) {
+            mv.setViewName("/error/404");
+            mv.setStatus(HttpStatus.NOT_FOUND);
+            return mv;
+        }
+
+        PageParameter parameter = new PageParameter(p, limit, null);
         List<Article> articleList = articleService.getLimitVisibleArticle(parameter);
         List<ArticleVO> articleVOList = new ArrayList<>();
         for (Article article : articleList) {
