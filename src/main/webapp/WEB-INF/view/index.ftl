@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/css/middle.css"/>
     <link rel="stylesheet" href="/static/css/footer.css"/>
     <link rel="stylesheet" href="/static/css/index.css"/>
-    <script src="/static/plugins/jquery/jquery.min.js"/>
+    <script src="/static/plugins/jquery/jquery.min.js"></script>
     <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
     <meta name="keywords" content="${Application.setting.keywords}"/>
     <meta name="description" content="${Application.setting.description}"/>
