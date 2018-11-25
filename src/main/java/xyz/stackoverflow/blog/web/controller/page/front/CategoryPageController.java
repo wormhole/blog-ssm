@@ -59,13 +59,28 @@ public class CategoryPageController {
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
 
+            int count = articleService.getVisibleArticleCountByCategoryId(category.getId());
+            int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
+            pageCount = pageCount == 0 ? 1 : pageCount;
+
             Integer p;
             try {
-                p = Integer.valueOf(page);
+                p = Integer.parseInt(page);
             } catch (Exception e) {
                 mv.setStatus(HttpStatus.NOT_FOUND);
                 mv.setViewName("/error/404");
                 return mv;
+            }
+            if (p < 1 || p > pageCount) {
+                mv.setViewName("/error/404");
+                mv.setStatus(HttpStatus.NOT_FOUND);
+                return mv;
+            }
+
+            int start = (p - 2 < 1) ? 1 : p - 2;
+            int end = (start + 4 > pageCount) ? pageCount : start + 4;
+            if ((end - start) < 4) {
+                start = (end - 4 < 1) ? 1 : end - 4;
             }
 
             PageParameter parameter = new PageParameter(p, limit, category.getId());
@@ -85,19 +100,10 @@ public class CategoryPageController {
                 articleVOList.add(vo);
             }
 
-            int count = articleService.getVisibleArticleCountByCategoryId(category.getId());
-            int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
-            pageCount = pageCount == 0 ? 1 : pageCount;
-            int start = (Integer.valueOf(page) - 2 < 1) ? 1 : Integer.valueOf(page) - 2;
-            int end = (start + 4 > pageCount) ? pageCount : start + 4;
-            if ((end - start) < 4) {
-                start = (end - 4 < 1) ? 1 : end - 4;
-            }
-
             mv.addObject("articleList", articleVOList);
             mv.addObject("start", start);
             mv.addObject("end", end);
-            mv.addObject("page", Integer.valueOf(page));
+            mv.addObject("page", p);
             mv.addObject("pageCount", pageCount);
             mv.addObject("path", "/category/" + categoryCode);
             mv.addObject("select", "/category");
