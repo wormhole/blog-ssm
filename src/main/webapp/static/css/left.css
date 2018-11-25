@@ -45,10 +45,22 @@
     border-top: 1px solid #E8E8E8;
 }
 
-.left .menu .item:last-child {
+.left .menu .item.btn-item {
+    color: black;
+    display: block;
+    height: 30px;
+    font-size: 15px;
+    padding-top: 5px;
+    border-top: 1px solid #E8E8E8;
     border-bottom: 1px solid #E8E8E8;
 }
 
 .left .menu .item:hover {
     background-color: rgb(70, 205, 245);
+}
+
+@media (max-width: 990px) {
+    .hidden {
+        display: none;
+    }
 }

@@ -28,20 +28,26 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <div class="left">
                 <img src="${Application.setting.head}" class="rounded-circle">
                 <div class="nickname">${Application.setting.nickname?html}</div>
                 <hr/>
                 <div class="signature">${Application.setting.signature?html}</div>
                 <div class="menu">
+                    <div id="item" class="hidden">
                     <#list Application.menu as menu>
-                        <a class="item btn <#if menu.url == '/'>select</#if>" href="${menu.url}">${menu.name?html}</a>
+                        <a class="item btn <#if menu.url == '/'>select</#if>"
+                           href="${menu.url}">${menu.name?html}</a>
                     </#list>
+                    </div>
+                    <a class="item btn-item btn">
+                        <span class="oi oi-menu" aria-hidden="true"></span>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="middle">
                 <div class="article">
                     <div class="title">
@@ -151,5 +157,6 @@
 </div>
 <footer>${Application.setting.copyright}</footer>
 <script src="/static/js/article.js"></script>
+<script src="/static/js/left.js"></script>
 </body>
 </html>
