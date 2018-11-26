@@ -32,7 +32,7 @@
                            href="${menu.url}">${menu.name?html}</a>
                     </#list>
                     </div>
-                    <a class="item btn-item btn">
+                    <a class="btn-item btn">
                         <span class="oi oi-menu" aria-hidden="true"></span>
                     </a>
                 </div>

@@ -91,11 +91,34 @@ body {
         padding-top: 2px;
     }
 
-    .col-md-3 {
+    .col-lg-3 {
         padding: 0 5px;
     }
 
-    .col-md-9 {
+    .col-lg-9 {
         padding: 0 5px;
+    }
+
+    .article .title {
+        font-size: 21px;
+    }
+
+    .article .content {
+        font-size: 15px;
+        max-height: 100px;
+        margin: 10px 0;
+    }
+
+    .article .content::after {
+        font-size: 15px;
+        right: 5px;
+    }
+
+    .article .footer div {
+        font-size: 13px;
+    }
+
+    .article .footer div:nth-child(n+4) {
+        display: none;
     }
 }

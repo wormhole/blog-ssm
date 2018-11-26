@@ -21,13 +21,6 @@ body {
     margin-top: 5px;
 }
 
-.article .title div {
-    display: inline;
-    font-size: 15px;
-    color: #707070;
-    margin-left: 15px;
-}
-
 .article .info {
     margin: 15px 0;
 }
@@ -62,14 +55,31 @@ body {
     }
 
     body {
-        padding-top: 20px;
+        padding-top: 2px;
     }
 
-    .col-md-3 {
+    .col-lg-3 {
         padding: 0 5px;
     }
 
-    .col-md-9 {
+    .col-lg-9 {
         padding: 0 5px;
+    }
+
+    .article .title {
+        font-size: 22px;
+        margin-top: 5px;
+    }
+
+    .article .info {
+        margin: 10px 0;
+    }
+
+    .article .info div {
+        font-size: 14px;
+    }
+
+    .article .info div:nth-last-child(n+4) {
+        display: none;
     }
 }
