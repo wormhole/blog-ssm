@@ -37,12 +37,12 @@ public class SettingValidator implements Validator<SettingVO[]> {
                     break;
                 case "keywords":
                     if (!validateKeywords(settingVO.getValue())) {
-                        map.put("keywords", "关键字长度应该在1到20之间");
+                        map.put("keywords", "关键字长度应该在1到100之间");
                     }
                     break;
                 case "description":
                     if (!validateDescription(settingVO.getValue())) {
-                        map.put("description", "描述长度应该在1到50之间");
+                        map.put("description", "描述长度应该在1到100之间");
                     }
                     break;
                 case "copyright":
@@ -57,7 +57,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
                     break;
                 case "signature":
                     if (!validateSignature(settingVO.getValue())) {
-                        map.put("signature", "签名长度应该在1到20之间");
+                        map.put("signature", "签名长度应该在1到100之间");
                     }
                     break;
                 case "limit":
@@ -93,7 +93,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
      * @return
      */
     private boolean validateKeywords(String keywords) {
-        if (0 < keywords.length() && keywords.length() <= 20) {
+        if (0 < keywords.length() && keywords.length() <= 100) {
             return true;
         } else {
             return false;
@@ -107,7 +107,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
      * @return
      */
     private boolean validateDescription(String description) {
-        if (0 < description.length() && description.length() <= 50) {
+        if (0 < description.length() && description.length() <= 100) {
             return true;
         } else {
             return false;
@@ -149,7 +149,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
      * @return
      */
     private boolean validateSignature(String signature) {
-        if (0 < signature.length() && signature.length() <= 20) {
+        if (0 < signature.length() && signature.length() <= 100) {
             return true;
         } else {
             return false;
