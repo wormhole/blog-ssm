@@ -27,14 +27,14 @@
             <div class="layui-input-inline">
                 <input name="keywords" class="layui-input" type="text" required id="keywords" value="${Application.setting.keywords}">
             </div>
-            <div class="layui-form-mid layui-word-aux">每个单词用英文逗号隔开，否则无效，长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">每个单词用英文逗号隔开，否则无效，长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-inline">
                 <textarea name="description" class="layui-textarea" id="description">${Application.setting.description}</textarea>
             </div>
-            <div class="layui-form-mid layui-word-aux">长度小于等于50</div>
+            <div class="layui-form-mid layui-word-aux">长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">版权信息</label>
@@ -65,7 +65,7 @@
             <div class="layui-input-inline">
                 <textarea name="signature" class="layui-textarea" id="signature">${Application.setting.signature}</textarea>
             </div>
-            <div class="layui-form-mid layui-word-aux">页面左边栏签名，长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">页面左边栏签名，长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
