@@ -1,10 +1,12 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
+import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分类表DAO
@@ -13,6 +15,26 @@ import java.util.List;
  */
 @Repository
 public interface CategoryDao {
+
+    List<Category> selectByPage(PageParameter pageParameter);
+
+    List<Category> selectByCondition(Map<String, String> searchMap);
+
+    Category selectById(String id);
+
+    int insert(Category category);
+
+    int batchInsert(List<Category> list);
+
+    int deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    int update(Category category);
+
+    int batchUpdate(List<Category> list);
+
+
     int insertCategory(Category category);
 
     Category getCategoryById(String id);

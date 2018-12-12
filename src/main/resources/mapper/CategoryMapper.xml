@@ -12,6 +12,79 @@
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
+    <select id="selectByPage" resultMap="categoryMap" resultType="category">
+        select * from category limit #{start},#{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="categoryMap" resultType="category">
+        select * from category
+        <where>
+            <if test="categoryName != null">
+                categoryName = #{categoryName}
+            </if>
+            <if test="categoryCode != null">
+                and categoryCode = #{categoryCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="categoryMap" resultType="category">
+        select * from category where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="category">
+        insert into category (id,categorycode,categoryname,deleteable)
+        values (#{id},#{categoryCode},#{categoryName},#{deleteAble})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into category (id,categorycode,categoryname,deleteable)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.categoryCode},#{item.categoryName},#{item.deleteAble})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="string">
+        delete from category where id = #{id}
+    </delete>
+
+    <delete id="batchDeleteById" parameterType="list">
+        delete from category where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="category">
+        update category
+        <set>
+            <if test="categoryName!=null">
+                categoryname = #{categoryName},
+            </if>
+            <if test="categoryCode!=null">
+                categorycode = #{categoryCode}
+            </if>
+        </set>
+        where id = #{id} and deleteable = 1
+    </update>
+
+    <update id="batchUpdate" parameterType="list">
+        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+            update category
+            <set>
+                <if test="item.categoryName!=null">
+                    categoryname = #{item.categoryName},
+                </if>
+                <if test="item.categoryCode!=null">
+                    categorycode = #{item.categoryCode}
+                </if>
+            </set>
+            where id = #{item.id} and deleteable = 1
+        </foreach>
+    </update>
+
+
     <insert id="insertCategory" parameterType="category">
         insert into category(id,categorycode,categoryname,deleteable) values(#{id},#{categoryCode},#{categoryName},#{deleteAble})
     </insert>
