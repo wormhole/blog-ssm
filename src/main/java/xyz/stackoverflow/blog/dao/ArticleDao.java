@@ -5,6 +5,7 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文章表DAO
@@ -13,6 +14,26 @@ import java.util.List;
  */
 @Repository
 public interface ArticleDao {
+
+    List<Article> selectByPage(PageParameter pageParameter);
+
+    List<Article> selectByCondition(Map<String, String> searchMap);
+
+    Article selectById(String id);
+
+    Article selectByUrl(String url);
+
+    int insert(Article article);
+
+    int deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    int update(Article article);
+
+    int batchUpdate(List<Article> list);
+
+
     int insertArticle(Article article);
 
     Article getArticleById(String id);
