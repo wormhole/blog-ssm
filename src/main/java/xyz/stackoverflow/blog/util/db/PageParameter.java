@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.util.db;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * 分页工具
@@ -13,6 +14,7 @@ public class PageParameter implements Serializable {
     private int start;
     private int limit;
     private String where;
+    private Map<String,String> searchMap;
 
     public PageParameter() {
 
@@ -55,5 +57,13 @@ public class PageParameter implements Serializable {
 
     public void setWhere(String where) {
         this.where = where;
+    }
+
+    public Map<String, String> getSearchMap() {
+        return searchMap;
+    }
+
+    public void setSearchMap(Map<String, String> searchMap) {
+        this.searchMap = searchMap;
     }
 }
