@@ -4,6 +4,7 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文章服务接口
@@ -11,6 +12,26 @@ import java.util.List;
  * @author 凉衫薄
  */
 public interface ArticleService {
+
+    List<Article> selectByPage(PageParameter pageParameter);
+
+    List<Article> selectByCondition(Map<String,String> searchMap);
+
+    Article selectById(String id);
+
+    Article selectByUrl(String url);
+
+    Article insert(Article article);
+
+    Article deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    Article update(Article article);
+
+    int batchUpdate(List<Article> list);
+
+
     Article insertArticle(Article blog);
 
     Article getArticleById(String id);
