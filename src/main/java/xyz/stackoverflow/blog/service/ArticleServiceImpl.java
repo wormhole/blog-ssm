@@ -64,6 +64,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public int batchInsert(List<Article> list) {
+        for (Article article : list) {
+            article.setId(UUIDGenerator.getId());
+        }
+        return articleDao.batchInsert(list);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
     public Article deleteById(String id) {
         Article article = articleDao.selectById(id);

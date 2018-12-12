@@ -25,6 +25,8 @@ public interface ArticleDao {
 
     int insert(Article article);
 
+    int batchInsert(List<Article> list);
+
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);

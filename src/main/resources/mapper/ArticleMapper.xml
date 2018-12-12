@@ -56,7 +56,16 @@
     </select>
 
     <insert id="insert" parameterType="article">
-        insert into article(id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible) values(#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes},#{visible})
+        insert into article (id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible)
+        values (#{id},#{userId},#{title},#{articleMd},#{articleHtml},#{categoryId},#{createDate},#{modifyDate},#{url},#{hits},#{likes},#{visible})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into article (id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.userId},#{item.title},#{item.articleMd},#{item.articleHtml},#{item.categoryId},#{item.createDate},#{item.modifyDate},#{item.url},#{item.hits},#{item.likes},#{item.visible})
+        </foreach>
     </insert>
 
     <delete id="deleteById" parameterType="string">

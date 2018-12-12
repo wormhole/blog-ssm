@@ -15,13 +15,15 @@ public interface ArticleService {
 
     List<Article> selectByPage(PageParameter pageParameter);
 
-    List<Article> selectByCondition(Map<String,String> searchMap);
+    List<Article> selectByCondition(Map<String, String> searchMap);
 
     Article selectById(String id);
 
     Article selectByUrl(String url);
 
     Article insert(Article article);
+
+    int batchInsert(List<Article> list);
 
     Article deleteById(String id);
 
