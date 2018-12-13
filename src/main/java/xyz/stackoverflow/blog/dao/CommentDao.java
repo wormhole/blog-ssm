@@ -5,6 +5,7 @@ import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 评论表DAO
@@ -13,6 +14,25 @@ import java.util.List;
  */
 @Repository
 public interface CommentDao {
+
+    List<Comment> selectByPage(PageParameter pageParameter);
+
+    List<Comment> selectByCondition(Map<String, String> searchMap);
+
+    Comment selectById(String id);
+
+    int insert(Comment comment);
+
+    int batchInsert(List<Comment> list);
+
+    int deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    int update(Comment comment);
+
+    int batchUpdate(List<Comment> list);
+
 
     int insertComment(Comment comment);
 
