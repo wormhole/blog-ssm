@@ -18,7 +18,7 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="commentMap" resultType="comment">
-        select * from comment limit #{start},#{limit} order by date desc
+        select * from comment order by date desc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="commentMap" resultType="comment">

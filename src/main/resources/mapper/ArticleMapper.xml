@@ -21,7 +21,7 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="articleMap" resultType="article">
-        select * from article
+        select * from article order by createdate desc
         <where>
             <if test="searchMap != null">
                 <if test="searchMap.visible != null">
@@ -32,7 +32,7 @@
                 </if>
             </if>
         </where>
-        limit #{start},#{limit} order by createdate desc
+        limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="articleMap" resultType="article">
@@ -45,6 +45,7 @@
                 and categoryid = #{categoryId}
             </if>
         </where>
+        order by createdate desc
     </select>
 
     <select id="selectById" resultMap="articleMap" resultType="article">
