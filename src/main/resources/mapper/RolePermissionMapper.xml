@@ -11,6 +11,79 @@
         <result property="permissionId" column="permissionid"></result>
     </resultMap>
 
+    <select id="selectByPage" resultMap="rolePermissionMap" resultType="rolePermission">
+        select * from role_permission limit #{start},#{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="rolePermissionMap" resultType="rolePermission">
+        select * from role_permission
+        <where>
+            <if test="roleId != null">
+                roleid = #{roleId}
+            </if>
+            <if test="permissionId != null">
+                and permissionid = #{permissionId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="rolePermissionMap" resultType="rolePermission">
+        select * from role_permission where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="rolePermission">
+        insert into role_permission (id,roleid,permissionid)
+        values (#{id},#{roleId},#{permissionId})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into role_permission (id,roleid,permissionid)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.roleId},#{item.permissionId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="string">
+        delete from role_permission where id = #{id}
+    </delete>
+
+    <delete id="batchDeleteById" parameterType="list">
+        delete from role_permission where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="rolePermission">
+        update role_permission
+        <set>
+            <if test="roleId != null">
+                roleid = #{roleId},
+            </if>
+            <if test="permissionId != null">
+                permissionid = #{permissionId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="batchUpdate" parameterType="list">
+        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+            update role_permission
+            <set>
+                <if test="roleId != null">
+                    roleid = #{roleId},
+                </if>
+                <if test="permissionId != null">
+                    permissionid = #{permissionId},
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+
     <select id="getRolePermissionByRoleId" resultType="rolePermission" resultMap="rolePermissionMap" parameterType="string">
         select * from role_permission where roleid = #{roleId}
     </select>
