@@ -15,6 +15,115 @@
         <result property="date" column="date" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
     </resultMap>
 
+    <select id="selectByPage" resultMap="visitMap" resultType="visit">
+        select * from visit limit #{start},#{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="visitMap" resultType="visit">
+        select * from visit
+        <where>
+            <if test="url != null">
+                url = #{url}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="ip != null">
+                and ip = #{ip}
+            </if>
+            <if test="agent != null">
+                and agent = #{agent}
+            </if>
+            <if test="referer != null">
+                and referer = #{referer}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="visitMap" resultType="visit">
+        select * from visit where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="visit">
+        insert into visit (id,url,status,ip,referer,agent,date)
+        values (#{id},#{url},#{status},#{ip},#{referer},#{agent},#{date})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into visit (id,url,status,ip,referer,agent,date)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.url},#{item.status},#{item.ip},#{item.referer},#{item.agent},#{item.date})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="string">
+        delete from visit where id = #{id}
+    </delete>
+
+    <delete id="batchDeleteById" parameterType="list">
+        delete from visit where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="role">
+        update visit
+        <set>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="ip != null">
+                ip = #{ip},
+            </if>
+            <if test="agent != null">
+                and agent = #{agent}
+            </if>
+            <if test="referer != null">
+                and referer = #{referer}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="batchUpdate" parameterType="list">
+        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+            update visit
+            <set>
+                <if test="item.url != null">
+                    url = #{item.url},
+                </if>
+                <if test="item.status != null">
+                    status = #{item.status},
+                </if>
+                <if test="item.ip != null">
+                    ip = #{item.ip},
+                </if>
+                <if test="item.agent != null">
+                    and agent = #{item.agent}
+                </if>
+                <if test="item.referer != null">
+                    and referer = #{item.referer}
+                </if>
+                <if test="item.date != null">
+                    and date = #{item.date}
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+
     <insert id="insertVisit" parameterType="visit">
         insert into visit(id,url,status,ip,referer,agent,date) values(#{id},#{url},#{status},#{ip},#{referer},#{agent},#{date})
     </insert>

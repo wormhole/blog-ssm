@@ -6,6 +6,7 @@ import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 访问量DAO类
@@ -14,6 +15,25 @@ import java.util.List;
  */
 @Repository
 public interface VisitDao {
+
+    List<Visit> selectByPage(PageParameter pageParameter);
+
+    List<Visit> selectByCondition(Map<String,String> searchMap);
+
+    Visit selectById(String id);
+
+    int insert(Visit visit);
+
+    int batchInsert(List<Visit> list);
+
+    int deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    int update(Visit visit);
+
+    int batchUpdate(List<Visit> list);
+
 
     int insertVisit(Visit visit);
 
