@@ -12,19 +12,31 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="permissionMap" resultType="permission">
-        select * from permission limit #{start},#{limit}
+        select * from permission
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.permissionName != null">
+                    permissionname = #{searchMap.permissionName}
+                </if>
+                <if test="searchMap.permissionCode != null">
+                    and permissioncode = #{searchMap.permissionCode}
+                </if>
+            </if>
+        </where>
+        order by lower(permissioncode) limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="permissionMap" resultType="permission">
         select * from permission
         <where>
-            <if test="permissoinName != null">
+            <if test="permissionName != null">
                 permissionname = #{permissionName}
             </if>
             <if test="permissionCode != null">
-                and permissoncode = #{permisionCode}
+                and permissioncode = #{permissionCode}
             </if>
         </where>
+        order by lower(permissioncode)
     </select>
 
     <select id="selectById" resultMap="permissionMap" resultType="permission">

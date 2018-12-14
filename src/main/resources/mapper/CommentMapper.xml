@@ -18,17 +18,64 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="commentMap" resultType="comment">
-        select * from comment order by date desc limit #{start},#{limit}
+        select * from comment
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.nickname != null">
+                    nickname = #{searchMap.nickname}
+                </if>
+                <if test="searchMap.email != null">
+                    and email = #{searchMap.email}
+                </if>
+                <if test="searchMap.website != null">
+                    and website = #{searchMap.website}
+                </if>
+                <if test="searchMap.content != null">
+                    and content = #{searchMap.content}
+                </if>
+                <if test="searchMap.articleId != null">
+                    and articleid = #{searchMap.articleId}
+                </if>
+                <if test="searchMap.replyTo != null">
+                    and replyto = #{searchMap.replyTo}
+                </if>
+                <if test="searchMap.review != null">
+                    and review = #{searchMap.review}
+                </if>
+                <if test="searchMap.date != null">
+                    and date = #{searchMap.date}
+                </if>
+            </if>
+        </where>
+        order by date desc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="commentMap" resultType="comment">
         select * from comment
         <where>
+            <if test="nickname != null">
+                nickname = #{nickname}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+            <if test="website != null">
+                and website = #{website}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
             <if test="articleId != null">
-                articleid = #{articleId}
+                and articleid = #{articleId}
+            </if>
+            <if test="replyTo != null">
+                and replyto = #{replyTo}
             </if>
             <if test="review != null">
                 and review = #{review}
+            </if>
+            <if test="date != null">
+                and date = #{date}
             </if>
         </where>
         order by date desc

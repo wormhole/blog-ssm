@@ -14,7 +14,24 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="menuMap" resultType="menu">
-        select * from menu order by date limit #{start},#{limit}
+        select * from menu
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.name != null">
+                    name = #{searchMap.name}
+                </if>
+                <if test="searchMap.url != null">
+                    and url = #{searchMap.url}
+                </if>
+                <if test="searchMap.deleteAble != null">
+                    and deleteable = #{searchMap.deleteAble}
+                </if>
+                <if test="searchMap.date != null">
+                    and date = #{searchMap.date}
+                </if>
+            </if>
+        </where>
+        order by date limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="menuMap" resultType="menu">
@@ -27,7 +44,7 @@
                 and url = #{url}
             </if>
             <if test="deleteAble != null">
-                and deleteAble = #{deleteAble}
+                and deleteable = #{deleteAble}
             </if>
             <if test="date != null">
                 and date = #{date}
@@ -80,7 +97,7 @@
                 date = #{date},
             </if>
         </set>
-        where id = #{id} and deleteable = 1
+        where id = #{id}
     </update>
 
     <update id="batchUpdate" parameterType="list">
@@ -100,7 +117,7 @@
                     date = #{item.date},
                 </if>
             </set>
-            where id = #{item.id} and deleteable = 1
+            where id = #{item.id}
         </foreach>
     </update>
 

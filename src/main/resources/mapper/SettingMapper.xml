@@ -12,7 +12,18 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="settingMap" resultType="setting">
-        select * from setting limit #{start},#{limit}
+        select * from setting
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.key != null">
+                    `key` = #{searchMap.key}
+                </if>
+                <if test="searchMap.value != null">
+                    and value = #{searchMap.value}
+                </if>
+            </if>
+        </where>
+        limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="settingMap" resultType="setting">
@@ -72,10 +83,10 @@
         <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
             update role_permission
             <set>
-                <if test="key != null">
+                <if test="item.key != null">
                     `key` = #{item.key},
                 </if>
-                <if test="value != null">
+                <if test="item.value != null">
                     value = #{item.value},
                 </if>
             </set>

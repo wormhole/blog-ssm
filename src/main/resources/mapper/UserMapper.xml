@@ -15,7 +15,27 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="userMap" resultType="user">
-        select * from user limit #{start},#{limit}
+        select * from user
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.email != null">
+                    email = #{searchMap.email}
+                </if>
+                <if test="searchMap.nickname != null">
+                    and nickname = #{searchMap.nickname}
+                </if>
+                <if test="searchMap.password != null">
+                    and password = #{searchMap.password}
+                </if>
+                <if test="searchMap.salt != null">
+                    and salt = #{searchMap.salt}
+                </if>
+                <if test="searchMap.deleteAble != null">
+                    and deleteable = #{searchMap.deleteAble}
+                </if>
+            </if>
+        </where>
+        order by lower(nickname) limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="userMap" resultType="user">
@@ -27,7 +47,17 @@
             <if test="nickname != null">
                 and nickname = #{nickname}
             </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+            <if test="salt != null">
+                and salt = #{salt}
+            </if>
+            <if test="deleteAble != null">
+                and deleteable = #{deleteAble}
+            </if>
         </where>
+        order by lower(nickname)
     </select>
 
     <select id="selectById" resultMap="userMap" resultType="user">
@@ -71,7 +101,10 @@
                 password=#{password},
             </if>
             <if test="salt!=null">
-                salt=#{salt}
+                salt=#{salt},
+            </if>
+            <if test="deleteAble!=null">
+                deleteable=#{deleteAble},
             </if>
         </set>
         where id=#{id}
@@ -91,7 +124,10 @@
                     password=#{item.password},
                 </if>
                 <if test="item.salt!=null">
-                    salt=#{item.salt}
+                    salt=#{item.salt},
+                </if>
+                <if test="item.deleteAble!=null">
+                    deleteable=#{item.deleteAble},
                 </if>
             </set>
             where id = #{item.id}

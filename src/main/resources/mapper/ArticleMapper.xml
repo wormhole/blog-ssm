@@ -21,28 +21,82 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="articleMap" resultType="article">
-        select * from article order by createdate desc
+        select * from article
         <where>
             <if test="searchMap != null">
-                <if test="searchMap.visible != null">
-                    visible = #{searchMap.visible}
+                <if test="searchMap.userId != null">
+                    userid = #{searchMap.userId}
+                </if>
+                <if test="searchMap.title != null">
+                    and title = #{searchMap.title}
+                </if>
+                <if test="searchMap.articleMd != null">
+                    and articlemd = #{searchMap.articleMd}
+                </if>
+                <if test="searchMap.articleHtml != null">
+                    and articlehtml = #{searchMap.articleHtml}
                 </if>
                 <if test="searchMap.categoryId != null">
                     and categoryid = #{searchMap.categoryId}
                 </if>
+                <if test="searchMap.createDate != null">
+                    and createdate = #{searchMap.createdate}
+                </if>
+                <if test="searchMap.modifyDate != null">
+                    and modifydate = #{searchMap.modifydate}
+                </if>
+                <if test="searchMap.url != null">
+                    and url = #{searchMap.url}
+                </if>
+                <if test="searchMap.hits != null">
+                    and hits = #{searchMap.hits}
+                </if>
+                <if test="searchMap.likes != null">
+                    and likes = #{searchMap.likes}
+                </if>
+                <if test="searchMap.visible != null">
+                    and visible = #{searchMap.visible}
+                </if>
             </if>
         </where>
-        limit #{start},#{limit}
+        order by createdate desc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="articleMap" resultType="article">
         select * from article
         <where>
-            <if test="visible != null">
-                visible = #{visible}
+            <if test="userId != null">
+                userid = #{userId}
+            </if>
+            <if test="title != null">
+                and title = #{title}
+            </if>
+            <if test="articleMd != null">
+                and articlemd = #{articleMd}
+            </if>
+            <if test="articleHtml != null">
+                and articlehtml = #{articleHtml}
             </if>
             <if test="categoryId != null">
                 and categoryid = #{categoryId}
+            </if>
+            <if test="createDate != null">
+                and createdate = #{createdate}
+            </if>
+            <if test="modifyDate != null">
+                and modifydate = #{modifydate}
+            </if>
+            <if test="url != null">
+                and url = #{url}
+            </if>
+            <if test="hits != null">
+                and hits = #{hits}
+            </if>
+            <if test="likes != null">
+                and likes = #{likes}
+            </if>
+            <if test="visible != null">
+                and visible = #{visible}
             </if>
         </where>
         order by createdate desc
@@ -62,7 +116,8 @@
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into article (id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible)
+        insert into article
+        (id,userid,title,articlemd,articlehtml,categoryid,createdate,modifydate,url,hits,likes,visible)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.id},#{item.userId},#{item.title},#{item.articleMd},#{item.articleHtml},#{item.categoryId},#{item.createDate},#{item.modifyDate},#{item.url},#{item.hits},#{item.likes},#{item.visible})

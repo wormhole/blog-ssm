@@ -13,7 +13,21 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="visitorMap" resultType="visitor">
-        select * from visitor limit #{start},#{limit}
+        select * from visitor
+        <where>
+            <if test="searchMap!=null">
+                <if test="searchMap.ip!=null">
+                    and ip = #{searchMap.ip}
+                </if>
+                <if test="searchMap.agent!=null">
+                    and agent = #{searchMap.agent}
+                </if>
+                <if test="searchMap.date!=null">
+                    and date = #{searchMap.date}
+                </if>
+            </if>
+        </where>
+        order by date desc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="visitMap" resultType="visit">
@@ -29,6 +43,7 @@
                 and date = #{date}
             </if>
         </where>
+        order by date desc
     </select>
 
     <select id="selectById" resultMap="visitorMap" resultType="visitor">
@@ -79,13 +94,13 @@
         <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
             update visitor
             <set>
-                <if test="ip != null">
+                <if test="item.ip != null">
                     ip = #{item.ip},
                 </if>
-                <if test="agent != null">
+                <if test="item.agent != null">
                     agent = #{item.agent},
                 </if>
-                <if test="date != null">
+                <if test="item.date != null">
                     date = #{item.date},
                 </if>
             </set>

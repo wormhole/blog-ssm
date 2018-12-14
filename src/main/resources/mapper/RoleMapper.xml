@@ -12,7 +12,18 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="roleMap" resultType="role">
-        select * from role limit #{start},#{limit}
+        select * from role
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.roleName != null">
+                    rolename = #{searchMap.roleName}
+                </if>
+                <if test="searchMap.roleCode != null">
+                    and rolecode = #{searchMap.roleCode}
+                </if>
+            </if>
+        </where>
+        order by lower(rolecode) limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="roleMap" resultType="role">
@@ -72,10 +83,10 @@
         <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
             update role
             <set>
-                <if test="roleName != null">
+                <if test="item.roleName != null">
                     rolename = #{item.roleName},
                 </if>
-                <if test="roleCode != null">
+                <if test="item.roleCode != null">
                     rolecode = #{item.roleCode},
                 </if>
             </set>

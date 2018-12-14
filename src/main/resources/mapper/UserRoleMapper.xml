@@ -12,14 +12,25 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="userRoleMap" resultType="userRole">
-        select * from user_role limit #{start},#{limit}
+        select * from user_role
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.userId != null">
+                    userid = #{searchMap.userId}
+                </if>
+                <if test="searchMap.roleId != null">
+                    and roleid = #{searchMap.roleId}
+                </if>
+            </if>
+        </where>
+        limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="userRoleMap" resultType="userRole">
         select * from user_role
         <where>
             <if test="userId != null">
-                userid = #{userid}
+                userid = #{userId}
             </if>
             <if test="roleId != null">
                 and roleid = #{roleId}

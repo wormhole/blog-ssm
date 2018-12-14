@@ -16,7 +16,30 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="visitMap" resultType="visit">
-        select * from visit limit #{start},#{limit}
+        select * from visit
+        <where>
+            <if test="searchMap!=null">
+                <if test="searchMap.url!=null">
+                    url = #{searchMap.url}
+                </if>
+                <if test="searchMap.status!=null">
+                    and status = #{searchMap.status}
+                </if>
+                <if test="searchMap.ip!=null">
+                    and ip = #{searchMap.ip}
+                </if>
+                <if test="searchMap.agent!=null">
+                    and agent = #{searchMap.agent}
+                </if>
+                <if test="searchMap.referer!=null">
+                    and referer = #{searchMap.referer}
+                </if>
+                <if test="searchMap.date!=null">
+                    and date = #{searchMap.date}
+                </if>
+            </if>
+        </where>
+        order by date desc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="visitMap" resultType="visit">
@@ -41,6 +64,7 @@
                 and date = #{date}
             </if>
         </where>
+        order by date desc
     </select>
 
     <select id="selectById" resultMap="visitMap" resultType="visit">

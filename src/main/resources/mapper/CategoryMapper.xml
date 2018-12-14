@@ -13,19 +13,37 @@
     </resultMap>
 
     <select id="selectByPage" resultMap="categoryMap" resultType="category">
-        select * from category limit #{start},#{limit}
+        select * from category
+        <where>
+            <if test="searchMap != null">
+                <if test="searchMap.categoryName != null">
+                    categoryname = #{searchMap.categoryName}
+                </if>
+                <if test="searchMap.categoryCode != null">
+                    and categorycode = #{searchMap.categoryCode}
+                </if>
+                <if test="searchMap.deleteAble != null">
+                    and deleteable = #{searchMap.deleteAble}
+                </if>
+            </if>
+        </where>
+        order by lower(categorycode) asc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="categoryMap" resultType="category">
         select * from category
         <where>
             <if test="categoryName != null">
-                categoryName = #{categoryName}
+                categoryname = #{categoryName}
             </if>
             <if test="categoryCode != null">
-                and categoryCode = #{categoryCode}
+                and categorycode = #{categoryCode}
+            </if>
+            <if test="deleteAble != null">
+                and deleteable = #{deleteAble}
             </if>
         </where>
+        order by lower(categorycode) asc
     </select>
 
     <select id="selectById" resultMap="categoryMap" resultType="category">
@@ -63,10 +81,13 @@
                 categoryname = #{categoryName},
             </if>
             <if test="categoryCode!=null">
-                categorycode = #{categoryCode}
+                categorycode = #{categoryCode},
+            </if>
+            <if test="deleteAble!=null">
+                deleteable = #{deleteAble},
             </if>
         </set>
-        where id = #{id} and deleteable = 1
+        where id = #{id}
     </update>
 
     <update id="batchUpdate" parameterType="list">
@@ -76,11 +97,14 @@
                 <if test="item.categoryName!=null">
                     categoryname = #{item.categoryName},
                 </if>
-                <if test="item.categoryCode!=null">
-                    categorycode = #{item.categoryCode}
+                <if test="categoryCode!=null">
+                    categorycode = #{item.categoryCode},
+                </if>
+                <if test="deleteAble!=null">
+                    deleteable = #{item.deleteAble},
                 </if>
             </set>
-            where id = #{item.id} and deleteable = 1
+            where id = #{item.id}
         </foreach>
     </update>
 
