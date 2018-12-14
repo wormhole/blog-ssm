@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.entity.*;
 import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.db.PageParameter;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -32,6 +34,71 @@ public class UserServiceImpl implements UserService {
     private UserRoleDao userRoleDao;
     @Autowired
     private RolePermissionDao rolePermissionDao;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<User> selectByPage(PageParameter pageParameter) {
+        return userDao.selectByPage(pageParameter);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<User> selectByCondition(Map<String, String> searchMap) {
+        return userDao.selectByCondition(searchMap);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User selectById(String id) {
+        return userDao.selectById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User insert(User user) {
+        user.setId(UUIDGenerator.getId());
+        user.setSalt(PasswordUtil.getSalt());
+        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        userDao.insert(user);
+        return userDao.selectById(user.getId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int batchInsert(List<User> list) {
+        for (User user : list) {
+            user.setId(UUIDGenerator.getId());
+            user.setSalt(PasswordUtil.getSalt());
+            user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        }
+        return userDao.batchInsert(list);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User deleteById(String id) {
+        return userDao.selectById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int batchDeleteById(List<String> list) {
+        return userDao.batchDeleteById(list);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public User update(User user) {
+        userDao.update(user);
+        return userDao.selectById(user.getId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int batchUpdate(List<User> list) {
+        return userDao.batchUpdate(list);
+    }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -68,7 +135,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
     public User updateUser(User user) {
-        if(user.getPassword()!=null) {
+        if (user.getPassword() != null) {
             user.setSalt(PasswordUtil.getSalt());
             user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
         }

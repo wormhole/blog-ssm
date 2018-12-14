@@ -14,6 +14,91 @@
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
+    <select id="selectByPage" resultMap="userMap" resultType="user">
+        select * from user limit #{start},#{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="userMap" resultType="user">
+        select * from user
+        <where>
+            <if test="email != null">
+                email = #{email}
+            </if>
+            <if test="nickname != null">
+                and nickname = #{nickname}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="userMap" resultType="user">
+        select * from user where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="user">
+        insert into user (id,email,nickname,password,salt,deleteable)
+        values (#{id},#{email},#{nickname},#{password},#{salt},#{deleteAble})
+    </insert>
+
+    <insert id="batchInsert" parameterType="list">
+        insert into user (id,email,nickname,password,salt,deleteable)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.email},#{item.nickname},#{item.password},#{item.salt},#{item.deleteAble})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="string">
+        delete from user where id = #{id}
+    </delete>
+
+    <delete id="batchDeleteById" parameterType="list">
+        delete from user where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="user">
+        update user
+        <set>
+            <if test="nickname!=null">
+                nickname=#{nickname},
+            </if>
+            <if test="email!=null">
+                email=#{email},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="salt!=null">
+                salt=#{salt}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="batchUpdate" parameterType="list">
+        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+            update user
+            <set>
+                <if test="item.nickname!=null">
+                    nickname=#{item.nickname},
+                </if>
+                <if test="item.email!=null">
+                    email=#{item.email},
+                </if>
+                <if test="item.password!=null">
+                    password=#{item.password},
+                </if>
+                <if test="item.salt!=null">
+                    salt=#{item.salt}
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+
     <select id="getUserById" resultMap="userMap" resultType="user" parameterType="string">
         select * from user where id = #{userId}
     </select>
