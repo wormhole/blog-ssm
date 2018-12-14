@@ -2,8 +2,10 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
+import xyz.stackoverflow.blog.util.db.PageParameter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 设置信息表DAO
@@ -12,6 +14,25 @@ import java.util.List;
  */
 @Repository
 public interface SettingDao {
+
+    List<Setting> selectByPage(PageParameter pageParameter);
+
+    List<Setting> selectByCondition(Map<String,String> searchMap);
+
+    Setting selectById(String id);
+
+    int insert(Setting setting);
+
+    int batchInsert(List<Setting> list);
+
+    int deleteById(String id);
+
+    int batchDeleteById(List<String> list);
+
+    int update(Setting setting);
+
+    int batchUpdate(List<Setting> list);
+
 
     int insertSetting(Setting setting);
 
