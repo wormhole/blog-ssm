@@ -18,7 +18,7 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -83,7 +83,7 @@ public class CategoryPageController {
                 start = (end - 4 < 1) ? 1 : end - 4;
             }
 
-            PageParameter parameter = new PageParameter(p, limit, category.getId());
+            Page parameter = new Page(p, limit, category.getId());
             List<Article> articleList = articleService.getLimitVisibleArticleByCategoryId(parameter);
             List<ArticleVO> articleVOList = new ArrayList<>();
             for (Article article : articleList) {

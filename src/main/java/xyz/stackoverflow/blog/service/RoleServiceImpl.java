@@ -9,7 +9,7 @@ import xyz.stackoverflow.blog.dao.RolePermissionDao;
 import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -32,8 +32,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Role> selectByPage(PageParameter pageParameter) {
-        return roleDao.selectByPage(pageParameter);
+    public List<Role> selectByPage(Page page) {
+        return roleDao.selectByPage(page);
     }
 
     @Override

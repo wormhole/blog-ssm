@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.VisitDao;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.Date;
@@ -25,8 +25,8 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visit> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Visit> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override
@@ -111,19 +111,19 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitVisitByDate(Date startDate, Date endDate, PageParameter pageParameter) {
-        return dao.getLimitVisitByDate(startDate, endDate, pageParameter);
+    public List<Visit> getLimitVisitByDate(Date startDate, Date endDate, Page page) {
+        return dao.getLimitVisitByDate(startDate, endDate, page);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitErrorVisit(PageParameter pageParameter) {
-        return dao.getLimitErrorVisit(pageParameter);
+    public List<Visit> getLimitErrorVisit(Page page) {
+        return dao.getLimitErrorVisit(page);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitVisit(PageParameter pageParameter) {
-        return dao.getLimitVisit(pageParameter);
+    public List<Visit> getLimitVisit(Page page) {
+        return dao.getLimitVisit(page);
     }
 }

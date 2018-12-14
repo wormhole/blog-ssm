@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface RoleService {
 
-    List<Role> selectByPage(PageParameter pageParameter);
+    List<Role> selectByPage(Page page);
 
     List<Role> selectByCondition(Map<String,String> searchMap);
 

@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.pojo.entity.UserRole;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public interface UserService {
 
-    List<User> selectByPage(PageParameter pageParameter);
+    List<User> selectByPage(Page page);
 
     List<User> selectByCondition(Map<String,String> searchMap);
 

@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Repository
 public interface VisitDao {
 
-    List<Visit> selectByPage(PageParameter pageParameter);
+    List<Visit> selectByPage(Page page);
 
     List<Visit> selectByCondition(Map<String,String> searchMap);
 
@@ -43,9 +43,9 @@ public interface VisitDao {
 
     int getVisitCount();
 
-    List<Visit> getLimitVisitByDate(Date startDate, Date endDate, PageParameter pageParameter);
+    List<Visit> getLimitVisitByDate(Date startDate, Date endDate, Page page);
 
-    List<Visit> getLimitErrorVisit(PageParameter pageParameter);
+    List<Visit> getLimitErrorVisit(Page page);
 
-    List<Visit> getLimitVisit(PageParameter pageParameter);
+    List<Visit> getLimitVisit(Page page);
 }

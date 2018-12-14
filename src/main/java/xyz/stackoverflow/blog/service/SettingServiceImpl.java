@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.SettingDao;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Setting> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Setting> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override

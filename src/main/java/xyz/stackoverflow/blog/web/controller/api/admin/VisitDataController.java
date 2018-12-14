@@ -7,7 +7,7 @@ import xyz.stackoverflow.blog.pojo.vo.VisitVO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
 import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.web.Response;
 import xyz.stackoverflow.blog.util.web.StatusConst;
 
@@ -82,7 +82,7 @@ public class VisitDataController {
     public Response today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
+        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
 
         List<Visit> list = visitService.getLimitVisit(pageParameter);
         int count = visitService.getVisitCount();
@@ -123,7 +123,7 @@ public class VisitDataController {
     public Response error(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
+        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
 
         int count = visitService.getErrorVisitCount();
         List<Visit> list = visitService.getLimitErrorVisit(pageParameter);

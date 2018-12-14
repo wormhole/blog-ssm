@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.MenuDao;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Menu> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Menu> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Menu> getLimitMenu(PageParameter pageParameter) {
-        return dao.getLimitMenu(pageParameter);
+    public List<Menu> getLimitMenu(Page page) {
+        return dao.getLimitMenu(page);
     }
 
     @Override

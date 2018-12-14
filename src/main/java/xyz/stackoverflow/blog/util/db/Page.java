@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author 凉衫薄
  */
-public class PageParameter implements Serializable {
+public class Page implements Serializable {
 
     private int page;
     private int start;
@@ -16,11 +16,11 @@ public class PageParameter implements Serializable {
     private String where;
     private Map<String,String> searchMap;
 
-    public PageParameter() {
+    public Page() {
 
     }
 
-    public PageParameter(int page, int limit, String where) {
+    public Page(int page, int limit, String where) {
         this.page = page;
         this.start = (page - 1) * limit;
         this.limit = limit;

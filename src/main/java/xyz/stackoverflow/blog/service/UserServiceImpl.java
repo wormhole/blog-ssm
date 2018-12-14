@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.entity.*;
 import xyz.stackoverflow.blog.util.PasswordUtil;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.HashSet;
@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<User> selectByPage(PageParameter pageParameter) {
-        return userDao.selectByPage(pageParameter);
+    public List<User> selectByPage(Page page) {
+        return userDao.selectByPage(page);
     }
 
     @Override

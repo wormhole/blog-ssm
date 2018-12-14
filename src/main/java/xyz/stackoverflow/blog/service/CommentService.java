@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface CommentService {
 
-    List<Comment> selectByPage(PageParameter pageParameter);
+    List<Comment> selectByPage(Page page);
 
     List<Comment> selectByCondition(Map<String,String> searchMap);
 
@@ -44,6 +44,6 @@ public interface CommentService {
 
     Comment commentReview(Comment comment);
 
-    List<Comment> getLimitComment(PageParameter parameter);
+    List<Comment> getLimitComment(Page parameter);
 
 }

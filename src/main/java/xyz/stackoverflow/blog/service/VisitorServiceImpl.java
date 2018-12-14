@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.VisitorDao;
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.Date;
@@ -25,8 +25,8 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visitor> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Visitor> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override

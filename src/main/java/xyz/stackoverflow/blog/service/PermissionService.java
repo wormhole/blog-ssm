@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Permission;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface PermissionService {
 
-    List<Permission> selectByPage(PageParameter pageParameter);
+    List<Permission> selectByPage(Page page);
 
     List<Permission> selectByCondition(Map<String,String> searchMap);
 

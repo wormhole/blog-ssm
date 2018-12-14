@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Repository
 public interface SettingDao {
 
-    List<Setting> selectByPage(PageParameter pageParameter);
+    List<Setting> selectByPage(Page page);
 
     List<Setting> selectByCondition(Map<String,String> searchMap);
 

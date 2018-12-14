@@ -19,7 +19,7 @@ import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.DateUtil;
 import xyz.stackoverflow.blog.util.MapUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.web.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -229,7 +229,7 @@ public class ArticleController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
+        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
         List<Article> list = articleService.getLimitArticle(pageParameter);
 
         int count = articleService.getArticleCount();

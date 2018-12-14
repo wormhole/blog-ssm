@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CategoryDao;
 import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Category> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Category> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override
@@ -136,8 +136,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Category> getLimitCategory(PageParameter pageParameter) {
-        return dao.getLimitCategory(pageParameter);
+    public List<Category> getLimitCategory(Page page) {
+        return dao.getLimitCategory(page);
     }
 
     @Override

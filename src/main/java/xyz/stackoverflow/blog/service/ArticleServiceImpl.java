@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -30,8 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> selectByPage(PageParameter pageParameter) {
-        return articleDao.selectByPage(pageParameter);
+    public List<Article> selectByPage(Page page) {
+        return articleDao.selectByPage(page);
     }
 
     @Override
@@ -154,19 +154,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitVisibleArticle(PageParameter parameter) {
+    public List<Article> getLimitVisibleArticle(Page parameter) {
         return articleDao.getLimitVisibleArticle(parameter);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitArticle(PageParameter parameter) {
+    public List<Article> getLimitArticle(Page parameter) {
         return articleDao.getLimitArticle(parameter);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitVisibleArticleByCategoryId(PageParameter parameter) {
+    public List<Article> getLimitVisibleArticleByCategoryId(Page parameter) {
         return articleDao.getLimitVisibleArticleByCategoryId(parameter);
     }
 

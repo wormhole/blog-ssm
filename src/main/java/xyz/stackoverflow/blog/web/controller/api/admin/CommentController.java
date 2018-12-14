@@ -10,7 +10,7 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.util.MapUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.web.*;
 
 import javax.validation.ConstraintViolation;
@@ -46,7 +46,7 @@ public class CommentController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        PageParameter pageParameter = new PageParameter(Integer.valueOf(page), Integer.valueOf(limit), null);
+        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
         List<Comment> list = commentService.getLimitComment(pageParameter);
 
         int count = commentService.getCommentCount();

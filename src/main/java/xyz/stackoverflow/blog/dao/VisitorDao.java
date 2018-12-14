@@ -1,9 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Visit;
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Map;
 @Repository
 public interface VisitorDao {
 
-    List<Visitor> selectByPage(PageParameter pageParameter);
+    List<Visitor> selectByPage(Page page);
 
     List<Visitor> selectByCondition(Map<String,String> searchMap);
 

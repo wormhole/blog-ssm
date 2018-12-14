@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
 import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Repository
 public interface ArticleDao {
 
-    List<Article> selectByPage(PageParameter pageParameter);
+    List<Article> selectByPage(Page page);
 
     List<Article> selectByCondition(Map<String, String> searchMap);
 
@@ -50,11 +50,11 @@ public interface ArticleDao {
 
     int getVisibleArticleCountByCategoryId(String categoryId);
 
-    List<Article> getLimitVisibleArticle(PageParameter parameter);
+    List<Article> getLimitVisibleArticle(Page parameter);
 
-    List<Article> getLimitArticle(PageParameter parameter);
+    List<Article> getLimitArticle(Page parameter);
 
-    List<Article> getLimitVisibleArticleByCategoryId(PageParameter parameter);
+    List<Article> getLimitVisibleArticleByCategoryId(Page parameter);
 
     int updateArticle(Article article);
 

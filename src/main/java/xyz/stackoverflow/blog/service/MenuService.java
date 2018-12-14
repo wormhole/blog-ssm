@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface MenuService {
 
-    List<Menu> selectByPage(PageParameter pageParameter);
+    List<Menu> selectByPage(Page page);
 
     List<Menu> selectByCondition(Map<String, String> searchMap);
 
@@ -36,7 +36,7 @@ public interface MenuService {
 
     List<Menu> getAllMenu();
 
-    List<Menu> getLimitMenu(PageParameter pageParameter);
+    List<Menu> getLimitMenu(Page page);
 
     Menu updateMenu(Menu menu);
 

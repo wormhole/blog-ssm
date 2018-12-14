@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Comment> selectByPage(PageParameter pageParameter) {
-        return dao.selectByPage(pageParameter);
+    public List<Comment> selectByPage(Page page) {
+        return dao.selectByPage(page);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Comment> getLimitComment(PageParameter parameter) {
+    public List<Comment> getLimitComment(Page parameter) {
         return dao.getLimitComment(parameter);
     }
 

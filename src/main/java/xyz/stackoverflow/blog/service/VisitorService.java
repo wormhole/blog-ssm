@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
-import xyz.stackoverflow.blog.util.db.PageParameter;
+import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface VisitorService {
 
-    List<Visitor> selectByPage(PageParameter pageParameter);
+    List<Visitor> selectByPage(Page page);
 
     List<Visitor> selectByCondition(Map<String,String> searchMap);
 
