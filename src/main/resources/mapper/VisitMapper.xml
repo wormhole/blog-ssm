@@ -84,13 +84,13 @@
                 ip = #{ip},
             </if>
             <if test="agent != null">
-                and agent = #{agent}
+                agent = #{agent},
             </if>
             <if test="referer != null">
-                and referer = #{referer}
+                referer = #{referer},
             </if>
             <if test="date != null">
-                and date = #{date}
+                date = #{date},
             </if>
         </set>
         where id = #{id}
@@ -110,13 +110,13 @@
                     ip = #{item.ip},
                 </if>
                 <if test="item.agent != null">
-                    and agent = #{item.agent}
+                    agent = #{item.agent},
                 </if>
                 <if test="item.referer != null">
-                    and referer = #{item.referer}
+                    referer = #{item.referer},
                 </if>
                 <if test="item.date != null">
-                    and date = #{item.date}
+                    date = #{item.date},
                 </if>
             </set>
             where id = #{item.id}

@@ -52,6 +52,9 @@ public class VisitServiceImpl implements VisitService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int batchInsert(List<Visit> list) {
+        for (Visit visit : list) {
+            visit.setId(UUIDGenerator.getId());
+        }
         return dao.batchInsert(list);
     }
 
