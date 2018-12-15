@@ -16,7 +16,7 @@ public interface VisitorService {
 
     List<Visitor> selectByPage(Page page);
 
-    List<Visitor> selectByCondition(Map<String,String> searchMap);
+    List<Visitor> selectByCondition(Map<String, Object> searchMap);
 
     Visitor selectById(String id);
 
@@ -32,10 +32,5 @@ public interface VisitorService {
 
     int batchUpdate(List<Visitor> list);
 
-
-    int insertVisitor(Visitor visitor);
-
-    int getVisitorCountByDate(Date startDate, Date endDate);
-
-    int getVisitorCount();
+    List<Visitor> selectByDate(Date startDate, Date endDate);
 }

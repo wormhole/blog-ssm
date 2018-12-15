@@ -108,16 +108,4 @@
         </foreach>
     </update>
 
-
-    <insert id="insertVisitor" parameterType="visitor">
-        insert into visitor(id,ip,agent,date) values(#{id},#{ip},#{agent},#{date})
-    </insert>
-
-    <select id="getVisitorCountByDate" resultType="int">
-        select count(*) from visitor where date between #{arg0} and #{arg1}
-    </select>
-
-    <select id="getVisitorCount" resultType="int">
-        select count(*) from visitor
-    </select>
 </mapper>

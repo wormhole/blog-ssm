@@ -27,7 +27,7 @@ public class VisitorListener implements SessionListener {
         String agent = request.getHeader("User-Agent");
         Date date = new Date();
         Visitor visitor = new Visitor(null, ip, agent, date);
-        visitorService.insertVisitor(visitor);
+        visitorService.insert(visitor);
     }
 
     @Override

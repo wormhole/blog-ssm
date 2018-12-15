@@ -31,7 +31,7 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visitor> selectByCondition(Map<String, String> searchMap) {
+    public List<Visitor> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -85,23 +85,10 @@ public class VisitorServiceImpl implements VisitorService {
         return dao.batchUpdate(list);
     }
 
-
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insertVisitor(Visitor visitor) {
-        visitor.setId(UUIDGenerator.getId());
-        return dao.insertVisitor(visitor);
+    public List<Visitor> selectByDate(Date startDate, Date endDate) {
+        return dao.selectByDate(startDate, endDate);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisitorCountByDate(Date startDate, Date endDate) {
-        return dao.getVisitorCountByDate(startDate, endDate);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisitorCount() {
-        return dao.getVisitorCount();
-    }
 }

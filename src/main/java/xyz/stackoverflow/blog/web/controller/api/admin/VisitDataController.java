@@ -53,7 +53,7 @@ public class VisitDataController {
             calendar.add(Calendar.DATE, 1);
             Date endDate = calendar.getTime();
             int visitCount = visitService.getVisitCountByDate(startDate, endDate);
-            int visitorCount = visitorService.getVisitorCountByDate(startDate, endDate);
+            int visitorCount = visitorService.selectByDate(startDate, endDate).size();
             dateList.add(DateUtil.formatDate(startDate));
             visitList.add(visitCount);
             visitorList.add(visitorCount);
@@ -172,9 +172,9 @@ public class VisitDataController {
         Date endDate = calendar.getTime();
 
         int todayVisit = visitService.getVisitCountByDate(startDate, endDate);
-        int todayVisitor = visitorService.getVisitorCountByDate(startDate, endDate);
+        int todayVisitor = visitorService.selectByDate(startDate, endDate).size();
         int totalVisit = visitService.getVisitCount();
-        int totalVisitor = visitorService.getVisitorCount();
+        int totalVisitor = visitorService.selectByCondition(new HashMap<String, Object>()).size();
 
         Map<String, Integer> map = new HashMap<>();
         map.put("todayVisit", todayVisit);
