@@ -299,10 +299,12 @@ public class ArticleController extends BaseController {
             }
         }
 
+        List<String> ids = new ArrayList<String>();
         for (SuperVO vo : voList) {
             ArticleVO articleVO = (ArticleVO) vo;
-            articleService.deleteById(articleVO.getId());
+            ids.add(articleVO.getId());
         }
+        articleService.batchDeleteById(ids);
 
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("删除成功");
