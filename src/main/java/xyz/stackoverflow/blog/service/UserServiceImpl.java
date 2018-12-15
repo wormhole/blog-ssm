@@ -1,8 +1,6 @@
 package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.*;
@@ -40,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<User> selectByCondition(Map<String, String> searchMap) {
+    public List<User> selectByCondition(Map<String, Object> searchMap) {
         return userDao.selectByCondition(searchMap);
     }
 
@@ -94,60 +92,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public int batchUpdate(List<User> list) {
         return userDao.batchUpdate(list);
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public User getUserById(String userId) {
-        return userDao.getUserById(userId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'user:'+#email", unless = "#result == null")
-    public User getUserByEmail(String email) {
-        return userDao.getUserByEmail(email);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
-    public User getAdmin() {
-        return userDao.getAdmin();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
-    public User insertUser(User user) {
-        user.setId(UUIDGenerator.getId());
-        user.setSalt(PasswordUtil.getSalt());
-        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        userDao.insertUser(user);
-        return userDao.getUserByEmail(user.getEmail());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'user:'+#result.email", condition = "#result != null")
-    public User updateUser(User user) {
-        if (user.getPassword() != null) {
-            user.setSalt(PasswordUtil.getSalt());
-            user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
-        }
-        userDao.updateUser(user);
-        return userDao.getUserByEmail(user.getEmail());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExistEmail(String email) {
-        if (userDao.isExistEmail(email) != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override

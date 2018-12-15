@@ -17,7 +17,7 @@ public interface UserDao {
 
     List<User> selectByPage(Page page);
 
-    List<User> selectByCondition(Map<String,String> searchMap);
+    List<User> selectByCondition(Map<String, Object> searchMap);
 
     User selectById(String id);
 
@@ -32,18 +32,5 @@ public interface UserDao {
     int update(User user);
 
     int batchUpdate(List<User> list);
-
-
-    User getUserById(String userId);
-
-    User getUserByEmail(String email);
-
-    User getAdmin();
-
-    int insertUser(User user);
-
-    int updateUser(User user);
-
-    int isExistEmail(String email);
 
 }

@@ -74,7 +74,9 @@ public class UserController extends BaseController {
                 throw new BusinessException("字段格式出错", map);
             }
 
-            if (!userVO.getEmail().equals(user.getEmail()) && userService.isExistEmail(userVO.getEmail())) {
+            if (!userVO.getEmail().equals(user.getEmail()) && userService.selectByCondition(new HashMap<String, Object>() {{
+                put("email", userVO.getEmail());
+            }}).size() != 0) {
                 throw new BusinessException("邮箱已经存在");
             }
 
@@ -90,7 +92,7 @@ public class UserController extends BaseController {
                 authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
             }
 
-            User newUser = userService.updateUser(updateUser);
+            User newUser = userService.update(updateUser);
             session.setAttribute("user", newUser);
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("基础信息修改成功");
@@ -118,7 +120,7 @@ public class UserController extends BaseController {
             Cache authorizationCache = redisCacheManager.getCache("authorizationCache");
             authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
 
-            User newUser = userService.updateUser(updateUser);
+            User newUser = userService.update(updateUser);
             session.setAttribute("user", newUser);
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("修改成功");

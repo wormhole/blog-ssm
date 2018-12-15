@@ -13,6 +13,7 @@ import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.web.shiro.util.SimpleByteSource;
 
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -34,7 +35,9 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String email = (String) principalCollection.getPrimaryPrincipal();
-        User user = userService.getUserByEmail(email);
+        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+            put("email", email);
+        }}).get(0);
         SimpleAuthorizationInfo sa = new SimpleAuthorizationInfo();
         Set<String> roleSet = userService.getRoleCodeByUserId(user.getId());
         Set<String> permissionSet = userService.getPermissionCodeByUserId(user.getId());
@@ -57,8 +60,10 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String email = (String) authenticationToken.getPrincipal();
-        User user = userService.getUserByEmail(email);
-        if(user == null){
+        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+            put("email", email);
+        }}).get(0);
+        if (user == null) {
             throw new AuthenticationException();
         }
         SimpleAuthenticationInfo sa = new SimpleAuthenticationInfo(user.getEmail(), user.getPassword(), new SimpleByteSource(user.getSalt()), getName());

@@ -239,7 +239,7 @@ public class ArticleController extends BaseController {
             ArticleVO vo = new ArticleVO();
             vo.setId(article.getId());
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
+            vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
             vo.setCreateDate(article.getCreateDate());
             vo.setModifyDate(article.getModifyDate());

@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 /**
  * 表单验证过滤器
@@ -38,10 +39,10 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
         HttpSession session = httpServletRequest.getSession();
         String vcode = (String) session.getAttribute("vcode");
         String vcode1 = httpServletRequest.getParameter("vcode");
-        if(vcode1 == null || vcode1.equalsIgnoreCase(vcode)){
+        if (vcode1 == null || vcode1.equalsIgnoreCase(vcode)) {
             return super.onPreHandle(request, response, mappedValue);
-        }else{
-            request.setAttribute(getFailureKeyAttribute(),VCodeException.class.getName());
+        } else {
+            request.setAttribute(getFailureKeyAttribute(), VCodeException.class.getName());
             return true;
         }
     }
@@ -59,10 +60,12 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         String email = (String) subject.getPrincipal();
-        User user = userService.getUserByEmail(email);
+        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+            put("email", email);
+        }}).get(0);
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
         return super.onLoginSuccess(token, subject, request, response);
     }
 }

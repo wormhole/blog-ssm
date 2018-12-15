@@ -17,7 +17,7 @@ public interface UserService {
 
     List<User> selectByPage(Page page);
 
-    List<User> selectByCondition(Map<String,String> searchMap);
+    List<User> selectByCondition(Map<String, Object> searchMap);
 
     User selectById(String id);
 
@@ -32,19 +32,6 @@ public interface UserService {
     User update(User user);
 
     int batchUpdate(List<User> list);
-
-
-    User getUserById(String userId);
-
-    User getUserByEmail(String email);
-
-    User getAdmin();
-
-    User insertUser(User user);
-
-    User updateUser(User user);
-
-    boolean isExistEmail(String email);
 
     UserRole grantRole(String roleCode,String userId);
 

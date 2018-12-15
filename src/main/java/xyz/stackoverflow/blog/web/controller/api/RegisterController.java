@@ -58,7 +58,9 @@ public class RegisterController extends BaseController {
         }
 
         UserVO userVO = (UserVO) voMap.get("user").get(0);
-        User admin = userService.getAdmin();
+        User admin = userService.selectByCondition(new HashMap<String, Object>() {{
+            put("deleteAble", 0);
+        }}).get(0);
 
         if (admin == null) {
 
@@ -76,14 +78,16 @@ public class RegisterController extends BaseController {
                 throw new BusinessException("验证码错误", map);
             }
 
-            if (userService.isExistEmail(userVO.getEmail())) {
+            if (userService.selectByCondition(new HashMap<String, Object>() {{
+                put("email", userVO.getEmail());
+            }}).size() != 0) {
                 map.put("email", "邮箱已经存在");
                 throw new BusinessException("邮箱已经存在", map);
             }
 
             User user = userVO.toUser();
             user.setDeleteAble(0);
-            User newUser = userService.insertUser(user);
+            User newUser = userService.insert(user);
             userService.grantRole("admin", newUser.getId());
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("注册成功");
