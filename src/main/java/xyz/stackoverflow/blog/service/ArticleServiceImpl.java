@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
+import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,14 +79,33 @@ public class ArticleServiceImpl implements ArticleService {
     @CacheEvict(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
     public Article deleteById(String id) {
         Article article = articleDao.selectById(id);
+
+        List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
+            put("articleId", id);
+        }});
+        List<String> ids = new ArrayList<String>();
+        for (Comment comment : commentList) {
+            ids.add(comment.getId());
+        }
+        commentDao.batchDeleteById(ids);
+
         articleDao.deleteById(id);
-        commentDao.deleteCommentByArticleId(id);
         return article;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int batchDeleteById(List<String> list) {
+        for (String id : list) {
+            List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
+                put("articleId", id);
+            }});
+            List<String> ids = new ArrayList<String>();
+            for (Comment comment : commentList) {
+                ids.add(comment.getId());
+            }
+            commentDao.batchDeleteById(ids);
+        }
         return articleDao.batchDeleteById(list);
     }
 

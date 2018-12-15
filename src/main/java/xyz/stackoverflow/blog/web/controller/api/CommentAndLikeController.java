@@ -77,7 +77,7 @@ public class CommentAndLikeController extends BaseController {
         comment.setDate(new Date());
         comment.setArticleId(article.getId());
         comment.setReview(0);
-        commentService.insertComment(comment);
+        commentService.insert(comment);
 
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("评论成功");

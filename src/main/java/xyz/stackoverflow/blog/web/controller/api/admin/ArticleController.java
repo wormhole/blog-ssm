@@ -245,7 +245,9 @@ public class ArticleController extends BaseController {
             vo.setModifyDate(article.getModifyDate());
             vo.setHits(article.getHits());
             vo.setLikes(article.getLikes());
-            vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
+            vo.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+                put("articleId", article.getId());
+            }}).size());
             vo.setUrl(article.getUrl());
             if (article.getVisible() == 0) {
                 vo.setVisibleTag("否");

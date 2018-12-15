@@ -17,7 +17,7 @@ public interface CommentDao {
 
     List<Comment> selectByPage(Page page);
 
-    List<Comment> selectByCondition(Map<String, String> searchMap);
+    List<Comment> selectByCondition(Map<String, Object> searchMap);
 
     Comment selectById(String id);
 
@@ -33,22 +33,4 @@ public interface CommentDao {
 
     int batchUpdate(List<Comment> list);
 
-
-    int insertComment(Comment comment);
-
-    List<Comment> getCommentByArticleId(String articleId);
-
-    int deleteCommentById(String id);
-
-    Comment getCommentById(String id);
-
-    int getCommentCountByArticleId(String articleId);
-
-    int getCommentCount();
-
-    int commentReview(Comment comment);
-
-    List<Comment> getLimitComment(Page parameter);
-
-    int deleteCommentByArticleId(String articleId);
 }

@@ -101,7 +101,9 @@ public class CategoryPageController {
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
                 vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
                 vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
-                vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
+                vo.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+                    put("articleId", article.getId());
+                }}).size());
                 vo.setHits(article.getHits());
                 vo.setLikes(article.getLikes());
                 vo.setPreview(Jsoup.parse(article.getArticleHtml()).text());

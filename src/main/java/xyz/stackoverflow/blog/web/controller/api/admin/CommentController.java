@@ -46,10 +46,9 @@ public class CommentController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Comment> list = commentService.getLimitComment(pageParameter);
-
-        int count = commentService.getCommentCount();
+        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<Comment> list = commentService.selectByPage(page1);
+        int count = commentService.selectByCondition(new HashMap<String, Object>()).size();
         List<CommentVO> voList = new ArrayList<>();
 
         for (Comment comment : list) {
@@ -60,7 +59,7 @@ public class CommentController extends BaseController {
             vo.setWebsite(comment.getWebsite());
             vo.setDate(comment.getDate());
             vo.setContent(HtmlUtils.htmlEscape(comment.getContent()));
-            vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.getArticleById(comment.getArticleId()).getTitle()));
+            vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.selectById(comment.getArticleId()).getTitle()));
             if (comment.getReview() == 0) {
                 vo.setReviewTag("否");
             } else {
@@ -111,7 +110,7 @@ public class CommentController extends BaseController {
             throw new BusinessException("字段格式出错", map);
         }
 
-        if (commentService.deleteCommentById(commentVO.getId()) != null) {
+        if (commentService.deleteById(commentVO.getId()) != null) {
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("评论删除成功");
         } else {
@@ -153,7 +152,7 @@ public class CommentController extends BaseController {
 
         Comment comment = commentVO.toComment();
 
-        if (commentService.commentReview(comment) != null) {
+        if (commentService.update(comment) != null) {
             response.setStatus(StatusConst.SUCCESS);
             if (comment.getReview() == 1) {
                 response.setMessage("审核成功");

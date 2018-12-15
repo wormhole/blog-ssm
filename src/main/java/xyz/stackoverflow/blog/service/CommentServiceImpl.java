@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Comment> selectByCondition(Map<String, String> searchMap) {
+    public List<Comment> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -79,55 +79,6 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public int batchUpdate(List<Comment> list) {
         return dao.batchUpdate(list);
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Comment insertComment(Comment comment) {
-        comment.setId(UUIDGenerator.getId());
-        dao.insertComment(comment);
-        return dao.getCommentById(comment.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Comment> getCommentByArticleId(String articleId) {
-        return dao.getCommentByArticleId(articleId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Comment deleteCommentById(String id) {
-        Comment comment = dao.getCommentById(id);
-        dao.deleteCommentById(id);
-        return comment;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getCommentCountByArticleId(String articleId) {
-        return dao.getCommentCountByArticleId(articleId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getCommentCount() {
-        return dao.getCommentCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Comment commentReview(Comment comment) {
-        Comment comment1 = dao.getCommentById(comment.getId());
-        dao.commentReview(comment);
-        return comment1;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Comment> getLimitComment(Page parameter) {
-        return dao.getLimitComment(parameter);
     }
 
 }

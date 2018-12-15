@@ -19,6 +19,7 @@ import xyz.stackoverflow.blog.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -62,13 +63,17 @@ public class ArticlePageController {
             articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             articleVO.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
             articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
-            articleVO.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
+            articleVO.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+                put("articleId", article.getId());
+            }}).size());
             articleVO.setHits(article.getHits());
             articleVO.setLikes(article.getLikes());
             articleVO.setCreateDate(article.getCreateDate());
             articleVO.setArticleMd(article.getArticleMd());
 
-            List<Comment> commentList = commentService.getCommentByArticleId(article.getId());
+            List<Comment> commentList = commentService.selectByCondition(new HashMap<String, Object>() {{
+                put("articleId", article.getId());
+            }});
             List<CommentVO> voList = new ArrayList<>();
             for (Comment comment : commentList) {
                 CommentVO commentVO = new CommentVO();

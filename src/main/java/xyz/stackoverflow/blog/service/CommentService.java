@@ -15,7 +15,7 @@ public interface CommentService {
 
     List<Comment> selectByPage(Page page);
 
-    List<Comment> selectByCondition(Map<String,String> searchMap);
+    List<Comment> selectByCondition(Map<String, Object> searchMap);
 
     Comment selectById(String id);
 
@@ -30,20 +30,5 @@ public interface CommentService {
     Comment update(Comment comment);
 
     int batchUpdate(List<Comment> list);
-
-
-    Comment insertComment(Comment comment);
-
-    List<Comment> getCommentByArticleId(String articleId);
-
-    Comment deleteCommentById(String id);
-
-    int getCommentCountByArticleId(String articleId);
-
-    int getCommentCount();
-
-    Comment commentReview(Comment comment);
-
-    List<Comment> getLimitComment(Page parameter);
 
 }
