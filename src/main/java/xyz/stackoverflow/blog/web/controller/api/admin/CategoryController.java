@@ -65,15 +65,19 @@ public class CategoryController extends BaseController {
         }
 
         Category category = categoryVO.toCategory();
-        if (categoryService.isExistName(categoryVO.getCategoryName())) {
+        if (categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryName", category.getCategoryName());
+        }}).size() != 0) {
             throw new BusinessException("分类名已经存在");
         }
-        if (categoryService.isExistCode(categoryVO.getCategoryCode())) {
+        if (categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryCode", category.getCategoryCode());
+        }}).size() != 0) {
             throw new BusinessException("分类编码已经存在");
         }
 
         category.setDeleteAble(1);
-        categoryService.insertCategory(category);
+        categoryService.insert(category);
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("分类添加成功");
 
@@ -92,9 +96,9 @@ public class CategoryController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Category> list = categoryService.getLimitCategory(pageParameter);
-        int count = categoryService.getCategoryCount();
+        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<Category> list = categoryService.selectByPage(page1);
+        int count = categoryService.selectByCondition(new HashMap<String, Object>()).size();
 
         List<CategoryVO> voList = new ArrayList<>();
         for (Category category : list) {
@@ -149,7 +153,7 @@ public class CategoryController extends BaseController {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Category category = categoryService.getCategoryById(categoryVO.getId());
+        Category category = categoryService.selectById(categoryVO.getId());
 
         if (category == null) {
             throw new BusinessException("未找到该分类");
@@ -158,7 +162,9 @@ public class CategoryController extends BaseController {
             throw new BusinessException("该分类不允许删除");
         }
 
-        Category unCategory = categoryService.getCategoryByCode("uncategory");
+        Category unCategory = categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryCode", "uncategory");
+        }}).get(0);
         List<Article> articleList = articleService.selectByCondition(new HashMap<String, Object>() {{
             put("categoryId", category.getId());
         }});
@@ -166,7 +172,7 @@ public class CategoryController extends BaseController {
             article.setCategoryId(unCategory.getId());
         }
         articleService.batchUpdate(articleList);
-        categoryService.deleteCategoryById(category.getId());
+        categoryService.deleteById(category.getId());
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("分类删除成功");
 
@@ -203,7 +209,7 @@ public class CategoryController extends BaseController {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Category oldCategory = categoryService.getCategoryById(categoryVO.getId());
+        Category oldCategory = categoryService.selectById(categoryVO.getId());
 
         if (oldCategory == null) {
             throw new BusinessException("未找到该分类");
@@ -212,14 +218,18 @@ public class CategoryController extends BaseController {
             throw new BusinessException("该分类不允许修改");
         }
 
-        if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.isExistName(categoryVO.getCategoryName())) {
+        if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryName", categoryVO.getCategoryName());
+        }}).size() != 0) {
             throw new BusinessException("新分类名已经存在");
         }
-        if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.isExistCode(categoryVO.getCategoryCode())) {
+        if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryCode", categoryVO.getCategoryCode());
+        }}).size() != 0) {
             throw new BusinessException("新分类编码已经存在");
         }
 
-        categoryService.updateCategory(categoryVO.toCategory());
+        categoryService.update(categoryVO.toCategory());
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("更新成功");
 

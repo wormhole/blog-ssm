@@ -90,7 +90,7 @@ public class IndexPageController {
             ArticleVO vo = new ArticleVO();
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
-            vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+            vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
             vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             vo.setHits(article.getHits());
             vo.setLikes(article.getLikes());

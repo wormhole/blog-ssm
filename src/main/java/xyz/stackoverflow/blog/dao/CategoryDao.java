@@ -17,7 +17,7 @@ public interface CategoryDao {
 
     List<Category> selectByPage(Page page);
 
-    List<Category> selectByCondition(Map<String, String> searchMap);
+    List<Category> selectByCondition(Map<String, Object> searchMap);
 
     Category selectById(String id);
 
@@ -33,24 +33,4 @@ public interface CategoryDao {
 
     int batchUpdate(List<Category> list);
 
-
-    int insertCategory(Category category);
-
-    Category getCategoryById(String id);
-
-    Category getCategoryByCode(String categoryCode);
-
-    int isExistName(String categoryName);
-
-    int isExistCode(String categoryCode);
-
-    int getCategoryCount();
-
-    List<Category> getAllCategory();
-
-    List<Category> getLimitCategory(Page page);
-
-    int deleteCategoryById(String id);
-
-    int updateCategory(Category category);
 }

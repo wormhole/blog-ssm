@@ -15,7 +15,7 @@ public interface CategoryService {
 
     List<Category> selectByPage(Page page);
 
-    List<Category> selectByCondition(Map<String, String> searchMap);
+    List<Category> selectByCondition(Map<String, Object> searchMap);
 
     Category selectById(String id);
 
@@ -30,25 +30,5 @@ public interface CategoryService {
     Category update(Category category);
 
     int batchUpdate(List<Category> list);
-
-
-    Category insertCategory(Category category);
-
-    boolean isExistName(String categoryName);
-
-    boolean isExistCode(String categoryCode);
-
-    int getCategoryCount();
-
-    Category getCategoryByCode(String categoryCode);
-
-    Category getCategoryById(String id);
-
-    List<Category> getAllCategory();
-
-    List<Category> getLimitCategory(Page page);
-
-    Category deleteCategoryById(String id);
-
-    Category updateCategory(Category category);
+    
 }

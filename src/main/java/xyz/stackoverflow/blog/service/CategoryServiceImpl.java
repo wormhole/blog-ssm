@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Category> selectByCondition(Map<String, String> searchMap) {
+    public List<Category> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -79,87 +79,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(rollbackFor = Exception.class)
     public int batchUpdate(List<Category> list) {
         return dao.batchUpdate(list);
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Category insertCategory(Category category) {
-        category.setId(UUIDGenerator.getId());
-        dao.insertCategory(category);
-        return dao.getCategoryById(category.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExistCode(String categoryCode) {
-        if (dao.isExistCode(categoryCode) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExistName(String categoryName) {
-        if (dao.isExistName(categoryName) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getCategoryCount() {
-        return dao.getCategoryCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Category getCategoryByCode(String categoryCode) {
-        return dao.getCategoryByCode(categoryCode);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Category getCategoryById(String id) {
-        return dao.getCategoryById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Category> getAllCategory() {
-        return dao.getAllCategory();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Category> getLimitCategory(Page page) {
-        return dao.getLimitCategory(page);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Category deleteCategoryById(String id) {
-        Category retCategory = dao.getCategoryById(id);
-        if (dao.deleteCategoryById(id) == 1) {
-            return retCategory;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Category updateCategory(Category category) {
-        Category retCategory = dao.getCategoryById(category.getId());
-        if (dao.updateCategory(category) == 1) {
-            return retCategory;
-        } else {
-            return null;
-        }
     }
 
 }

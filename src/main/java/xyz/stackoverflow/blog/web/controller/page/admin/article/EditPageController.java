@@ -13,6 +13,7 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.web.BaseController;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,10 +51,10 @@ public class EditPageController extends BaseController {
     public ModelAndView article(@RequestParam(value = "id", required = false) String id) {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> list = categoryService.getAllCategory();
+        List<Category> list = categoryService.selectByCondition(new HashMap<String,Object>());
 
         if (id != null) {
-            Article article = articleService.getArticleById(id);
+            Article article = articleService.selectById(id);
             ArticleVO articleVO = new ArticleVO();
             articleVO.setTitle(article.getTitle());
             articleVO.setArticleCode(urlToCode(article.getUrl()));
@@ -61,7 +62,9 @@ public class EditPageController extends BaseController {
             mv.addObject("selected", article.getCategoryId());
             mv.addObject("article", articleVO);
         } else {
-            mv.addObject("selected", categoryService.getCategoryByCode("uncategory").getId());
+            mv.addObject("selected", categoryService.selectByCondition(new HashMap<String, Object>() {{
+                put("categoryCode", "uncategory");
+            }}).get(0).getId());
         }
 
         mv.addObject("categoryList", list);

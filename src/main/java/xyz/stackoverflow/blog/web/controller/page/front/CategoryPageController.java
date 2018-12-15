@@ -57,7 +57,9 @@ public class CategoryPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        Category category = categoryService.getCategoryByCode(categoryCode);
+        Category category = categoryService.selectByCondition(new HashMap<String,Object>(){{
+            put("categoryCode",categoryCode);
+        }}).get(0);
         if (category != null) {
 
             int count = articleService.selectByCondition(new HashMap<String, Object>() {{
@@ -98,7 +100,7 @@ public class CategoryPageController {
                 ArticleVO vo = new ArticleVO();
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
                 vo.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
-                vo.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+                vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
                 vo.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
                 vo.setHits(article.getHits());
                 vo.setLikes(article.getLikes());
@@ -133,7 +135,7 @@ public class CategoryPageController {
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> categoryList = categoryService.getAllCategory();
+        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String,Object>());
         List<CategoryVO> categoryVOList = new ArrayList<>();
         for (Category category : categoryList) {
             CategoryVO vo = new CategoryVO();

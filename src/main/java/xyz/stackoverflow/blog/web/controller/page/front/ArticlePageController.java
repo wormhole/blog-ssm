@@ -61,7 +61,7 @@ public class ArticlePageController {
             ArticleVO articleVO = new ArticleVO();
             articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             articleVO.setAuthor(HtmlUtils.htmlEscape(userService.getUserById(article.getUserId()).getNickname()));
-            articleVO.setCategoryName(categoryService.getCategoryById(article.getCategoryId()).getCategoryName());
+            articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
             articleVO.setCommentCount(commentService.getCommentCountByArticleId(article.getId()));
             articleVO.setHits(article.getHits());
             articleVO.setLikes(article.getLikes());
