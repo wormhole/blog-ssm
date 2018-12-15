@@ -15,7 +15,7 @@ public interface MenuService {
 
     List<Menu> selectByPage(Page page);
 
-    List<Menu> selectByCondition(Map<String, String> searchMap);
+    List<Menu> selectByCondition(Map<String, Object> searchMap);
 
     Menu selectById(String id);
 
@@ -31,16 +31,4 @@ public interface MenuService {
 
     int batchUpdate(List<Menu> list);
 
-
-    Menu insertMenu(Menu menu);
-
-    List<Menu> getAllMenu();
-
-    List<Menu> getLimitMenu(Page page);
-
-    Menu updateMenu(Menu menu);
-
-    Menu deleteMenuById(String id);
-
-    int getMenuCount();
 }

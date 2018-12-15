@@ -45,9 +45,9 @@ public class MenuController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Menu> list = menuService.getLimitMenu(pageParameter);
-        int count = menuService.getMenuCount();
+        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<Menu> list = menuService.selectByPage(page1);
+        int count = menuService.selectByCondition(new HashMap<String, Object>()).size();
 
         List<MenuVO> voList = new ArrayList<>();
         for (Menu menu : list) {
@@ -102,14 +102,14 @@ public class MenuController extends BaseController {
             throw new BusinessException("字段格式出错", map);
         }
 
-        Menu menu = menuService.deleteMenuById(menuVO.getId());
+        Menu menu = menuService.deleteById(menuVO.getId());
 
         if (menu == null) {
             throw new BusinessException("未找到该菜单或该菜单不允许删除");
         }
 
         ServletContext application = request.getServletContext();
-        List<Menu> list = menuService.getAllMenu();
+        List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
         application.setAttribute("menu", list);
 
         response.setStatus(StatusConst.SUCCESS);
@@ -152,10 +152,10 @@ public class MenuController extends BaseController {
         Menu menu = menuVO.toMenu();
         menu.setDeleteAble(1);
         menu.setDate(new Date());
-        menuService.insertMenu(menu);
+        menuService.insert(menu);
 
         ServletContext application = request.getServletContext();
-        List<Menu> list = menuService.getAllMenu();
+        List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
         application.setAttribute("menu", list);
 
         response.setStatus(StatusConst.SUCCESS);
@@ -196,11 +196,11 @@ public class MenuController extends BaseController {
         }
 
         Menu menu = menuVO.toMenu();
-        Menu updateMenu = menuService.updateMenu(menu);
+        Menu updateMenu = menuService.update(menu);
         if (updateMenu != null) {
 
             ServletContext application = request.getServletContext();
-            List<Menu> list = menuService.getAllMenu();
+            List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
             application.setAttribute("menu", list);
 
             response.setStatus(StatusConst.SUCCESS);

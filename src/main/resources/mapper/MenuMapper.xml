@@ -121,41 +121,4 @@
         </foreach>
     </update>
 
-
-    <insert id="insertMenu" parameterType="menu">
-        insert into menu(id,name,url,deleteable,date) values(#{id},#{name},#{url},#{deleteAble},#{date})
-    </insert>
-
-    <select id="getMenuById" parameterType="string" resultType="menu" resultMap="menuMap">
-        select * from menu where id = #{id}
-    </select>
-
-    <select id="getAllMenu" resultMap="menuMap" resultType="menu">
-        select * from menu order by date
-    </select>
-
-    <select id="getLimitMenu" resultMap="menuMap" resultType="menu">
-        select * from menu order by date limit #{start},#{limit}
-    </select>
-
-    <select id="getMenuCount" resultType="int">
-        select count(*) from menu
-    </select>
-
-    <update id="updateMenu" parameterType="menu">
-        update menu
-        <set>
-            <if test="name!=null">
-                name = #{name},
-            </if>
-            <if test="url!=null">
-                url = #{url}
-            </if>
-        </set>
-        where id = #{id} and deleteable = 1
-    </update>
-
-    <delete id="deleteMenuById" parameterType="string">
-        delete from menu where id = #{id} and deleteable = 1
-    </delete>
 </mapper>

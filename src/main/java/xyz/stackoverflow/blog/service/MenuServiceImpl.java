@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Menu> selectByCondition(Map<String, String> searchMap) {
+    public List<Menu> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -79,52 +79,4 @@ public class MenuServiceImpl implements MenuService {
         return dao.batchUpdate(list);
     }
 
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Menu insertMenu(Menu menu) {
-        menu.setId(UUIDGenerator.getId());
-        dao.insertMenu(menu);
-        return dao.getMenuById(menu.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Menu> getAllMenu() {
-        return dao.getAllMenu();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Menu> getLimitMenu(Page page) {
-        return dao.getLimitMenu(page);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Menu updateMenu(Menu menu) {
-        Menu ret = dao.getMenuById(menu.getId());
-        if (dao.updateMenu(menu) != 0) {
-            return ret;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Menu deleteMenuById(String id) {
-        Menu ret = dao.getMenuById(id);
-        if (dao.deleteMenuById(id) != 0) {
-            return ret;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getMenuCount() {
-        return dao.getMenuCount();
-    }
 }

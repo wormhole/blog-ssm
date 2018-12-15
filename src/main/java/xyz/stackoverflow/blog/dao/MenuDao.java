@@ -17,7 +17,7 @@ public interface MenuDao {
 
     List<Menu> selectByPage(Page page);
 
-    List<Menu> selectByCondition(Map<String, String> searchMap);
+    List<Menu> selectByCondition(Map<String, Object> searchMap);
 
     Menu selectById(String id);
 
@@ -33,18 +33,4 @@ public interface MenuDao {
 
     int batchUpdate(List<Menu> list);
 
-
-    int insertMenu(Menu menu);
-
-    List<Menu> getAllMenu();
-
-    List<Menu> getLimitMenu(Page page);
-
-    Menu getMenuById(String id);
-
-    int getMenuCount();
-
-    int updateMenu(Menu menu);
-
-    int deleteMenuById(String id);
 }
