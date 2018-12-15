@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
             if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
                 retSet = new HashSet<>();
                 for (RolePermission rolePermission : rolePermissionList) {
-                    Permission permission = permissionDao.getPermissionById(rolePermission.getPermissionId());
+                    Permission permission = permissionDao.selectById(rolePermission.getPermissionId());
                     retSet.add(permission.getPermissionCode());
                 }
             }

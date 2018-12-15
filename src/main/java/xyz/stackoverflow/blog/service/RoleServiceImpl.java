@@ -12,6 +12,7 @@ import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +120,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public RolePermission grantPermission(String roleId, String permissionCode) {
-        Permission permission = permissionDao.getPermissionByCode(permissionCode);
+        Permission permission = permissionDao.selectByCondition(new HashMap<String, Object>() {{
+            put("permissionCode", permissionCode);
+        }}).get(0);
         RolePermission rolePermission = new RolePermission();
         rolePermission.setId(UUIDGenerator.getId());
         rolePermission.setRoleId(roleId);

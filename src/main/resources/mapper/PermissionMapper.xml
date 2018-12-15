@@ -95,21 +95,4 @@
         </foreach>
     </update>
 
-
-    <select id="getPermissionById" resultType="permission" resultMap="permissionMap" parameterType="string">
-        select * from permission where id = #{id}
-    </select>
-
-    <select id="getPermissionByCode" resultType="permission" resultMap="permissionMap" parameterType="string">
-        select * from permission where permissioncode = #{permissionCode}
-    </select>
-
-    <select id="getAllPermission" resultType="permission" resultMap="permissionMap">
-        select * from permission;
-    </select>
-
-    <insert id="insertPermission" parameterType="permission">
-        insert into permission(id,permissionname,permissioncode) values(#{id},#{permissionName},#{permissionCode})
-    </insert>
-
 </mapper>

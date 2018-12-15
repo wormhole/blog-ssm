@@ -15,7 +15,7 @@ public interface PermissionService {
 
     List<Permission> selectByPage(Page page);
 
-    List<Permission> selectByCondition(Map<String,String> searchMap);
+    List<Permission> selectByCondition(Map<String, Object> searchMap);
 
     Permission selectById(String id);
 
@@ -31,12 +31,4 @@ public interface PermissionService {
 
     int batchUpdate(List<Permission> list);
 
-
-    Permission getPermissionById(String id);
-
-    Permission getPermissionByCode(String permissionCode);
-
-    List<Permission> getAllPermission();
-
-    Permission insertPermission(Permission permission);
 }

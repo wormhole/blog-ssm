@@ -30,7 +30,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Permission> selectByCondition(Map<String, String> searchMap) {
+    public List<Permission> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -81,30 +81,4 @@ public class PermissionServiceImpl implements PermissionService {
         return dao.batchUpdate(list);
     }
 
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Permission getPermissionById(String id) {
-        return dao.getPermissionById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Permission getPermissionByCode(String permissionCode) {
-        return dao.getPermissionByCode(permissionCode);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Permission> getAllPermission() {
-        return dao.getAllPermission();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Permission insertPermission(Permission permission) {
-        permission.setId(UUIDGenerator.getId());
-        dao.insertPermission(permission);
-        return dao.getPermissionById(permission.getId());
-    }
 }

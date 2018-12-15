@@ -17,7 +17,7 @@ public interface PermissionDao {
 
     List<Permission> selectByPage(Page page);
 
-    List<Permission> selectByCondition(Map<String,String> searchMap);
+    List<Permission> selectByCondition(Map<String, Object> searchMap);
 
     Permission selectById(String id);
 
@@ -33,12 +33,4 @@ public interface PermissionDao {
 
     int batchUpdate(List<Permission> list);
 
-
-    int insertPermission(Permission permission);
-
-    Permission getPermissionById(String id);
-
-    Permission getPermissionByCode(String permissionCode);
-
-    List<Permission> getAllPermission();
 }
