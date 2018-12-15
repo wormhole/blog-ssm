@@ -2,7 +2,6 @@ package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.SettingDao;
@@ -32,7 +31,7 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Setting> selectByCondition(Map<String, String> searchMap) {
+    public List<Setting> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -85,34 +84,4 @@ public class SettingServiceImpl implements SettingService {
         return dao.batchUpdate(list);
     }
 
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'setting:'+#result.key", condition = "#result != null")
-    public Setting insertSetting(Setting setting) {
-        setting.setId(UUIDGenerator.getId());
-        dao.insertSetting(setting);
-        return dao.getSetting(setting.getKey());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Setting> getAllSetting() {
-        return dao.getAllSetting();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'setting:'+#key", unless = "#result == null")
-    public Setting getSetting(String key) {
-        return dao.getSetting(key);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'setting:'+#result.key", condition = "#result != null")
-    public Setting updateSetting(Setting setting) {
-        dao.updateSetting(setting);
-        return dao.getSetting(setting.getKey());
-    }
 }

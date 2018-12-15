@@ -67,10 +67,10 @@ public class SettingController extends BaseController {
 
         for (SettingVO settingVO : vos) {
             Setting setting = settingVO.toSetting();
-            settingService.updateSetting(setting);
+            settingService.update(setting);
         }
 
-        List<Setting> settingList = settingService.getAllSetting();
+        List<Setting> settingList = settingService.selectByCondition(new HashMap<String, Object>());
         Map<String, Object> settingMap = new HashMap<>();
         for (Setting setting : settingList) {
             settingMap.put(setting.getKey(), setting.getValue());
@@ -113,7 +113,7 @@ public class SettingController extends BaseController {
             Setting setting = new Setting();
             setting.setKey("head");
             setting.setValue(url);
-            settingService.updateSetting(setting);
+            settingService.update(setting);
 
             Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
             settingMap.replace("head", url);

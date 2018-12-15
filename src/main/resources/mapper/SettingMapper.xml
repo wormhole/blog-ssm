@@ -94,21 +94,4 @@
         </foreach>
     </update>
 
-
-    <insert id="insertSetting" parameterType="setting">
-        insert into setting(id,key,value) values(#{id},#{key},#{value})
-    </insert>
-
-    <select id="getAllSetting" resultType="setting" resultMap="settingMap">
-        select * from setting
-    </select>
-
-    <select id="getSetting" parameterType="string" resultType="setting" resultMap="settingMap">
-        select * from setting where `key` = #{key}
-    </select>
-
-    <update id="updateSetting" parameterType="setting">
-        update setting set value = #{value} where `key` = #{key}
-    </update>
-
 </mapper>

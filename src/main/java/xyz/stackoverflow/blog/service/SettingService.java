@@ -15,7 +15,7 @@ public interface SettingService {
 
     List<Setting> selectByPage(Page page);
 
-    List<Setting> selectByCondition(Map<String,String> searchMap);
+    List<Setting> selectByCondition(Map<String, Object> searchMap);
 
     Setting selectById(String id);
 
@@ -31,12 +31,4 @@ public interface SettingService {
 
     int batchUpdate(List<Setting> list);
 
-
-    Setting insertSetting(Setting setting);
-
-    List<Setting> getAllSetting();
-
-    Setting getSetting(String key);
-
-    Setting updateSetting(Setting setting);
 }
