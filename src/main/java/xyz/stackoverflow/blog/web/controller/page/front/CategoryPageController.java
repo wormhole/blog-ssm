@@ -23,6 +23,7 @@ import xyz.stackoverflow.blog.util.db.Page;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,10 @@ public class CategoryPageController {
         Category category = categoryService.getCategoryByCode(categoryCode);
         if (category != null) {
 
-            int count = articleService.getVisibleArticleCountByCategoryId(category.getId());
+            int count = articleService.selectByCondition(new HashMap<String, Object>() {{
+                put("visible", 1);
+                put("categoryId", category.getId());
+            }}).size();
             int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
             pageCount = pageCount == 0 ? 1 : pageCount;
 
@@ -83,8 +87,12 @@ public class CategoryPageController {
                 start = (end - 4 < 1) ? 1 : end - 4;
             }
 
-            Page parameter = new Page(p, limit, category.getId());
-            List<Article> articleList = articleService.getLimitVisibleArticleByCategoryId(parameter);
+            Page page1 = new Page(p, limit, null);
+            page1.setSearchMap(new HashMap<String, Object>() {{
+                put("visible", 1);
+                put("categoryId", category.getId());
+            }});
+            List<Article> articleList = articleService.selectByPage(page1);
             List<ArticleVO> articleVOList = new ArrayList<>();
             for (Article article : articleList) {
                 ArticleVO vo = new ArticleVO();
@@ -131,7 +139,10 @@ public class CategoryPageController {
             CategoryVO vo = new CategoryVO();
             vo.setCategoryName(category.getCategoryName());
             vo.setCategoryCode(category.getCategoryCode());
-            vo.setArticleCount(articleService.getVisibleArticleCountByCategoryId(category.getId()));
+            vo.setArticleCount(articleService.selectByCondition(new HashMap<String, Object>() {{
+                put("visible", 1);
+                put("categoryId", category.getId());
+            }}).size());
             categoryVOList.add(vo);
         }
 

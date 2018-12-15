@@ -20,6 +20,7 @@ import xyz.stackoverflow.blog.util.db.Page;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,9 @@ public class IndexPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        int count = articleService.getVisibleArticleCount();
+        int count = articleService.selectByCondition(new HashMap<String, Object>() {{
+            put("visible", 1);
+        }}).size();
         int pageCount = (count % limit == 0) ? count / limit : count / limit + 1;
         pageCount = pageCount == 0 ? 1 : pageCount;
 
@@ -77,8 +80,11 @@ public class IndexPageController {
             start = (end - 4 < 1) ? 1 : end - 4;
         }
 
-        Page parameter = new Page(p, limit, null);
-        List<Article> articleList = articleService.getLimitVisibleArticle(parameter);
+        Page page1 = new Page(p, limit, null);
+        page1.setSearchMap(new HashMap<String, Object>() {{
+            put("visible", 1);
+        }});
+        List<Article> articleList = articleService.selectByPage(page1);
         List<ArticleVO> articleVOList = new ArrayList<>();
         for (Article article : articleList) {
             ArticleVO vo = new ArticleVO();

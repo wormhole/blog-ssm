@@ -15,7 +15,7 @@ public interface ArticleService {
 
     List<Article> selectByPage(Page page);
 
-    List<Article> selectByCondition(Map<String, String> searchMap);
+    List<Article> selectByCondition(Map<String, Object> searchMap);
 
     Article selectById(String id);
 
@@ -33,30 +33,4 @@ public interface ArticleService {
 
     int batchUpdate(List<Article> list);
 
-
-    Article insertArticle(Article blog);
-
-    Article getArticleById(String id);
-
-    Article getArticleByUrl(String url);
-
-    boolean isExistUrl(String url);
-
-    int getVisibleArticleCount();
-
-    int getArticleCount();
-
-    int getVisibleArticleCountByCategoryId(String categoryId);
-
-    List<Article> getLimitVisibleArticle(Page parameter);
-
-    List<Article> getLimitArticle(Page page);
-
-    List<Article> getLimitVisibleArticleByCategoryId(Page parameter);
-
-    Article updateArticle(Article article);
-
-    int updateArticleCategory(String newCategoryId, String oldCategoryId);
-
-    Article deleteArticleById(String id);
 }

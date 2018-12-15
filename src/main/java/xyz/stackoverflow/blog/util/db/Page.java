@@ -14,7 +14,7 @@ public class Page implements Serializable {
     private int start;
     private int limit;
     private String where;
-    private Map<String,String> searchMap;
+    private Map<String,Object> searchMap;
 
     public Page() {
 
@@ -59,11 +59,11 @@ public class Page implements Serializable {
         this.where = where;
     }
 
-    public Map<String, String> getSearchMap() {
+    public Map<String, Object> getSearchMap() {
         return searchMap;
     }
 
-    public void setSearchMap(Map<String, String> searchMap) {
+    public void setSearchMap(Map<String, Object> searchMap) {
         this.searchMap = searchMap;
     }
 }

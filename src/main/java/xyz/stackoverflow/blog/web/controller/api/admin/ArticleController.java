@@ -106,7 +106,7 @@ public class ArticleController extends BaseController {
         }
 
         articleVO.setUrl(codeToUrl(articleVO.getArticleCode()));
-        if (articleService.isExistUrl(articleVO.getUrl())) {
+        if (articleService.selectByUrl(articleVO.getUrl()) != null) {
             throw new BusinessException("url重复");
         }
 
@@ -118,7 +118,7 @@ public class ArticleController extends BaseController {
         article.setHits(0);
         article.setLikes(0);
         article.setVisible(1);
-        articleService.insertArticle(article);
+        articleService.insert(article);
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("保存成功");
 
@@ -155,7 +155,7 @@ public class ArticleController extends BaseController {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Article article = articleService.getArticleById(articleVO.getId());
+        Article article = articleService.selectById(articleVO.getId());
 
         if (article == null) {
             throw new BusinessException("未找到文章");
@@ -165,14 +165,14 @@ public class ArticleController extends BaseController {
         list[list.length - 1] = articleVO.getArticleCode();
         String url = String.join("/", list);
 
-        if (!urlToCode(article.getUrl()).equals(articleVO.getArticleCode()) && articleService.isExistUrl(url)) {
+        if (!urlToCode(article.getUrl()).equals(articleVO.getArticleCode()) && (articleService.selectByUrl(url) != null)) {
             throw new BusinessException("url重复");
         }
 
         Article updateArticle = articleVO.toArticle();
         updateArticle.setModifyDate(new Date());
         updateArticle.setUrl(url);
-        articleService.updateArticle(updateArticle);
+        articleService.update(updateArticle);
         response.setStatus(StatusConst.SUCCESS);
         response.setMessage("文章更新成功");
 
@@ -229,10 +229,10 @@ public class ArticleController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Article> list = articleService.getLimitArticle(pageParameter);
+        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<Article> list = articleService.selectByPage(page1);
 
-        int count = articleService.getArticleCount();
+        int count = articleService.selectByCondition(new HashMap<String, Object>()).size();
         List<ArticleVO> voList = new ArrayList<>();
 
         for (Article article : list) {
@@ -299,7 +299,7 @@ public class ArticleController extends BaseController {
 
         for (SuperVO vo : voList) {
             ArticleVO articleVO = (ArticleVO) vo;
-            articleService.deleteArticleById(articleVO.getId());
+            articleService.deleteById(articleVO.getId());
         }
 
         response.setStatus(StatusConst.SUCCESS);
@@ -339,7 +339,7 @@ public class ArticleController extends BaseController {
 
         Article article = articleVO.toArticle();
 
-        if (articleService.updateArticle(article) != null) {
+        if (articleService.update(article) != null) {
             response.setStatus(StatusConst.SUCCESS);
             if (article.getVisible() == 0) {
                 response.setMessage("隐藏成功");
@@ -366,7 +366,7 @@ public class ArticleController extends BaseController {
      */
     @RequestMapping(value = "/article/export", method = RequestMethod.GET)
     public ResponseEntity<byte[]> export(@RequestParam("id") String id) throws IOException {
-        Article article = articleService.getArticleById(id);
+        Article article = articleService.selectById(id);
         String filename = article.getTitle() + ".md";
         filename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
 

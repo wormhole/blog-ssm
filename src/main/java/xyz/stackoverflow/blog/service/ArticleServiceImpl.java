@@ -36,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> selectByCondition(Map<String, String> searchMap) {
+    public List<Article> selectByCondition(Map<String, Object> searchMap) {
         return articleDao.selectByCondition(searchMap);
     }
 
@@ -59,7 +59,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article insert(Article article) {
         article.setId(UUIDGenerator.getId());
         articleDao.insert(article);
-        return articleDao.getArticleById(article.getId());
+        return articleDao.selectById(article.getId());
     }
 
     @Override
@@ -99,100 +99,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public int batchUpdate(List<Article> list) {
         return articleDao.batchUpdate(list);
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
-    public Article insertArticle(Article article) {
-        article.setId(UUIDGenerator.getId());
-        articleDao.insertArticle(article);
-        return articleDao.getArticleById(article.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Article getArticleById(String id) {
-        return articleDao.getArticleById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'article:'+#url", unless = "#result == null")
-    public Article getArticleByUrl(String url) {
-        return articleDao.getArticleByUrl(url);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExistUrl(String url) {
-        if (articleDao.isExistUrl(url) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisibleArticleCount() {
-        return articleDao.getVisibleArticleCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getArticleCount() {
-        return articleDao.getArticleCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisibleArticleCountByCategoryId(String categoryId) {
-        return articleDao.getVisibleArticleCountByCategoryId(categoryId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitVisibleArticle(Page parameter) {
-        return articleDao.getLimitVisibleArticle(parameter);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitArticle(Page parameter) {
-        return articleDao.getLimitArticle(parameter);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Article> getLimitVisibleArticleByCategoryId(Page parameter) {
-        return articleDao.getLimitVisibleArticleByCategoryId(parameter);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
-    public Article updateArticle(Article article) {
-        articleDao.updateArticle(article);
-        return articleDao.getArticleById(article.getId());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", allEntries = true)
-    public int updateArticleCategory(String newCategoryId, String oldCategoryId) {
-        return articleDao.updateArticleCategory(newCategoryId, oldCategoryId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
-    public Article deleteArticleById(String id) {
-        Article article = articleDao.getArticleById(id);
-        articleDao.deleteArticleById(id);
-        commentDao.deleteCommentByArticleId(id);
-        return article;
     }
 
 }

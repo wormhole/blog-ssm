@@ -53,10 +53,10 @@ public class ArticlePageController {
         ModelAndView mv = new ModelAndView();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
 
-        Article article = articleService.getArticleByUrl(url);
+        Article article = articleService.selectByUrl(url);
         if (article != null) {
             article.setHits(article.getHits() + 1);
-            articleService.updateArticle(article);
+            articleService.update(article);
 
             ArticleVO articleVO = new ArticleVO();
             articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));

@@ -68,7 +68,7 @@ public class CommentAndLikeController extends BaseController {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Article article = articleService.getArticleByUrl(commentVO.getUrl());
+        Article article = articleService.selectByUrl(commentVO.getUrl());
         if (article == null) {
             throw new BusinessException("找不到该文章");
         }
@@ -119,9 +119,9 @@ public class CommentAndLikeController extends BaseController {
         Boolean isLike = (Boolean) session.getAttribute(articleVO.getUrl());
 
         if (isLike != null && !isLike) {
-            Article article = articleService.getArticleByUrl(articleVO.getUrl());
+            Article article = articleService.selectByUrl(articleVO.getUrl());
             article.setLikes(article.getLikes() + 1);
-            articleService.updateArticle(article);
+            articleService.update(article);
             session.setAttribute(articleVO.getUrl(), true);
             response.setStatus(StatusConst.SUCCESS);
             response.setMessage("点赞成功");
