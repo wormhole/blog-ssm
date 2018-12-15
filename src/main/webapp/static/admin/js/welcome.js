@@ -5,8 +5,8 @@ layui.use(['layer', 'jquery', 'table'], function () {
     var table = layui.table;
 
     var parameter1 = {
-        id: 'today-table',
-        elem: '#today-table',
+        id: 'all-table',
+        elem: '#all-table',
         url: '/api/admin/visit/list',
         method: 'get',
         page: true,
@@ -29,37 +29,11 @@ layui.use(['layer', 'jquery', 'table'], function () {
         ]]
     };
 
-    var parameter2 = {
-        id: 'error-table',
-        elem: '#error-table',
-        url: '/api/admin/visit/error',
-        method: 'get',
-        page: true,
-        toolbar: '#toolbar-head',
-        parseData: function (response) {
-            return {
-                code: response.status,
-                message: response.message,
-                count: response.data.count,
-                data: response.data.items
-            }
-        },
-        cols: [[
-            {field: 'ip', title: 'IP'},
-            {field: 'url', title: 'URL'},
-            {field: 'status', title: '状态码'},
-            {field: 'agent', title: '客户端'},
-            {fixed: 'right', field: 'date', title: '日期'},
-        ]]
-    };
-
     initChart('flow');
 
     initCountTable();
 
     table.render(parameter1);
-
-    table.render(parameter2);
 
     function initChart(id) {
         var flow = echarts.init(document.getElementById(id));

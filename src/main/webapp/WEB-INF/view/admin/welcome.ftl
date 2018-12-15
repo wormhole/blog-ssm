@@ -24,13 +24,7 @@
 <div class="layui-card">
     <div class="layui-card-header">所有访问</div>
     <div class="layui-card-body">
-        <table class="layui-hide" id="today-table" lay-filter="today-table-1"></table>
-    </div>
-</div>
-<div class="layui-card">
-    <div class="layui-card-header">异常访问</div>
-    <div class="layui-card-body">
-        <table class="layui-hide" id="error-table" lay-filter="error-table-1"></table>
+        <table class="layui-hide" id="all-table" lay-filter="all-table-1"></table>
     </div>
 </div>
 <div class="layui-card">
