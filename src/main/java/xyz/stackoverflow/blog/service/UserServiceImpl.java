@@ -11,10 +11,7 @@ import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 用户服务实现
@@ -156,7 +153,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserRole grantRole(String roleCode, String userId) {
-        Role role = roleDao.getRoleByCode(roleCode);
+        Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
+            put("roleCode", roleCode);
+        }}).get(0);
         UserRole userRole = new UserRole();
         userRole.setId(UUIDGenerator.getId());
         userRole.setRoleId(role.getId());
@@ -173,7 +172,7 @@ public class UserServiceImpl implements UserService {
         if ((null != userRoleList) && (userRoleList.size() != 0)) {
             retSet = new HashSet<>();
             for (UserRole userRole : userRoleList) {
-                Role role = roleDao.getRoleById(userRole.getRoleId());
+                Role role = roleDao.selectById(userRole.getRoleId());
                 retSet.add(role.getRoleCode());
             }
         }

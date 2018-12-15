@@ -94,21 +94,4 @@
         </foreach>
     </update>
 
-
-    <select id="getRoleById" resultType="role" resultMap="roleMap" parameterType="string">
-        select * from role where id = #{id}
-    </select>
-
-    <select id="getRoleByCode" resultType="role" resultMap="roleMap" parameterType="string">
-        select * from role where rolecode = #{roleCode}
-    </select>
-
-    <select id="getAllRole" resultType="role" resultMap="roleMap">
-        select * from role;
-    </select>
-
-    <insert id="insertRole" parameterType="role">
-        insert into role(id,rolename,rolecode) values(#{id},#{rolename},#{rolecode})
-    </insert>
-
 </mapper>

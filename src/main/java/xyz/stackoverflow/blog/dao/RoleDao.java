@@ -17,7 +17,7 @@ public interface RoleDao {
 
     List<Role> selectByPage(Page page);
 
-    List<Role> selectByCondition(Map<String,String> searchMap);
+    List<Role> selectByCondition(Map<String, Object> searchMap);
 
     Role selectById(String id);
 
