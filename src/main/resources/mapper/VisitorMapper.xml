@@ -108,4 +108,7 @@
         </foreach>
     </update>
 
+    <select id="selectByDate" resultType="int">
+        select * from visitor where date between #{arg0} and #{arg1}
+    </select>
 </mapper>
