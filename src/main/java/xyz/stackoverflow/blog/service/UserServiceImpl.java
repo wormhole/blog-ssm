@@ -185,7 +185,9 @@ public class UserServiceImpl implements UserService {
         Set<String> roleCodeSet = getRoleCodeByUserId(userId);
         Set<String> retSet = null;
         for (String roleCode : roleCodeSet) {
-            Role role = roleDao.getRoleByCode(roleCode);
+            Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
+                put("roleCode", roleCode);
+            }}).get(0);
             List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
             if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
                 retSet = new HashSet<>();

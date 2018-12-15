@@ -33,12 +33,4 @@ public interface RoleDao {
 
     int batchUpdate(List<Role> list);
 
-
-    int insertRole(Role role);
-
-    Role getRoleById(String id);
-
-    Role getRoleByCode(String roleCode);
-
-    List<Role> getAllRole();
 }
