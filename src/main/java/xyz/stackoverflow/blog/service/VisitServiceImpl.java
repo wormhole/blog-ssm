@@ -31,7 +31,7 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Visit> selectByCondition(Map<String, String> searchMap) {
+    public List<Visit> selectByCondition(Map<String, Object> searchMap) {
         return dao.selectByCondition(searchMap);
     }
 
@@ -86,44 +86,8 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insertVisit(Visit visit) {
-        visit.setId(UUIDGenerator.getId());
-        return dao.insertVisit(visit);
+    public List<Visit> selectByDate(Date startDate, Date endDate) {
+        return dao.selectByDate(startDate, endDate);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisitCountByDate(Date startDate, Date endDate) {
-        return dao.getVisitCountByDate(startDate, endDate);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getErrorVisitCount() {
-        return dao.getErrorVisitCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int getVisitCount() {
-        return dao.getVisitCount();
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitVisitByDate(Date startDate, Date endDate, Page page) {
-        return dao.getLimitVisitByDate(startDate, endDate, page);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitErrorVisit(Page page) {
-        return dao.getLimitErrorVisit(page);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<Visit> getLimitVisit(Page page) {
-        return dao.getLimitVisit(page);
-    }
 }

@@ -52,6 +52,6 @@ public class VisitInterceptor implements HandlerInterceptor {
         Date date = new Date();
         String url = param == null ? uri : uri + "?" + param;
         Visit visit = new Visit(null, url, status, ip, agent, referer, date);
-        visitService.insertVisit(visit);
+        visitService.insert(visit);
     }
 }

@@ -52,7 +52,7 @@ public class VisitDataController {
             Date startDate = calendar.getTime();
             calendar.add(Calendar.DATE, 1);
             Date endDate = calendar.getTime();
-            int visitCount = visitService.getVisitCountByDate(startDate, endDate);
+            int visitCount = visitService.selectByDate(startDate, endDate).size();
             int visitorCount = visitorService.selectByDate(startDate, endDate).size();
             dateList.add(DateUtil.formatDate(startDate));
             visitList.add(visitCount);
@@ -82,10 +82,10 @@ public class VisitDataController {
     public Response today(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
 
-        List<Visit> list = visitService.getLimitVisit(pageParameter);
-        int count = visitService.getVisitCount();
+        List<Visit> list = visitService.selectByPage(page1);
+        int count = visitService.selectByCondition(new HashMap<String, Object>()).size();
 
         List<VisitVO> voList = new ArrayList<>();
 
@@ -95,48 +95,6 @@ public class VisitDataController {
             vo.setUrl(visit.getUrl());
             vo.setStatus(visit.getStatus());
             vo.setAgent(visit.getAgent());
-            vo.setReferer(visit.getReferer());
-            vo.setDate(visit.getDate());
-            voList.add(vo);
-        }
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("count", count);
-        map.put("items", voList);
-        response.setStatus(StatusConst.SUCCESS);
-        response.setMessage("查询成功");
-        response.setData(map);
-        return response;
-    }
-
-    /**
-     * 获取异常访问记录接口
-     * /api/admin/visit/error
-     * 方法 GET
-     *
-     * @param page
-     * @param limit
-     * @return
-     */
-    @RequestMapping(value = "/visit/error", method = RequestMethod.GET)
-    @ResponseBody
-    public Response error(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
-        Response response = new Response();
-
-        Page pageParameter = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-
-        int count = visitService.getErrorVisitCount();
-        List<Visit> list = visitService.getLimitErrorVisit(pageParameter);
-
-
-        List<VisitVO> voList = new ArrayList<>();
-
-        for (Visit visit : list) {
-            VisitVO vo = new VisitVO();
-            vo.setIp(visit.getIp());
-            vo.setUrl(visit.getUrl());
-            vo.setAgent(visit.getAgent());
-            vo.setStatus(visit.getStatus());
             vo.setReferer(visit.getReferer());
             vo.setDate(visit.getDate());
             voList.add(vo);
@@ -171,9 +129,9 @@ public class VisitDataController {
         calendar.add(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
 
-        int todayVisit = visitService.getVisitCountByDate(startDate, endDate);
+        int todayVisit = visitService.selectByDate(startDate, endDate).size();
         int todayVisitor = visitorService.selectByDate(startDate, endDate).size();
-        int totalVisit = visitService.getVisitCount();
+        int totalVisit = visitService.selectByCondition(new HashMap<String, Object>()).size();
         int totalVisitor = visitorService.selectByCondition(new HashMap<String, Object>()).size();
 
         Map<String, Integer> map = new HashMap<>();

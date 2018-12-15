@@ -16,7 +16,7 @@ public interface VisitService {
 
     List<Visit> selectByPage(Page page);
 
-    List<Visit> selectByCondition(Map<String,String> searchMap);
+    List<Visit> selectByCondition(Map<String, Object> searchMap);
 
     Visit selectById(String id);
 
@@ -32,18 +32,6 @@ public interface VisitService {
 
     int batchUpdate(List<Visit> list);
 
+    List<Visit> selectByDate(Date startDate, Date endDate);
 
-    int insertVisit(Visit visit);
-
-    int getVisitCountByDate(Date startDate, Date endDate);
-
-    int getErrorVisitCount();
-
-    int getVisitCount();
-
-    List<Visit> getLimitVisitByDate(Date startDate, Date endDate, Page page);
-
-    List<Visit> getLimitErrorVisit(Page page);
-
-    List<Visit> getLimitVisit(Page page);
 }
