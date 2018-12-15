@@ -17,7 +17,7 @@ public interface UserRoleDao {
 
     List<UserRole> selectByPage(Page page);
 
-    List<UserRole> selectByCondition(Map<String, String> searchMap);
+    List<UserRole> selectByCondition(Map<String, Object> searchMap);
 
     UserRole selectById(String id);
 
@@ -33,8 +33,4 @@ public interface UserRoleDao {
 
     int batchUpdate(List<UserRole> list);
 
-
-    List<UserRole> getUserRoleByUserId(String userId);
-
-    int insertUserRole(UserRole userRole);
 }

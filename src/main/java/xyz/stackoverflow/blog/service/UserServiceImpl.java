@@ -104,14 +104,16 @@ public class UserServiceImpl implements UserService {
         userRole.setId(UUIDGenerator.getId());
         userRole.setRoleId(role.getId());
         userRole.setUserId(userId);
-        userRoleDao.insertUserRole(userRole);
+        userRoleDao.insert(userRole);
         return userRole;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Set<String> getRoleCodeByUserId(String userId) {
-        List<UserRole> userRoleList = userRoleDao.getUserRoleByUserId(userId);
+        List<UserRole> userRoleList = userRoleDao.selectByCondition(new HashMap<String, Object>() {{
+            put("userId", userId);
+        }});
         Set<String> retSet = null;
         if ((null != userRoleList) && (userRoleList.size() != 0)) {
             retSet = new HashSet<>();

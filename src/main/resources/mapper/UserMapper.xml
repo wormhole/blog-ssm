@@ -134,44 +134,4 @@
         </foreach>
     </update>
 
-
-    <select id="getUserById" resultMap="userMap" resultType="user" parameterType="string">
-        select * from user where id = #{userId}
-    </select>
-
-    <select id="getUserByEmail" resultMap="userMap" resultType="user" parameterType="string">
-        select * from user where email = #{email}
-    </select>
-
-    <select id="isExistEmail" resultType="int" parameterType="string">
-        select count(*) from user where email=#{email}
-    </select>
-
-    <select id="getAdmin" resultMap="userMap" resultType="user">
-        select * from user where deleteable = 0
-    </select>
-
-    <insert id="insertUser" parameterType="user">
-        insert into user(id,email,nickname,password,salt,deleteable) values(#{id},#{email},#{nickname},#{password},#{salt},#{deleteAble})
-    </insert>
-
-    <update id="updateUser" parameterType="user">
-        update user
-        <set>
-            <if test="nickname!=null">
-                nickname=#{nickname},
-            </if>
-            <if test="email!=null">
-                email=#{email},
-            </if>
-            <if test="password!=null">
-                password=#{password},
-            </if>
-            <if test="salt!=null">
-                salt=#{salt}
-            </if>
-        </set>
-        where id=#{id}
-    </update>
-
 </mapper>
