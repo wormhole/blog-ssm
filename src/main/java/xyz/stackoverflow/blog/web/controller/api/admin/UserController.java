@@ -84,8 +84,6 @@ public class UserController extends BaseController {
             updateUser.setId(user.getId());
 
             if (!updateUser.getEmail().equals(user.getEmail())) {
-                Cache defaultCache = redisCacheManager.getCache("defaultCache");
-                defaultCache.evict("user:" + user.getEmail());
                 Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
                 authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
                 Cache authorizationCache = redisCacheManager.getCache("authorizationCache");

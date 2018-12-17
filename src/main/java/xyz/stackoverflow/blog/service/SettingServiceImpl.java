@@ -1,7 +1,6 @@
 package xyz.stackoverflow.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.SettingDao;
@@ -43,7 +42,6 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'setting:'+#result.key", condition = "#result != null")
     public Setting insert(Setting setting) {
         setting.setId(UUIDGenerator.getId());
         dao.insert(setting);
@@ -72,7 +70,6 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'setting:'+#result.key", condition = "#result != null")
     public Setting update(Setting setting) {
         dao.update(setting);
         return dao.selectById(setting.getId());
