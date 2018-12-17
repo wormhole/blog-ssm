@@ -13,18 +13,17 @@ public class Page implements Serializable {
     private int page;
     private int start;
     private int limit;
-    private String where;
-    private Map<String,Object> searchMap;
+    private Map<String, Object> searchMap;
 
     public Page() {
 
     }
 
-    public Page(int page, int limit, String where) {
+    public Page(int page, int limit, Map<String, Object> searchMap) {
         this.page = page;
         this.start = (page - 1) * limit;
         this.limit = limit;
-        this.where = where;
+        this.searchMap = searchMap;
     }
 
     public int getPage() {
@@ -49,14 +48,6 @@ public class Page implements Serializable {
 
     public void setLimit(int limit) {
         this.limit = limit;
-    }
-
-    public String getWhere() {
-        return where;
-    }
-
-    public void setWhere(String where) {
-        this.where = where;
     }
 
     public Map<String, Object> getSearchMap() {
