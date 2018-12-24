@@ -32,7 +32,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
             switch (settingVO.getKey()) {
                 case "title":
                     if (!validateTitle(settingVO.getValue())) {
-                        map.put("title", "标题长度应该在1到20之间");
+                        map.put("title", "标题长度应该在1到100之间");
                     }
                     break;
                 case "keywords":
@@ -52,7 +52,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
                     break;
                 case "nickname":
                     if (!validateNickname(settingVO.getValue())) {
-                        map.put("nickname", "昵称长度应该在1到20之间");
+                        map.put("nickname", "昵称长度应该在1到100之间");
                     }
                     break;
                 case "signature":
@@ -79,7 +79,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
      * @return
      */
     private boolean validateTitle(String title) {
-        if (0 < title.length() && title.length() <= 20) {
+        if (0 < title.length() && title.length() <= 100) {
             return true;
         } else {
             return false;
@@ -135,7 +135,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
      * @return
      */
     private boolean validateNickname(String nickname) {
-        if (0 < nickname.length() && nickname.length() <= 20) {
+        if (0 < nickname.length() && nickname.length() <= 100) {
             return true;
         } else {
             return false;

@@ -24,7 +24,7 @@ public class ArticleVO implements SuperVO {
     private String userId;
 
     @NotNull(message = "缺少标题字段", groups = {UpdateGroup.class, InsertGroup.class})
-    @Length(min = 1, max = 20, message = "标题长度只能在1到20之内", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, max = 100, message = "标题长度只能在1到100之内", groups = {UpdateGroup.class, InsertGroup.class})
     private String title;
 
     @NotNull(message = "缺少文章md字段", groups = {UpdateGroup.class, InsertGroup.class})
@@ -53,7 +53,7 @@ public class ArticleVO implements SuperVO {
 
     //以下为扩展字段
     @NotNull(message = "缺少文章编码字段", groups = {UpdateGroup.class, InsertGroup.class})
-    @Length(min = 1, max = 20, message = "编码长度只能在1到20之间", groups = {UpdateGroup.class, InsertGroup.class})
+    @Length(min = 1, max = 100, message = "编码长度只能在1到100之间", groups = {UpdateGroup.class, InsertGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线", groups = {UpdateGroup.class, InsertGroup.class})
     private String articleCode;
 

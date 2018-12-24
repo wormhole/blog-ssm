@@ -20,11 +20,11 @@ public class MenuVO implements SuperVO {
     private String id;
 
     @NotNull(message = "缺少菜单名字段", groups = {InsertGroup.class, UpdateGroup.class})
-    @Length(min = 1, max = 10, message = "菜单名的长度必须在1到10之间", groups = {InsertGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 100, message = "菜单名的长度必须在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     private String name;
 
     @NotNull(message = "缺少URL字段", groups = {InsertGroup.class, UpdateGroup.class})
-    @Length(min = 1, max = 50, message = "URL的长度必须在1到50之间", groups = {InsertGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 100, message = "URL的长度必须在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "(^(http://|https://)([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]+$)|(^/([a-zA-Z0-9\\-]+/)*[a-zA-Z0-9]+/?$)", message = "URL格式错误", groups = {InsertGroup.class, UpdateGroup.class})
     private String url;
 

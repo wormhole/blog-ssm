@@ -23,15 +23,15 @@ public class CommentVO implements SuperVO {
     private String id;
 
     @NotNull(message = "缺少昵称字段", groups = {InsertGroup.class})
-    @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间", groups = {InsertGroup.class})
+    @Length(min = 1, max = 100, message = "昵称长度只能在1到100之间", groups = {InsertGroup.class})
     private String nickname;
 
     @NotNull(message = "缺少邮箱字段", groups = {InsertGroup.class})
-    @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间", groups = {InsertGroup.class})
+    @Length(min = 1, max = 100, message = "邮箱长度只能在1到100之间", groups = {InsertGroup.class})
     @Email(message = "邮箱格式错误", groups = {InsertGroup.class})
     private String email;
 
-    @Length(min = 1, max = 50, message = "网站地址只能在1到50之间", groups = {InsertGroup.class})
+    @Length(min = 1, max = 100, message = "网站地址只能在1到100之间", groups = {InsertGroup.class})
     @URL(message = "网址格式错误", groups = {InsertGroup.class})
     private String website;
 
@@ -39,7 +39,7 @@ public class CommentVO implements SuperVO {
     @Length(min = 1, max = 140, message = "评论内容长度只能在1到140之间", groups = {InsertGroup.class})
     private String content;
 
-    @Length(min = 1, max = 20, message = "回复人的昵称长度只能在1到20之间", groups = {InsertGroup.class})
+    @Length(min = 1, max = 100, message = "回复人的昵称长度只能在1到100之间", groups = {InsertGroup.class})
     private String replyTo;
 
     @DecimalMin(value = "0", message = "review值只能为0或1", groups = {ReviewGroup.class})

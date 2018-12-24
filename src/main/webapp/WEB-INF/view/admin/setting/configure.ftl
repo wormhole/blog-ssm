@@ -20,7 +20,7 @@
             <div class="layui-input-inline">
                 <input name="title" class="layui-input" type="text" required id="title" value="${Application.setting.title}">
             </div>
-            <div class="layui-form-mid layui-word-aux">网页标题，长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">网页标题，长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">关键字</label>
@@ -58,7 +58,7 @@
             <div class="layui-input-inline">
                 <input name="nickname" class="layui-input" type="text" required id="nickname" value="${Application.setting.nickname}">
             </div>
-            <div class="layui-form-mid layui-word-aux">页面左边栏显示昵称，建议与管理员昵称保持一致，长度小于等于20</div>
+            <div class="layui-form-mid layui-word-aux">页面左边栏显示昵称，建议与管理员昵称保持一致，长度小于等于100</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">签名</label>

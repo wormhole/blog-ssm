@@ -18,12 +18,12 @@ public class CategoryVO implements SuperVO {
     private String id;
 
     @NotNull(message = "缺少分类名字段", groups = {InsertGroup.class, UpdateGroup.class})
-    @Length(min = 1, max = 20, message = "分类名长度只能在1到20之间", groups = {InsertGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 100, message = "分类名长度只能在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "^[\\u4e00-\\u9fa50-9a-zA-Z_]+$", message = "分类名只能包含中文数字字母下划线", groups = {InsertGroup.class, UpdateGroup.class})
     private String categoryName;
 
     @NotNull(message = "缺少编码字段", groups = {InsertGroup.class, UpdateGroup.class})
-    @Length(min = 1, max = 20, message = "编码长度只能在1到20之间", groups = {InsertGroup.class, UpdateGroup.class})
+    @Length(min = 1, max = 100, message = "编码长度只能在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线", groups = {InsertGroup.class, UpdateGroup.class})
     private String categoryCode;
 

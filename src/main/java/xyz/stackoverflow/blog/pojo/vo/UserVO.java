@@ -19,17 +19,17 @@ public class UserVO implements SuperVO {
     private String id;
 
     @NotNull(message = "缺少邮箱字段", groups = {RegisterGroup.class, UpdateBaseGroup.class})
-    @Length(min = 1, max = 30, message = "邮箱长度只能在1到30之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
+    @Length(min = 1, max = 100, message = "邮箱长度只能在1到100之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     @Email(message = "邮箱格式错误", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     private String email;
 
     @NotNull(message = "缺少密码字段", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
-    @Length(min = 6, max = 20, message = "密码长度只能在6到20之间", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
+    @Length(min = 6, message = "密码长度必须大于等于6", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "密码只能为数字字母下划线", groups = {RegisterGroup.class, UpdatePasswordGroup.class})
     private String password;
 
     @NotNull(message = "缺少昵称字段", groups = {RegisterGroup.class, UpdateBaseGroup.class})
-    @Length(min = 1, max = 20, message = "昵称长度只能在1到20之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
+    @Length(min = 1, max = 100, message = "昵称长度只能在1到100之间", groups = {RegisterGroup.class, UpdateBaseGroup.class})
     private String nickname;
 
     private String salt;
