@@ -30,7 +30,7 @@
         order by date desc limit #{start},#{limit}
     </select>
 
-    <select id="selectByCondition" resultMap="visitMap" resultType="visit">
+    <select id="selectByCondition" resultMap="visitorMap" resultType="visit">
         select * from visitor
         <where>
             <if test="ip != null">
