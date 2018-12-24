@@ -51,7 +51,7 @@ public class EditPageController extends BaseController {
     public ModelAndView article(@RequestParam(value = "id", required = false) String id) {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> list = categoryService.selectByCondition(new HashMap<String,Object>());
+        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
 
         if (id != null) {
             Article article = articleService.selectById(id);
@@ -67,7 +67,7 @@ public class EditPageController extends BaseController {
             }}).get(0).getId());
         }
 
-        mv.addObject("categoryList", list);
+        mv.addObject("categoryList", categoryList);
         mv.setViewName("/admin/article/edit");
 
         return mv;

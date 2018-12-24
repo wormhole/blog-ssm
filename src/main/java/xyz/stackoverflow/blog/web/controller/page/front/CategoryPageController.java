@@ -57,11 +57,11 @@ public class CategoryPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        Category category = categoryService.selectByCondition(new HashMap<String,Object>(){{
-            put("categoryCode",categoryCode);
-        }}).get(0);
-        if (category != null) {
-
+        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("categoryCode", categoryCode);
+        }});
+        if (categoryList.size() != 0) {
+            Category category = categoryList.get(0);
             int count = articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
@@ -137,7 +137,7 @@ public class CategoryPageController {
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String,Object>());
+        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
         List<CategoryVO> categoryVOList = new ArrayList<>();
         for (Category category : categoryList) {
             CategoryVO vo = new CategoryVO();

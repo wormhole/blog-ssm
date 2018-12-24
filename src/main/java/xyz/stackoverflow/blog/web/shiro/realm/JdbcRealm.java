@@ -14,6 +14,7 @@ import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.web.shiro.util.SimpleByteSource;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,12 +61,13 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String email = (String) authenticationToken.getPrincipal();
-        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+        List<User> list = userService.selectByCondition(new HashMap<String, Object>() {{
             put("email", email);
-        }}).get(0);
-        if (user == null) {
+        }});
+        if (list.size() == 0) {
             throw new AuthenticationException();
         }
+        User user = list.get(0);
         SimpleAuthenticationInfo sa = new SimpleAuthenticationInfo(user.getEmail(), user.getPassword(), new SimpleByteSource(user.getSalt()), getName());
         return sa;
     }

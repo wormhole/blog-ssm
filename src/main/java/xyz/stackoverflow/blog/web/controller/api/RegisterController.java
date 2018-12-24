@@ -58,11 +58,11 @@ public class RegisterController extends BaseController {
         }
 
         UserVO userVO = (UserVO) voMap.get("user").get(0);
-        User admin = userService.selectByCondition(new HashMap<String, Object>() {{
+        List<User> list = userService.selectByCondition(new HashMap<String, Object>() {{
             put("deleteAble", 0);
-        }}).get(0);
+        }});
 
-        if (admin == null) {
+        if (list.size() == 0) {
 
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.RegisterGroup.class);
