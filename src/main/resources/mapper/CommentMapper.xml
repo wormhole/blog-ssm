@@ -141,7 +141,7 @@
     </update>
 
     <update id="batchUpdate" parameterType="list">
-        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+        <foreach collection="list" item="item" open="" close="" separator=";">
             update comment
             <set>
                 <if test="item.nickname != null">

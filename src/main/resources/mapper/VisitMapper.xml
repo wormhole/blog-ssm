@@ -121,7 +121,7 @@
     </update>
 
     <update id="batchUpdate" parameterType="list">
-        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+        <foreach collection="list" item="item" open="" close="" separator=";">
             update visit
             <set>
                 <if test="item.url != null">
@@ -147,7 +147,7 @@
         </foreach>
     </update>
 
-    <select id="selectByDate" resultType="int">
+    <select id="selectByDate" resultMap="visitMap" resultType="visit">
         select * from visit where date between #{arg0} and #{arg1}
     </select>
 

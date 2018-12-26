@@ -170,7 +170,7 @@
     </update>
 
     <update id="batchUpdate" parameterType="list">
-        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+        <foreach collection="list" item="item" open="" close="" separator=";">
             update article
             <set>
                 <if test="item.title != null">
@@ -189,7 +189,7 @@
                     modifydate = #{item.modifyDate},
                 </if>
                 <if test="item.url != null">
-                    url = #{itme.url},
+                    url = #{item.url},
                 </if>
                 <if test="item.hits != null">
                     hits = #{item.hits},

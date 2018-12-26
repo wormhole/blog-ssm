@@ -70,10 +70,13 @@ public class CategoryServiceImpl implements CategoryService {
         List<Article> articleList = articleDao.selectByCondition(new HashMap<String, Object>() {{
             put("categoryId", category.getId());
         }});
-        for (Article article : articleList) {
-            article.setCategoryId(unCategory.getId());
+
+        if (articleList.size() != 0) {
+            for (Article article : articleList) {
+                article.setCategoryId(unCategory.getId());
+            }
+            articleDao.batchUpdate(articleList);
         }
-        articleDao.batchUpdate(articleList);
 
         categoryDao.deleteById(id);
         return category;
@@ -91,10 +94,12 @@ public class CategoryServiceImpl implements CategoryService {
             List<Article> articleList = articleDao.selectByCondition(new HashMap<String, Object>() {{
                 put("categoryId", category.getId());
             }});
-            for (Article article : articleList) {
-                article.setCategoryId(unCategory.getId());
+            if (articleList.size() != 0) {
+                for (Article article : articleList) {
+                    article.setCategoryId(unCategory.getId());
+                }
+                articleDao.batchUpdate(articleList);
             }
-            articleDao.batchUpdate(articleList);
         }
         return categoryDao.batchDeleteById(list);
     }

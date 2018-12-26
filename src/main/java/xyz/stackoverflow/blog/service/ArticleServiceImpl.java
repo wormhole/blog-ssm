@@ -83,11 +83,14 @@ public class ArticleServiceImpl implements ArticleService {
         List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
             put("articleId", id);
         }});
-        List<String> ids = new ArrayList<String>();
-        for (Comment comment : commentList) {
-            ids.add(comment.getId());
+
+        if (commentList.size() != 0) {
+            List<String> ids = new ArrayList<String>();
+            for (Comment comment : commentList) {
+                ids.add(comment.getId());
+            }
+            commentDao.batchDeleteById(ids);
         }
-        commentDao.batchDeleteById(ids);
 
         articleDao.deleteById(id);
         return article;
@@ -100,11 +103,14 @@ public class ArticleServiceImpl implements ArticleService {
             List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", id);
             }});
-            List<String> ids = new ArrayList<String>();
-            for (Comment comment : commentList) {
-                ids.add(comment.getId());
+
+            if (commentList.size() != 0) {
+                List<String> ids = new ArrayList<String>();
+                for (Comment comment : commentList) {
+                    ids.add(comment.getId());
+                }
+                commentDao.batchDeleteById(ids);
             }
-            commentDao.batchDeleteById(ids);
         }
         return articleDao.batchDeleteById(list);
     }

@@ -91,16 +91,16 @@
     </update>
 
     <update id="batchUpdate" parameterType="list">
-        <foreach collection="list" item="item" open="begin" close=";end;" separator=";">
+        <foreach collection="list" item="item" open="" close="" separator=";">
             update category
             <set>
                 <if test="item.categoryName!=null">
                     categoryname = #{item.categoryName},
                 </if>
-                <if test="categoryCode!=null">
+                <if test="item.categoryCode!=null">
                     categorycode = #{item.categoryCode},
                 </if>
-                <if test="deleteAble!=null">
+                <if test="item.deleteAble!=null">
                     deleteable = #{item.deleteAble},
                 </if>
             </set>
