@@ -112,6 +112,8 @@ public class UserController extends BaseController {
             User updateUser = userVO.toUser();
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
+            updateUser.setSalt(PasswordUtil.getSalt());
+            updateUser.setPassword(PasswordUtil.encryptPassword(updateUser.getSalt(), updateUser.getPassword()));
 
             Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
             authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
