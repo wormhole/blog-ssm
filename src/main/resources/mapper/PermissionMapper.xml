@@ -19,7 +19,7 @@
                     permissionname = #{searchMap.permissionName}
                 </if>
                 <if test="searchMap.permissionCode != null">
-                    and permissioncode = #{searchMap.permissionCode}
+                    permissioncode = #{searchMap.permissionCode}
                 </if>
             </if>
         </where>
@@ -33,7 +33,7 @@
                 permissionname = #{permissionName}
             </if>
             <if test="permissionCode != null">
-                and permissioncode = #{permissionCode}
+                permissioncode = #{permissionCode}
             </if>
         </where>
         order by lower(permissioncode)

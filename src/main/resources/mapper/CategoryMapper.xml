@@ -20,10 +20,10 @@
                     categoryname = #{searchMap.categoryName}
                 </if>
                 <if test="searchMap.categoryCode != null">
-                    and categorycode = #{searchMap.categoryCode}
+                    categorycode = #{searchMap.categoryCode}
                 </if>
                 <if test="searchMap.deleteAble != null">
-                    and deleteable = #{searchMap.deleteAble}
+                    deleteable = #{searchMap.deleteAble}
                 </if>
             </if>
         </where>
@@ -37,10 +37,10 @@
                 categoryname = #{categoryName}
             </if>
             <if test="categoryCode != null">
-                and categorycode = #{categoryCode}
+                categorycode = #{categoryCode}
             </if>
             <if test="deleteAble != null">
-                and deleteable = #{deleteAble}
+                deleteable = #{deleteAble}
             </if>
         </where>
         order by lower(categorycode) asc

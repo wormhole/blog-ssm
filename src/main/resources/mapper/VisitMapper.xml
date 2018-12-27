@@ -23,19 +23,19 @@
                     url = #{searchMap.url}
                 </if>
                 <if test="searchMap.status!=null">
-                    and status = #{searchMap.status}
+                    status = #{searchMap.status}
                 </if>
                 <if test="searchMap.ip!=null">
-                    and ip = #{searchMap.ip}
+                    ip = #{searchMap.ip}
                 </if>
                 <if test="searchMap.agent!=null">
-                    and agent = #{searchMap.agent}
+                    agent = #{searchMap.agent}
                 </if>
                 <if test="searchMap.referer!=null">
-                    and referer = #{searchMap.referer}
+                    referer = #{searchMap.referer}
                 </if>
                 <if test="searchMap.date!=null">
-                    and date = #{searchMap.date}
+                    date = #{searchMap.date}
                 </if>
             </if>
         </where>
@@ -49,19 +49,19 @@
                 url = #{url}
             </if>
             <if test="status != null">
-                and status = #{status}
+                status = #{status}
             </if>
             <if test="ip != null">
-                and ip = #{ip}
+                ip = #{ip}
             </if>
             <if test="agent != null">
-                and agent = #{agent}
+                agent = #{agent}
             </if>
             <if test="referer != null">
-                and referer = #{referer}
+                referer = #{referer}
             </if>
             <if test="date != null">
-                and date = #{date}
+                date = #{date}
             </if>
         </where>
         order by date desc

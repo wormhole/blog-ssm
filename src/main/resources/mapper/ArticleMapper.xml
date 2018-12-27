@@ -28,34 +28,34 @@
                     userid = #{searchMap.userId}
                 </if>
                 <if test="searchMap.title != null">
-                    and title = #{searchMap.title}
+                    title = #{searchMap.title}
                 </if>
                 <if test="searchMap.articleMd != null">
-                    and articlemd = #{searchMap.articleMd}
+                    articlemd = #{searchMap.articleMd}
                 </if>
                 <if test="searchMap.articleHtml != null">
-                    and articlehtml = #{searchMap.articleHtml}
+                    articlehtml = #{searchMap.articleHtml}
                 </if>
                 <if test="searchMap.categoryId != null">
-                    and categoryid = #{searchMap.categoryId}
+                    categoryid = #{searchMap.categoryId}
                 </if>
                 <if test="searchMap.createDate != null">
-                    and createdate = #{searchMap.createdate}
+                    createdate = #{searchMap.createdate}
                 </if>
                 <if test="searchMap.modifyDate != null">
-                    and modifydate = #{searchMap.modifydate}
+                    modifydate = #{searchMap.modifydate}
                 </if>
                 <if test="searchMap.url != null">
-                    and url = #{searchMap.url}
+                    url = #{searchMap.url}
                 </if>
                 <if test="searchMap.hits != null">
-                    and hits = #{searchMap.hits}
+                    hits = #{searchMap.hits}
                 </if>
                 <if test="searchMap.likes != null">
-                    and likes = #{searchMap.likes}
+                    likes = #{searchMap.likes}
                 </if>
                 <if test="searchMap.visible != null">
-                    and visible = #{searchMap.visible}
+                    visible = #{searchMap.visible}
                 </if>
             </if>
         </where>
@@ -69,34 +69,34 @@
                 userid = #{userId}
             </if>
             <if test="title != null">
-                and title = #{title}
+                title = #{title}
             </if>
             <if test="articleMd != null">
-                and articlemd = #{articleMd}
+                articlemd = #{articleMd}
             </if>
             <if test="articleHtml != null">
-                and articlehtml = #{articleHtml}
+                articlehtml = #{articleHtml}
             </if>
             <if test="categoryId != null">
-                and categoryid = #{categoryId}
+                categoryid = #{categoryId}
             </if>
             <if test="createDate != null">
-                and createdate = #{createdate}
+                createdate = #{createdate}
             </if>
             <if test="modifyDate != null">
-                and modifydate = #{modifydate}
+                modifydate = #{modifydate}
             </if>
             <if test="url != null">
-                and url = #{url}
+                url = #{url}
             </if>
             <if test="hits != null">
-                and hits = #{hits}
+                hits = #{hits}
             </if>
             <if test="likes != null">
-                and likes = #{likes}
+                likes = #{likes}
             </if>
             <if test="visible != null">
-                and visible = #{visible}
+                visible = #{visible}
             </if>
         </where>
         order by createdate desc

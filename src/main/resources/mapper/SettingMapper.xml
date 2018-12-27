@@ -19,7 +19,7 @@
                     `key` = #{searchMap.key}
                 </if>
                 <if test="searchMap.value != null">
-                    and value = #{searchMap.value}
+                    value = #{searchMap.value}
                 </if>
             </if>
         </where>
@@ -33,7 +33,7 @@
                 `key` = #{key}
             </if>
             <if test="value != null">
-                and value = #{value}
+                value = #{value}
             </if>
         </where>
     </select>

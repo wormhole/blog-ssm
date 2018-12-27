@@ -19,7 +19,7 @@
                     roleid = #{searchMap.roleId}
                 </if>
                 <if test="searchMap.permissionId != null">
-                    and permissionid = #{searchMap.permissionId}
+                    permissionid = #{searchMap.permissionId}
                 </if>
             </if>
         </where>
@@ -33,7 +33,7 @@
                 roleid = #{roleId}
             </if>
             <if test="permissionId != null">
-                and permissionid = #{permissionId}
+                permissionid = #{permissionId}
             </if>
         </where>
     </select>

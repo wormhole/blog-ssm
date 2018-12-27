@@ -19,7 +19,7 @@
                     userid = #{searchMap.userId}
                 </if>
                 <if test="searchMap.roleId != null">
-                    and roleid = #{searchMap.roleId}
+                    roleid = #{searchMap.roleId}
                 </if>
             </if>
         </where>
@@ -33,7 +33,7 @@
                 userid = #{userId}
             </if>
             <if test="roleId != null">
-                and roleid = #{roleId}
+                roleid = #{roleId}
             </if>
         </where>
     </select>

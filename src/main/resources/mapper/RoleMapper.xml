@@ -19,7 +19,7 @@
                     rolename = #{searchMap.roleName}
                 </if>
                 <if test="searchMap.roleCode != null">
-                    and rolecode = #{searchMap.roleCode}
+                    rolecode = #{searchMap.roleCode}
                 </if>
             </if>
         </where>
@@ -33,7 +33,7 @@
                 rolename = #{roleName}
             </if>
             <if test="roleCode != null">
-                and rolecode = #{roleCode}
+                rolecode = #{roleCode}
             </if>
         </where>
     </select>

@@ -17,13 +17,13 @@
         <where>
             <if test="searchMap!=null">
                 <if test="searchMap.ip!=null">
-                    and ip = #{searchMap.ip}
+                    ip = #{searchMap.ip}
                 </if>
                 <if test="searchMap.agent!=null">
-                    and agent = #{searchMap.agent}
+                    agent = #{searchMap.agent}
                 </if>
                 <if test="searchMap.date!=null">
-                    and date = #{searchMap.date}
+                    date = #{searchMap.date}
                 </if>
             </if>
         </where>
@@ -34,13 +34,13 @@
         select * from visitor
         <where>
             <if test="ip != null">
-                and ip = #{ip}
+                ip = #{ip}
             </if>
             <if test="agent != null">
-                and agent = #{agent}
+                agent = #{agent}
             </if>
             <if test="date != null">
-                and date = #{date}
+                date = #{date}
             </if>
         </where>
         order by date desc
