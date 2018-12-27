@@ -102,11 +102,16 @@ public class MenuController extends BaseController {
             throw new BusinessException("字段格式出错", map);
         }
 
-        Menu menu = menuService.deleteById(menuVO.getId());
+        Menu menu = menuService.selectById(menuVO.getId());
 
         if (menu == null) {
             throw new BusinessException("未找到该菜单或该菜单不允许删除");
         }
+        if (menu.getDeleteAble() == 0) {
+            throw new BusinessException("该菜单不允许被删除");
+        }
+
+        menuService.deleteById(menuVO.getId());
 
         ServletContext application = request.getServletContext();
         List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
@@ -195,19 +200,21 @@ public class MenuController extends BaseController {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Menu menu = menuVO.toMenu();
-        Menu updateMenu = menuService.update(menu);
-        if (updateMenu != null) {
+        Menu menu = menuService.selectById(menuVO.getId());
 
-            ServletContext application = request.getServletContext();
-            List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
-            application.setAttribute("menu", list);
-
-            response.setStatus(StatusConst.SUCCESS);
-            response.setMessage("更新成功");
-        } else {
-            throw new BusinessException("该菜单不允许修改或未找到该菜单");
+        if (menu == null) {
+            throw new BusinessException("未找到该菜单");
         }
+        if (menu.getDeleteAble() == 0) {
+            throw new BusinessException("该菜单不允许被修改");
+        }
+
+        menuService.update(menuVO.toMenu());
+        ServletContext application = request.getServletContext();
+        List<Menu> list = menuService.selectByCondition(new HashMap<String, Object>());
+        application.setAttribute("menu", list);
+        response.setStatus(StatusConst.SUCCESS);
+        response.setMessage("更新成功");
 
         return response;
     }

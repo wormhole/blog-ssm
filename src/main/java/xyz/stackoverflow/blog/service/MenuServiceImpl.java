@@ -57,7 +57,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu deleteById(String id) {
-        return dao.selectById(id);
+        Menu menu = dao.selectById(id);
+        dao.deleteById(id);
+        return menu;
     }
 
     @Override
