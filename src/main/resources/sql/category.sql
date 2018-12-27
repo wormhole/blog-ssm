@@ -2,13 +2,13 @@ create table blog.category
 (
   id           char(36)     not null
     primary key,
-  categoryname varchar(100) not null,
-  categorycode varchar(100) not null,
+  name varchar(100) not null,
+  code varchar(100) not null,
   deleteable   int          not null,
-  constraint category_category_uindex
-  unique (categoryname),
-  constraint category_categorycode_uindex
-  unique (categorycode)
+  constraint category_name_uindex
+  unique (name),
+  constraint category_code_uindex
+  unique (code)
 );
 
 

@@ -7,36 +7,36 @@
 
     <resultMap id="permissionMap" type="permission">
         <id property="id" column="id"></id>
-        <result property="permissionName" column="permissionname"></result>
-        <result property="permissionCode" column="permissioncode"></result>
+        <result property="name" column="name"></result>
+        <result property="code" column="code"></result>
     </resultMap>
 
     <select id="selectByPage" resultMap="permissionMap" resultType="permission">
         select * from permission
         <where>
             <if test="searchMap != null">
-                <if test="searchMap.permissionName != null">
-                    permissionname = #{searchMap.permissionName}
+                <if test="searchMap.name != null">
+                    name = #{searchMap.name}
                 </if>
-                <if test="searchMap.permissionCode != null">
-                    permissioncode = #{searchMap.permissionCode}
+                <if test="searchMap.code != null">
+                    and code = #{searchMap.code}
                 </if>
             </if>
         </where>
-        order by lower(permissioncode) limit #{start},#{limit}
+        order by lower(code) limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="permissionMap" resultType="permission">
         select * from permission
         <where>
-            <if test="permissionName != null">
-                permissionname = #{permissionName}
+            <if test="name != null">
+                name = #{name}
             </if>
-            <if test="permissionCode != null">
-                permissioncode = #{permissionCode}
+            <if test="code != null">
+                and code = #{code}
             </if>
         </where>
-        order by lower(permissioncode)
+        order by lower(code)
     </select>
 
     <select id="selectById" resultMap="permissionMap" resultType="permission">
@@ -44,15 +44,15 @@
     </select>
 
     <insert id="insert" parameterType="permission">
-        insert into permission (id,permissionname,permissioncode)
-        values (#{id},#{permissionName},#{permissionCode})
+        insert into permission (id,name,code)
+        values (#{id},#{name},#{code})
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into permission (id,permissionname,permissioncode)
+        insert into permission (id,name,code)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.permissionName},#{item.permissionCode})
+            (#{item.id},#{item.name},#{item.code})
         </foreach>
     </insert>
 
@@ -70,11 +70,11 @@
     <update id="update" parameterType="permission">
         update permission
         <set>
-            <if test="permissionName != null">
-                permissionname = #{permissionName},
+            <if test="name != null">
+                name = #{name},
             </if>
-            <if test="permissionCode != null">
-                permissioncode = #{permissionCode},
+            <if test="code != null">
+                code = #{code},
             </if>
         </set>
         where id = #{id}
@@ -84,11 +84,11 @@
         <foreach collection="list" item="item" open="" close="" separator=";">
             update permission
             <set>
-                <if test="item.permissionName != null">
-                    permissionname = #{item.permissionName},
+                <if test="item.name != null">
+                    name = #{item.name},
                 </if>
-                <if test="item.permissionCode != null">
-                    permissioncode = #{item.permissionCode},
+                <if test="item.code != null">
+                    code = #{item.code},
                 </if>
             </set>
             where id = #{item.id}

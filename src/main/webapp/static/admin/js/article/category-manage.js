@@ -20,8 +20,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
         },
         cols: [[
             {field: 'id', title: 'ID'},
-            {field: 'categoryName', title: '分类名', sort: true, edit: 'text'},
-            {field: 'categoryCode', title: '编码', sort: true, edit: 'text'},
+            {field: 'name', title: '分类名', sort: true, edit: 'text'},
+            {field: 'code', title: '编码', sort: true, edit: 'text'},
             {field: 'deleteTag', title: '是否能删除'},
             {fixed: 'right', width: 80, title: '操作', toolbar: '#toolbar-col'}
         ]]
@@ -43,8 +43,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
                     var categoryCode = $('#categoryCode').val();
 
                     var data = {};
-                    data['categoryCode'] = categoryCode;
-                    data['categoryName'] = categoryName;
+                    data['code'] = categoryCode;
+                    data['name'] = categoryName;
                     var param = {
                         data: {
                             category: [data]
@@ -79,8 +79,8 @@ layui.use(['table', 'jquery', 'layer'], function () {
 
         var data = {
             id: obj.data.id,
-            categoryCode: obj.data.categoryCode,
-            categoryName: obj.data.categoryName
+            code: obj.data.code,
+            name: obj.data.name
         };
         var param = {
             data: {

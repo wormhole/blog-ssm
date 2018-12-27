@@ -69,7 +69,7 @@ public class InitListener extends ContextLoaderListener {
 
             Map<String, Object> map = new HashMap<>();
             while (rs.next()) {
-                map.put(rs.getString("key"), rs.getObject("value"));
+                map.put(rs.getString("name"), rs.getObject("value"));
             }
 
             List<Menu> list = new ArrayList<>();

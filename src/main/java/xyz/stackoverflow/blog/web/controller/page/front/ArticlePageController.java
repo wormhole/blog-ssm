@@ -62,7 +62,7 @@ public class ArticlePageController {
             ArticleVO articleVO = new ArticleVO();
             articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             articleVO.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
-            articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
+            articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
             articleVO.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
             }}).size());

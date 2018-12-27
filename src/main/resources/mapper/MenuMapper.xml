@@ -21,13 +21,13 @@
                     name = #{searchMap.name}
                 </if>
                 <if test="searchMap.url != null">
-                    url = #{searchMap.url}
+                    and url = #{searchMap.url}
                 </if>
                 <if test="searchMap.deleteAble != null">
-                    deleteable = #{searchMap.deleteAble}
+                    and deleteable = #{searchMap.deleteAble}
                 </if>
                 <if test="searchMap.date != null">
-                    date = #{searchMap.date}
+                    and date = #{searchMap.date}
                 </if>
             </if>
         </where>
@@ -41,13 +41,13 @@
                 name = #{name}
             </if>
             <if test="url != null">
-                url = #{url}
+                and url = #{url}
             </if>
             <if test="deleteAble != null">
-                deleteable = #{deleteAble}
+                and deleteable = #{deleteAble}
             </if>
             <if test="date != null">
-                date = #{date}
+                and date = #{date}
             </if>
         </where>
         order by date

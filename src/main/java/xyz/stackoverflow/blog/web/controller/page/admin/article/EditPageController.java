@@ -63,7 +63,7 @@ public class EditPageController extends BaseController {
             mv.addObject("article", articleVO);
         } else {
             mv.addObject("selected", categoryService.selectByCondition(new HashMap<String, Object>() {{
-                put("categoryCode", "uncategory");
+                put("code", "uncategory");
             }}).get(0).getId());
         }
 

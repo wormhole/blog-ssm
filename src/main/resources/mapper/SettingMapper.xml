@@ -7,7 +7,7 @@
 
     <resultMap id="settingMap" type="setting">
         <id property="id" column="id"/>
-        <result property="key" column="key"/>
+        <result property="name" column="name"/>
         <result property="value" column="value"/>
     </resultMap>
 
@@ -15,11 +15,11 @@
         select * from setting
         <where>
             <if test="searchMap != null">
-                <if test="searchMap.key != null">
-                    `key` = #{searchMap.key}
+                <if test="searchMap.name != null">
+                    name = #{searchMap.name}
                 </if>
                 <if test="searchMap.value != null">
-                    value = #{searchMap.value}
+                    and value = #{searchMap.value}
                 </if>
             </if>
         </where>
@@ -30,10 +30,10 @@
         select * from setting
         <where>
             <if test="key != null">
-                `key` = #{key}
+                name = #{name}
             </if>
             <if test="value != null">
-                value = #{value}
+                and value = #{value}
             </if>
         </where>
     </select>
@@ -43,15 +43,15 @@
     </select>
 
     <insert id="insert" parameterType="rolePermission">
-        insert into setting (id,key,value)
-        values (#{id},#{key},#{value})
+        insert into setting (id,name,value)
+        values (#{id},#{name},#{value})
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into setting (id,key,value)
+        insert into setting (id,name,value)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.key},#{item.value})
+            (#{item.id},#{item.name},#{item.value})
         </foreach>
     </insert>
 
@@ -73,7 +73,7 @@
                 value = #{value},
             </if>
         </set>
-        where `key` = #{key}
+        where name = #{name}
     </update>
 
     <update id="batchUpdate" parameterType="list">
@@ -84,7 +84,7 @@
                     value = #{item.value},
                 </if>
             </set>
-            where `key` = #{item.key}
+            where name = #{item.name}
         </foreach>
     </update>
 

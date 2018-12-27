@@ -65,12 +65,12 @@ public class CategoryController extends BaseController {
 
         Category category = categoryVO.toCategory();
         if (categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryName", category.getCategoryName());
+            put("name", category.getName());
         }}).size() != 0) {
             throw new BusinessException("分类名已经存在");
         }
         if (categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryCode", category.getCategoryCode());
+            put("code", category.getCode());
         }}).size() != 0) {
             throw new BusinessException("分类编码已经存在");
         }
@@ -103,8 +103,8 @@ public class CategoryController extends BaseController {
         for (Category category : list) {
             CategoryVO vo = new CategoryVO();
             vo.setId(category.getId());
-            vo.setCategoryName(category.getCategoryName());
-            vo.setCategoryCode(category.getCategoryCode());
+            vo.setName(category.getName());
+            vo.setCode(category.getCode());
             if (category.getDeleteAble() == 0) {
                 vo.setDeleteTag("否");
             } else {
@@ -207,13 +207,13 @@ public class CategoryController extends BaseController {
             throw new BusinessException("该分类不允许修改");
         }
 
-        if (!oldCategory.getCategoryName().equals(categoryVO.getCategoryName()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryName", categoryVO.getCategoryName());
+        if (!oldCategory.getName().equals(categoryVO.getName()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("name", categoryVO.getName());
         }}).size() != 0) {
             throw new BusinessException("新分类名已经存在");
         }
-        if (!oldCategory.getCategoryCode().equals(categoryVO.getCategoryCode()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryCode", categoryVO.getCategoryCode());
+        if (!oldCategory.getCode().equals(categoryVO.getCode()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("code", categoryVO.getCode());
         }}).size() != 0) {
             throw new BusinessException("新分类编码已经存在");
         }

@@ -46,8 +46,8 @@
                 <div class="body">
                     <#list categoryList as category>
                         <div class="category">
-                            <a class="btn btn-secondary" href="/category/${category.categoryCode}">
-                                <span>${category.categoryName}</span>
+                            <a class="btn btn-secondary" href="/category/${category.code}">
+                                <span>${category.name}</span>
                                 <span class="badge badge-light">${category.articleCount}</span>
                             </a>
                         </div>

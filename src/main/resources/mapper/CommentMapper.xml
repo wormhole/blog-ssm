@@ -25,25 +25,25 @@
                     nickname = #{searchMap.nickname}
                 </if>
                 <if test="searchMap.email != null">
-                    email = #{searchMap.email}
+                    and email = #{searchMap.email}
                 </if>
                 <if test="searchMap.website != null">
-                    website = #{searchMap.website}
+                    and website = #{searchMap.website}
                 </if>
                 <if test="searchMap.content != null">
-                    content = #{searchMap.content}
+                    and content = #{searchMap.content}
                 </if>
                 <if test="searchMap.articleId != null">
-                    articleid = #{searchMap.articleId}
+                    and articleid = #{searchMap.articleId}
                 </if>
                 <if test="searchMap.replyTo != null">
-                    replyto = #{searchMap.replyTo}
+                    and replyto = #{searchMap.replyTo}
                 </if>
                 <if test="searchMap.review != null">
-                    review = #{searchMap.review}
+                    and review = #{searchMap.review}
                 </if>
                 <if test="searchMap.date != null">
-                    date = #{searchMap.date}
+                    and date = #{searchMap.date}
                 </if>
             </if>
         </where>

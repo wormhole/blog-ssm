@@ -7,8 +7,8 @@
 
     <resultMap id="categoryMap" type="category">
         <id property="id" column="id"></id>
-        <result property="categoryName" column="categoryname"></result>
-        <result property="categoryCode" column="categorycode"></result>
+        <result property="name" column="name"></result>
+        <result property="code" column="code"></result>
         <result property="deleteAble" column="deleteable"></result>
     </resultMap>
 
@@ -16,34 +16,34 @@
         select * from category
         <where>
             <if test="searchMap != null">
-                <if test="searchMap.categoryName != null">
-                    categoryname = #{searchMap.categoryName}
+                <if test="searchMap.name != null">
+                    name = #{searchMap.name}
                 </if>
-                <if test="searchMap.categoryCode != null">
-                    categorycode = #{searchMap.categoryCode}
+                <if test="searchMap.code != null">
+                    and code = #{searchMap.code}
                 </if>
                 <if test="searchMap.deleteAble != null">
-                    deleteable = #{searchMap.deleteAble}
+                    and deleteable = #{searchMap.deleteAble}
                 </if>
             </if>
         </where>
-        order by lower(categorycode) asc limit #{start},#{limit}
+        order by lower(code) asc limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="categoryMap" resultType="category">
         select * from category
         <where>
-            <if test="categoryName != null">
-                categoryname = #{categoryName}
+            <if test="name != null">
+                name = #{name}
             </if>
-            <if test="categoryCode != null">
-                categorycode = #{categoryCode}
+            <if test="code != null">
+                and code = #{code}
             </if>
             <if test="deleteAble != null">
-                deleteable = #{deleteAble}
+                and deleteable = #{deleteAble}
             </if>
         </where>
-        order by lower(categorycode) asc
+        order by lower(code) asc
     </select>
 
     <select id="selectById" resultMap="categoryMap" resultType="category">
@@ -51,15 +51,15 @@
     </select>
 
     <insert id="insert" parameterType="category">
-        insert into category (id,categorycode,categoryname,deleteable)
-        values (#{id},#{categoryCode},#{categoryName},#{deleteAble})
+        insert into category (id,code,name,deleteable)
+        values (#{id},#{code},#{name},#{deleteAble})
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into category (id,categorycode,categoryname,deleteable)
+        insert into category (id,code,name,deleteable)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.categoryCode},#{item.categoryName},#{item.deleteAble})
+            (#{item.id},#{item.code},#{item.name},#{item.deleteAble})
         </foreach>
     </insert>
 
@@ -77,11 +77,11 @@
     <update id="update" parameterType="category">
         update category
         <set>
-            <if test="categoryName!=null">
-                categoryname = #{categoryName},
+            <if test="name!=null">
+                name = #{name},
             </if>
-            <if test="categoryCode!=null">
-                categorycode = #{categoryCode},
+            <if test="code!=null">
+                code = #{code},
             </if>
             <if test="deleteAble!=null">
                 deleteable = #{deleteAble},
@@ -94,11 +94,11 @@
         <foreach collection="list" item="item" open="" close="" separator=";">
             update category
             <set>
-                <if test="item.categoryName!=null">
-                    categoryname = #{item.categoryName},
+                <if test="item.name!=null">
+                    name = #{item.name},
                 </if>
-                <if test="item.categoryCode!=null">
-                    categorycode = #{item.categoryCode},
+                <if test="item.code!=null">
+                    code = #{item.code},
                 </if>
                 <if test="item.deleteAble!=null">
                     deleteable = #{item.deleteAble},

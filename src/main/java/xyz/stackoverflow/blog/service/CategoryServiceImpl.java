@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryDao.selectById(id);
 
         Category unCategory = categoryDao.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryCode", "uncategory");
+            put("code", "uncategory");
         }}).get(0);
         List<Article> articleList = articleDao.selectByCondition(new HashMap<String, Object>() {{
             put("categoryId", category.getId());
@@ -89,7 +89,7 @@ public class CategoryServiceImpl implements CategoryService {
             Category category = categoryDao.selectById(id);
 
             Category unCategory = categoryDao.selectByCondition(new HashMap<String, Object>() {{
-                put("categoryCode", "uncategory");
+                put("code", "uncategory");
             }}).get(0);
             List<Article> articleList = articleDao.selectByCondition(new HashMap<String, Object>() {{
                 put("categoryId", category.getId());

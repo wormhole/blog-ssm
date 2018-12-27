@@ -7,33 +7,33 @@
 
     <resultMap id="roleMap" type="role">
         <id property="id" column="id"></id>
-        <result property="roleName" column="rolename"></result>
-        <result property="roleCode" column="rolecode"></result>
+        <result property="name" column="name"></result>
+        <result property="code" column="code"></result>
     </resultMap>
 
     <select id="selectByPage" resultMap="roleMap" resultType="role">
         select * from role
         <where>
             <if test="searchMap != null">
-                <if test="searchMap.roleName != null">
-                    rolename = #{searchMap.roleName}
+                <if test="searchMap.name != null">
+                    name = #{searchMap.name}
                 </if>
-                <if test="searchMap.roleCode != null">
-                    rolecode = #{searchMap.roleCode}
+                <if test="searchMap.code != null">
+                    and code = #{searchMap.code}
                 </if>
             </if>
         </where>
-        order by lower(rolecode) limit #{start},#{limit}
+        order by lower(code) limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="roleMap" resultType="role">
         select * from role
         <where>
-            <if test="roleName != null">
-                rolename = #{roleName}
+            <if test="name != null">
+                name = #{name}
             </if>
-            <if test="roleCode != null">
-                rolecode = #{roleCode}
+            <if test="code != null">
+                and code = #{code}
             </if>
         </where>
     </select>
@@ -43,15 +43,15 @@
     </select>
 
     <insert id="insert" parameterType="role">
-        insert into role (id,rolename,rolecode)
-        values (#{id},#{rolename},#{rolecode})
+        insert into role (id,name,code)
+        values (#{id},#{name},#{code})
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into role (id,rolename,rolecode)
+        insert into role (id,name,code)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.rolename},#{item.rolecode})
+            (#{item.id},#{item.name},#{item.code})
         </foreach>
     </insert>
 
@@ -69,11 +69,11 @@
     <update id="update" parameterType="role">
         update role
         <set>
-            <if test="roleName != null">
-                rolename = #{roleName},
+            <if test="name != null">
+                name = #{name},
             </if>
-            <if test="roleCode != null">
-                rolecode = #{roleCode},
+            <if test="code != null">
+                code = #{code},
             </if>
         </set>
         where id = #{id}
@@ -83,11 +83,11 @@
         <foreach collection="list" item="item" open="" close="" separator=";">
             update role
             <set>
-                <if test="item.roleName != null">
-                    rolename = #{item.roleName},
+                <if test="item.name != null">
+                    name = #{item.name},
                 </if>
-                <if test="item.roleCode != null">
-                    rolecode = #{item.roleCode},
+                <if test="item.code != null">
+                    code = #{item.code},
                 </if>
             </set>
             where id = #{item.id}

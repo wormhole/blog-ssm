@@ -73,7 +73,7 @@ public class SettingController extends BaseController {
         List<Setting> settingList = settingService.selectByCondition(new HashMap<String, Object>());
         Map<String, Object> settingMap = new HashMap<>();
         for (Setting setting : settingList) {
-            settingMap.put(setting.getKey(), setting.getValue());
+            settingMap.put(setting.getName(), setting.getValue());
         }
         application.setAttribute("setting", settingMap);
 
@@ -111,7 +111,7 @@ public class SettingController extends BaseController {
             file.transferTo(destFile);
             String url = uploadDir + fileName;
             Setting setting = new Setting();
-            setting.setKey("head");
+            setting.setName("head");
             setting.setValue(url);
             settingService.update(setting);
 

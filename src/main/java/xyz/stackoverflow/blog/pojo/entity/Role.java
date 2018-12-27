@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class Role implements Serializable {
 
     private String id;
-    private String roleName;
-    private String roleCode;
+    private String name;
+    private String code;
 
     public Role(){
 
     }
 
-    public Role(String id, String roleName, String roleCode) {
+    public Role(String id, String name, String code) {
         this.id = id;
-        this.roleName = roleName;
-        this.roleCode = roleCode;
+        this.name = name;
+        this.code = code;
     }
 
     public String getId() {
@@ -31,19 +31,19 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRoleCode() {
-        return roleCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

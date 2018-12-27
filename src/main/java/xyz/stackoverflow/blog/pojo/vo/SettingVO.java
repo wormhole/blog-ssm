@@ -11,15 +11,15 @@ import xyz.stackoverflow.blog.util.web.SuperVO;
 public class SettingVO implements SuperVO {
 
     private String id;
-    private String key;
+    private String name;
     private String value;
 
     public SettingVO() {
     }
 
-    public SettingVO(String id, String key, String value) {
+    public SettingVO(String id, String name, String value) {
         this.id = id;
-        this.key = key;
+        this.name = name;
         this.value = value;
     }
 
@@ -31,12 +31,12 @@ public class SettingVO implements SuperVO {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {
@@ -55,7 +55,7 @@ public class SettingVO implements SuperVO {
     public Setting toSetting() {
         Setting setting = new Setting();
         setting.setId(id);
-        setting.setKey(key);
+        setting.setName(name);
         setting.setValue(value);
         return setting;
     }

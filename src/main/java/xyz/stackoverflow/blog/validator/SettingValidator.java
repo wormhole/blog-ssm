@@ -29,7 +29,7 @@ public class SettingValidator implements Validator<SettingVO[]> {
         Map<String, String> map = new HashMap<>();
 
         for (SettingVO settingVO : settingVOS) {
-            switch (settingVO.getKey()) {
+            switch (settingVO.getName()) {
                 case "title":
                     if (!validateTitle(settingVO.getValue())) {
                         map.put("title", "标题长度应该在1到100之间");

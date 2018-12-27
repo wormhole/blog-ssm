@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
             retSet = new HashSet<>();
             for (UserRole userRole : userRoleList) {
                 Role role = roleDao.selectById(userRole.getRoleId());
-                retSet.add(role.getRoleCode());
+                retSet.add(role.getCode());
             }
         }
         return retSet;
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
                 retSet = new HashSet<>();
                 for (RolePermission rolePermission : rolePermissionList) {
                     Permission permission = permissionDao.selectById(rolePermission.getPermissionId());
-                    retSet.add(permission.getPermissionCode());
+                    retSet.add(permission.getCode());
                 }
             }
         }

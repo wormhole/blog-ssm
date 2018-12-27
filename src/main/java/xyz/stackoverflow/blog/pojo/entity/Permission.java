@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class Permission implements Serializable {
 
     private String id;
-    private String permissionName;
-    private String permissionCode;
+    private String name;
+    private String code;
 
     public Permission(){
 
     }
 
-    public Permission(String id, String permissionName, String permissionCode) {
+    public Permission(String id, String name, String code) {
         this.id = id;
-        this.permissionName = permissionName;
-        this.permissionCode = permissionCode;
+        this.name = name;
+        this.code = code;
     }
 
     public String getId() {
@@ -31,19 +31,19 @@ public class Permission implements Serializable {
         this.id = id;
     }
 
-    public String getPermissionName() {
-        return permissionName;
+    public String getName() {
+        return name;
     }
 
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPermissionCode() {
-        return permissionCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setPermissionCode(String permissionCode) {
-        this.permissionCode = permissionCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

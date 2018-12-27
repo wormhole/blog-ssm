@@ -22,16 +22,16 @@
                     email = #{searchMap.email}
                 </if>
                 <if test="searchMap.nickname != null">
-                    nickname = #{searchMap.nickname}
+                    and nickname = #{searchMap.nickname}
                 </if>
                 <if test="searchMap.password != null">
-                    password = #{searchMap.password}
+                    and password = #{searchMap.password}
                 </if>
                 <if test="searchMap.salt != null">
-                    salt = #{searchMap.salt}
+                    and salt = #{searchMap.salt}
                 </if>
                 <if test="searchMap.deleteAble != null">
-                    deleteable = #{searchMap.deleteAble}
+                    and deleteable = #{searchMap.deleteAble}
                 </if>
             </if>
         </where>
@@ -45,16 +45,16 @@
                 email = #{email}
             </if>
             <if test="nickname != null">
-                nickname = #{nickname}
+                and nickname = #{nickname}
             </if>
             <if test="password != null">
-                password = #{password}
+                and password = #{password}
             </if>
             <if test="salt != null">
-                salt = #{salt}
+                and salt = #{salt}
             </if>
             <if test="deleteAble != null">
-                deleteable = #{deleteAble}
+                and deleteable = #{deleteAble}
             </if>
         </where>
         order by lower(nickname)

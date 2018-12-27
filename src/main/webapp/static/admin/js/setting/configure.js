@@ -197,10 +197,10 @@ layui.use(['layer', 'jquery'], function () {
         var copyright = $('#copyright').val();
 
         var data = [];
-        data.push({key: 'title', value: title});
-        data.push({key: 'keywords', value: keywords});
-        data.push({key: 'description', value: description});
-        data.push({key: 'copyright', value: copyright});
+        data.push({name: 'title', value: title});
+        data.push({name: 'keywords', value: keywords});
+        data.push({name: 'description', value: description});
+        data.push({name: 'copyright', value: copyright});
 
         var param = {
             data: {
@@ -216,8 +216,8 @@ layui.use(['layer', 'jquery'], function () {
         var signature = $('#signature').val();
 
         var data = [];
-        data.push({key: 'nickname', value: nickname});
-        data.push({key: 'signature', value: signature});
+        data.push({name: 'nickname', value: nickname});
+        data.push({name: 'signature', value: signature});
 
         var param = {
             data: {
@@ -232,7 +232,7 @@ layui.use(['layer', 'jquery'], function () {
         var limit = $('#limit').val();
 
         var data = [];
-        data.push({key: 'limit', value: limit});
+        data.push({name: 'limit', value: limit});
 
         var param = {
             data: {

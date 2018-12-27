@@ -26,7 +26,7 @@
         <div class="layui-form">
             <select id="category-select">
                 <#list categoryList as category>
-                    <option value="${category.id}" <#if category.id == selected>selected</#if>>${category.categoryName}</option>
+                    <option value="${category.id}" <#if category.id == selected>selected</#if>>${category.name}</option>
                 </#list>
             </select>
         </div>

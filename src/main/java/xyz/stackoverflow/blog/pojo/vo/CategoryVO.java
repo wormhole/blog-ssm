@@ -20,12 +20,12 @@ public class CategoryVO implements SuperVO {
     @NotNull(message = "缺少分类名字段", groups = {InsertGroup.class, UpdateGroup.class})
     @Length(min = 1, max = 100, message = "分类名长度只能在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "^[\\u4e00-\\u9fa50-9a-zA-Z_]+$", message = "分类名只能包含中文数字字母下划线", groups = {InsertGroup.class, UpdateGroup.class})
-    private String categoryName;
+    private String name;
 
     @NotNull(message = "缺少编码字段", groups = {InsertGroup.class, UpdateGroup.class})
     @Length(min = 1, max = 100, message = "编码长度只能在1到100之间", groups = {InsertGroup.class, UpdateGroup.class})
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "编码只能为字母数字下划线", groups = {InsertGroup.class, UpdateGroup.class})
-    private String categoryCode;
+    private String code;
 
     private Integer deleteAble;
 
@@ -46,10 +46,10 @@ public class CategoryVO implements SuperVO {
 
     }
 
-    public CategoryVO(String id, String categoryName, String categoryCode, Integer deleteAble, Integer articleCount, String deleteTag) {
+    public CategoryVO(String id, String name, String code, Integer deleteAble, Integer articleCount, String deleteTag) {
         this.id = id;
-        this.categoryName = categoryName;
-        this.categoryCode = categoryCode;
+        this.name = name;
+        this.code = code;
         this.deleteAble = deleteAble;
         this.articleCount = articleCount;
         this.deleteTag = deleteTag;
@@ -63,20 +63,20 @@ public class CategoryVO implements SuperVO {
         this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getDeleteAble() {
@@ -111,8 +111,8 @@ public class CategoryVO implements SuperVO {
     public Category toCategory() {
         Category category = new Category();
         category.setId(id);
-        category.setCategoryCode(categoryCode);
-        category.setCategoryName(categoryName);
+        category.setCode(code);
+        category.setName(name);
         category.setDeleteAble(deleteAble);
         return category;
     }

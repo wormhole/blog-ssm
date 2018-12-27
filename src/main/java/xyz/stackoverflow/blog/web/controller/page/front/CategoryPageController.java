@@ -100,7 +100,7 @@ public class CategoryPageController {
                 ArticleVO vo = new ArticleVO();
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
                 vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
-                vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getCategoryName());
+                vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
                 vo.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
                     put("articleId", article.getId());
                 }}).size());
@@ -119,7 +119,7 @@ public class CategoryPageController {
             mv.addObject("pageCount", pageCount);
             mv.addObject("path", "/category/" + categoryCode);
             mv.addObject("select", "/category");
-            mv.addObject("header", category.getCategoryName());
+            mv.addObject("header", category.getName());
             mv.setViewName("/index");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
@@ -141,8 +141,8 @@ public class CategoryPageController {
         List<CategoryVO> categoryVOList = new ArrayList<>();
         for (Category category : categoryList) {
             CategoryVO vo = new CategoryVO();
-            vo.setCategoryName(category.getCategoryName());
-            vo.setCategoryCode(category.getCategoryCode());
+            vo.setName(category.getName());
+            vo.setCode(category.getCode());
             vo.setArticleCount(articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());

@@ -9,18 +9,18 @@ import java.io.Serializable;
  */
 public class Category implements Serializable {
     private String id;
-    private String categoryName;
-    private String categoryCode;
+    private String name;
+    private String code;
     private Integer deleteAble;
 
     public Category(){
 
     }
 
-    public Category(String id, String categoryName, String categoryCode, Integer deleteAble) {
+    public Category(String id, String name, String code, Integer deleteAble) {
         this.id = id;
-        this.categoryName = categoryName;
-        this.categoryCode = categoryCode;
+        this.name = name;
+        this.code = code;
         this.deleteAble = deleteAble;
     }
 
@@ -32,20 +32,20 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getDeleteAble() {

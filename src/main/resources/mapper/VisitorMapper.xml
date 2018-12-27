@@ -20,10 +20,10 @@
                     ip = #{searchMap.ip}
                 </if>
                 <if test="searchMap.agent!=null">
-                    agent = #{searchMap.agent}
+                    and agent = #{searchMap.agent}
                 </if>
                 <if test="searchMap.date!=null">
-                    date = #{searchMap.date}
+                    and date = #{searchMap.date}
                 </if>
             </if>
         </where>
@@ -37,10 +37,10 @@
                 ip = #{ip}
             </if>
             <if test="agent != null">
-                agent = #{agent}
+                and agent = #{agent}
             </if>
             <if test="date != null">
-                date = #{date}
+                and date = #{date}
             </if>
         </where>
         order by date desc
