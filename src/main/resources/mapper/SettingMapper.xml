@@ -69,28 +69,22 @@
     <update id="update" parameterType="setting">
         update setting
         <set>
-            <if test="key != null">
-                `key` = #{key},
-            </if>
             <if test="value != null">
                 value = #{value},
             </if>
         </set>
-        where id = #{id}
+        where `key` = #{key}
     </update>
 
     <update id="batchUpdate" parameterType="list">
         <foreach collection="list" item="item" open="" close="" separator=";">
             update role_permission
             <set>
-                <if test="item.key != null">
-                    `key` = #{item.key},
-                </if>
                 <if test="item.value != null">
                     value = #{item.value},
                 </if>
             </set>
-            where id = #{item.id}
+            where `key` = #{item.key}
         </foreach>
     </update>
 
