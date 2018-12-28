@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
-import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.util.MapUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
@@ -28,8 +27,6 @@ public class CategoryController extends BaseController {
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ArticleService articleService;
     @Autowired
     private ValidatorFactory validatorFactory;
 
