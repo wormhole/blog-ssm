@@ -24,7 +24,6 @@ public class BackupTask {
 
     @Scheduled(initialDelay = 10000, fixedRate = 600000)
     public void backup() {
-        System.out.println("xxxxxxxxxxxxxxxx");
         String backupPath = servletContext.getRealPath("WEB-INF/backup");
         DBUtil.backup(host, username, password, backupPath, "blog.sql", db);
     }
