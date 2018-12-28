@@ -1,11 +1,13 @@
 package xyz.stackoverflow.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
  * 分类VO
@@ -28,6 +30,7 @@ public class CategoryVO implements SuperVO {
     private String code;
 
     private Integer deleteAble;
+    private Date date;
 
     //以下为扩展字段
     private Integer articleCount;
@@ -46,11 +49,12 @@ public class CategoryVO implements SuperVO {
 
     }
 
-    public CategoryVO(String id, String name, String code, Integer deleteAble, Integer articleCount, String deleteTag) {
+    public CategoryVO(String id, String name, String code, Integer deleteAble, Date date, Integer articleCount, String deleteTag) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.deleteAble = deleteAble;
+        this.date = date;
         this.articleCount = articleCount;
         this.deleteTag = deleteTag;
     }
@@ -87,6 +91,15 @@ public class CategoryVO implements SuperVO {
         this.deleteAble = deleteAble;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Integer getArticleCount() {
         return articleCount;
     }
@@ -114,6 +127,7 @@ public class CategoryVO implements SuperVO {
         category.setCode(code);
         category.setName(name);
         category.setDeleteAble(deleteAble);
+        category.setDate(date);
         return category;
     }
 }

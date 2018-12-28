@@ -75,6 +75,7 @@ public class CategoryController extends BaseController {
             throw new BusinessException("分类编码已经存在");
         }
 
+        category.setDate(new Date());
         category.setDeleteAble(1);
         categoryService.insert(category);
         response.setStatus(StatusConst.SUCCESS);

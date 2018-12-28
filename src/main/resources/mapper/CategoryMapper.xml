@@ -6,10 +6,11 @@
 <mapper namespace="xyz.stackoverflow.blog.dao.CategoryDao">
 
     <resultMap id="categoryMap" type="category">
-        <id property="id" column="id"></id>
-        <result property="name" column="name"></result>
-        <result property="code" column="code"></result>
-        <result property="deleteAble" column="deleteable"></result>
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="deleteAble" column="deleteable"/>
+        <result property="date" column="date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="selectByPage" resultMap="categoryMap" resultType="category">
@@ -25,9 +26,12 @@
                 <if test="searchMap.deleteAble != null">
                     and deleteable = #{searchMap.deleteAble}
                 </if>
+                <if test="searchMap.date != null">
+                    and date = #{searchMap.date}
+                </if>v
             </if>
         </where>
-        order by lower(code) asc limit #{start},#{limit}
+        order by date limit #{start},#{limit}
     </select>
 
     <select id="selectByCondition" resultMap="categoryMap" resultType="category">
@@ -42,8 +46,11 @@
             <if test="deleteAble != null">
                 and deleteable = #{deleteAble}
             </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
         </where>
-        order by lower(code) asc
+        order by date
     </select>
 
     <select id="selectById" resultMap="categoryMap" resultType="category">
@@ -51,15 +58,15 @@
     </select>
 
     <insert id="insert" parameterType="category">
-        insert into category (id,code,name,deleteable)
-        values (#{id},#{code},#{name},#{deleteAble})
+        insert into category (id,code,name,deleteable,date)
+        values (#{id},#{code},#{name},#{deleteAble},#{date})
     </insert>
 
     <insert id="batchInsert" parameterType="list">
-        insert into category (id,code,name,deleteable)
+        insert into category (id,code,name,deleteable,date)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.code},#{item.name},#{item.deleteAble})
+            (#{item.id},#{item.code},#{item.name},#{item.deleteAble},#{item.date})
         </foreach>
     </insert>
 
@@ -86,6 +93,9 @@
             <if test="deleteAble!=null">
                 deleteable = #{deleteAble},
             </if>
+            <if test="date!=null">
+                date = #{date},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -102,6 +112,9 @@
                 </if>
                 <if test="item.deleteAble!=null">
                     deleteable = #{item.deleteAble},
+                </if>
+                <if test="item.date!=null">
+                    date = #{item.date},
                 </if>
             </set>
             where id = #{item.id}

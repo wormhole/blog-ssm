@@ -1,6 +1,7 @@
 package xyz.stackoverflow.blog.pojo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 分类实体类
@@ -12,16 +13,18 @@ public class Category implements Serializable {
     private String name;
     private String code;
     private Integer deleteAble;
+    private Date date;
 
     public Category(){
 
     }
 
-    public Category(String id, String name, String code, Integer deleteAble) {
+    public Category(String id, String name, String code, Integer deleteAble, Date date) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.deleteAble = deleteAble;
+        this.date = date;
     }
 
     public String getId() {
@@ -54,5 +57,13 @@ public class Category implements Serializable {
 
     public void setDeleteAble(Integer deleteAble) {
         this.deleteAble = deleteAble;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

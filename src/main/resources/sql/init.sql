@@ -1,7 +1,7 @@
 INSERT INTO blog.role (id, name, code) VALUES ('962bc8f3-f557-4beb-8592-aaf9a586fe35', '管理员', 'admin');
 INSERT INTO blog.permission (id, name, code) VALUES ('323ca22f-d0bd-4210-935a-40004461181b', '所有权限', 'system:*');
 INSERT INTO blog.role_permission (id, roleid, permissionid) VALUES ('e4886733-3bed-4ee7-8525-a58b23fca857', '962bc8f3-f557-4beb-8592-aaf9a586fe35', '323ca22f-d0bd-4210-935a-40004461181b');
-INSERT INTO blog.category (id, name, code, deleteable) VALUES ('1074affb-1361-4ec4-9a6d-6f5008a29ff9', '未分类', 'uncategory', 0);
+INSERT INTO blog.category (id, name, code, deleteable, date) VALUES ('1074affb-1361-4ec4-9a6d-6f5008a29ff9', '未分类', 'uncategory', 0, '2018-12-28 20:00:00');
 INSERT INTO blog.setting (id, name, value) VALUES ('00ada267-43d0-4d06-ae7a-b8d32f2b10c5', 'keywords', '博客,日志');
 INSERT INTO blog.setting (id, name, value) VALUES ('5a92c7f9-8545-44c9-97b4-34585de92193', 'copyright', 'copyright &copy; 2018 by 凉衫薄');
 INSERT INTO blog.setting (id, name, value) VALUES ('8ac7719f-5bd2-4bbc-8ac8-32f235a645eb', 'limit', '5');
