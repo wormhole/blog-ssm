@@ -44,10 +44,10 @@
 
         <property name="cacheNames">
             <list>
-                <value>defaultCache</value>
-                <value>authenticationCache</value>
-                <value>authorizationCache</value>
-                <value>sessionCache</value>
+                <value>article</value>
+                <value>authentication</value>
+                <value>authorization</value>
+                <value>session</value>
             </list>
         </property>
     </bean>

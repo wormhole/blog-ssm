@@ -19,9 +19,9 @@
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authenticationCacheName" value="authentication"/>
         <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <property name="authorizationCacheName" value="authorization"/>
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -36,7 +36,7 @@
 
     <!-- 会话DAO -->
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="sessionCache"/>
+        <property name="activeSessionsCacheName" value="session"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 

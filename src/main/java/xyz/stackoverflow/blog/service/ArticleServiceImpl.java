@@ -51,14 +51,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @Cacheable(value = "defaultCache", key = "'article:'+#url", unless = "#result == null")
+    @Cacheable(value = "article", key = "'article:'+#url", unless = "#result == null")
     public Article selectByUrl(String url) {
         return articleDao.selectByUrl(url);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
+    @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
     public Article insert(Article article) {
         article.setId(UUIDGenerator.getId());
         articleDao.insert(article);
@@ -76,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
+    @CacheEvict(value = "article", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
     public Article deleteById(String id) {
         Article article = articleDao.selectById(id);
 
@@ -98,6 +98,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "article", allEntries = true)
     public int batchDeleteById(List<String> list) {
         for (String id : list) {
             List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
@@ -117,7 +118,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "defaultCache", key = "'article:'+#result.url", condition = "#result!=null")
+    @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
     public Article update(Article article) {
         articleDao.update(article);
         return articleDao.selectById(article.getId());
