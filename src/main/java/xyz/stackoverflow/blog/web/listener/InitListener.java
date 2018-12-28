@@ -4,7 +4,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.web.context.ContextLoaderListener;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.web.task.BackupTask;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -28,21 +27,7 @@ public class InitListener extends ContextLoaderListener {
     public void contextInitialized(ServletContextEvent event) {
         initDataBase();
         initContext(event);
-        initTimeTask(event);
         super.contextInitialized(event);
-    }
-
-    /**
-     * 初始化数据库备份周期任务
-     *
-     * @param event
-     */
-    public void initTimeTask(ServletContextEvent event) {
-        ServletContext application = event.getServletContext();
-        String backupPath = application.getRealPath("WEB-INF/backup");
-        TimerTask task = new BackupTask(backupPath);
-        Timer timer = new Timer();
-        timer.schedule(task, 10000, 600000);
     }
 
     /**

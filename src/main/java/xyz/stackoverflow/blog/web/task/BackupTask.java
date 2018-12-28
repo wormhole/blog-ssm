@@ -1,38 +1,31 @@
 package xyz.stackoverflow.blog.web.task;
 
-import org.apache.ibatis.io.Resources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import xyz.stackoverflow.blog.util.db.DBUtil;
 
-import java.io.IOException;
-import java.util.Properties;
-import java.util.TimerTask;
+import javax.servlet.ServletContext;
 
-/**
- * 数据库备份周期任务
- *
- * @author 凉衫薄
- */
-public class BackupTask extends TimerTask {
+@Component
+public class BackupTask {
 
-    private String backupPath;
+    @Autowired
+    private ServletContext servletContext;
+    @Value("${jdbc.username}")
+    private String username;
+    @Value("${jdbc.password}")
+    private String password;
+    @Value("${jdbc.host}")
+    private String host;
+    @Value("${jdbc.db}")
+    private String db;
 
-    public BackupTask(String backupPath) {
-        this.backupPath = backupPath;
+    @Scheduled(initialDelay = 10000, fixedRate = 600000)
+    public void backup() {
+        System.out.println("xxxxxxxxxxxxxxxx");
+        String backupPath = servletContext.getRealPath("WEB-INF/backup");
+        DBUtil.backup(host, username, password, backupPath, "blog.sql", db);
     }
-
-    @Override
-    public void run() {
-        Properties props = null;
-        try {
-            props = Resources.getResourceAsProperties("db.properties");
-            String username = props.getProperty("jdbc.username");
-            String password = props.getProperty("jdbc.password");
-            String host = props.getProperty("jdbc.host");
-            String db = props.getProperty("jdbc.db");
-            DBUtil.backup(host, username, password, backupPath, "blog.sql", db);
-        } catch (IOException e) {
-
-        }
-    }
-
 }
