@@ -1,10 +1,13 @@
 package xyz.stackoverflow.blog.web.controller.exception;
 
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.exception.ServerException;
 import xyz.stackoverflow.blog.util.web.Response;
@@ -36,6 +39,42 @@ public class ExceptionController {
             response.setMessage(e.getMessage());
             response.setData(e.getData());
             return response;
+        } else {
+            throw new ServerException(e.getMessage());
+        }
+    }
+
+    /**
+     * 未授权错误处理
+     *
+     * @param e
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(UnauthorizedException.class)
+    public ModelAndView handleUnauthorizedException(UnauthorizedException e, HttpServletRequest request) {
+        if (!isAjaxRequest(request)) {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("/error/unauthorized");
+            return mv;
+        } else {
+            throw new ServerException(e.getMessage());
+        }
+    }
+
+    /**
+     * 处理未认证错误
+     *
+     * @param e
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(UnauthenticatedException.class)
+    public ModelAndView handleUnauthenticatedException(UnauthenticatedException e, HttpServletRequest request) {
+        if (!isAjaxRequest(request)) {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("/login");
+            return mv;
         } else {
             throw new ServerException(e.getMessage());
         }
