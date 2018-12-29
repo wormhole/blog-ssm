@@ -1,13 +1,12 @@
 package xyz.stackoverflow.blog.web.controller.api.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.stackoverflow.blog.util.db.DBProperties;
 import xyz.stackoverflow.blog.util.db.DBUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +24,14 @@ import java.io.InputStream;
 @RequestMapping("/api/admin")
 public class BackupController {
 
-    @Autowired
-    private DBProperties properties;
+    @Value("${jdbc.username}")
+    private String username;
+    @Value("${jdbc.password}")
+    private String password;
+    @Value("${jdbc.host}")
+    private String host;
+    @Value("${jdbc.db}")
+    private String db;
 
     /**
      * 导出sql备份文件 /api/admin/backup/sql
@@ -40,7 +45,7 @@ public class BackupController {
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
         String backupPath = request.getServletContext().getRealPath("WEB-INF/backup");
-        DBUtil.backup(properties.getHost(), properties.getUsername(), properties.getPassword(), backupPath, filename, properties.getDb());
+        DBUtil.backup(host, username, password, backupPath, filename, db);
 
         InputStream is = new FileInputStream(new File(backupPath, filename));
         byte[] body = new byte[is.available()];
