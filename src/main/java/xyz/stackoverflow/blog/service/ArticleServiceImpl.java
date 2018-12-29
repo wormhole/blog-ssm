@@ -10,6 +10,7 @@ import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
+import xyz.stackoverflow.blog.util.cache.RedisCacheUtil;
 import xyz.stackoverflow.blog.util.db.Page;
 import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
@@ -30,6 +31,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDao articleDao;
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -45,6 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Cacheable(value = "article", key = "'article:'+#id", unless = "#result == null")
     public Article selectById(String id) {
         return articleDao.selectById(id);
     }
@@ -62,6 +66,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article insert(Article article) {
         article.setId(UUIDGenerator.getId());
         articleDao.insert(article);
+        redisCacheUtil.set("article:" + article.getId(), article);
         return articleDao.selectById(article.getId());
     }
 
@@ -70,13 +75,15 @@ public class ArticleServiceImpl implements ArticleService {
     public int batchInsert(List<Article> list) {
         for (Article article : list) {
             article.setId(UUIDGenerator.getId());
+            redisCacheUtil.set("article:" + article.getId(), article);
+            redisCacheUtil.set("article:" + article.getUrl(), article);
         }
         return articleDao.batchInsert(list);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "article", key = "'article:'+#result.url", condition = "#result!=null", beforeInvocation = false)
+    @CacheEvict(value = "article", key = "'article:'+#result.id", condition = "#result!=null", beforeInvocation = false)
     public Article deleteById(String id) {
         Article article = articleDao.selectById(id);
 
@@ -93,12 +100,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         articleDao.deleteById(id);
+        redisCacheUtil.del("article:" + article.getUrl());
         return article;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "article", allEntries = true)
     public int batchDeleteById(List<String> list) {
         for (String id : list) {
             List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
@@ -112,6 +119,10 @@ public class ArticleServiceImpl implements ArticleService {
                 }
                 commentDao.batchDeleteById(ids);
             }
+
+            Article article = articleDao.selectById(id);
+            redisCacheUtil.del("article:" + article.getUrl());
+            redisCacheUtil.del("article:" + id);
         }
         return articleDao.batchDeleteById(list);
     }
@@ -121,12 +132,17 @@ public class ArticleServiceImpl implements ArticleService {
     @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
     public Article update(Article article) {
         articleDao.update(article);
+        redisCacheUtil.set("article:" + article.getId(), article);
         return articleDao.selectById(article.getId());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int batchUpdate(List<Article> list) {
+        for (Article article : list) {
+            redisCacheUtil.set("article:" + article.getId(), article);
+            redisCacheUtil.set("article:" + article.getUrl(), article);
+        }
         return articleDao.batchUpdate(list);
     }
 
