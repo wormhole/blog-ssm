@@ -1,12 +1,14 @@
 package xyz.stackoverflow.blog.web.controller.api.admin;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.stackoverflow.blog.util.db.DBUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,8 @@ import java.io.InputStream;
  *
  * @author 凉衫薄
  */
-@RestController
+@Controller
+@PropertySource(value = {"classpath:db.properties"})
 @RequestMapping("/api/admin")
 public class BackupController {
 
@@ -42,6 +45,7 @@ public class BackupController {
      * @throws IOException
      */
     @RequestMapping(value = "/backup/sql", method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
         String backupPath = request.getServletContext().getRealPath("WEB-INF/backup");
