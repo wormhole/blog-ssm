@@ -1,6 +1,9 @@
 # WORMHOLE BlOG
 [![downloads](https://img.shields.io/github/downloads/wormhole1996/blog/total.svg)](https://github.com/wormhole1996/blog/releases)
+[![forks](https://img.shields.io/github/forks/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/network/members)
+[![stars](https://img.shields.io/github/stars/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/stargazers) 
 [![repo size](https://img.shields.io/github/repo-size/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/archive/master.zip)
+[![release](https://img.shields.io/github/release/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
 
 ## 介绍
