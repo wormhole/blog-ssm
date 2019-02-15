@@ -58,7 +58,7 @@ public class CategoryPageController {
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
         List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("categoryCode", categoryCode);
+            put("code", categoryCode);
         }});
         if (categoryList.size() != 0) {
             Category category = categoryList.get(0);
