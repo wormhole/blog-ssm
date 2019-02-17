@@ -7,7 +7,6 @@ import xyz.stackoverflow.blog.pojo.entity.Menu;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
