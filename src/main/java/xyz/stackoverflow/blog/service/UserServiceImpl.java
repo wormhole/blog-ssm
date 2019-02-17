@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public UserRole grantRole(String roleCode, String userId) {
         Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
-            put("roleCode", roleCode);
+            put("code", roleCode);
         }}).get(0);
         UserRole userRole = new UserRole();
         userRole.setId(UUIDGenerator.getId());
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
         Set<String> retSet = null;
         for (String roleCode : roleCodeSet) {
             Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
-                put("roleCode", roleCode);
+                put("code", roleCode);
             }}).get(0);
             List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
             if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
