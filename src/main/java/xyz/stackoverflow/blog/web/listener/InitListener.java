@@ -7,7 +7,9 @@ import xyz.stackoverflow.blog.pojo.entity.Menu;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.*;
 
@@ -105,7 +107,7 @@ public class InitListener extends ContextLoaderListener {
                 runner.setErrorLogWriter(null);
                 runner.setLogWriter(null);
                 for (int i = 0; i < scripts.length; i++) {
-                    runner.runScript(Resources.getResourceAsReader(scripts[i]));
+                    runner.runScript(new InputStreamReader(Resources.getResourceAsStream(scripts[i]),"UTF-8"));
                 }
             }
             ps.close();
