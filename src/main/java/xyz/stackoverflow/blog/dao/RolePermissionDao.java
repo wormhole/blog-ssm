@@ -17,7 +17,7 @@ public interface RolePermissionDao {
 
     List<RolePermission> selectByPage(Page page);
 
-    List<RolePermission> selectByCondition(Map<String,String> searchMap);
+    List<RolePermission> selectByCondition(Map<String,Object> searchMap);
 
     RolePermission selectById(String id);
 

@@ -35,6 +35,8 @@ public interface UserService {
 
     UserRole grantRole(String roleCode,String userId);
 
+    UserRole revokeRole(String roleCode,String userId);
+
     Set<String> getRoleCodeByUserId(String userId);
 
     Set<String> getPermissionCodeByUserId(String userId);

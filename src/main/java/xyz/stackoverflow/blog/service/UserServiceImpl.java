@@ -97,15 +97,43 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserRole grantRole(String roleCode, String userId) {
-        Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
+        List<Role> roleList = roleDao.selectByCondition(new HashMap<String, Object>() {{
             put("code", roleCode);
-        }}).get(0);
+        }});
+
+        if (roleList.size() == 0) {
+            return null;
+        }
+
         UserRole userRole = new UserRole();
-        userRole.setId(UUIDGenerator.getId());
-        userRole.setRoleId(role.getId());
+        userRole.setRoleId(roleList.get(0).getId());
         userRole.setUserId(userId);
         userRoleDao.insert(userRole);
         return userRole;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public UserRole revokeRole(String roleCode, String userId) {
+        List<Role> roleList = roleDao.selectByCondition(new HashMap<String, Object>() {{
+            put("code", roleCode);
+        }});
+
+        if (roleList.size() == 0) {
+            return null;
+        }
+
+        List<UserRole> userRoleList = userRoleDao.selectByCondition(new HashMap<String, Object>() {{
+            put("roleId", roleList.get(0).getId());
+            put("userId", userId);
+        }});
+
+        if (userRoleList.size() == 0) {
+            return null;
+        }
+
+        userRoleDao.deleteById(userRoleList.get(0).getId());
+        return userRoleList.get(0);
     }
 
     @Override
