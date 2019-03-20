@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserRole userRole = new UserRole();
+        userRole.setId(UUIDGenerator.getId());
         userRole.setRoleId(roleList.get(0).getId());
         userRole.setUserId(userId);
         userRoleDao.insert(userRole);

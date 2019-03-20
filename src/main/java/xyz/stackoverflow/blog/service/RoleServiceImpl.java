@@ -100,6 +100,7 @@ public class RoleServiceImpl implements RoleService {
         }
 
         RolePermission rolePermission = new RolePermission();
+        rolePermission.setId(UUIDGenerator.getId());
         rolePermission.setRoleId(roleId);
         rolePermission.setPermissionId(permissionList.get(0).getId());
         rolePermissionDao.insert(rolePermission);
