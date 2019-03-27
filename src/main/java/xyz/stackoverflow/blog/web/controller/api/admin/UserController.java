@@ -84,10 +84,10 @@ public class UserController extends BaseController {
             updateUser.setId(user.getId());
 
             if (!updateUser.getEmail().equals(user.getEmail())) {
-                Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
-                authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
-                Cache authorizationCache = redisCacheManager.getCache("authorizationCache");
-                authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
+                Cache authenticationCache = redisCacheManager.getCache("authentication");
+                authenticationCache.evict("shiro:authentication:" + user.getEmail());
+                Cache authorizationCache = redisCacheManager.getCache("authorization");
+                authorizationCache.evict("shiro:authorization:" + user.getEmail());
             }
 
             User newUser = userService.update(updateUser);
@@ -115,10 +115,10 @@ public class UserController extends BaseController {
             updateUser.setSalt(PasswordUtil.getSalt());
             updateUser.setPassword(PasswordUtil.encryptPassword(updateUser.getSalt(), updateUser.getPassword()));
 
-            Cache authenticationCache = redisCacheManager.getCache("authenticationCache");
-            authenticationCache.evict("shiro:authenticationCache:" + user.getEmail());
-            Cache authorizationCache = redisCacheManager.getCache("authorizationCache");
-            authorizationCache.evict("shiro:authorizationCache:" + user.getEmail());
+            Cache authenticationCache = redisCacheManager.getCache("authentication");
+            authenticationCache.evict("shiro:authentication:" + user.getEmail());
+            Cache authorizationCache = redisCacheManager.getCache("authorization");
+            authorizationCache.evict("shiro:authorization:" + user.getEmail());
 
             User newUser = userService.update(updateUser);
             session.setAttribute("user", newUser);
