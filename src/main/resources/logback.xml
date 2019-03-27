@@ -21,7 +21,7 @@
         <!-- 对日志进行格式化。 -->
         <encoder>
             <pattern>
-                [%d{yyyy-MM-dd HH:mm:ss}] [%level] [%class.%method:%line] - [%msg]%n
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] [%class.%method:%line] - %msg%n
             </pattern>
         </encoder>
     </appender>
@@ -35,21 +35,15 @@
             <fileNamePattern>/var/log/blog/logback.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <MaxFileSize>50MB</MaxFileSize>
+                <MaxFileSize>10MB</MaxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
-
-        <!-- 激活滚动的条件。 -->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!-- 活动文件的大小，默认值是10MB -->
-            <maxFileSize>30MB</maxFileSize>
-        </triggeringPolicy>
 
         <!-- 对记录事件进行格式化。 -->
         <encoder>
             <charset>UTF-8</charset>
             <Pattern>
-                [%d{yyyy-MM-dd HH:mm:ss}] [%level] [%class.%method:%line] - [%msg]%n
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] [%class.%method:%line] - %msg%n
             </Pattern>
         </encoder>
     </appender>
@@ -58,7 +52,7 @@
         level:设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，不能设置为INHERITED或者同义词NULL。默认是DEBUG。
         <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。 -->
     <root>
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="stdout"/>
         <appender-ref ref="file"/>
     </root>
