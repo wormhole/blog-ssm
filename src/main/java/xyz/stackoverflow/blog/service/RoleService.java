@@ -1,12 +1,12 @@
 package xyz.stackoverflow.blog.service;
 
+import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 角色服务接口
@@ -33,10 +33,10 @@ public interface RoleService {
 
     int batchUpdate(List<Role> list);
 
-    RolePermission grantPermission(String permissionCode, String roleId);
+    RolePermission grantPermission(String roleId, String permissionId);
 
-    RolePermission revokePermission(String permissionCode, String roleId);
+    RolePermission revokePermission(String roleId, String permissionId);
 
-    Set<String> getPermissionCodeByRoleId(String roleId);
+    List<Permission> getPermissionByRoleId(String roleId);
 
 }

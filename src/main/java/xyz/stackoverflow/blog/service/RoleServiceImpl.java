@@ -11,7 +11,10 @@ import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 import xyz.stackoverflow.blog.util.db.Page;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 角色服务实现
@@ -86,39 +89,45 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.batchUpdate(list);
     }
 
+    /**
+     * 给角色赋予权限
+     *
+     * @param roleId
+     * @param permissionId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public RolePermission grantPermission(String permissionCode, String roleId) {
-        List<Permission> permissionList = permissionDao.selectByCondition(new HashMap<String, Object>() {{
-            put("code", permissionCode);
-        }});
+    public RolePermission grantPermission(String roleId, String permissionId) {
+        Role role = roleDao.selectById(roleId);
+        Permission permission = permissionDao.selectById(permissionId);
 
-        if (permissionList.size() == 0) {
+        if (role == null || permission == null) {
             return null;
         }
 
         RolePermission rolePermission = new RolePermission();
         rolePermission.setRoleId(roleId);
-        rolePermission.setPermissionId(permissionList.get(0).getId());
+        rolePermission.setPermissionId(permissionId);
         rolePermissionDao.insert(rolePermission);
 
         return rolePermission;
     }
 
+    /**
+     * 给角色收回权限
+     *
+     * @param roleId
+     * @param permissionId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public RolePermission revokePermission(String permissionCode, String roleId) {
-        List<Permission> permissionList = permissionDao.selectByCondition(new HashMap<String, Object>() {{
-            put("code", permissionCode);
-        }});
-
-        if (permissionList.size() == 0) {
-            return null;
-        }
+    public RolePermission revokePermission(String roleId, String permissionId) {
 
         List<RolePermission> rolePermissionList = rolePermissionDao.selectByCondition(new HashMap<String, Object>() {{
             put("roleId", roleId);
-            put("permissionId", permissionList.get(0).getId());
+            put("permissionId", permissionId);
         }});
 
         if (rolePermissionList.size() == 0) {
@@ -129,21 +138,29 @@ public class RoleServiceImpl implements RoleService {
         return rolePermissionList.get(0);
     }
 
+    /**
+     * 获取所有权限
+     *
+     * @param roleId
+     * @return
+     */
     @Override
-    public Set<String> getPermissionCodeByRoleId(String roleId) {
-        Set<String> retSet = null;
+    @Transactional(rollbackFor = Exception.class)
+    public List<Permission> getPermissionByRoleId(String roleId) {
+        List<Permission> retList = null;
 
-        Role role = roleDao.selectById(roleId);
-        List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
+        List<RolePermission> rolePermissionList = rolePermissionDao.selectByCondition(new HashMap<String, Object>() {{
+            put("roleId", roleId);
+        }});
         if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
-            retSet = new HashSet<>();
+            retList = new ArrayList<>();
             for (RolePermission rolePermission : rolePermissionList) {
                 Permission permission = permissionDao.selectById(rolePermission.getPermissionId());
-                retSet.add(permission.getCode());
+                retList.add(permission);
             }
         }
 
-        return retSet;
+        return retList;
     }
 
 }

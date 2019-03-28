@@ -9,11 +9,14 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import xyz.stackoverflow.blog.pojo.entity.Permission;
+import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.User;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.web.shiro.util.SimpleByteSource;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,13 +43,22 @@ public class JdbcRealm extends AuthorizingRealm {
             put("email", email);
         }}).get(0);
         SimpleAuthorizationInfo sa = new SimpleAuthorizationInfo();
-        Set<String> roleSet = userService.getRoleCodeByUserId(user.getId());
-        Set<String> permissionSet = userService.getPermissionCodeByUserId(user.getId());
-        if (roleSet != null) {
-            sa.setRoles(roleSet);
+        List<Role> roles = userService.getRoleByUserId(user.getId());
+        List<Permission
+                > permissions = userService.getPermissionByUserId(user.getId());
+        if (null != roles && roles.size() != 0) {
+            Set<String> roleCodes = new HashSet<>();
+            for (Role role : roles) {
+                roleCodes.add(role.getCode());
+            }
+            sa.setRoles(roleCodes);
         }
-        if (permissionSet != null) {
-            sa.setStringPermissions(permissionSet);
+        if (null != permissions && permissions.size() != 0) {
+            Set<String> permissionCodes = new HashSet<>();
+            for (Permission permission : permissions) {
+                permissionCodes.add(permission.getCode());
+            }
+            sa.setStringPermissions(permissionCodes);
         }
         return sa;
     }

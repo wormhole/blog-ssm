@@ -8,7 +8,10 @@ import xyz.stackoverflow.blog.pojo.entity.*;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.db.Page;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务实现
@@ -91,38 +94,45 @@ public class UserServiceImpl implements UserService {
         return userDao.batchUpdate(list);
     }
 
+    /**
+     * 授予用户角色
+     *
+     * @param roleId
+     * @param userId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserRole grantRole(String roleCode, String userId) {
-        List<Role> roleList = roleDao.selectByCondition(new HashMap<String, Object>() {{
-            put("code", roleCode);
-        }});
+    public UserRole grantRole(String userId, String roleId) {
 
-        if (roleList.size() == 0) {
+        User user = userDao.selectById(userId);
+        Role role = roleDao.selectById(roleId);
+
+        if (user == null || role == null) {
             return null;
         }
 
         UserRole userRole = new UserRole();
-        userRole.setRoleId(roleList.get(0).getId());
+        userRole.setRoleId(roleId);
         userRole.setUserId(userId);
         userRoleDao.insert(userRole);
         return userRole;
     }
 
+    /**
+     * 收回用户角色
+     *
+     * @param roleId
+     * @param userId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserRole revokeRole(String roleCode, String userId) {
-        List<Role> roleList = roleDao.selectByCondition(new HashMap<String, Object>() {{
-            put("code", roleCode);
-        }});
-
-        if (roleList.size() == 0) {
-            return null;
-        }
+    public UserRole revokeRole(String userId, String roleId) {
 
         List<UserRole> userRoleList = userRoleDao.selectByCondition(new HashMap<String, Object>() {{
-            put("roleId", roleList.get(0).getId());
             put("userId", userId);
+            put("roleId", roleId);
         }});
 
         if (userRoleList.size() == 0) {
@@ -131,44 +141,56 @@ public class UserServiceImpl implements UserService {
 
         userRoleDao.deleteById(userRoleList.get(0).getId());
         return userRoleList.get(0);
+
     }
 
+    /**
+     * 返回所有角色
+     *
+     * @param userId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<String> getRoleCodeByUserId(String userId) {
-        List<UserRole> userRoleList = userRoleDao.selectByCondition(new HashMap<String, Object>() {{
+    public List<Role> getRoleByUserId(String userId) {
+        List<UserRole> userRoles = userRoleDao.selectByCondition(new HashMap<String, Object>() {{
             put("userId", userId);
         }});
-        Set<String> retSet = null;
-        if ((null != userRoleList) && (userRoleList.size() != 0)) {
-            retSet = new HashSet<>();
-            for (UserRole userRole : userRoleList) {
-                Role role = roleDao.selectById(userRole.getRoleId());
-                retSet.add(role.getCode());
+        List<Role> roles = null;
+        if ((null != userRoles) && (userRoles.size() != 0)) {
+            roles = new ArrayList<>();
+            for (UserRole userRole : userRoles) {
+                Role role = roleDao.selectById(userRole.getId());
+                roles.add(role);
             }
         }
-        return retSet;
+        return roles;
     }
 
+    /**
+     * 返回所有权限
+     *
+     * @param userId
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<String> getPermissionCodeByUserId(String userId) {
-        Set<String> roleCodeSet = getRoleCodeByUserId(userId);
-        Set<String> retSet = null;
-        for (String roleCode : roleCodeSet) {
-            Role role = roleDao.selectByCondition(new HashMap<String, Object>() {{
-                put("code", roleCode);
-            }}).get(0);
-            List<RolePermission> rolePermissionList = rolePermissionDao.getRolePermissionByRoleId(role.getId());
-            if ((null != rolePermissionList) && (rolePermissionList.size() != 0)) {
-                retSet = new HashSet<>();
-                for (RolePermission rolePermission : rolePermissionList) {
+    public List<Permission> getPermissionByUserId(String userId) {
+        List<Role> roles = getRoleByUserId(userId);
+        Map<String, Permission> permissionMap = new HashMap<>();
+        for (Role role : roles) {
+            List<RolePermission> rolePermissions = rolePermissionDao.selectByCondition(new HashMap<String, Object>() {{
+                put("roleId", role.getId());
+            }});
+            if ((null != rolePermissions) && (rolePermissions.size() != 0)) {
+                for (RolePermission rolePermission : rolePermissions) {
                     Permission permission = permissionDao.selectById(rolePermission.getPermissionId());
-                    retSet.add(permission.getCode());
+                    permissionMap.put(permission.getId(), permission);
                 }
             }
         }
-        return retSet;
+        List<Permission> permissions = (List<Permission>) permissionMap.values();
+        return permissions;
     }
 
 }
