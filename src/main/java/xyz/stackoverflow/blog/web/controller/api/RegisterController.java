@@ -10,7 +10,9 @@ import xyz.stackoverflow.blog.common.BaseDTO;
 import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.dto.UserDTO;
+import xyz.stackoverflow.blog.pojo.po.RolePO;
 import xyz.stackoverflow.blog.pojo.po.UserPO;
+import xyz.stackoverflow.blog.service.RoleService;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.util.CollectionUtil;
 import xyz.stackoverflow.blog.util.TransferUtil;
@@ -36,6 +38,8 @@ public class RegisterController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private ValidatorFactory validatorFactory;
 
@@ -87,7 +91,10 @@ public class RegisterController extends BaseController {
             UserPO user = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
             user.setDeleteAble(0);
             UserPO newUser = userService.insert(user);
-            userService.grantRole("admin", newUser.getId());
+            List<RolePO> roles = roleService.selectByCondition(new HashMap<String, Object>() {{
+                put("code", "admin");
+            }});
+            userService.grantRole(newUser.getId(), roles.get(0).getId());
             response.setStatus(Response.SUCCESS);
             response.setMessage("注册成功");
 

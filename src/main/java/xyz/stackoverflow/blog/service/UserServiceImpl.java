@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
         if ((null != userRoles) && (userRoles.size() != 0)) {
             roles = new ArrayList<>();
             for (UserRolePO userRole : userRoles) {
-                RolePO role = roleDao.selectById(userRole.getId());
+                RolePO role = roleDao.selectById(userRole.getRoleId());
                 roles.add(role);
             }
         }
@@ -189,7 +189,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         }
-        List<PermissionPO> permissions = (List<PermissionPO>) permissionMap.values();
+        List<PermissionPO> permissions = new ArrayList<>(permissionMap.values());
         return permissions;
     }
 
