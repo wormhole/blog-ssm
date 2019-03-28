@@ -65,6 +65,9 @@
     </select>
 
     <insert id="insert" parameterType="user">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into user (id,email,nickname,password,salt,deleteable)
         values (#{id},#{email},#{nickname},#{password},#{salt},#{deleteAble})
     </insert>
@@ -73,7 +76,7 @@
         insert into user (id,email,nickname,password,salt,deleteable)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.email},#{item.nickname},#{item.password},#{item.salt},#{item.deleteAble})
+            ((select uuid()),#{item.email},#{item.nickname},#{item.password},#{item.salt},#{item.deleteAble})
         </foreach>
     </insert>
 

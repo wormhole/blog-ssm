@@ -58,6 +58,9 @@
     </select>
 
     <insert id="insert" parameterType="menu">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into menu (id,name,url,deleteable,date)
         values (#{id},#{name},#{url},#{deleteAble},#{date})
     </insert>
@@ -66,7 +69,7 @@
         insert into menu (id,name,url,deleteable,date)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.name},#{item.url},#{item.deleteAble},#{item.date})
+            ((select uuid()),#{item.name},#{item.url},#{item.deleteAble},#{item.date})
         </foreach>
     </insert>
 

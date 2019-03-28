@@ -58,6 +58,9 @@
     </select>
 
     <insert id="insert" parameterType="category">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into category (id,code,name,deleteable,date)
         values (#{id},#{code},#{name},#{deleteAble},#{date})
     </insert>
@@ -66,7 +69,7 @@
         insert into category (id,code,name,deleteable,date)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.code},#{item.name},#{item.deleteAble},#{item.date})
+            ((select uuid()),#{item.code},#{item.name},#{item.deleteAble},#{item.date})
         </foreach>
     </insert>
 

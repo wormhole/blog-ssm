@@ -8,7 +8,6 @@ import xyz.stackoverflow.blog.dao.CategoryDao;
 import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Category;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Category insert(Category category) {
-        category.setId(UUIDGenerator.getId());
         categoryDao.insert(category);
         return categoryDao.selectById(category.getId());
     }

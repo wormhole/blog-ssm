@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.VisitorDao;
 import xyz.stackoverflow.blog.pojo.entity.Visitor;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +43,6 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Visitor insert(Visitor visitor) {
-        visitor.setId(UUIDGenerator.getId());
         dao.insert(visitor);
         return dao.selectById(visitor.getId());
     }
@@ -52,9 +50,6 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int batchInsert(List<Visitor> list) {
-        for (Visitor visitor : list) {
-            visitor.setId(UUIDGenerator.getId());
-        }
         return dao.batchInsert(list);
     }
 

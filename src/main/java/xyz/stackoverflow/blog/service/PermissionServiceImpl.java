@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.PermissionDao;
 import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Permission insert(Permission permission) {
-        permission.setId(UUIDGenerator.getId());
         dao.insert(permission);
         return dao.selectById(permission.getId());
     }

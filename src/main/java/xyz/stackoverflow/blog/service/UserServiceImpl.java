@@ -7,7 +7,6 @@ import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.entity.*;
 import xyz.stackoverflow.blog.util.PasswordUtil;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.*;
 
@@ -51,7 +50,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public User insert(User user) {
-        user.setId(UUIDGenerator.getId());
         user.setSalt(PasswordUtil.getSalt());
         user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
         userDao.insert(user);
@@ -62,7 +60,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public int batchInsert(List<User> list) {
         for (User user : list) {
-            user.setId(UUIDGenerator.getId());
             user.setSalt(PasswordUtil.getSalt());
             user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
         }
@@ -106,7 +103,6 @@ public class UserServiceImpl implements UserService {
         }
 
         UserRole userRole = new UserRole();
-        userRole.setId(UUIDGenerator.getId());
         userRole.setRoleId(roleList.get(0).getId());
         userRole.setUserId(userId);
         userRoleDao.insert(userRole);

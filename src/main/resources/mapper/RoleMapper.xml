@@ -43,6 +43,9 @@
     </select>
 
     <insert id="insert" parameterType="role">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into role (id,name,code)
         values (#{id},#{name},#{code})
     </insert>
@@ -51,7 +54,7 @@
         insert into role (id,name,code)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.name},#{item.code})
+            ((select uuid()),#{item.name},#{item.code})
         </foreach>
     </insert>
 

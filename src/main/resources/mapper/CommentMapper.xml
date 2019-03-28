@@ -86,6 +86,9 @@
     </select>
 
     <insert id="insert" parameterType="comment">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into comment (id,nickname,email,website,content,articleid,replyto,review,date)
         values (#{id},#{nickname},#{email},#{website},#{content},#{articleId},#{replyTo},#{review},#{date})
     </insert>
@@ -94,7 +97,8 @@
         insert into comment (id,nickname,email,website,content,articleid,replyto,review,date)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.nickname},#{item.email},#{item.website},#{item.content},#{item.articleId},#{item.replyTo},#{item.review},#{item.date})
+            ((select
+            uuid()),#{item.nickname},#{item.email},#{item.website},#{item.content},#{item.articleId},#{item.replyTo},#{item.review},#{item.date})
         </foreach>
     </insert>
 

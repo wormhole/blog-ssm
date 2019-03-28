@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.SettingDao;
 import xyz.stackoverflow.blog.pojo.entity.Setting;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class SettingServiceImpl implements SettingService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Setting insert(Setting setting) {
-        setting.setId(UUIDGenerator.getId());
         dao.insert(setting);
         return dao.selectById(setting.getId());
     }

@@ -12,7 +12,6 @@ import xyz.stackoverflow.blog.pojo.entity.Article;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.cache.RedisCacheUtil;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +63,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
     public Article insert(Article article) {
-        article.setId(UUIDGenerator.getId());
         articleDao.insert(article);
         redisCacheUtil.set("article:" + article.getId(), article);
         return articleDao.selectById(article.getId());
@@ -74,7 +72,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public int batchInsert(List<Article> list) {
         for (Article article : list) {
-            article.setId(UUIDGenerator.getId());
             redisCacheUtil.set("article:" + article.getId(), article);
             redisCacheUtil.set("article:" + article.getUrl(), article);
         }

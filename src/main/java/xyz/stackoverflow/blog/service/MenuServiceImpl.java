@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.MenuDao;
 import xyz.stackoverflow.blog.pojo.entity.Menu;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu insert(Menu menu) {
-        menu.setId(UUIDGenerator.getId());
         dao.insert(menu);
         return dao.selectById(menu.getId());
     }

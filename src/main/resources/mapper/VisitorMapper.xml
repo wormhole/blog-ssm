@@ -51,6 +51,9 @@
     </select>
 
     <insert id="insert" parameterType="visitor">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            select uuid()
+        </selectKey>
         insert into visitor (id,ip,agent,date)
         values (#{id},#{ip},#{agent},#{date})
     </insert>
@@ -59,7 +62,7 @@
         insert into visitor (id,ip,agent,date)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.id},#{item.ip},#{item.agent},#{item.date})
+            ((select uuid()),#{item.ip},#{item.agent},#{item.date})
         </foreach>
     </insert>
 

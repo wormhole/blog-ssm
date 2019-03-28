@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.dao.CommentDao;
 import xyz.stackoverflow.blog.pojo.entity.Comment;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Comment insert(Comment comment) {
-        comment.setId(UUIDGenerator.getId());
         dao.insert(comment);
         return dao.selectById(comment.getId());
     }

@@ -10,7 +10,6 @@ import xyz.stackoverflow.blog.pojo.entity.Permission;
 import xyz.stackoverflow.blog.pojo.entity.Role;
 import xyz.stackoverflow.blog.pojo.entity.RolePermission;
 import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.db.UUIDGenerator;
 
 import java.util.*;
 
@@ -50,7 +49,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Role insert(Role role) {
-        role.setId(UUIDGenerator.getId());
         roleDao.insert(role);
         return roleDao.selectById(role.getId());
     }
@@ -100,7 +98,6 @@ public class RoleServiceImpl implements RoleService {
         }
 
         RolePermission rolePermission = new RolePermission();
-        rolePermission.setId(UUIDGenerator.getId());
         rolePermission.setRoleId(roleId);
         rolePermission.setPermissionId(permissionList.get(0).getId());
         rolePermissionDao.insert(rolePermission);
