@@ -9,9 +9,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.stackoverflow.blog.pojo.entity.Permission;
-import xyz.stackoverflow.blog.pojo.entity.Role;
-import xyz.stackoverflow.blog.pojo.entity.User;
+import xyz.stackoverflow.blog.pojo.po.PermissionPO;
+import xyz.stackoverflow.blog.pojo.po.RolePO;
+import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.UserService;
 import xyz.stackoverflow.blog.web.shiro.util.SimpleByteSource;
 
@@ -39,23 +39,23 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String email = (String) principalCollection.getPrimaryPrincipal();
-        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+        UserPO user = userService.selectByCondition(new HashMap<String, Object>() {{
             put("email", email);
         }}).get(0);
         SimpleAuthorizationInfo sa = new SimpleAuthorizationInfo();
-        List<Role> roles = userService.getRoleByUserId(user.getId());
-        List<Permission
+        List<RolePO> roles = userService.getRoleByUserId(user.getId());
+        List<PermissionPO
                 > permissions = userService.getPermissionByUserId(user.getId());
         if (null != roles && roles.size() != 0) {
             Set<String> roleCodes = new HashSet<>();
-            for (Role role : roles) {
+            for (RolePO role : roles) {
                 roleCodes.add(role.getCode());
             }
             sa.setRoles(roleCodes);
         }
         if (null != permissions && permissions.size() != 0) {
             Set<String> permissionCodes = new HashSet<>();
-            for (Permission permission : permissions) {
+            for (PermissionPO permission : permissions) {
                 permissionCodes.add(permission.getCode());
             }
             sa.setStringPermissions(permissionCodes);
@@ -73,13 +73,13 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String email = (String) authenticationToken.getPrincipal();
-        List<User> list = userService.selectByCondition(new HashMap<String, Object>() {{
+        List<UserPO> list = userService.selectByCondition(new HashMap<String, Object>() {{
             put("email", email);
         }});
         if (list.size() == 0) {
             throw new AuthenticationException();
         }
-        User user = list.get(0);
+        UserPO user = list.get(0);
         SimpleAuthenticationInfo sa = new SimpleAuthenticationInfo(user.getEmail(), user.getPassword(), new SimpleByteSource(user.getSalt()), getName());
         return sa;
     }

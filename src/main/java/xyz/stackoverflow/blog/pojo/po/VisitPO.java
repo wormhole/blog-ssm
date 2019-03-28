@@ -1,17 +1,14 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.web.SuperVO;
-
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 访问量VO类
+ * 访问量实体类
  *
  * @author 凉衫薄
  */
-public class VisitVO implements SuperVO {
+public class VisitPO implements Serializable {
 
     private String id;
     private String url;
@@ -21,11 +18,11 @@ public class VisitVO implements SuperVO {
     private String referer;
     private Date date;
 
-    public VisitVO() {
+    public VisitPO() {
 
     }
 
-    public VisitVO(String id, String url, Integer status, String ip, String agent, String referer, Date date) {
+    public VisitPO(String id, String url, Integer status, String ip, String agent, String referer, Date date) {
         this.id = id;
         this.url = url;
         this.status = status;
@@ -83,29 +80,11 @@ public class VisitVO implements SuperVO {
         this.referer = referer;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    /**
-     * VO类转实体类
-     *
-     * @return
-     */
-    public Visit toVisit() {
-        Visit visit = new Visit();
-        visit.setId(id);
-        visit.setUrl(url);
-        visit.setId(ip);
-        visit.setAgent(agent);
-        visit.setStatus(status);
-        visit.setReferer(referer);
-        visit.setDate(date);
-        return visit;
     }
 }

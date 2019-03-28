@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
 
 import java.util.List;
 import java.util.Map;
@@ -15,24 +15,24 @@ import java.util.Map;
 @Repository
 public interface ArticleDao {
 
-    List<Article> selectByPage(Page page);
+    List<ArticlePO> selectByPage(Page page);
 
-    List<Article> selectByCondition(Map<String, Object> searchMap);
+    List<ArticlePO> selectByCondition(Map<String, Object> searchMap);
 
-    Article selectById(String id);
+    ArticlePO selectById(String id);
 
-    Article selectByUrl(String url);
+    ArticlePO selectByUrl(String url);
 
-    int insert(Article article);
+    int insert(ArticlePO article);
 
-    int batchInsert(List<Article> list);
+    int batchInsert(List<ArticlePO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Article article);
+    int update(ArticlePO article);
 
-    int batchUpdate(List<Article> list);
+    int batchUpdate(List<ArticlePO> list);
 
 }

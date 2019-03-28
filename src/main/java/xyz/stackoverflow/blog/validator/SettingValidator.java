@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.validator;
 
 import org.springframework.stereotype.Component;
-import xyz.stackoverflow.blog.pojo.vo.SettingVO;
+import xyz.stackoverflow.blog.pojo.dto.SettingDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,54 +14,54 @@ import java.util.regex.Pattern;
  * @author 凉衫薄
  */
 @Component
-public class SettingValidator implements Validator<SettingVO[]> {
+public class SettingValidator implements Validator<SettingDTO[]> {
 
     Pattern numPattern = Pattern.compile("^[0-9]+$");
 
     /**
      * 校验SettingVO数组
      *
-     * @param settingVOS
+     * @param settingDTOS
      * @return
      */
     @Override
-    public Map<String, String> validate(SettingVO[] settingVOS) {
+    public Map<String, String> validate(SettingDTO[] settingDTOS) {
         Map<String, String> map = new HashMap<>();
 
-        for (SettingVO settingVO : settingVOS) {
-            switch (settingVO.getName()) {
+        for (SettingDTO settingDTO : settingDTOS) {
+            switch (settingDTO.getName()) {
                 case "title":
-                    if (!validateTitle(settingVO.getValue())) {
+                    if (!validateTitle(settingDTO.getValue())) {
                         map.put("title", "标题长度应该在1到100之间");
                     }
                     break;
                 case "keywords":
-                    if (!validateKeywords(settingVO.getValue())) {
+                    if (!validateKeywords(settingDTO.getValue())) {
                         map.put("keywords", "关键字长度应该在1到100之间");
                     }
                     break;
                 case "description":
-                    if (!validateDescription(settingVO.getValue())) {
+                    if (!validateDescription(settingDTO.getValue())) {
                         map.put("description", "描述长度应该在1到100之间");
                     }
                     break;
                 case "copyright":
-                    if (!validateCopyright(settingVO.getValue())) {
+                    if (!validateCopyright(settingDTO.getValue())) {
                         map.put("copyright", "版权长度应该在1到100之间");
                     }
                     break;
                 case "nickname":
-                    if (!validateNickname(settingVO.getValue())) {
+                    if (!validateNickname(settingDTO.getValue())) {
                         map.put("nickname", "昵称长度应该在1到100之间");
                     }
                     break;
                 case "signature":
-                    if (!validateSignature(settingVO.getValue())) {
+                    if (!validateSignature(settingDTO.getValue())) {
                         map.put("signature", "签名长度应该在1到100之间");
                     }
                     break;
                 case "limit":
-                    if (!validateItems(settingVO.getValue())) {
+                    if (!validateItems(settingDTO.getValue())) {
                         map.put("limit", "每页显示的文章数只能为数字");
                     }
                     break;

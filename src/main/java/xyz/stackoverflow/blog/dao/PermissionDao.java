@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Permission;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.PermissionPO;
 
 import java.util.List;
 import java.util.Map;
@@ -15,22 +15,22 @@ import java.util.Map;
 @Repository
 public interface PermissionDao {
 
-    List<Permission> selectByPage(Page page);
+    List<PermissionPO> selectByPage(Page page);
 
-    List<Permission> selectByCondition(Map<String, Object> searchMap);
+    List<PermissionPO> selectByCondition(Map<String, Object> searchMap);
 
-    Permission selectById(String id);
+    PermissionPO selectById(String id);
 
-    int insert(Permission permission);
+    int insert(PermissionPO permission);
 
-    int batchInsert(List<Permission> list);
+    int batchInsert(List<PermissionPO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Permission permission);
+    int update(PermissionPO permission);
 
-    int batchUpdate(List<Permission> list);
+    int batchUpdate(List<PermissionPO> list);
 
 }

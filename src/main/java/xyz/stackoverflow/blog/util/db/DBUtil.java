@@ -25,7 +25,7 @@ public class DBUtil {
         if (!saveFile.exists()) {
             saveFile.mkdirs();
         }
-        if(!path.endsWith(File.separator)){
+        if (!path.endsWith(File.separator)) {
             path = path + File.separator;
         }
         PrintWriter printWriter = null;
@@ -34,20 +34,20 @@ public class DBUtil {
         boolean success = false;
         try {
             process = Runtime.getRuntime().exec("mysqldump -h" + host + " -u" + username + " -p" + password + " " + database);
-            printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path + filename)));
-            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path + filename), "UTF-8"));
+            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
 
             String line;
-            while((line = bufferedReader.readLine())!= null){
+            while ((line = bufferedReader.readLine()) != null) {
                 printWriter.println(line);
             }
             printWriter.flush();
-            if(process.waitFor() == 0){
+            if (process.waitFor() == 0) {
                 success = true;
             }
         } catch (Exception e) {
             success = false;
-        }  finally {
+        } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();

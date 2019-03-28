@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.pojo.dto.ArticleDTO;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
+import xyz.stackoverflow.blog.pojo.po.CategoryPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.web.BaseController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,11 +51,11 @@ public class EditPageController extends BaseController {
     public ModelAndView article(@RequestParam(value = "id", required = false) String id) {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
+        List<CategoryPO> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
 
         if (id != null) {
-            Article article = articleService.selectById(id);
-            ArticleVO articleVO = new ArticleVO();
+            ArticlePO article = articleService.selectById(id);
+            ArticleDTO articleVO = new ArticleDTO();
             articleVO.setTitle(article.getTitle());
             articleVO.setArticleCode(urlToCode(article.getUrl()));
             articleVO.setArticleMd(article.getArticleMd());

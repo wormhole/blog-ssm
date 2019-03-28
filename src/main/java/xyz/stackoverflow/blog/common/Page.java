@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.util.db;
+package xyz.stackoverflow.blog.common;
 
 import java.io.Serializable;
 import java.util.Map;

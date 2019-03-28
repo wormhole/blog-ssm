@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.dto.ArticleDTO;
+import xyz.stackoverflow.blog.pojo.dto.CategoryDTO;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
+import xyz.stackoverflow.blog.pojo.po.CategoryPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.db.Page;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -57,11 +57,11 @@ public class CategoryPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>() {{
+        List<CategoryPO> categoryList = categoryService.selectByCondition(new HashMap<String, Object>() {{
             put("code", categoryCode);
         }});
         if (categoryList.size() != 0) {
-            Category category = categoryList.get(0);
+            CategoryPO category = categoryList.get(0);
             int count = articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
@@ -94,10 +94,10 @@ public class CategoryPageController {
                 put("visible", 1);
                 put("categoryId", category.getId());
             }});
-            List<Article> articleList = articleService.selectByPage(page1);
-            List<ArticleVO> articleVOList = new ArrayList<>();
-            for (Article article : articleList) {
-                ArticleVO vo = new ArticleVO();
+            List<ArticlePO> articleList = articleService.selectByPage(page1);
+            List<ArticleDTO> articleVOList = new ArrayList<>();
+            for (ArticlePO article : articleList) {
+                ArticleDTO vo = new ArticleDTO();
                 vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
                 vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
                 vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
@@ -137,20 +137,20 @@ public class CategoryPageController {
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
 
-        List<Category> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
-        List<CategoryVO> categoryVOList = new ArrayList<>();
-        for (Category category : categoryList) {
-            CategoryVO vo = new CategoryVO();
+        List<CategoryPO> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        for (CategoryPO category : categoryList) {
+            CategoryDTO vo = new CategoryDTO();
             vo.setName(category.getName());
             vo.setCode(category.getCode());
             vo.setArticleCount(articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
             }}).size());
-            categoryVOList.add(vo);
+            categoryDTOList.add(vo);
         }
 
-        mv.addObject("categoryList", categoryVOList);
+        mv.addObject("categoryList", categoryDTOList);
         mv.addObject("select", "/category");
         mv.setViewName("/category");
         return mv;

@@ -4,10 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.util.web.BaseController;
-import xyz.stackoverflow.blog.util.web.Response;
-import xyz.stackoverflow.blog.util.web.StatusConst;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -36,7 +35,7 @@ public class ImageController extends BaseController {
         File file = new File(rootDir, url);
         if (file.exists()) {
             file.delete();
-            response.setStatus(StatusConst.SUCCESS);
+            response.setStatus(Response.SUCCESS);
             response.setMessage("图片删除成功");
         } else {
             throw new BusinessException("图片删除失败");

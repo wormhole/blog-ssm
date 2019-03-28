@@ -2,14 +2,17 @@ package xyz.stackoverflow.blog.web.controller.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.common.BaseDTO;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.pojo.vo.CategoryVO;
+import xyz.stackoverflow.blog.pojo.dto.CategoryDTO;
+import xyz.stackoverflow.blog.pojo.po.CategoryPO;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.CollectionUtil;
+import xyz.stackoverflow.blog.util.TransferUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
-import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.web.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -38,29 +41,24 @@ public class CategoryController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/category/insert", method = RequestMethod.POST)
-    public Response insert(@RequestBody CommonDTO dto) {
+    public Response insert(@RequestBody BaseDTO dto) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("category", CategoryVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
+        List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-
-        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
+        CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.InsertGroup.class);
+        Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.InsertGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Category category = categoryVO.toCategory();
+        CategoryPO category = (CategoryPO) TransferUtil.dto2po(CategoryPO.class, categoryDTO);
         if (categoryService.selectByCondition(new HashMap<String, Object>() {{
             put("name", category.getName());
         }}).size() != 0) {
@@ -75,7 +73,7 @@ public class CategoryController extends BaseController {
         category.setDate(new Date());
         category.setDeleteAble(1);
         categoryService.insert(category);
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("分类添加成功");
 
         return response;
@@ -94,27 +92,27 @@ public class CategoryController extends BaseController {
         Response response = new Response();
 
         Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Category> list = categoryService.selectByPage(page1);
-        int count = categoryService.selectByCondition(new HashMap<String, Object>()).size();
+        List<CategoryPO> list = categoryService.selectByPage(page1);
+        int count = categoryService.selectByCondition(new HashMap<>()).size();
 
-        List<CategoryVO> voList = new ArrayList<>();
-        for (Category category : list) {
-            CategoryVO vo = new CategoryVO();
-            vo.setId(category.getId());
-            vo.setName(category.getName());
-            vo.setCode(category.getCode());
+        List<CategoryDTO> dtos = new ArrayList<>();
+        for (CategoryPO category : list) {
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.setId(category.getId());
+            categoryDTO.setName(category.getName());
+            categoryDTO.setCode(category.getCode());
             if (category.getDeleteAble() == 0) {
-                vo.setDeleteTag("否");
+                categoryDTO.setDeleteTag("否");
             } else {
-                vo.setDeleteTag("是");
+                categoryDTO.setDeleteTag("是");
             }
-            voList.add(vo);
+            dtos.add(categoryDTO);
         }
 
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
-        map.put("items", voList);
-        response.setStatus(StatusConst.SUCCESS);
+        map.put("items", dtos);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
         return response;
@@ -128,29 +126,24 @@ public class CategoryController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
-    public Response delete(@RequestBody CommonDTO dto) {
+    public Response delete(@RequestBody BaseDTO dto) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("category", CategoryVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
+        List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-
-        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
+        CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.DeleteGroup.class);
+        Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.DeleteGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Category category = categoryService.selectById(categoryVO.getId());
+        CategoryPO category = categoryService.selectById(categoryDTO.getId());
 
         if (category == null) {
             throw new BusinessException("未找到该分类");
@@ -160,7 +153,7 @@ public class CategoryController extends BaseController {
         }
 
         categoryService.deleteById(category.getId());
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("分类删除成功");
 
         return response;
@@ -174,29 +167,24 @@ public class CategoryController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
-    public Response update(@RequestBody CommonDTO dto) {
+    public Response update(@RequestBody BaseDTO dto) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("category", CategoryVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
+        List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-
-        CategoryVO categoryVO = (CategoryVO) voMap.get("category").get(0);
+        CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CategoryVO>> violations = validator.validate(categoryVO, CategoryVO.UpdateGroup.class);
+        Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.UpdateGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        Category oldCategory = categoryService.selectById(categoryVO.getId());
+        CategoryPO oldCategory = categoryService.selectById(categoryDTO.getId());
 
         if (oldCategory == null) {
             throw new BusinessException("未找到该分类");
@@ -205,19 +193,19 @@ public class CategoryController extends BaseController {
             throw new BusinessException("该分类不允许修改");
         }
 
-        if (!oldCategory.getName().equals(categoryVO.getName()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("name", categoryVO.getName());
+        if (!oldCategory.getName().equals(categoryDTO.getName()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("name", categoryDTO.getName());
         }}).size() != 0) {
             throw new BusinessException("新分类名已经存在");
         }
-        if (!oldCategory.getCode().equals(categoryVO.getCode()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
-            put("code", categoryVO.getCode());
+        if (!oldCategory.getCode().equals(categoryDTO.getCode()) && categoryService.selectByCondition(new HashMap<String, Object>() {{
+            put("code", categoryDTO.getCode());
         }}).size() != 0) {
             throw new BusinessException("新分类编码已经存在");
         }
 
-        categoryService.update(categoryVO.toCategory());
-        response.setStatus(StatusConst.SUCCESS);
+        categoryService.update((CategoryPO) TransferUtil.dto2po(CategoryPO.class, categoryDTO));
+        response.setStatus(Response.SUCCESS);
         response.setMessage("更新成功");
 
         return response;

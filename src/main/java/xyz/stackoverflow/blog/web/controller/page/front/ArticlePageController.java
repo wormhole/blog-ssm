@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
-import xyz.stackoverflow.blog.pojo.vo.CommentVO;
+import xyz.stackoverflow.blog.pojo.dto.ArticleDTO;
+import xyz.stackoverflow.blog.pojo.dto.CommentDTO;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
+import xyz.stackoverflow.blog.pojo.po.CommentPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
@@ -54,12 +54,12 @@ public class ArticlePageController {
         ModelAndView mv = new ModelAndView();
         String url = "/article/" + year + "/" + month + "/" + day + "/" + articleCode;
 
-        Article article = articleService.selectByUrl(url);
+        ArticlePO article = articleService.selectByUrl(url);
         if (article != null) {
             article.setHits(article.getHits() + 1);
             articleService.update(article);
 
-            ArticleVO articleVO = new ArticleVO();
+            ArticleDTO articleVO = new ArticleDTO();
             articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             articleVO.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
             articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
@@ -71,24 +71,24 @@ public class ArticlePageController {
             articleVO.setCreateDate(article.getCreateDate());
             articleVO.setArticleMd(article.getArticleMd());
 
-            List<Comment> commentList = commentService.selectByCondition(new HashMap<String, Object>() {{
+            List<CommentPO> commentList = commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
             }});
-            List<CommentVO> voList = new ArrayList<>();
-            for (Comment comment : commentList) {
-                CommentVO commentVO = new CommentVO();
-                commentVO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
-                commentVO.setDate(comment.getDate());
-                commentVO.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+            List<CommentDTO> voList = new ArrayList<>();
+            for (CommentPO comment : commentList) {
+                CommentDTO commentDTO = new CommentDTO();
+                commentDTO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
+                commentDTO.setDate(comment.getDate());
+                commentDTO.setContent(HtmlUtils.htmlEscape(comment.getContent()));
                 if (comment.getReplyTo() != null) {
-                    commentVO.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));
+                    commentDTO.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));
                 }
                 if (comment.getWebsite() != null) {
-                    commentVO.setWebsite(comment.getWebsite());
+                    commentDTO.setWebsite(comment.getWebsite());
                 } else {
-                    commentVO.setWebsite("javascript:;");
+                    commentDTO.setWebsite("javascript:;");
                 }
-                voList.add(commentVO);
+                voList.add(commentDTO);
             }
 
             mv.addObject("article", articleVO);

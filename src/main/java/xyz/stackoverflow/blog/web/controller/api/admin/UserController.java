@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.web.bind.annotation.*;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.common.BaseDTO;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.vo.UserVO;
+import xyz.stackoverflow.blog.pojo.dto.UserDTO;
+import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.CollectionUtil;
 import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.TransferUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
-import xyz.stackoverflow.blog.util.web.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
@@ -49,38 +52,33 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public Response updateUser(@RequestParam("type") String type, @RequestBody CommonDTO dto, HttpSession session) {
+    public Response updateUser(@RequestParam("type") String type, @RequestBody BaseDTO dto, HttpSession session) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("user", UserVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
-            throw new BusinessException("未找到请求数据");
+        List<UserDTO> dtos = (List<UserDTO>) (Object) getDTO("user", UserDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
+            throw new BusinessException("找不到请求数据");
         }
-
-        UserVO userVO = (UserVO) voMap.get("user").get(0);
-        User user = (User) session.getAttribute("user");
+        UserDTO userDTO = dtos.get(0);
+        UserPO user = (UserPO) session.getAttribute("user");
 
         if (type.equals("base")) {
 
             Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.UpdateBaseGroup.class);
+            Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.UpdateBaseGroup.class);
             Map<String, String> map = ValidationUtil.errorMap(violations);
 
-            if (!MapUtil.isEmpty(map)) {
+            if (!CollectionUtil.isEmpty(map)) {
                 throw new BusinessException("字段格式出错", map);
             }
 
-            if (!userVO.getEmail().equals(user.getEmail()) && userService.selectByCondition(new HashMap<String, Object>() {{
-                put("email", userVO.getEmail());
+            if (!userDTO.getEmail().equals(user.getEmail()) && userService.selectByCondition(new HashMap<String, Object>() {{
+                put("email", userDTO.getEmail());
             }}).size() != 0) {
                 throw new BusinessException("邮箱已经存在");
             }
 
-            User updateUser = userVO.toUser();
+            UserPO updateUser = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
             updateUser.setId(user.getId());
 
             if (!updateUser.getEmail().equals(user.getEmail())) {
@@ -90,26 +88,26 @@ public class UserController extends BaseController {
                 authorizationCache.evict("shiro:authorization:" + user.getEmail());
             }
 
-            User newUser = userService.update(updateUser);
+            UserPO newUser = userService.update(updateUser);
             session.setAttribute("user", newUser);
-            response.setStatus(StatusConst.SUCCESS);
+            response.setStatus(Response.SUCCESS);
             response.setMessage("基础信息修改成功");
 
         } else if (type.equals("password")) {
 
             Validator validator = validatorFactory.getValidator();
-            Set<ConstraintViolation<UserVO>> violations = validator.validate(userVO, UserVO.UpdatePasswordGroup.class);
+            Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.UpdatePasswordGroup.class);
             Map<String, String> map = ValidationUtil.errorMap(violations);
 
-            if (!MapUtil.isEmpty(map)) {
+            if (!CollectionUtil.isEmpty(map)) {
                 throw new BusinessException("字段格式出错", map);
             }
 
-            if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userVO.getOldPassword()))) {
+            if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userDTO.getOldPassword()))) {
                 throw new BusinessException("旧密码不匹配");
             }
 
-            User updateUser = userVO.toUser();
+            UserPO updateUser = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
             updateUser.setSalt(PasswordUtil.getSalt());
@@ -120,9 +118,9 @@ public class UserController extends BaseController {
             Cache authorizationCache = redisCacheManager.getCache("authorization");
             authorizationCache.evict("shiro:authorization:" + user.getEmail());
 
-            User newUser = userService.update(updateUser);
+            UserPO newUser = userService.update(updateUser);
             session.setAttribute("user", newUser);
-            response.setStatus(StatusConst.SUCCESS);
+            response.setStatus(Response.SUCCESS);
             response.setMessage("修改成功");
 
         } else {

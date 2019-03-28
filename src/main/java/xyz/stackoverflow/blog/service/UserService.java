@@ -1,10 +1,10 @@
 package xyz.stackoverflow.blog.service;
 
-import xyz.stackoverflow.blog.pojo.entity.Permission;
-import xyz.stackoverflow.blog.pojo.entity.Role;
-import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.pojo.entity.UserRole;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.PermissionPO;
+import xyz.stackoverflow.blog.pojo.po.RolePO;
+import xyz.stackoverflow.blog.pojo.po.UserPO;
+import xyz.stackoverflow.blog.pojo.po.UserRolePO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,29 +16,29 @@ import java.util.Map;
  */
 public interface UserService {
 
-    List<User> selectByPage(Page page);
+    List<UserPO> selectByPage(Page page);
 
-    List<User> selectByCondition(Map<String, Object> searchMap);
+    List<UserPO> selectByCondition(Map<String, Object> searchMap);
 
-    User selectById(String id);
+    UserPO selectById(String id);
 
-    User insert(User user);
+    UserPO insert(UserPO user);
 
-    int batchInsert(List<User> list);
+    int batchInsert(List<UserPO> list);
 
-    User deleteById(String id);
+    UserPO deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    User update(User user);
+    UserPO update(UserPO user);
 
-    int batchUpdate(List<User> list);
+    int batchUpdate(List<UserPO> list);
 
-    UserRole grantRole(String userId, String roleCode);
+    UserRolePO grantRole(String userId, String roleCode);
 
-    UserRole revokeRole(String userId, String roleCode);
+    UserRolePO revokeRole(String userId, String roleCode);
 
-    List<Role> getRoleByUserId(String userId);
+    List<RolePO> getRoleByUserId(String userId);
 
-    List<Permission> getPermissionByUserId(String userId);
+    List<PermissionPO> getPermissionByUserId(String userId);
 }

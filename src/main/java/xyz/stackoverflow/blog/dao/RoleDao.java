@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Role;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.RolePO;
 
 import java.util.List;
 import java.util.Map;
@@ -15,22 +15,22 @@ import java.util.Map;
 @Repository
 public interface RoleDao {
 
-    List<Role> selectByPage(Page page);
+    List<RolePO> selectByPage(Page page);
 
-    List<Role> selectByCondition(Map<String, Object> searchMap);
+    List<RolePO> selectByCondition(Map<String, Object> searchMap);
 
-    Role selectById(String id);
+    RolePO selectById(String id);
 
-    int insert(Role role);
+    int insert(RolePO role);
 
-    int batchInsert(List<Role> list);
+    int batchInsert(List<RolePO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Role role);
+    int update(RolePO role);
 
-    int batchUpdate(List<Role> list);
+    int batchUpdate(List<RolePO> list);
 
 }

@@ -2,14 +2,13 @@ package xyz.stackoverflow.blog.web.controller.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.pojo.vo.VisitVO;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.common.Response;
+import xyz.stackoverflow.blog.pojo.dto.VisitDTO;
+import xyz.stackoverflow.blog.pojo.po.VisitPO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
 import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.web.Response;
-import xyz.stackoverflow.blog.util.web.StatusConst;
 
 import java.util.*;
 
@@ -62,7 +61,7 @@ public class VisitDataController {
         map.put("dateList", dateList);
         map.put("visitList", visitList);
         map.put("visitorList", visitorList);
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("流量记录获取成功");
         response.setData(map);
         return response;
@@ -84,13 +83,13 @@ public class VisitDataController {
 
         Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
 
-        List<Visit> list = visitService.selectByPage(page1);
-        int count = visitService.selectByCondition(new HashMap<String, Object>()).size();
+        List<VisitPO> list = visitService.selectByPage(page1);
+        int count = visitService.selectByCondition(new HashMap<>()).size();
 
-        List<VisitVO> voList = new ArrayList<>();
+        List<VisitDTO> voList = new ArrayList<>();
 
-        for (Visit visit : list) {
-            VisitVO vo = new VisitVO();
+        for (VisitPO visit : list) {
+            VisitDTO vo = new VisitDTO();
             vo.setIp(visit.getIp());
             vo.setUrl(visit.getUrl());
             vo.setStatus(visit.getStatus());
@@ -103,7 +102,7 @@ public class VisitDataController {
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
         return response;
@@ -131,8 +130,8 @@ public class VisitDataController {
 
         int todayVisit = visitService.selectByDate(startDate, endDate).size();
         int todayVisitor = visitorService.selectByDate(startDate, endDate).size();
-        int totalVisit = visitService.selectByCondition(new HashMap<String, Object>()).size();
-        int totalVisitor = visitorService.selectByCondition(new HashMap<String, Object>()).size();
+        int totalVisit = visitService.selectByCondition(new HashMap<>()).size();
+        int totalVisitor = visitorService.selectByCondition(new HashMap<>()).size();
 
         Map<String, Integer> map = new HashMap<>();
         map.put("todayVisit", todayVisit);
@@ -140,7 +139,7 @@ public class VisitDataController {
         map.put("totalVisit", totalVisit);
         map.put("totalVisitor", totalVisitor);
 
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("获取成功");
         response.setData(map);
 

@@ -1,20 +1,19 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.dto;
 
 import org.hibernate.validator.constraints.Length;
-import xyz.stackoverflow.blog.pojo.entity.User;
-import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 /**
  * 用户VO
  *
  * @author 凉衫薄
  */
-public class UserVO implements SuperVO {
+public class UserDTO implements Serializable {
 
     private String id;
 
@@ -51,21 +50,6 @@ public class UserVO implements SuperVO {
     }
 
     public interface UpdatePasswordGroup {
-    }
-
-    public UserVO() {
-
-    }
-
-    public UserVO(String id, String email, String password, String nickname, String salt, Integer deleteAble, String oldPassword, String vcode) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.salt = salt;
-        this.deleteAble = deleteAble;
-        this.oldPassword = oldPassword;
-        this.vcode = vcode;
     }
 
     public String getId() {
@@ -130,21 +114,5 @@ public class UserVO implements SuperVO {
 
     public void setVcode(String vcode) {
         this.vcode = vcode;
-    }
-
-    /**
-     * 转换成实体类
-     *
-     * @return 转换后的实体类
-     */
-    public User toUser() {
-        User user = new User();
-        user.setId(id);
-        user.setEmail(email);
-        user.setNickname(nickname);
-        user.setPassword(password);
-        user.setSalt(salt);
-        user.setDeleteAble(deleteAble);
-        return user;
     }
 }

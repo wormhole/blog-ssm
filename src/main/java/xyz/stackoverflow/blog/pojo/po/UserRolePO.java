@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 
@@ -7,16 +7,16 @@ import java.io.Serializable;
  *
  * @author 凉衫薄
  */
-public class UserRole implements Serializable {
+public class UserRolePO implements Serializable {
     private String id;
     private String userId;
     private String roleId;
 
-    public UserRole(){
+    public UserRolePO() {
 
     }
 
-    public UserRole(String id, String userId, String roleId) {
+    public UserRolePO(String id, String userId, String roleId) {
         this.id = id;
         this.userId = userId;
         this.roleId = roleId;

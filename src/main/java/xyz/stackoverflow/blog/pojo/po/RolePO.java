@@ -1,23 +1,23 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 
 /**
- * 权限实体类
+ * 角色实体类
  *
  * @author 凉衫薄
  */
-public class Permission implements Serializable {
+public class RolePO implements Serializable {
 
     private String id;
     private String name;
     private String code;
 
-    public Permission(){
+    public RolePO() {
 
     }
 
-    public Permission(String id, String name, String code) {
+    public RolePO(String id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;

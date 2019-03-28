@@ -1,15 +1,14 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
-import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class CommentVO implements SuperVO {
+public class CommentDTO implements Serializable {
 
     @NotNull(message = "缺少主键字段", groups = {ReviewGroup.class, DeleteGroup.class})
     private String id;
@@ -63,25 +62,6 @@ public class CommentVO implements SuperVO {
     }
 
     public interface ReviewGroup {
-    }
-
-    public CommentVO() {
-
-    }
-
-    public CommentVO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review, String url, String articleTitle, String reviewTag) {
-        this.id = id;
-        this.nickname = nickname;
-        this.email = email;
-        this.website = website;
-        this.content = content;
-        this.articleId = articleId;
-        this.date = date;
-        this.replyTo = replyTo;
-        this.review = review;
-        this.url = url;
-        this.articleTitle = articleTitle;
-        this.reviewTag = reviewTag;
     }
 
     public String getId() {
@@ -179,24 +159,5 @@ public class CommentVO implements SuperVO {
 
     public void setReviewTag(String reviewTag) {
         this.reviewTag = reviewTag;
-    }
-
-    /**
-     * 转化成Comment实体类
-     *
-     * @return
-     */
-    public Comment toComment() {
-        Comment comment = new Comment();
-        comment.setId(id);
-        comment.setEmail(email);
-        comment.setNickname(nickname);
-        comment.setWebsite(website);
-        comment.setContent(content);
-        comment.setDate(date);
-        comment.setArticleId(articleId);
-        comment.setReplyTo(replyTo);
-        comment.setReview(review);
-        return comment;
     }
 }

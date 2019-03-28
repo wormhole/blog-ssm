@@ -1,20 +1,20 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 /**
  * 角色-权限表实体类
  *
  * @author 凉衫薄
  */
-public class RolePermission {
+public class RolePermissionPO {
     private String id;
     private String roleId;
     private String permissionId;
 
-    public RolePermission(){
+    public RolePermissionPO() {
 
     }
 
-    public RolePermission(String id, String roleId, String permissionId) {
+    public RolePermissionPO(String id, String roleId, String permissionId) {
         this.id = id;
         this.roleId = roleId;
         this.permissionId = permissionId;

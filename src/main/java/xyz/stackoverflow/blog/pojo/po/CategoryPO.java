@@ -1,29 +1,28 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 菜单实体类
+ * 分类实体类
  *
  * @author 凉衫薄
  */
-public class Menu implements Serializable {
-
+public class CategoryPO implements Serializable {
     private String id;
     private String name;
-    private String url;
+    private String code;
     private Integer deleteAble;
     private Date date;
 
-    public Menu(){
+    public CategoryPO() {
 
     }
 
-    public Menu(String id, String name, String url, Integer deleteAble, Date date) {
+    public CategoryPO(String id, String name, String code, Integer deleteAble, Date date) {
         this.id = id;
         this.name = name;
-        this.url = url;
+        this.code = code;
         this.deleteAble = deleteAble;
         this.date = date;
     }
@@ -44,12 +43,12 @@ public class Menu implements Serializable {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getCode() {
+        return code;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getDeleteAble() {

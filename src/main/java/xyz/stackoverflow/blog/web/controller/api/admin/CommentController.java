@@ -3,15 +3,18 @@ package xyz.stackoverflow.blog.web.controller.api.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.common.BaseDTO;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.pojo.vo.CommentVO;
+import xyz.stackoverflow.blog.pojo.dto.CommentDTO;
+import xyz.stackoverflow.blog.pojo.po.CommentPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.MapUtil;
+import xyz.stackoverflow.blog.util.CollectionUtil;
+import xyz.stackoverflow.blog.util.TransferUtil;
 import xyz.stackoverflow.blog.util.ValidationUtil;
-import xyz.stackoverflow.blog.util.db.Page;
-import xyz.stackoverflow.blog.util.web.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -47,12 +50,12 @@ public class CommentController extends BaseController {
         Response response = new Response();
 
         Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<Comment> list = commentService.selectByPage(page1);
-        int count = commentService.selectByCondition(new HashMap<String, Object>()).size();
-        List<CommentVO> voList = new ArrayList<>();
+        List<CommentPO> list = commentService.selectByPage(page1);
+        int count = commentService.selectByCondition(new HashMap<>()).size();
+        List<CommentDTO> voList = new ArrayList<>();
 
-        for (Comment comment : list) {
-            CommentVO vo = new CommentVO();
+        for (CommentPO comment : list) {
+            CommentDTO vo = new CommentDTO();
             vo.setId(comment.getId());
             vo.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
             vo.setEmail(HtmlUtils.htmlEscape(comment.getEmail()));
@@ -74,7 +77,7 @@ public class CommentController extends BaseController {
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("items", voList);
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
         return response;
@@ -88,30 +91,25 @@ public class CommentController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/comment/delete", method = RequestMethod.POST)
-    public Response delete(@RequestBody CommonDTO dto) {
+    public Response delete(@RequestBody BaseDTO dto) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("comment", CommentVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
+        List<CommentDTO> dtos = (List<CommentDTO>) (Object) getDTO("comment", CommentDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-
-        CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
+        CommentDTO commentDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO, CommentVO.DeleteGroup.class);
+        Set<ConstraintViolation<CommentDTO>> violations = validator.validate(commentDTO, CommentDTO.DeleteGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
-        if (commentService.deleteById(commentVO.getId()) != null) {
-            response.setStatus(StatusConst.SUCCESS);
+        if (commentService.deleteById(commentDTO.getId()) != null) {
+            response.setStatus(Response.SUCCESS);
             response.setMessage("评论删除成功");
         } else {
             throw new BusinessException("评论删除失败,找不到该评论");
@@ -128,32 +126,27 @@ public class CommentController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/comment/review", method = RequestMethod.POST)
-    public Response review(@RequestBody CommonDTO dto) {
+    public Response review(@RequestBody BaseDTO dto) {
         Response response = new Response();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("comment", CommentVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
+        List<CommentDTO> dtos = (List<CommentDTO>) (Object) getDTO("comment", CommentDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-
-        CommentVO commentVO = (CommentVO) voMap.get("comment").get(0);
+        CommentDTO commentDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
-        Set<ConstraintViolation<CommentVO>> violations = validator.validate(commentVO, CommentVO.ReviewGroup.class);
+        Set<ConstraintViolation<CommentDTO>> violations = validator.validate(commentDTO, CommentDTO.ReviewGroup.class);
         Map<String, String> map = ValidationUtil.errorMap(violations);
 
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
-        Comment comment = commentVO.toComment();
+        CommentPO comment = (CommentPO) TransferUtil.dto2po(CommentPO.class, commentDTO);
 
         if (commentService.update(comment) != null) {
-            response.setStatus(StatusConst.SUCCESS);
+            response.setStatus(Response.SUCCESS);
             if (comment.getReview() == 1) {
                 response.setMessage("审核成功");
             } else {

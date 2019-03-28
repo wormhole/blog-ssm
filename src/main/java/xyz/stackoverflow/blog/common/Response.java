@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.util.web;
+package xyz.stackoverflow.blog.common;
 
 import java.io.Serializable;
 
@@ -9,11 +9,15 @@ import java.io.Serializable;
  */
 public class Response implements Serializable {
 
+    public final static Integer SUCCESS = 0;
+    public final static Integer FAILURE = 1;
+    public final static Integer SERVER_ERROR = -1;
+
     private Integer status;
     private String message;
     private Object data;
 
-    public Response(){
+    public Response() {
 
     }
 

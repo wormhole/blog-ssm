@@ -59,7 +59,7 @@ public class BackupController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment;filename=" + filename);
         HttpStatus status = HttpStatus.OK;
-        ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, status);
+        ResponseEntity<byte[]> entity = new ResponseEntity<>(body, headers, status);
         return entity;
     }
 }

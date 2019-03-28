@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.vo.ArticleVO;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.dto.ArticleDTO;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.db.Page;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -84,10 +84,10 @@ public class IndexPageController {
         page1.setSearchMap(new HashMap<String, Object>() {{
             put("visible", 1);
         }});
-        List<Article> articleList = articleService.selectByPage(page1);
-        List<ArticleVO> articleVOList = new ArrayList<>();
-        for (Article article : articleList) {
-            ArticleVO vo = new ArticleVO();
+        List<ArticlePO> articleList = articleService.selectByPage(page1);
+        List<ArticleDTO> articleVOList = new ArrayList<>();
+        for (ArticlePO article : articleList) {
+            ArticleDTO vo = new ArticleDTO();
             vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
             vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
             vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());

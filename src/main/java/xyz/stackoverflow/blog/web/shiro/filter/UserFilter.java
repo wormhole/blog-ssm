@@ -2,7 +2,7 @@ package xyz.stackoverflow.blog.web.shiro.filter;
 
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.stackoverflow.blog.pojo.entity.User;
+import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.UserService;
 
 import javax.servlet.ServletRequest;
@@ -26,7 +26,7 @@ public class UserFilter extends org.apache.shiro.web.filter.authc.UserFilter {
         Subject subject = this.getSubject(request, response);
         if (subject.getPrincipal() != null) {
             String email = (String) subject.getPrincipal();
-            List<User> list = userService.selectByCondition(new HashMap<String, Object>() {{
+            List<UserPO> list = userService.selectByCondition(new HashMap<String, Object>() {{
                 put("email", email);
             }});
             if (list.size() != 0) {

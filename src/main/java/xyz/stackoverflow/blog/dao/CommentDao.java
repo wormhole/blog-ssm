@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Comment;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.CommentPO;
 
 import java.util.List;
 import java.util.Map;
@@ -15,22 +15,22 @@ import java.util.Map;
 @Repository
 public interface CommentDao {
 
-    List<Comment> selectByPage(Page page);
+    List<CommentPO> selectByPage(Page page);
 
-    List<Comment> selectByCondition(Map<String, Object> searchMap);
+    List<CommentPO> selectByCondition(Map<String, Object> searchMap);
 
-    Comment selectById(String id);
+    CommentPO selectById(String id);
 
-    int insert(Comment comment);
+    int insert(CommentPO comment);
 
-    int batchInsert(List<Comment> list);
+    int batchInsert(List<CommentPO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Comment comment);
+    int update(CommentPO comment);
 
-    int batchUpdate(List<Comment> list);
+    int batchUpdate(List<CommentPO> list);
 
 }

@@ -1,14 +1,13 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class ArticleVO implements SuperVO {
+public class ArticleDTO implements Serializable {
 
     @NotNull(message = "缺少主键字段", groups = {UpdateGroup.class, DeleteGroup.class, VisibleGroup.class})
     private String id;
@@ -76,31 +75,6 @@ public class ArticleVO implements SuperVO {
     }
 
     public interface LikeGroup {
-    }
-
-    public ArticleVO() {
-
-    }
-
-    public ArticleVO(String id, String userId, String title, String articleMd, String articleHtml, String categoryId, Date createDate, Date modifyDate, Integer hits, Integer likes, String url, Integer visible, String articleCode, String author, String categoryName, String preview, Integer commentCount, String visibleTag) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.articleMd = articleMd;
-        this.articleHtml = articleHtml;
-        this.categoryId = categoryId;
-        this.createDate = createDate;
-        this.modifyDate = modifyDate;
-        this.hits = hits;
-        this.likes = likes;
-        this.url = url;
-        this.visible = visible;
-        this.articleCode = articleCode;
-        this.author = author;
-        this.categoryName = categoryName;
-        this.preview = preview;
-        this.commentCount = commentCount;
-        this.visibleTag = visibleTag;
     }
 
     public String getId() {
@@ -247,27 +221,5 @@ public class ArticleVO implements SuperVO {
 
     public void setVisibleTag(String visibleTag) {
         this.visibleTag = visibleTag;
-    }
-
-    /**
-     * 转换成实体类
-     *
-     * @return 转换后的实体类
-     */
-    public Article toArticle() {
-        Article article = new Article();
-        article.setId(id);
-        article.setTitle(title);
-        article.setArticleHtml(articleHtml);
-        article.setArticleMd(articleMd);
-        article.setCreateDate(createDate);
-        article.setModifyDate(modifyDate);
-        article.setUrl(url);
-        article.setCategoryId(categoryId);
-        article.setUserId(userId);
-        article.setHits(hits);
-        article.setLikes(likes);
-        article.setVisible(visible);
-        return article;
     }
 }

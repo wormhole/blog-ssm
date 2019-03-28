@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.SettingPO;
 
 import java.util.List;
 import java.util.Map;
@@ -15,22 +15,22 @@ import java.util.Map;
 @Repository
 public interface SettingDao {
 
-    List<Setting> selectByPage(Page page);
+    List<SettingPO> selectByPage(Page page);
 
-    List<Setting> selectByCondition(Map<String, Object> searchMap);
+    List<SettingPO> selectByCondition(Map<String, Object> searchMap);
 
-    Setting selectById(String id);
+    SettingPO selectById(String id);
 
-    int insert(Setting setting);
+    int insert(SettingPO setting);
 
-    int batchInsert(List<Setting> list);
+    int batchInsert(List<SettingPO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Setting setting);
+    int update(SettingPO setting);
 
-    int batchUpdate(List<Setting> list);
+    int batchUpdate(List<SettingPO> list);
 
 }

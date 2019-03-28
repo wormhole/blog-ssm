@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class Comment implements Serializable {
+public class CommentPO implements Serializable {
 
     private String id;
     private String nickname;
@@ -20,11 +20,11 @@ public class Comment implements Serializable {
     private String replyTo;
     private Integer review;
 
-    public Comment(){
+    public CommentPO() {
 
     }
 
-    public Comment(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review) {
+    public CommentPO(String id, String nickname, String email, String website, String content, String articleId, Date date, String replyTo, Integer review) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;

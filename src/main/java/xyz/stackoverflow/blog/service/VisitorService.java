@@ -1,7 +1,7 @@
 package xyz.stackoverflow.blog.service;
 
-import xyz.stackoverflow.blog.pojo.entity.Visitor;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.VisitorPO;
 
 import java.util.Date;
 import java.util.List;
@@ -14,23 +14,23 @@ import java.util.Map;
  */
 public interface VisitorService {
 
-    List<Visitor> selectByPage(Page page);
+    List<VisitorPO> selectByPage(Page page);
 
-    List<Visitor> selectByCondition(Map<String, Object> searchMap);
+    List<VisitorPO> selectByCondition(Map<String, Object> searchMap);
 
-    Visitor selectById(String id);
+    VisitorPO selectById(String id);
 
-    Visitor insert(Visitor visitor);
+    VisitorPO insert(VisitorPO visitor);
 
-    int batchInsert(List<Visitor> list);
+    int batchInsert(List<VisitorPO> list);
 
-    Visitor deleteById(String id);
+    VisitorPO deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    Visitor update(Visitor visitor);
+    VisitorPO update(VisitorPO visitor);
 
-    int batchUpdate(List<Visitor> list);
+    int batchUpdate(List<VisitorPO> list);
 
-    List<Visitor> selectByDate(Date startDate, Date endDate);
+    List<VisitorPO> selectByDate(Date startDate, Date endDate);
 }

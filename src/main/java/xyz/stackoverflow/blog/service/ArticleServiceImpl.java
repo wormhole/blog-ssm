@@ -6,12 +6,12 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.stackoverflow.blog.common.Page;
 import xyz.stackoverflow.blog.dao.ArticleDao;
 import xyz.stackoverflow.blog.dao.CommentDao;
-import xyz.stackoverflow.blog.pojo.entity.Article;
-import xyz.stackoverflow.blog.pojo.entity.Comment;
+import xyz.stackoverflow.blog.pojo.po.ArticlePO;
+import xyz.stackoverflow.blog.pojo.po.CommentPO;
 import xyz.stackoverflow.blog.util.cache.RedisCacheUtil;
-import xyz.stackoverflow.blog.util.db.Page;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,34 +35,34 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> selectByPage(Page page) {
+    public List<ArticlePO> selectByPage(Page page) {
         return articleDao.selectByPage(page);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Article> selectByCondition(Map<String, Object> searchMap) {
+    public List<ArticlePO> selectByCondition(Map<String, Object> searchMap) {
         return articleDao.selectByCondition(searchMap);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @Cacheable(value = "article", key = "'article:'+#id", unless = "#result == null")
-    public Article selectById(String id) {
+    public ArticlePO selectById(String id) {
         return articleDao.selectById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @Cacheable(value = "article", key = "'article:'+#url", unless = "#result == null")
-    public Article selectByUrl(String url) {
+    public ArticlePO selectByUrl(String url) {
         return articleDao.selectByUrl(url);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
-    public Article insert(Article article) {
+    public ArticlePO insert(ArticlePO article) {
         articleDao.insert(article);
         redisCacheUtil.set("article:" + article.getId(), article);
         return articleDao.selectById(article.getId());
@@ -70,8 +70,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int batchInsert(List<Article> list) {
-        for (Article article : list) {
+    public int batchInsert(List<ArticlePO> list) {
+        for (ArticlePO article : list) {
             redisCacheUtil.set("article:" + article.getId(), article);
             redisCacheUtil.set("article:" + article.getUrl(), article);
         }
@@ -81,16 +81,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "article", key = "'article:'+#result.id", condition = "#result!=null", beforeInvocation = false)
-    public Article deleteById(String id) {
-        Article article = articleDao.selectById(id);
+    public ArticlePO deleteById(String id) {
+        ArticlePO article = articleDao.selectById(id);
 
-        List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
+        List<CommentPO> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
             put("articleId", id);
         }});
 
         if (commentList.size() != 0) {
             List<String> ids = new ArrayList<String>();
-            for (Comment comment : commentList) {
+            for (CommentPO comment : commentList) {
                 ids.add(comment.getId());
             }
             commentDao.batchDeleteById(ids);
@@ -105,19 +105,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public int batchDeleteById(List<String> list) {
         for (String id : list) {
-            List<Comment> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
+            List<CommentPO> commentList = commentDao.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", id);
             }});
 
             if (commentList.size() != 0) {
                 List<String> ids = new ArrayList<String>();
-                for (Comment comment : commentList) {
+                for (CommentPO comment : commentList) {
                     ids.add(comment.getId());
                 }
                 commentDao.batchDeleteById(ids);
             }
 
-            Article article = articleDao.selectById(id);
+            ArticlePO article = articleDao.selectById(id);
             redisCacheUtil.del("article:" + article.getUrl());
             redisCacheUtil.del("article:" + id);
         }
@@ -127,7 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CachePut(value = "article", key = "'article:'+#result.url", condition = "#result!=null")
-    public Article update(Article article) {
+    public ArticlePO update(ArticlePO article) {
         articleDao.update(article);
         redisCacheUtil.set("article:" + article.getId(), article);
         return articleDao.selectById(article.getId());
@@ -135,8 +135,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int batchUpdate(List<Article> list) {
-        for (Article article : list) {
+    public int batchUpdate(List<ArticlePO> list) {
+        for (ArticlePO article : list) {
             redisCacheUtil.set("article:" + article.getId(), article);
             redisCacheUtil.set("article:" + article.getUrl(), article);
         }

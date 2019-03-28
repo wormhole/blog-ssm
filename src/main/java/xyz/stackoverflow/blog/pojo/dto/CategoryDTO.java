@@ -1,12 +1,11 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
-import xyz.stackoverflow.blog.pojo.entity.Category;
-import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class CategoryVO implements SuperVO {
+public class CategoryDTO implements Serializable {
 
     @NotNull(message = "缺少主键字段", groups = {DeleteGroup.class, UpdateGroup.class})
     private String id;
@@ -43,20 +42,6 @@ public class CategoryVO implements SuperVO {
     }
 
     public interface DeleteGroup {
-    }
-
-    public CategoryVO() {
-
-    }
-
-    public CategoryVO(String id, String name, String code, Integer deleteAble, Date date, Integer articleCount, String deleteTag) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.deleteAble = deleteAble;
-        this.date = date;
-        this.articleCount = articleCount;
-        this.deleteTag = deleteTag;
     }
 
     public String getId() {
@@ -114,20 +99,5 @@ public class CategoryVO implements SuperVO {
 
     public void setDeleteTag(String deleteTag) {
         this.deleteTag = deleteTag;
-    }
-
-    /**
-     * 转换成实体类
-     *
-     * @return 转换后的实体类
-     */
-    public Category toCategory() {
-        Category category = new Category();
-        category.setId(id);
-        category.setCode(code);
-        category.setName(name);
-        category.setDeleteAble(deleteAble);
-        category.setDate(date);
-        return category;
     }
 }

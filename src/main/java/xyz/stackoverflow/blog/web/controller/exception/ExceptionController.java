@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.exception.ServerException;
-import xyz.stackoverflow.blog.util.web.Response;
-import xyz.stackoverflow.blog.util.web.StatusConst;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +34,7 @@ public class ExceptionController {
     public Response handleBusinessException(BusinessException e, HttpServletRequest request) {
         if (isAjaxRequest(request)) {
             Response response = new Response();
-            response.setStatus(StatusConst.FAILURE);
+            response.setStatus(Response.FAILURE);
             response.setMessage(e.getMessage());
             response.setData(e.getData());
             return response;
@@ -92,7 +91,7 @@ public class ExceptionController {
     public Response handleException(Exception e, HttpServletRequest request) {
         if (isAjaxRequest(request)) {
             Response response = new Response();
-            response.setStatus(StatusConst.SERVER_ERROR);
+            response.setStatus(Response.SERVER_ERROR);
             response.setMessage(e.getMessage());
             response.setData(e.getStackTrace());
             return response;

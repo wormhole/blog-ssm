@@ -73,7 +73,8 @@ public class ImageManagePageController {
      * @param path
      */
     public void addUrlToMap(Map<String, List<String>> imageMap, String path) {
-        String[] paths = path.split("/");
+        String str = File.separator.equals("/") ? "/" : "\\\\";
+        String[] paths = path.split(str);
         String date = paths[paths.length - 4] + "/" + paths[paths.length - 3] + "/" + paths[paths.length - 2];
         String url = "/" + paths[paths.length - 5] + "/" + date + "/" + paths[paths.length - 1];
         if (imageMap.get(date) == null) {

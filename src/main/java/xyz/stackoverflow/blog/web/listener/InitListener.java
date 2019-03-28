@@ -3,7 +3,7 @@ package xyz.stackoverflow.blog.web.listener;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.web.context.ContextLoaderListener;
-import xyz.stackoverflow.blog.pojo.entity.Menu;
+import xyz.stackoverflow.blog.pojo.po.MenuPO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -58,11 +58,11 @@ public class InitListener extends ContextLoaderListener {
                 map.put(rs.getString("name"), rs.getObject("value"));
             }
 
-            List<Menu> list = new ArrayList<>();
+            List<MenuPO> list = new ArrayList<>();
             ps = conn.prepareStatement(sql2);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Menu menu = new Menu();
+                MenuPO menu = new MenuPO();
                 menu.setId(rs.getString("id"));
                 menu.setName(rs.getString("name"));
                 menu.setUrl(rs.getString("url"));

@@ -1,8 +1,8 @@
 package xyz.stackoverflow.blog.dao;
 
 import org.springframework.stereotype.Repository;
-import xyz.stackoverflow.blog.pojo.entity.Visit;
-import xyz.stackoverflow.blog.util.db.Page;
+import xyz.stackoverflow.blog.common.Page;
+import xyz.stackoverflow.blog.pojo.po.VisitPO;
 
 import java.util.Date;
 import java.util.List;
@@ -16,24 +16,24 @@ import java.util.Map;
 @Repository
 public interface VisitDao {
 
-    List<Visit> selectByPage(Page page);
+    List<VisitPO> selectByPage(Page page);
 
-    List<Visit> selectByCondition(Map<String, Object> searchMap);
+    List<VisitPO> selectByCondition(Map<String, Object> searchMap);
 
-    Visit selectById(String id);
+    VisitPO selectById(String id);
 
-    int insert(Visit visit);
+    int insert(VisitPO visit);
 
-    int batchInsert(List<Visit> list);
+    int batchInsert(List<VisitPO> list);
 
     int deleteById(String id);
 
     int batchDeleteById(List<String> list);
 
-    int update(Visit visit);
+    int update(VisitPO visit);
 
-    int batchUpdate(List<Visit> list);
+    int batchUpdate(List<VisitPO> list);
 
-    List<Visit> selectByDate(Date startDate, Date endDate);
+    List<VisitPO> selectByDate(Date startDate, Date endDate);
 
 }

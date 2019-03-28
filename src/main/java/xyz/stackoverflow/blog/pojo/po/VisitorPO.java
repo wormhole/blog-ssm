@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,18 +8,18 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class Visitor implements Serializable {
+public class VisitorPO implements Serializable {
 
     private String id;
     private String ip;
     private String agent;
     private Date date;
 
-    public Visitor(){
+    public VisitorPO() {
 
     }
 
-    public Visitor(String id, String ip, String agent, Date date) {
+    public VisitorPO(String id, String ip, String agent, Date date) {
         this.id = id;
         this.ip = ip;
         this.agent = agent;

@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @author 凉衫薄
  */
-public class User implements Serializable {
+public class UserPO implements Serializable {
 
     private String id;
     private String email;
@@ -16,11 +16,11 @@ public class User implements Serializable {
     private String salt;
     private Integer deleteAble;
 
-    public User(){
+    public UserPO() {
 
     }
 
-    public User(String id, String email, String password, String nickname, String salt, Integer deleteAble) {
+    public UserPO(String id, String email, String password, String nickname, String salt, Integer deleteAble) {
         this.id = id;
         this.email = email;
         this.password = password;

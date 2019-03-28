@@ -1,12 +1,11 @@
-package xyz.stackoverflow.blog.pojo.vo;
+package xyz.stackoverflow.blog.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
-import xyz.stackoverflow.blog.pojo.entity.Menu;
-import xyz.stackoverflow.blog.util.web.SuperVO;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class MenuVO implements SuperVO {
+public class MenuDTO implements Serializable {
 
     @NotNull(message = "缺少主键字段", groups = {DeleteGroup.class, UpdateGroup.class})
     private String id;
@@ -41,19 +40,6 @@ public class MenuVO implements SuperVO {
     }
 
     public interface UpdateGroup {
-    }
-
-    public MenuVO() {
-
-    }
-
-    public MenuVO(String id, String name, String url, Integer deleteAble, Date date, String deleteTag) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.deleteAble = deleteAble;
-        this.date = date;
-        this.deleteTag = deleteTag;
     }
 
     public String getId() {
@@ -103,20 +89,5 @@ public class MenuVO implements SuperVO {
 
     public void setDeleteTag(String deleteTag) {
         this.deleteTag = deleteTag;
-    }
-
-    /**
-     * VO类转实体类
-     *
-     * @return
-     */
-    public Menu toMenu() {
-        Menu menu = new Menu();
-        menu.setId(id);
-        menu.setName(name);
-        menu.setUrl(url);
-        menu.setDeleteAble(deleteAble);
-        menu.setDate(date);
-        return menu;
     }
 }

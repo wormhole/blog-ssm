@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.util.web.BaseController;
+import xyz.stackoverflow.blog.common.BaseController;
 
 /**
  * 后台管理系统文章管理页面Controller

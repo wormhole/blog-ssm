@@ -1,4 +1,4 @@
-package xyz.stackoverflow.blog.util.web;
+package xyz.stackoverflow.blog.common;
 
 import xyz.stackoverflow.blog.exception.ServerException;
 
@@ -14,15 +14,15 @@ import java.util.*;
 public class BaseController {
 
     /**
-     * DTO转VO
+     * 获取dto
      *
      * @param clazzMap
      * @param dto
      * @return
      */
-    protected Map<String, List<SuperVO>> dto2vo(Map<String, Class> clazzMap, CommonDTO dto) {
+    protected Map<String, List<Object>> getDTO(Map<String, Class> clazzMap, BaseDTO dto) {
 
-        Map<String, List<SuperVO>> map = new HashMap<>();
+        Map<String, List<Object>> map = new HashMap<>();
         Set<String> key = clazzMap.keySet();
         Map<String, Map<String, Object>[]> data = dto.getData();
         Iterator<String> it = key.iterator();
@@ -32,26 +32,42 @@ public class BaseController {
 
             if (data.containsKey(name)) {
                 Field[] fields = clazzMap.get(name).getDeclaredFields();
-                List<SuperVO> vos = new ArrayList<>();
+                List<Object> objects = new ArrayList<>();
 
                 for (int i = 0; i < data.get(name).length; i++) {
                     try {
-                        SuperVO vo = (SuperVO) Class.forName(clazzMap.get(name).getName()).newInstance();
+                        Object object = Class.forName(clazzMap.get(name).getName()).newInstance();
                         for (Field field : fields) {
                             String attr = field.getName();
                             String upName = attr.substring(0, 1).toUpperCase() + attr.substring(1);
                             Method method = clazzMap.get(name).getMethod("set" + upName, field.getType());
-                            method.invoke(vo, data.get(name)[i].get(attr));
+                            method.invoke(object, data.get(name)[i].get(attr));
                         }
-                        vos.add(vo);
+                        objects.add(object);
                     } catch (Exception e) {
-                        throw new ServerException("dto2vo转换错误");
+                        throw new ServerException("dto转换错误");
                     }
                 }
-                map.put(name, vos);
+                map.put(name, objects);
             }
         }
 
         return map;
+    }
+
+    /**
+     * 获取dto
+     *
+     * @param name
+     * @param clazz
+     * @param dto
+     * @return
+     */
+    protected List<Object> getDTO(String name, Class clazz, BaseDTO dto) {
+        Map<String, Class> classMap = new HashMap<String, Class>() {{
+            put(name, clazz);
+        }};
+        Map<String, List<Object>> dtoMap = getDTO(classMap, dto);
+        return dtoMap.get(name);
     }
 }

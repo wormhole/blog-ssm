@@ -17,6 +17,8 @@
 
     <mvc:default-servlet-handler/>
 
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
     <context:component-scan base-package="xyz.stackoverflow.blog.web.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>

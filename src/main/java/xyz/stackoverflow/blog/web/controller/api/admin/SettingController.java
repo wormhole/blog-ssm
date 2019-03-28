@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import xyz.stackoverflow.blog.common.BaseController;
+import xyz.stackoverflow.blog.common.BaseDTO;
+import xyz.stackoverflow.blog.common.Response;
 import xyz.stackoverflow.blog.exception.BusinessException;
-import xyz.stackoverflow.blog.pojo.entity.Setting;
-import xyz.stackoverflow.blog.pojo.vo.SettingVO;
+import xyz.stackoverflow.blog.pojo.dto.SettingDTO;
+import xyz.stackoverflow.blog.pojo.po.SettingPO;
 import xyz.stackoverflow.blog.service.SettingService;
+import xyz.stackoverflow.blog.util.CollectionUtil;
 import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.MapUtil;
-import xyz.stackoverflow.blog.util.web.*;
+import xyz.stackoverflow.blog.util.TransferUtil;
 import xyz.stackoverflow.blog.validator.SettingValidator;
 
 import javax.servlet.ServletContext;
@@ -43,41 +46,35 @@ public class SettingController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/setting/update", method = RequestMethod.POST)
-    public Response update(@RequestBody CommonDTO dto, HttpServletRequest request) {
+    public Response update(@RequestBody BaseDTO dto, HttpServletRequest request) {
         Response response = new Response();
         ServletContext application = request.getServletContext();
 
-        Map<String, Class> classMap = new HashMap<String, Class>() {{
-            put("setting", SettingVO.class);
-        }};
-        Map<String, List<SuperVO>> voMap = dto2vo(classMap, dto);
-
-        if (MapUtil.isEmpty(voMap)) {
-            throw new BusinessException("未找到请求数据");
+        List<SettingDTO> dtos = (List<SettingDTO>) (Object) getDTO("setting", SettingDTO.class, dto);
+        if (CollectionUtil.isEmpty(dtos)) {
+            throw new BusinessException("找不到请求数据");
         }
+        SettingDTO[] dtos1 = dtos.toArray(new SettingDTO[0]);
 
-        List<SuperVO> voList = voMap.get("setting");
-        SettingVO[] vos = voList.toArray(new SettingVO[0]);
+        Map<String, String> map = settingValidator.validate(dtos1);
 
-        Map<String, String> map = settingValidator.validate(vos);
-
-        if (!MapUtil.isEmpty(map)) {
+        if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        for (SettingVO settingVO : vos) {
-            Setting setting = settingVO.toSetting();
+        for (SettingDTO settingDTO : dtos1) {
+            SettingPO setting = (SettingPO) TransferUtil.dto2po(SettingPO.class, settingDTO);
             settingService.update(setting);
         }
 
-        List<Setting> settingList = settingService.selectByCondition(new HashMap<String, Object>());
+        List<SettingPO> settingList = settingService.selectByCondition(new HashMap<>());
         Map<String, Object> settingMap = new HashMap<>();
-        for (Setting setting : settingList) {
+        for (SettingPO setting : settingList) {
             settingMap.put(setting.getName(), setting.getValue());
         }
         application.setAttribute("setting", settingMap);
 
-        response.setStatus(StatusConst.SUCCESS);
+        response.setStatus(Response.SUCCESS);
         response.setMessage("配置更改成功");
 
         return response;
@@ -110,7 +107,7 @@ public class SettingController extends BaseController {
         try {
             file.transferTo(destFile);
             String url = uploadDir + fileName;
-            Setting setting = new Setting();
+            SettingPO setting = new SettingPO();
             setting.setName("head");
             setting.setValue(url);
             settingService.update(setting);
@@ -119,7 +116,7 @@ public class SettingController extends BaseController {
             settingMap.replace("head", url);
             application.setAttribute("setting", settingMap);
 
-            response.setStatus(StatusConst.SUCCESS);
+            response.setStatus(Response.SUCCESS);
             response.setMessage("修改成功");
             response.setData(setting);
         } catch (IOException e) {

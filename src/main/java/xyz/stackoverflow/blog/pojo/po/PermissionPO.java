@@ -1,26 +1,26 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.po;
 
 import java.io.Serializable;
 
 /**
- * 博客配置信息实体类
+ * 权限实体类
  *
  * @author 凉衫薄
  */
-public class Setting implements Serializable {
+public class PermissionPO implements Serializable {
 
     private String id;
     private String name;
-    private String value;
+    private String code;
 
-    public Setting(){
+    public PermissionPO() {
 
     }
 
-    public Setting(String id, String name, String value) {
+    public PermissionPO(String id, String name, String code) {
         this.id = id;
         this.name = name;
-        this.value = value;
+        this.code = code;
     }
 
     public String getId() {
@@ -39,11 +39,11 @@ public class Setting implements Serializable {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getCode() {
+        return code;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

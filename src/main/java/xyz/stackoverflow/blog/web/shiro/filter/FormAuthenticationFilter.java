@@ -5,7 +5,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import xyz.stackoverflow.blog.exception.VCodeException;
-import xyz.stackoverflow.blog.pojo.entity.User;
+import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.UserService;
 
 import javax.servlet.ServletRequest;
@@ -60,7 +60,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         String email = (String) subject.getPrincipal();
-        User user = userService.selectByCondition(new HashMap<String, Object>() {{
+        UserPO user = userService.selectByCondition(new HashMap<String, Object>() {{
             put("email", email);
         }}).get(0);
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);

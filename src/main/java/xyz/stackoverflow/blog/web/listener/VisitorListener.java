@@ -3,7 +3,7 @@ package xyz.stackoverflow.blog.web.listener;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.stackoverflow.blog.pojo.entity.Visitor;
+import xyz.stackoverflow.blog.pojo.po.VisitorPO;
 import xyz.stackoverflow.blog.service.VisitorService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +24,9 @@ public class VisitorListener implements SessionListener {
     @Override
     public void onStart(Session session) {
         String ip = request.getRemoteAddr();
-        String agent = request.getHeader("User-Agent");
+        String agent = request.getHeader("UserPO-Agent");
         Date date = new Date();
-        Visitor visitor = new Visitor(null, ip, agent, date);
+        VisitorPO visitor = new VisitorPO(null, ip, agent, date);
         visitorService.insert(visitor);
     }
 

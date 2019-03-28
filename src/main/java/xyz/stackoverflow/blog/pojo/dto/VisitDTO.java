@@ -1,14 +1,16 @@
-package xyz.stackoverflow.blog.pojo.entity;
+package xyz.stackoverflow.blog.pojo.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 访问量实体类
+ * 访问量VO类
  *
  * @author 凉衫薄
  */
-public class Visit implements Serializable {
+public class VisitDTO implements Serializable {
 
     private String id;
     private String url;
@@ -17,20 +19,6 @@ public class Visit implements Serializable {
     private String agent;
     private String referer;
     private Date date;
-
-    public Visit(){
-
-    }
-
-    public Visit(String id, String url, Integer status, String ip, String agent, String referer, Date date) {
-        this.id = id;
-        this.url = url;
-        this.status = status;
-        this.ip = ip;
-        this.agent = agent;
-        this.referer = referer;
-        this.date = date;
-    }
 
     public String getId() {
         return id;
@@ -80,6 +68,7 @@ public class Visit implements Serializable {
         this.referer = referer;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getDate() {
         return date;
     }

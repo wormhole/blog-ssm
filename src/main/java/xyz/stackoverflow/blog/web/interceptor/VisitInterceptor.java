@@ -3,7 +3,7 @@ package xyz.stackoverflow.blog.web.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import xyz.stackoverflow.blog.pojo.entity.Visit;
+import xyz.stackoverflow.blog.pojo.po.VisitPO;
 import xyz.stackoverflow.blog.service.VisitService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,11 +47,11 @@ public class VisitInterceptor implements HandlerInterceptor {
         String param = request.getQueryString();
         Integer status = response.getStatus();
         String ip = request.getRemoteAddr();
-        String agent = request.getHeader("User-Agent");
+        String agent = request.getHeader("UserPO-Agent");
         String referer = request.getHeader("Referer");
         Date date = new Date();
         String url = param == null ? uri : uri + "?" + param;
-        Visit visit = new Visit(null, url, status, ip, agent, referer, date);
+        VisitPO visit = new VisitPO(null, url, status, ip, agent, referer, date);
         visitService.insert(visit);
     }
 }
