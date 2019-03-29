@@ -86,22 +86,22 @@ public class VisitDataController {
         List<VisitPO> list = visitService.selectByPage(page1);
         int count = visitService.selectByCondition(new HashMap<>()).size();
 
-        List<VisitDTO> voList = new ArrayList<>();
+        List<VisitDTO> dtos = new ArrayList<>();
 
         for (VisitPO visit : list) {
-            VisitDTO vo = new VisitDTO();
-            vo.setIp(visit.getIp());
-            vo.setUrl(visit.getUrl());
-            vo.setStatus(visit.getStatus());
-            vo.setAgent(visit.getAgent());
-            vo.setReferer(visit.getReferer());
-            vo.setDate(visit.getDate());
-            voList.add(vo);
+            VisitDTO dto = new VisitDTO();
+            dto.setIp(visit.getIp());
+            dto.setUrl(visit.getUrl());
+            dto.setStatus(visit.getStatus());
+            dto.setAgent(visit.getAgent());
+            dto.setReferer(visit.getReferer());
+            dto.setDate(visit.getDate());
+            dtos.add(dto);
         }
 
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
-        map.put("items", voList);
+        map.put("items", dtos);
         response.setStatus(Response.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);
