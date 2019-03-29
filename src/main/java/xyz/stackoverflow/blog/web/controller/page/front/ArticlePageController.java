@@ -17,10 +17,12 @@ import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前端文章页面跳转控制器
@@ -38,6 +40,8 @@ public class ArticlePageController {
     private CategoryService categoryService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 跳转到文章单页 /article/{year}/{month}/{day}/{articleCode}
@@ -59,17 +63,17 @@ public class ArticlePageController {
             article.setHits(article.getHits() + 1);
             articleService.update(article);
 
-            ArticleDTO articleVO = new ArticleDTO();
-            articleVO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            articleVO.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
-            articleVO.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
-            articleVO.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+            ArticleDTO articleDTO = new ArticleDTO();
+            articleDTO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+            articleDTO.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
+            articleDTO.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
+            articleDTO.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
             }}).size());
-            articleVO.setHits(article.getHits());
-            articleVO.setLikes(article.getLikes());
-            articleVO.setCreateDate(article.getCreateDate());
-            articleVO.setArticleMd(article.getArticleMd());
+            articleDTO.setHits(article.getHits());
+            articleDTO.setLikes(article.getLikes());
+            articleDTO.setCreateDate(article.getCreateDate());
+            articleDTO.setArticleMd(article.getArticleMd());
 
             List<CommentPO> commentList = commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
@@ -91,8 +95,9 @@ public class ArticlePageController {
                 voList.add(commentDTO);
             }
 
-            mv.addObject("article", articleVO);
+            mv.addObject("article", articleDTO);
             mv.addObject("commentList", voList);
+            mv.addObject("title", ((Map<String, Object>) request.getServletContext().getAttribute("setting")).get("title") + " - " + articleDTO.getTitle());
             mv.setViewName("/article");
         } else {
             mv.setStatus(HttpStatus.NOT_FOUND);
