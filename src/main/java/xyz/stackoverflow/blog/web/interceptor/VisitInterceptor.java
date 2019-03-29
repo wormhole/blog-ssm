@@ -47,7 +47,7 @@ public class VisitInterceptor implements HandlerInterceptor {
         String param = request.getQueryString();
         Integer status = response.getStatus();
         String ip = request.getRemoteAddr();
-        String agent = request.getHeader("UserPO-Agent");
+        String agent = request.getHeader("User-Agent");
         String referer = request.getHeader("Referer");
         Date date = new Date();
         String url = param == null ? uri : uri + "?" + param;
