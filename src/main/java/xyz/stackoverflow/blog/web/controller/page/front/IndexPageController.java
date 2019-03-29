@@ -84,25 +84,25 @@ public class IndexPageController {
         page1.setSearchMap(new HashMap<String, Object>() {{
             put("visible", 1);
         }});
-        List<ArticlePO> articleList = articleService.selectByPage(page1);
-        List<ArticleDTO> articleVOList = new ArrayList<>();
-        for (ArticlePO article : articleList) {
-            ArticleDTO vo = new ArticleDTO();
-            vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-            vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
-            vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
-            vo.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+        List<ArticlePO> articles = articleService.selectByPage(page1);
+        List<ArticleDTO> articleDTOS = new ArrayList<>();
+        for (ArticlePO article : articles) {
+            ArticleDTO dto = new ArticleDTO();
+            dto.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+            dto.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
+            dto.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
+            dto.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
             }}).size());
-            vo.setHits(article.getHits());
-            vo.setLikes(article.getLikes());
-            vo.setUrl(article.getUrl());
-            vo.setCreateDate(article.getCreateDate());
-            vo.setPreview(HtmlUtils.htmlEscape(Jsoup.parse(article.getArticleHtml()).text()));
-            articleVOList.add(vo);
+            dto.setHits(article.getHits());
+            dto.setLikes(article.getLikes());
+            dto.setUrl(article.getUrl());
+            dto.setCreateDate(article.getCreateDate());
+            dto.setPreview(HtmlUtils.htmlEscape(Jsoup.parse(article.getArticleHtml()).text()));
+            articleDTOS.add(dto);
         }
 
-        mv.addObject("articleList", articleVOList);
+        mv.addObject("articleList", articleDTOS);
         mv.addObject("start", start);
         mv.addObject("end", end);
         mv.addObject("page", p);

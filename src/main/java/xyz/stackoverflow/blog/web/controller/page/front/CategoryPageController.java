@@ -57,11 +57,11 @@ public class CategoryPageController {
         Map<String, Object> settingMap = (Map<String, Object>) application.getAttribute("setting");
         int limit = Integer.valueOf((String) settingMap.get("limit"));
 
-        List<CategoryPO> categoryList = categoryService.selectByCondition(new HashMap<String, Object>() {{
+        List<CategoryPO> categorys = categoryService.selectByCondition(new HashMap<String, Object>() {{
             put("code", categoryCode);
         }});
-        if (categoryList.size() != 0) {
-            CategoryPO category = categoryList.get(0);
+        if (categorys.size() != 0) {
+            CategoryPO category = categorys.get(0);
             int count = articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
@@ -94,25 +94,25 @@ public class CategoryPageController {
                 put("visible", 1);
                 put("categoryId", category.getId());
             }});
-            List<ArticlePO> articleList = articleService.selectByPage(page1);
-            List<ArticleDTO> articleVOList = new ArrayList<>();
-            for (ArticlePO article : articleList) {
-                ArticleDTO vo = new ArticleDTO();
-                vo.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-                vo.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
-                vo.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
-                vo.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
+            List<ArticlePO> articles = articleService.selectByPage(page1);
+            List<ArticleDTO> articleDTOS = new ArrayList<>();
+            for (ArticlePO article : articles) {
+                ArticleDTO dto = new ArticleDTO();
+                dto.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+                dto.setAuthor(HtmlUtils.htmlEscape(userService.selectById(article.getUserId()).getNickname()));
+                dto.setCategoryName(categoryService.selectById(article.getCategoryId()).getName());
+                dto.setCommentCount(commentService.selectByCondition(new HashMap<String, Object>() {{
                     put("articleId", article.getId());
                 }}).size());
-                vo.setHits(article.getHits());
-                vo.setLikes(article.getLikes());
-                vo.setPreview(Jsoup.parse(article.getArticleHtml()).text());
-                vo.setUrl(article.getUrl());
-                vo.setCreateDate(article.getCreateDate());
-                articleVOList.add(vo);
+                dto.setHits(article.getHits());
+                dto.setLikes(article.getLikes());
+                dto.setPreview(Jsoup.parse(article.getArticleHtml()).text());
+                dto.setUrl(article.getUrl());
+                dto.setCreateDate(article.getCreateDate());
+                articleDTOS.add(dto);
             }
 
-            mv.addObject("articleList", articleVOList);
+            mv.addObject("articleList", articleDTOS);
             mv.addObject("start", start);
             mv.addObject("end", end);
             mv.addObject("page", p);
@@ -137,20 +137,20 @@ public class CategoryPageController {
     public ModelAndView category() {
         ModelAndView mv = new ModelAndView();
 
-        List<CategoryPO> categoryList = categoryService.selectByCondition(new HashMap<String, Object>());
-        List<CategoryDTO> categoryDTOList = new ArrayList<>();
-        for (CategoryPO category : categoryList) {
-            CategoryDTO vo = new CategoryDTO();
-            vo.setName(category.getName());
-            vo.setCode(category.getCode());
-            vo.setArticleCount(articleService.selectByCondition(new HashMap<String, Object>() {{
+        List<CategoryPO> categorys = categoryService.selectByCondition(new HashMap<>());
+        List<CategoryDTO> categoryDTOS = new ArrayList<>();
+        for (CategoryPO category : categorys) {
+            CategoryDTO dto = new CategoryDTO();
+            dto.setName(category.getName());
+            dto.setCode(category.getCode());
+            dto.setArticleCount(articleService.selectByCondition(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
             }}).size());
-            categoryDTOList.add(vo);
+            categoryDTOS.add(dto);
         }
 
-        mv.addObject("categoryList", categoryDTOList);
+        mv.addObject("categoryList", categoryDTOS);
         mv.addObject("select", "/category");
         mv.setViewName("/category");
         return mv;
