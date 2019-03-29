@@ -24,7 +24,7 @@ public class VisitorListener implements SessionListener {
     @Override
     public void onStart(Session session) {
         String ip = request.getRemoteAddr();
-        String agent = request.getHeader("UserPO-Agent");
+        String agent = request.getHeader("User-Agent");
         Date date = new Date();
         VisitorPO visitor = new VisitorPO(null, ip, agent, date);
         visitorService.insert(visitor);
