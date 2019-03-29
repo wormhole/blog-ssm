@@ -32,7 +32,7 @@
 
         <!-- 当发生滚动时的行为  -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/blog/logback.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>/var/log/blog/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>10MB</MaxFileSize>
