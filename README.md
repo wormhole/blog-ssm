@@ -5,6 +5,7 @@
 [![repo size](https://img.shields.io/github/repo-size/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/archive/master.zip)
 [![release](https://img.shields.io/github/release/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
+[![HitCount](http://hits.dwyl.io/wormhole1996/blog.svg)](http://hits.dwyl.io/wormhole1996/blog)
 
 ## 介绍
 wordpress用得不爽了, 于是自己写了一个博客系统, 我将它命名为虫洞(wormhole). 部署简单, 完全基于互联网轻量级框架开发, 整合redis缓存, shiro安全认证授权框架, 
