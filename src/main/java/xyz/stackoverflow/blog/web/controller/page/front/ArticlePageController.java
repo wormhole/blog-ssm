@@ -77,6 +77,7 @@ public class ArticlePageController {
 
             List<CommentPO> comments = commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
+                put("review", 1);
             }});
             List<CommentDTO> dtos = new ArrayList<>();
             for (CommentPO comment : comments) {
