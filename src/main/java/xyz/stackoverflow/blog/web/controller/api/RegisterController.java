@@ -61,11 +61,11 @@ public class RegisterController extends BaseController {
         }
         UserDTO userDTO = dtos.get(0);
 
-        List<UserPO> list = userService.selectByCondition(new HashMap<String, Object>() {{
+        List<UserPO> users = userService.selectByCondition(new HashMap<String, Object>() {{
             put("deleteAble", 0);
         }});
 
-        if (list.size() == 0) {
+        if (users.size() == 0) {
 
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.RegisterGroup.class);

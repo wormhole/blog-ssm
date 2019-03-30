@@ -36,9 +36,9 @@ public class VisitDataController {
     @RequestMapping(value = "/visit/chart", method = RequestMethod.GET)
     public Response flow() {
         Response response = new Response();
-        List<String> dateList = new ArrayList<>();
-        List<Integer> visitList = new ArrayList<>();
-        List<Integer> visitorList = new ArrayList<>();
+        List<String> dates = new ArrayList<>();
+        List<Integer> visits = new ArrayList<>();
+        List<Integer> visitors = new ArrayList<>();
         Map<String, List> map = new HashMap<>();
 
         Calendar calendar = Calendar.getInstance();
@@ -53,14 +53,14 @@ public class VisitDataController {
             Date endDate = calendar.getTime();
             int visitCount = visitService.selectByDate(startDate, endDate).size();
             int visitorCount = visitorService.selectByDate(startDate, endDate).size();
-            dateList.add(DateUtil.formatDate(startDate));
-            visitList.add(visitCount);
-            visitorList.add(visitorCount);
+            dates.add(DateUtil.formatDate(startDate));
+            visits.add(visitCount);
+            visitors.add(visitorCount);
         }
 
-        map.put("dateList", dateList);
-        map.put("visitList", visitList);
-        map.put("visitorList", visitorList);
+        map.put("dateList", dates);
+        map.put("visitList", visits);
+        map.put("visitorList", visitors);
         response.setStatus(Response.SUCCESS);
         response.setMessage("流量记录获取成功");
         response.setData(map);
@@ -83,12 +83,12 @@ public class VisitDataController {
 
         Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
 
-        List<VisitPO> list = visitService.selectByPage(page1);
+        List<VisitPO> visits = visitService.selectByPage(page1);
         int count = visitService.selectByCondition(new HashMap<>()).size();
 
         List<VisitDTO> dtos = new ArrayList<>();
 
-        for (VisitPO visit : list) {
+        for (VisitPO visit : visits) {
             VisitDTO dto = new VisitDTO();
             dto.setIp(visit.getIp());
             dto.setUrl(visit.getUrl());

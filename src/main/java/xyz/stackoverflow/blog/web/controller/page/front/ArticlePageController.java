@@ -75,11 +75,11 @@ public class ArticlePageController {
             articleDTO.setCreateDate(article.getCreateDate());
             articleDTO.setArticleMd(article.getArticleMd());
 
-            List<CommentPO> commentList = commentService.selectByCondition(new HashMap<String, Object>() {{
+            List<CommentPO> comments = commentService.selectByCondition(new HashMap<String, Object>() {{
                 put("articleId", article.getId());
             }});
-            List<CommentDTO> voList = new ArrayList<>();
-            for (CommentPO comment : commentList) {
+            List<CommentDTO> dtos = new ArrayList<>();
+            for (CommentPO comment : comments) {
                 CommentDTO commentDTO = new CommentDTO();
                 commentDTO.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
                 commentDTO.setDate(comment.getDate());
@@ -92,11 +92,11 @@ public class ArticlePageController {
                 } else {
                     commentDTO.setWebsite("javascript:;");
                 }
-                voList.add(commentDTO);
+                dtos.add(commentDTO);
             }
 
             mv.addObject("article", articleDTO);
-            mv.addObject("commentList", voList);
+            mv.addObject("commentList", dtos);
             mv.addObject("title", ((Map<String, Object>) request.getServletContext().getAttribute("setting")).get("title") + " - " + articleDTO.getTitle());
             mv.setViewName("/article");
         } else {

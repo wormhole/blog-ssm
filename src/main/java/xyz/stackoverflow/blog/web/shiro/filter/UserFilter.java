@@ -26,11 +26,11 @@ public class UserFilter extends org.apache.shiro.web.filter.authc.UserFilter {
         Subject subject = this.getSubject(request, response);
         if (subject.getPrincipal() != null) {
             String email = (String) subject.getPrincipal();
-            List<UserPO> list = userService.selectByCondition(new HashMap<String, Object>() {{
+            List<UserPO> users = userService.selectByCondition(new HashMap<String, Object>() {{
                 put("email", email);
             }});
-            if (list.size() != 0) {
-                ((HttpServletRequest) request).getSession().setAttribute("user", list.get(0));
+            if (users.size() != 0) {
+                ((HttpServletRequest) request).getSession().setAttribute("user", users.get(0));
             }
         }
         return super.isAccessAllowed(request, response, mappedValue);

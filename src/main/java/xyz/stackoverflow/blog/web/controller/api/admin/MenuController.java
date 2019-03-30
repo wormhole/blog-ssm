@@ -48,12 +48,12 @@ public class MenuController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<MenuPO> list = menuService.selectByPage(page1);
+        Page pageParam = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<MenuPO> menus = menuService.selectByPage(pageParam);
         int count = menuService.selectByCondition(new HashMap<>()).size();
 
         List<MenuDTO> dtos = new ArrayList<>();
-        for (MenuPO menu : list) {
+        for (MenuPO menu : menus) {
             MenuDTO menuDTO = new MenuDTO();
             menuDTO.setId(menu.getId());
             menuDTO.setName(HtmlUtils.htmlEscape(menu.getName()));
@@ -112,8 +112,8 @@ public class MenuController extends BaseController {
         menuService.deleteById(menuDTO.getId());
 
         ServletContext application = request.getServletContext();
-        List<MenuPO> list = menuService.selectByCondition(new HashMap<>());
-        application.setAttribute("menu", list);
+        List<MenuPO> menus = menuService.selectByCondition(new HashMap<>());
+        application.setAttribute("menu", menus);
 
         response.setStatus(Response.SUCCESS);
         response.setMessage("删除成功");
@@ -153,8 +153,8 @@ public class MenuController extends BaseController {
         menuService.insert(menu);
 
         ServletContext application = request.getServletContext();
-        List<MenuPO> list = menuService.selectByCondition(new HashMap<>());
-        application.setAttribute("menu", list);
+        List<MenuPO> menus = menuService.selectByCondition(new HashMap<>());
+        application.setAttribute("menu", menus);
 
         response.setStatus(Response.SUCCESS);
         response.setMessage("菜单新增成功");
@@ -199,8 +199,8 @@ public class MenuController extends BaseController {
 
         menuService.update((MenuPO) TransferUtil.dto2po(MenuPO.class, menuDTO));
         ServletContext application = request.getServletContext();
-        List<MenuPO> list = menuService.selectByCondition(new HashMap<>());
-        application.setAttribute("menu", list);
+        List<MenuPO> menus = menuService.selectByCondition(new HashMap<>());
+        application.setAttribute("menu", menus);
         response.setStatus(Response.SUCCESS);
         response.setMessage("更新成功");
 

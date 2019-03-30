@@ -73,13 +73,13 @@ public class JdbcRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String email = (String) authenticationToken.getPrincipal();
-        List<UserPO> list = userService.selectByCondition(new HashMap<String, Object>() {{
+        List<UserPO> users = userService.selectByCondition(new HashMap<String, Object>() {{
             put("email", email);
         }});
-        if (list.size() == 0) {
+        if (users.size() == 0) {
             throw new AuthenticationException();
         }
-        UserPO user = list.get(0);
+        UserPO user = users.get(0);
         SimpleAuthenticationInfo sa = new SimpleAuthenticationInfo(user.getEmail(), user.getPassword(), new SimpleByteSource(user.getSalt()), getName());
         return sa;
     }

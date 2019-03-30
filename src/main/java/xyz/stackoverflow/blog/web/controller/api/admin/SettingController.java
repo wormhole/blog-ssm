@@ -54,22 +54,22 @@ public class SettingController extends BaseController {
         if (CollectionUtil.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
-        SettingDTO[] dtos1 = dtos.toArray(new SettingDTO[0]);
+        SettingDTO[] settingDTOS = dtos.toArray(new SettingDTO[0]);
 
-        Map<String, String> map = settingValidator.validate(dtos1);
+        Map<String, String> map = settingValidator.validate(settingDTOS);
 
         if (!CollectionUtil.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        for (SettingDTO settingDTO : dtos1) {
+        for (SettingDTO settingDTO : settingDTOS) {
             SettingPO setting = (SettingPO) TransferUtil.dto2po(SettingPO.class, settingDTO);
             settingService.update(setting);
         }
 
-        List<SettingPO> settingList = settingService.selectByCondition(new HashMap<>());
+        List<SettingPO> settings = settingService.selectByCondition(new HashMap<>());
         Map<String, Object> settingMap = new HashMap<>();
-        for (SettingPO setting : settingList) {
+        for (SettingPO setting : settings) {
             settingMap.put(setting.getName(), setting.getValue());
         }
         application.setAttribute("setting", settingMap);

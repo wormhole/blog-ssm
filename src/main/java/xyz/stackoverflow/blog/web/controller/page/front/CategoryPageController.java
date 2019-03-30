@@ -89,12 +89,12 @@ public class CategoryPageController {
                 start = (end - 4 < 1) ? 1 : end - 4;
             }
 
-            Page page1 = new Page(p, limit, null);
-            page1.setSearchMap(new HashMap<String, Object>() {{
+            Page pageParam = new Page(p, limit, null);
+            pageParam.setSearchMap(new HashMap<String, Object>() {{
                 put("visible", 1);
                 put("categoryId", category.getId());
             }});
-            List<ArticlePO> articles = articleService.selectByPage(page1);
+            List<ArticlePO> articles = articleService.selectByPage(pageParam);
             List<ArticleDTO> articleDTOS = new ArrayList<>();
             for (ArticlePO article : articles) {
                 ArticleDTO dto = new ArticleDTO();

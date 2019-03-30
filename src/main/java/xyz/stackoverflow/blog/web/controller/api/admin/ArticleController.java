@@ -63,8 +63,8 @@ public class ArticleController extends BaseController {
      * @return
      */
     private String urlToCode(String url) {
-        String[] list = url.split("/");
-        return list[list.length - 1];
+        String[] paths = url.split("/");
+        return paths[paths.length - 1];
     }
 
     /**
@@ -154,9 +154,9 @@ public class ArticleController extends BaseController {
             throw new BusinessException("未找到文章");
         }
 
-        String[] list = article.getUrl().split("/");
-        list[list.length - 1] = articleDTO.getArticleCode();
-        String url = String.join("/", list);
+        String[] paths = article.getUrl().split("/");
+        paths[paths.length - 1] = articleDTO.getArticleCode();
+        String url = String.join("/", paths);
 
         if (!urlToCode(article.getUrl()).equals(articleDTO.getArticleCode()) && (articleService.selectByUrl(url) != null)) {
             throw new BusinessException("url重复");
@@ -222,13 +222,13 @@ public class ArticleController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<ArticlePO> list = articleService.selectByPage(page1);
+        Page pageParam = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<ArticlePO> articles = articleService.selectByPage(pageParam);
 
         int count = articleService.selectByCondition(new HashMap<>()).size();
         List<ArticleDTO> dtos = new ArrayList<>();
 
-        for (ArticlePO article : list) {
+        for (ArticlePO article : articles) {
             ArticleDTO articleDTO = new ArticleDTO();
             articleDTO.setId(article.getId());
             articleDTO.setTitle(HtmlUtils.htmlEscape(article.getTitle()));

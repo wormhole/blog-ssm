@@ -49,34 +49,34 @@ public class CommentController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<CommentPO> list = commentService.selectByPage(page1);
+        Page pageParam = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<CommentPO> comments = commentService.selectByPage(pageParam);
         int count = commentService.selectByCondition(new HashMap<>()).size();
-        List<CommentDTO> voList = new ArrayList<>();
+        List<CommentDTO> dtos = new ArrayList<>();
 
-        for (CommentPO comment : list) {
-            CommentDTO vo = new CommentDTO();
-            vo.setId(comment.getId());
-            vo.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
-            vo.setEmail(HtmlUtils.htmlEscape(comment.getEmail()));
-            vo.setWebsite(comment.getWebsite());
-            vo.setDate(comment.getDate());
-            vo.setContent(HtmlUtils.htmlEscape(comment.getContent()));
-            vo.setArticleTitle(HtmlUtils.htmlEscape(articleService.selectById(comment.getArticleId()).getTitle()));
+        for (CommentPO comment : comments) {
+            CommentDTO dto = new CommentDTO();
+            dto.setId(comment.getId());
+            dto.setNickname(HtmlUtils.htmlEscape(comment.getNickname()));
+            dto.setEmail(HtmlUtils.htmlEscape(comment.getEmail()));
+            dto.setWebsite(comment.getWebsite());
+            dto.setDate(comment.getDate());
+            dto.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+            dto.setArticleTitle(HtmlUtils.htmlEscape(articleService.selectById(comment.getArticleId()).getTitle()));
             if (comment.getReview() == 0) {
-                vo.setReviewTag("否");
+                dto.setReviewTag("否");
             } else {
-                vo.setReviewTag("是");
+                dto.setReviewTag("是");
             }
             if (comment.getReplyTo() != null) {
-                vo.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));
+                dto.setReplyTo(HtmlUtils.htmlEscape(comment.getReplyTo()));
             }
-            voList.add(vo);
+            dtos.add(dto);
         }
 
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
-        map.put("items", voList);
+        map.put("items", dtos);
         response.setStatus(Response.SUCCESS);
         response.setMessage("查询成功");
         response.setData(map);

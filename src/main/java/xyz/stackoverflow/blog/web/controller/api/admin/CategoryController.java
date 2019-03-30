@@ -91,12 +91,12 @@ public class CategoryController extends BaseController {
     public Response list(@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit) {
         Response response = new Response();
 
-        Page page1 = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
-        List<CategoryPO> list = categoryService.selectByPage(page1);
+        Page pageParam = new Page(Integer.valueOf(page), Integer.valueOf(limit), null);
+        List<CategoryPO> categorys = categoryService.selectByPage(pageParam);
         int count = categoryService.selectByCondition(new HashMap<>()).size();
 
         List<CategoryDTO> dtos = new ArrayList<>();
-        for (CategoryPO category : list) {
+        for (CategoryPO category : categorys) {
             CategoryDTO categoryDTO = new CategoryDTO();
             categoryDTO.setId(category.getId());
             categoryDTO.setName(category.getName());
