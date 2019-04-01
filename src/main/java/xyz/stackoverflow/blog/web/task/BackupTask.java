@@ -8,6 +8,11 @@ import xyz.stackoverflow.blog.util.db.DBUtil;
 
 import javax.servlet.ServletContext;
 
+/**
+ * 数据库备份任务
+ *
+ * @author 凉衫薄
+ */
 @Component
 public class BackupTask {
 
