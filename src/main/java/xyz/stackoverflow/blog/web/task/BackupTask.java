@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import xyz.stackoverflow.blog.util.db.DBUtil;
+import xyz.stackoverflow.blog.util.db.DBUtils;
 
 import javax.servlet.ServletContext;
 
@@ -30,6 +30,6 @@ public class BackupTask {
     @Scheduled(initialDelay = 10000, fixedRate = 600000)
     public void backup() {
         String backupPath = servletContext.getRealPath("WEB-INF/backup");
-        DBUtil.backup(host, username, password, backupPath, "blog.sql", db);
+        DBUtils.backup(host, username, password, backupPath, "blog.sql", db);
     }
 }

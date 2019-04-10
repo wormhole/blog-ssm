@@ -7,7 +7,7 @@ import java.io.*;
  *
  * @author 凉衫薄
  */
-public class DBUtil {
+public class DBUtils {
 
     /**
      * 备份数据库

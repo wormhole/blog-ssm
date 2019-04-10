@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.stackoverflow.blog.util.db.DBUtil;
+import xyz.stackoverflow.blog.util.db.DBUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -49,7 +49,7 @@ public class BackupController {
     public ResponseEntity<byte[]> exportSql(HttpServletRequest request) throws IOException {
         String filename = "blog.sql";
         String backupPath = request.getServletContext().getRealPath("WEB-INF/backup");
-        DBUtil.backup(host, username, password, backupPath, filename, db);
+        DBUtils.backup(host, username, password, backupPath, filename, db);
 
         InputStream is = new FileInputStream(new File(backupPath, filename));
         byte[] body = new byte[is.available()];
