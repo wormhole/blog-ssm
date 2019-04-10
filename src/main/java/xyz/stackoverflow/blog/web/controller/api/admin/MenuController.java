@@ -11,9 +11,9 @@ import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.dto.MenuDTO;
 import xyz.stackoverflow.blog.pojo.po.MenuPO;
 import xyz.stackoverflow.blog.service.MenuService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -87,16 +87,16 @@ public class MenuController extends BaseController {
         Response response = new Response();
 
         List<MenuDTO> dtos = (List<MenuDTO>) (Object) getDTO("menu", MenuDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         MenuDTO menuDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<MenuDTO>> violations = validator.validate(menuDTO, MenuDTO.DeleteGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
@@ -134,20 +134,20 @@ public class MenuController extends BaseController {
         Response response = new Response();
 
         List<MenuDTO> dtos = (List<MenuDTO>) (Object) getDTO("menu", MenuDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         MenuDTO menuDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<MenuDTO>> violations = validator.validate(menuDTO, MenuDTO.InsertGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
-        MenuPO menu = (MenuPO) TransferUtil.dto2po(MenuPO.class, menuDTO);
+        MenuPO menu = (MenuPO) TransferUtils.dto2po(MenuPO.class, menuDTO);
         menu.setDeleteAble(1);
         menu.setDate(new Date());
         menuService.insert(menu);
@@ -175,16 +175,16 @@ public class MenuController extends BaseController {
         Response response = new Response();
 
         List<MenuDTO> dtos = (List<MenuDTO>) (Object) getDTO("menu", MenuDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         MenuDTO menuDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<MenuDTO>> violations = validator.validate(menuDTO, MenuDTO.UpdateGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -197,7 +197,7 @@ public class MenuController extends BaseController {
             throw new BusinessException("该菜单不允许被修改");
         }
 
-        menuService.update((MenuPO) TransferUtil.dto2po(MenuPO.class, menuDTO));
+        menuService.update((MenuPO) TransferUtils.dto2po(MenuPO.class, menuDTO));
         ServletContext application = request.getServletContext();
         List<MenuPO> menus = menuService.selectByCondition(new HashMap<>());
         application.setAttribute("menu", menus);

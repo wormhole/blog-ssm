@@ -20,10 +20,10 @@ import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CategoryService;
 import xyz.stackoverflow.blog.service.CommentService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.DateUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -74,7 +74,7 @@ public class ArticleController extends BaseController {
      * @return
      */
     private String codeToUrl(String code) {
-        return "/article" + DateUtil.getDatePath() + code;
+        return "/article" + DateUtils.getDatePath() + code;
     }
 
     /**
@@ -90,16 +90,16 @@ public class ArticleController extends BaseController {
         Response response = new Response();
 
         List<ArticleDTO> dtos = (List<ArticleDTO>) (Object) getDTO("article", ArticleDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         ArticleDTO articleDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<ArticleDTO>> violations = validator.validate(articleDTO, ArticleDTO.InsertGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -109,7 +109,7 @@ public class ArticleController extends BaseController {
         }
 
         UserPO user = (UserPO) session.getAttribute("user");
-        ArticlePO article = (ArticlePO) TransferUtil.dto2po(ArticlePO.class, articleDTO);
+        ArticlePO article = (ArticlePO) TransferUtils.dto2po(ArticlePO.class, articleDTO);
         article.setCreateDate(new Date());
         article.setModifyDate(new Date());
         article.setUserId(user.getId());
@@ -135,16 +135,16 @@ public class ArticleController extends BaseController {
         Response response = new Response();
 
         List<ArticleDTO> dtos = (List<ArticleDTO>) (Object) getDTO("article", ArticleDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         ArticleDTO articleDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<ArticleDTO>> violations = validator.validate(articleDTO, ArticleDTO.UpdateGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -162,7 +162,7 @@ public class ArticleController extends BaseController {
             throw new BusinessException("url重复");
         }
 
-        ArticlePO updateArticle = (ArticlePO) TransferUtil.dto2po(ArticlePO.class, articleDTO);
+        ArticlePO updateArticle = (ArticlePO) TransferUtils.dto2po(ArticlePO.class, articleDTO);
         updateArticle.setModifyDate(new Date());
         updateArticle.setUrl(url);
         articleService.update(updateArticle);
@@ -185,7 +185,7 @@ public class ArticleController extends BaseController {
         JSONObject result = new JSONObject();
 
         String fileName = multipartFile.getOriginalFilename();
-        String uploadDir = "/upload" + DateUtil.getDatePath();
+        String uploadDir = "/upload" + DateUtils.getDatePath();
         String destDir = request.getServletContext().getRealPath(uploadDir);
 
         File destDirFile = new File(destDir);
@@ -271,16 +271,16 @@ public class ArticleController extends BaseController {
         Response response = new Response();
 
         List<ArticleDTO> dtos = (List<ArticleDTO>) (Object) getDTO("article", ArticleDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
 
         for (ArticleDTO articleDTO : dtos) {
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<ArticleDTO>> violations = validator.validate(articleDTO, ArticleDTO.DeleteGroup.class);
-            Map<String, String> map = ValidationUtil.errorMap(violations);
+            Map<String, String> map = ValidationUtils.errorMap(violations);
 
-            if (!CollectionUtil.isEmpty(map)) {
+            if (!CollectionUtils.isEmpty(map)) {
                 throw new BusinessException("字段格式错误", map);
             }
         }
@@ -308,20 +308,20 @@ public class ArticleController extends BaseController {
         Response response = new Response();
 
         List<ArticleDTO> dtos = (List<ArticleDTO>) (Object) getDTO("article", ArticleDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         ArticleDTO articleDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<ArticleDTO>> violations = validator.validate(articleDTO, ArticleDTO.VisibleGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        ArticlePO article = (ArticlePO) TransferUtil.dto2po(ArticlePO.class, articleDTO);
+        ArticlePO article = (ArticlePO) TransferUtils.dto2po(ArticlePO.class, articleDTO);
 
         if (articleService.update(article) != null) {
             response.setStatus(Response.SUCCESS);

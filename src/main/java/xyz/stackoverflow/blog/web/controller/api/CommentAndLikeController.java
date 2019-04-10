@@ -15,9 +15,9 @@ import xyz.stackoverflow.blog.pojo.po.ArticlePO;
 import xyz.stackoverflow.blog.pojo.po.CommentPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
@@ -56,16 +56,16 @@ public class CommentAndLikeController extends BaseController {
         Response response = new Response();
 
         List<CommentDTO> dtos = (List<CommentDTO>) (Object) getDTO("comment", CommentDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CommentDTO commentDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CommentDTO>> violations = validator.validate(commentDTO, CommentDTO.InsertGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -74,7 +74,7 @@ public class CommentAndLikeController extends BaseController {
             throw new BusinessException("找不到该文章");
         }
 
-        CommentPO comment = (CommentPO) TransferUtil.dto2po(CommentPO.class, commentDTO);
+        CommentPO comment = (CommentPO) TransferUtils.dto2po(CommentPO.class, commentDTO);
         comment.setDate(new Date());
         comment.setArticleId(article.getId());
         comment.setReview(0);
@@ -99,16 +99,16 @@ public class CommentAndLikeController extends BaseController {
         Response response = new Response();
 
         List<ArticleDTO> dtos = (List<ArticleDTO>) (Object) getDTO("article", ArticleDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         ArticleDTO articleDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<ArticleDTO>> violations = validator.validate(articleDTO, ArticleDTO.LikeGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 

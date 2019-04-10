@@ -11,10 +11,10 @@ import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.dto.UserDTO;
 import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.PasswordUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.PasswordUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
@@ -56,7 +56,7 @@ public class UserController extends BaseController {
         Response response = new Response();
 
         List<UserDTO> dtos = (List<UserDTO>) (Object) getDTO("user", UserDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         UserDTO userDTO = dtos.get(0);
@@ -66,9 +66,9 @@ public class UserController extends BaseController {
 
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.UpdateBaseGroup.class);
-            Map<String, String> map = ValidationUtil.errorMap(violations);
+            Map<String, String> map = ValidationUtils.errorMap(violations);
 
-            if (!CollectionUtil.isEmpty(map)) {
+            if (!CollectionUtils.isEmpty(map)) {
                 throw new BusinessException("字段格式出错", map);
             }
 
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
                 throw new BusinessException("邮箱已经存在");
             }
 
-            UserPO updateUser = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
+            UserPO updateUser = (UserPO) TransferUtils.dto2po(UserPO.class, userDTO);
             updateUser.setId(user.getId());
 
             if (!updateUser.getEmail().equals(user.getEmail())) {
@@ -97,21 +97,21 @@ public class UserController extends BaseController {
 
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.UpdatePasswordGroup.class);
-            Map<String, String> map = ValidationUtil.errorMap(violations);
+            Map<String, String> map = ValidationUtils.errorMap(violations);
 
-            if (!CollectionUtil.isEmpty(map)) {
+            if (!CollectionUtils.isEmpty(map)) {
                 throw new BusinessException("字段格式出错", map);
             }
 
-            if (!user.getPassword().equals(PasswordUtil.encryptPassword(user.getSalt(), userDTO.getOldPassword()))) {
+            if (!user.getPassword().equals(PasswordUtils.encryptPassword(user.getSalt(), userDTO.getOldPassword()))) {
                 throw new BusinessException("旧密码不匹配");
             }
 
-            UserPO updateUser = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
+            UserPO updateUser = (UserPO) TransferUtils.dto2po(UserPO.class, userDTO);
             updateUser.setId(user.getId());
             updateUser.setEmail(user.getEmail());
-            updateUser.setSalt(PasswordUtil.getSalt());
-            updateUser.setPassword(PasswordUtil.encryptPassword(updateUser.getSalt(), updateUser.getPassword()));
+            updateUser.setSalt(PasswordUtils.getSalt());
+            updateUser.setPassword(PasswordUtils.encryptPassword(updateUser.getSalt(), updateUser.getPassword()));
 
             Cache authenticationCache = redisCacheManager.getCache("authentication");
             authenticationCache.evict("shiro:authentication:" + user.getEmail());

@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @author 凉衫薄
  */
-public class DateUtil {
+public class DateUtils {
 
     /**
      * 获取日期格式路径

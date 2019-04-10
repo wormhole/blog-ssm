@@ -10,7 +10,7 @@ import org.apache.shiro.util.ByteSource;
  *
  * @author 凉衫薄
  */
-public class PasswordUtil {
+public class PasswordUtils {
     private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
     private static final String algorithmName = "md5";
     private static final int hashIterations = 1;

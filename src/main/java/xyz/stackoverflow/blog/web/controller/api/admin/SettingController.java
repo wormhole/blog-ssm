@@ -11,9 +11,9 @@ import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.dto.SettingDTO;
 import xyz.stackoverflow.blog.pojo.po.SettingPO;
 import xyz.stackoverflow.blog.service.SettingService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.DateUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.DateUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
 import xyz.stackoverflow.blog.validator.SettingValidator;
 
 import javax.servlet.ServletContext;
@@ -51,19 +51,19 @@ public class SettingController extends BaseController {
         ServletContext application = request.getServletContext();
 
         List<SettingDTO> dtos = (List<SettingDTO>) (Object) getDTO("setting", SettingDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         SettingDTO[] settingDTOS = dtos.toArray(new SettingDTO[0]);
 
         Map<String, String> map = settingValidator.validate(settingDTOS);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
         for (SettingDTO settingDTO : settingDTOS) {
-            SettingPO setting = (SettingPO) TransferUtil.dto2po(SettingPO.class, settingDTO);
+            SettingPO setting = (SettingPO) TransferUtils.dto2po(SettingPO.class, settingDTO);
             settingService.update(setting);
         }
 
@@ -95,7 +95,7 @@ public class SettingController extends BaseController {
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile file = multiRequest.getFile("headImg");
         String fileName = file.getOriginalFilename();
-        String uploadDir = "/upload" + DateUtil.getDatePath();
+        String uploadDir = "/upload" + DateUtils.getDatePath();
         String destDir = request.getServletContext().getRealPath(uploadDir);
 
         File destDirFile = new File(destDir);

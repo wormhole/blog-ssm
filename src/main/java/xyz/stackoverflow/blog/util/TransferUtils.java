@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  *
  * @author 凉衫薄
  */
-public class TransferUtil {
+public class TransferUtils {
 
     /**
      * dto转po

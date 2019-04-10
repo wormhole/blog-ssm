@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.stackoverflow.blog.common.Page;
 import xyz.stackoverflow.blog.dao.*;
 import xyz.stackoverflow.blog.pojo.po.*;
-import xyz.stackoverflow.blog.util.PasswordUtil;
+import xyz.stackoverflow.blog.util.PasswordUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserPO insert(UserPO user) {
-        user.setSalt(PasswordUtil.getSalt());
-        user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+        user.setSalt(PasswordUtils.getSalt());
+        user.setPassword(PasswordUtils.encryptPassword(user.getSalt(), user.getPassword()));
         userDao.insert(user);
         return userDao.selectById(user.getId());
     }
@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public int batchInsert(List<UserPO> list) {
         for (UserPO user : list) {
-            user.setSalt(PasswordUtil.getSalt());
-            user.setPassword(PasswordUtil.encryptPassword(user.getSalt(), user.getPassword()));
+            user.setSalt(PasswordUtils.getSalt());
+            user.setPassword(PasswordUtils.encryptPassword(user.getSalt(), user.getPassword()));
         }
         return userDao.batchInsert(list);
     }

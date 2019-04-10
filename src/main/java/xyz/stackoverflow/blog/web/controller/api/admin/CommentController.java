@@ -12,9 +12,9 @@ import xyz.stackoverflow.blog.pojo.dto.CommentDTO;
 import xyz.stackoverflow.blog.pojo.po.CommentPO;
 import xyz.stackoverflow.blog.service.ArticleService;
 import xyz.stackoverflow.blog.service.CommentService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -95,16 +95,16 @@ public class CommentController extends BaseController {
         Response response = new Response();
 
         List<CommentDTO> dtos = (List<CommentDTO>) (Object) getDTO("comment", CommentDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CommentDTO commentDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CommentDTO>> violations = validator.validate(commentDTO, CommentDTO.DeleteGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
@@ -130,20 +130,20 @@ public class CommentController extends BaseController {
         Response response = new Response();
 
         List<CommentDTO> dtos = (List<CommentDTO>) (Object) getDTO("comment", CommentDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CommentDTO commentDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CommentDTO>> violations = validator.validate(commentDTO, CommentDTO.ReviewGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式出错", map);
         }
 
-        CommentPO comment = (CommentPO) TransferUtil.dto2po(CommentPO.class, commentDTO);
+        CommentPO comment = (CommentPO) TransferUtils.dto2po(CommentPO.class, commentDTO);
 
         if (commentService.update(comment) != null) {
             response.setStatus(Response.SUCCESS);

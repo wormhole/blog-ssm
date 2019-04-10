@@ -18,12 +18,12 @@ import java.util.concurrent.TimeUnit;
  * @author 凉衫薄
  */
 @Component
-public class RedisCacheUtil {
+public class RedisCacheUtils {
 
     @Autowired
     private RedisTemplate redisTemplate;
 
-    private static Logger log = LoggerFactory.getLogger(RedisCacheUtil.class);
+    private static Logger log = LoggerFactory.getLogger(RedisCacheUtils.class);
 
     public RedisTemplate getRedisTemplate() {
         return redisTemplate;

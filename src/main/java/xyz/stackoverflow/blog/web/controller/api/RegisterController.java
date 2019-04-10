@@ -14,9 +14,9 @@ import xyz.stackoverflow.blog.pojo.po.RolePO;
 import xyz.stackoverflow.blog.pojo.po.UserPO;
 import xyz.stackoverflow.blog.service.RoleService;
 import xyz.stackoverflow.blog.service.UserService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
@@ -56,7 +56,7 @@ public class RegisterController extends BaseController {
         Response response = new Response();
 
         List<UserDTO> dtos = (List<UserDTO>) (Object) getDTO("user", UserDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         UserDTO userDTO = dtos.get(0);
@@ -69,9 +69,9 @@ public class RegisterController extends BaseController {
 
             Validator validator = validatorFactory.getValidator();
             Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDTO, UserDTO.RegisterGroup.class);
-            Map<String, String> map = ValidationUtil.errorMap(violations);
+            Map<String, String> map = ValidationUtils.errorMap(violations);
 
-            if (!CollectionUtil.isEmpty(map)) {
+            if (!CollectionUtils.isEmpty(map)) {
                 throw new BusinessException("注册信息格式出错", map);
             }
 
@@ -88,7 +88,7 @@ public class RegisterController extends BaseController {
                 throw new BusinessException("邮箱已经存在", map);
             }
 
-            UserPO user = (UserPO) TransferUtil.dto2po(UserPO.class, userDTO);
+            UserPO user = (UserPO) TransferUtils.dto2po(UserPO.class, userDTO);
             user.setDeleteAble(0);
             UserPO newUser = userService.insert(user);
             List<RolePO> roles = roleService.selectByCondition(new HashMap<String, Object>() {{

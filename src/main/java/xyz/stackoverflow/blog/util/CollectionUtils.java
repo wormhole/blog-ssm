@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author 凉衫薄
  */
-public class CollectionUtil {
+public class CollectionUtils {
 
     /**
      * 判断是否为空

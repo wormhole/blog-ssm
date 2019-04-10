@@ -10,9 +10,9 @@ import xyz.stackoverflow.blog.exception.BusinessException;
 import xyz.stackoverflow.blog.pojo.dto.CategoryDTO;
 import xyz.stackoverflow.blog.pojo.po.CategoryPO;
 import xyz.stackoverflow.blog.service.CategoryService;
-import xyz.stackoverflow.blog.util.CollectionUtil;
-import xyz.stackoverflow.blog.util.TransferUtil;
-import xyz.stackoverflow.blog.util.ValidationUtil;
+import xyz.stackoverflow.blog.util.CollectionUtils;
+import xyz.stackoverflow.blog.util.TransferUtils;
+import xyz.stackoverflow.blog.util.ValidationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -45,20 +45,20 @@ public class CategoryController extends BaseController {
         Response response = new Response();
 
         List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.InsertGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
-        CategoryPO category = (CategoryPO) TransferUtil.dto2po(CategoryPO.class, categoryDTO);
+        CategoryPO category = (CategoryPO) TransferUtils.dto2po(CategoryPO.class, categoryDTO);
         if (categoryService.selectByCondition(new HashMap<String, Object>() {{
             put("name", category.getName());
         }}).size() != 0) {
@@ -130,16 +130,16 @@ public class CategoryController extends BaseController {
         Response response = new Response();
 
         List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.DeleteGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -171,16 +171,16 @@ public class CategoryController extends BaseController {
         Response response = new Response();
 
         List<CategoryDTO> dtos = (List<CategoryDTO>) (Object) getDTO("category", CategoryDTO.class, dto);
-        if (CollectionUtil.isEmpty(dtos)) {
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("找不到请求数据");
         }
         CategoryDTO categoryDTO = dtos.get(0);
 
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<CategoryDTO>> violations = validator.validate(categoryDTO, CategoryDTO.UpdateGroup.class);
-        Map<String, String> map = ValidationUtil.errorMap(violations);
+        Map<String, String> map = ValidationUtils.errorMap(violations);
 
-        if (!CollectionUtil.isEmpty(map)) {
+        if (!CollectionUtils.isEmpty(map)) {
             throw new BusinessException("字段格式错误", map);
         }
 
@@ -204,7 +204,7 @@ public class CategoryController extends BaseController {
             throw new BusinessException("新分类编码已经存在");
         }
 
-        categoryService.update((CategoryPO) TransferUtil.dto2po(CategoryPO.class, categoryDTO));
+        categoryService.update((CategoryPO) TransferUtils.dto2po(CategoryPO.class, categoryDTO));
         response.setStatus(Response.SUCCESS);
         response.setMessage("更新成功");
 

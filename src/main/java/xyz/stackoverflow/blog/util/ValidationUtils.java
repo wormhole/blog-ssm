@@ -11,7 +11,7 @@ import java.util.TreeMap;
  *
  * @author 凉衫薄
  */
-public class ValidationUtil {
+public class ValidationUtils {
 
     /**
      * 包装验证结果

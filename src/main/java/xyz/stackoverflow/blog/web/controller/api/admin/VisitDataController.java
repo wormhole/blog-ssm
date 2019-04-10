@@ -8,7 +8,7 @@ import xyz.stackoverflow.blog.pojo.dto.VisitDTO;
 import xyz.stackoverflow.blog.pojo.po.VisitPO;
 import xyz.stackoverflow.blog.service.VisitService;
 import xyz.stackoverflow.blog.service.VisitorService;
-import xyz.stackoverflow.blog.util.DateUtil;
+import xyz.stackoverflow.blog.util.DateUtils;
 
 import java.util.*;
 
@@ -53,7 +53,7 @@ public class VisitDataController {
             Date endDate = calendar.getTime();
             int visitCount = visitService.selectByDate(startDate, endDate).size();
             int visitorCount = visitorService.selectByDate(startDate, endDate).size();
-            dates.add(DateUtil.formatDate(startDate));
+            dates.add(DateUtils.formatDate(startDate));
             visits.add(visitCount);
             visitors.add(visitorCount);
         }
