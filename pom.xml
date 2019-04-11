@@ -124,7 +124,7 @@
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-web -->
+        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-all -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-all</artifactId>
