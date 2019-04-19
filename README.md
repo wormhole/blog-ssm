@@ -5,7 +5,6 @@
 [![repo size](https://img.shields.io/github/repo-size/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/archive/master.zip)
 [![release](https://img.shields.io/github/release/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/stdutil/blog-ssm/blob/dev/LICENSE)
-[![HitCount](http://hits.dwyl.io/stdutil/blog-ssm.svg)](http://hits.dwyl.io/stdutil/blog-ssm)
 
 ## 响应式布局
 |pc布局|mobile布局|
@@ -48,7 +47,7 @@ mv jdk1.8.0_172 /usr/local/jdk
 tar zxvf redis-4.0.9.tar.gz
 mv redis-4.0.9 /usr/local/redis
 ```
-3.下载并解压 [Tomcat 9.0.8](https://tomcat.apache.org/download-90.cgi)
+3. 下载并解压 [Tomcat 9.0.8](https://tomcat.apache.org/download-90.cgi)
 ```
 tar zxvf apache-tomcat-9.0.8.tar.gz
 mv apache-tomcat-9.0.8 /usr/local/tomcat
@@ -71,7 +70,7 @@ mv apache-tomcat-9.0.8 /usr/local/tomcat
 #systemctl start mariadb
 #mysql_security_installation
 ```
-5.设置环境变量(用vim打开/etc/profile这个文件,在后面添加以下内容)
+5. 设置环境变量(用vim打开/etc/profile这个文件,在后面添加以下内容)
 ```
 export JAVA_HOME=/usr/local/jdk
 export JRE_HOME=$JAVA_HOME/jre
@@ -111,7 +110,3 @@ mvn dockerfile:build
 ```
 docker run -d -p 80:80 blog:latest
 ```
-
-
-
-
