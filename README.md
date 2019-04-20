@@ -1,15 +1,19 @@
-# WORMHOLE BlOG
-[![downloads](https://img.shields.io/github/downloads/wormhole1996/blog/total.svg)](https://github.com/wormhole1996/blog/releases)
-[![forks](https://img.shields.io/github/forks/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/network/members)
-[![stars](https://img.shields.io/github/stars/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/stargazers) 
-[![repo size](https://img.shields.io/github/repo-size/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/archive/master.zip)
-[![release](https://img.shields.io/github/release/wormhole1996/blog.svg)](https://github.com/wormhole1996/blog/releases)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole1996/blog/blob/dev/LICENSE)
-[![HitCount](http://hits.dwyl.io/wormhole1996/blog.svg)](http://hits.dwyl.io/wormhole1996/blog)
+# 虫洞博客
+[![downloads](https://img.shields.io/github/downloads/stdutil/blog-ssm/total.svg)](https://github.com/stdutil/blog-ssm/releases)
+[![forks](https://img.shields.io/github/forks/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/network/members)
+[![stars](https://img.shields.io/github/stars/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/stargazers) 
+[![repo size](https://img.shields.io/github/repo-size/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/archive/master.zip)
+[![release](https://img.shields.io/github/release/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/releases)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/stdutil/blog-ssm/blob/dev/LICENSE)
 
-## 介绍
-wordpress用得不爽了, 于是自己写了一个博客系统, 我将它命名为虫洞(wormhole). 部署简单, 完全基于互联网轻量级框架开发, 整合redis缓存, shiro安全认证授权框架, 
-集成MarkDown编辑器, 用程序员最舒服的书写方式写博客. 不管你以学习为目的还是使用为目的, 这个项目都是不错的选择.
+## 响应式布局
+|pc布局|mobile布局|
+|:---:|:---:|
+|![PC布局](./image/pc.png "PC布局")|![mobile布局](./image/mobile.png "mobile布局")|
+
+## 项目介绍
+这是一个基于互联网架构的一个博客系统，采用`SSM`框架，`Shiro`认证授权框架，整合`Redis`等缓存中间件，`Freemarker`模板引擎完成的。响应式布局完美适配
+PC，平板和手机布局。此项目已用`springboot`重写，请移步[这里](https://github.com/stdutil/blog-springboot)，以后`springboot`版的重点维护。
 
 ## 技术架构
 * Ioc容器 - [Spring](https://spring.io/projects/spring-framework)
@@ -22,35 +26,34 @@ wordpress用得不爽了, 于是自己写了一个博客系统, 我将它命名�
 * markdown编辑器 - [editor.md](http://pandao.github.io/editor.md/examples/)
 * 日志系统 - [slf4j](https://www.slf4j.org/) + [logback](https://logback.qos.ch/)
 
-## 使用说明
-只需要将db.properties中的jdbc.username和jdbc.password改为你的数据库账户和密码,然后将war包扔进webapp目录即可,容器初始化时会自动建表,无需手动建表.
-
-## 运行环境
-* JDK 1.8
-* MySQL(MariaDB)
-* Tomcat 9.0.8
-* Redis 4.0.9
+## 如何使用
+1. git clone项目
+2. 将`db.properties`中的`jdbc.username`和`jdbc.password`改为你的数据库账户和密码,`mysql`和`redis`都是按照默认的端口配置，如有需要也可更改配置文件，指定`ip`和`port`。
+3. 运行`mvn package`，将项目打包成`war`包，然后将打包后`war`包放到`tomcat`的`webapps`目录即可，无需手动建表，容器初始化时会自动建表。
+4. 注意用外置的`servlet`容器部署时，需要配置去除项目名访问，不然会报`404`错误。
+5. 运行`startup.sh`启动`tomcat`。
+6. 后台管理系统地址为`http://domain:port/admin`，初始用户名为`363408268@qq.com`,初始密码为`19960821`。
 
 ## 环境搭建
->图片较多, 推荐使用CDN或Nginx做动静分离实现负载均衡, `envscript`目录提供了一个简单的nginx动静分离配置，供参考。
 ### Linux 环境部署
-1.下载并解压 [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
->注意不要用linux自带的openjdk
+1. 下载并解压 [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 ```
 tar zxvf jdk-8u172-linux-x64.tar.gz
 mv jdk1.8.0_172 /usr/local/jdk
 ```
-2.下载并解压 [Redis 4.0.9](http://www.redis.cn/download.html)
+
+2. 下载并解压 [Redis 4.0.9](http://www.redis.cn/download.html)
 ```
 tar zxvf redis-4.0.9.tar.gz
 mv redis-4.0.9 /usr/local/redis
 ```
-3.下载并解压 [Tomcat 9.0.8](https://tomcat.apache.org/download-90.cgi)
+3. 下载并解压 [Tomcat 9.0.8](https://tomcat.apache.org/download-90.cgi)
 ```
 tar zxvf apache-tomcat-9.0.8.tar.gz
 mv apache-tomcat-9.0.8 /usr/local/tomcat
 ```
-4.安装MySQL或MariaDB
+
+4. 安装MySQL或MariaDB
 >注意!如果是mariadb需要将user表中的plugin字段值'unix_socket'改为'mysql_native_password',否则jdbc连接会出错
 * Debian系列Linux参考以下过程
 ```
@@ -59,6 +62,7 @@ mv apache-tomcat-9.0.8 /usr/local/tomcat
 #service mysql start //启动服务
 #mysql_security_installation //执行安全安装脚本
 ```
+
 * Redhat系列Linux参考以下过程
 ```
 #yum update
@@ -66,7 +70,7 @@ mv apache-tomcat-9.0.8 /usr/local/tomcat
 #systemctl start mariadb
 #mysql_security_installation
 ```
-5.设置环境变量(用vim打开/etc/profile这个文件,在后面添加以下内容)
+5. 设置环境变量(用vim打开/etc/profile这个文件,在后面添加以下内容)
 ```
 export JAVA_HOME=/usr/local/jdk
 export JRE_HOME=$JAVA_HOME/jre
@@ -79,55 +83,30 @@ export PATH=$CATALINA_HOME/bin:$PATH
 
 export PATH=/usr/local/redis/bin:$PATH
 ```
-6.启动redis和tomcat
+
+6. 启动redis和tomcat
 ```
 redis-server &
 startup.sh
 ```
-7.将打包好的war包放入tomcat的app目录
+
+7. 将打包好的war包放入tomcat的app目录
+
+8. 启动容器
+```
+startup.sh
+```
+
 ### Docker部署(推荐)
-1.下载源码后在根目录下运行以下命令
+1. 下载源码后在根目录下运行以下命令
 ```
 mvn package
 mvn dockerfile:build
 ```
-2.不出意外本地已经成功生成docker镜像了，你可以push到你的docker仓库中，随时pull到任何一台docker容器中部署了
 
-## 效果演示
-### 主页
-![主页](img/index.png)
-### 分类页
-![分类](img/category.png)
-### 文章浏览页
-![文章浏览](img/article.png)
-### 流量分析
-![流量分析](img/data.png)
-### 写文章界面
-![写文章](img/edit.png)
-### 文章管理界面
-![文章管理](img/articlemanage.png)
-### 分类管理界面
-![分类管理](img/categorymanage.png)
-### 文章更新页面
-![文章更新](img/update.png)
-### 评论管理
-![评论管理](img/commentmanage.png)
-### 自定义菜单管理
-![自定义菜单管理](img/menumanage.png)
-### 图片管理
-![图片管理](img/imagemanage.png)
-### 网站信息设置
-![网站信息设置](img/setting.png)
-### 个人信息维护
-![个人信息维护](img/personal.png)
-### 用户注册界面
-![用户注册](img/register.png)
-### 404界面
-![404](img/404.png)
-### 500界面
-![500](img/500.png)
+2. 不出意外本地已经成功生成docker镜像了，你可以push到你的docker仓库中，随时pull到任何一台docker容器中部署了
 
-
-
-
-
+3. 运行容器
+```
+docker run -d -p 80:80 blog:latest
+```
