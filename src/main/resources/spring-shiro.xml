@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- redis缓存管理 -->
-    <bean id="cacheManager" class="xyz.stackoverflow.blog.web.shiro.cache.ShiroRedisCacheManager"/>
+    <bean id="cacheManager" class="net.stackoverflow.blog.shiro.cache.ShiroRedisCacheManager"/>
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -15,7 +15,7 @@
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="jdbcRealm" class="xyz.stackoverflow.blog.web.shiro.realm.JdbcRealm">
+    <bean id="jdbcRealm" class="net.stackoverflow.blog.shiro.realm.JdbcRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
@@ -46,9 +46,6 @@
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
-    <!-- 会话监听器 -->
-    <bean id="sessionListener" class="xyz.stackoverflow.blog.web.listener.VisitorListener"/>
-
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="sessionIdUrlRewritingEnabled" value="false"/>
@@ -59,7 +56,6 @@
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
-        <property name="sessionListeners" ref="sessionListener"/>
     </bean>
 
     <!-- rememberMe Cookie模板 -->
@@ -90,7 +86,7 @@
     </bean>
 
     <!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="xyz.stackoverflow.blog.web.shiro.filter.FormAuthenticationFilter">
+    <bean id="formAuthenticationFilter" class="net.stackoverflow.blog.shiro.filter.PageFormAuthenticationFilter">
         <property name="usernameParam" value="email"/>
         <property name="passwordParam" value="password"/>
         <property name="loginUrl" value="/login"/>
@@ -100,12 +96,7 @@
     </bean>
 
     <!-- UserFilter过滤器 -->
-    <bean id="userFilter" class="xyz.stackoverflow.blog.web.shiro.filter.UserFilter"/>
-
-    <!-- logout过滤器 -->
-    <bean id="logoutFilter" class="xyz.stackoverflow.blog.web.shiro.filter.LogoutFilter">
-        <property name="redirectUrl" value="/login"/>
-    </bean>
+    <bean id="userFilter" class="net.stackoverflow.blog.shiro.filter.PageUserFilter"/>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -116,7 +107,6 @@
             <map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
                 <entry key="user" value-ref="userFilter"/>
-                <entry key="logout" value-ref="logoutFilter"/>
             </map>
         </property>
         <property name="filterChainDefinitions">
@@ -124,11 +114,6 @@
                 /login = authc
                 /logout = logout
                 /admin/** = user
-                /api/admin/** = user
-                /api/** = anon
-                /static/** = anon
-                /uploads/** = anon
-                /error/** = anon
                 /** = anon
             </value>
         </property>

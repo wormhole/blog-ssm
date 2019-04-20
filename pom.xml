@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>xyz.stackoverflow</groupId>
+    <groupId>net.stackoverflow</groupId>
     <artifactId>blog</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -37,6 +37,7 @@
         <jsoup.version>1.11.3</jsoup.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+        <lombok.version>1.18.6</lombok.version>
     </properties>
 
     <dependencies>
@@ -274,6 +275,14 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

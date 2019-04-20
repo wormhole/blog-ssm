@@ -7,6 +7,7 @@
     <!-- 上下文变量设置,用来定义变量值,其中name的值是变量的名称，value的值时变量定义的值。
         通过<property>定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
     <property name="CONTEXT_NAME" value="blog"/>
+    <property name="LOG_DIR" value="/data/log"/>
 
     <!-- 上下文名称：<contextName>, 每个logger都关联到logger上下文，
         默认上下文名称为“default”。但可以使用<contextName>设置成其他名字，用于区分不同应用程序的记录。
@@ -28,14 +29,15 @@
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。 -->
-        <file>/var/log/blog/logback.log</file>
+        <file>${LOG_DIR}/${CONTEXT_NAME}.log</file>
 
         <!-- 当发生滚动时的行为  -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/blog/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/${CONTEXT_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <MaxFileSize>10MB</MaxFileSize>
+                <!-- 最大64MB 超过最大值，会重新建一个文件 -->
+                <maxFileSize>10 MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
 

@@ -49,7 +49,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="xyz.stackoverflow.blog.dao"/>
+        <property name="basePackage" value="net.stackoverflow.blog.dao"/>
         <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>

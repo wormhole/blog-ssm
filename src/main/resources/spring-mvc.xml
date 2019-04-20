@@ -18,12 +18,15 @@
     <mvc:default-servlet-handler/>
 
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/upload/**" location="file:${server.upload.path}"/>
 
-    <context:component-scan base-package="xyz.stackoverflow.blog.web.controller">
+    <context:component-scan base-package="net.stackoverflow.blog.web.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestControllerAdvice"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.RestControllerAdvice"/>
     </context:component-scan>
 
     <mvc:view-controller path="/error/unauthorized" view-name="/error/unauthorized"/>
@@ -33,17 +36,19 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/api/**"/>
             <mvc:exclude-mapping path="/static/**"/>
             <mvc:exclude-mapping path="/upload/**"/>
             <mvc:exclude-mapping path="/error/**"/>
             <mvc:exclude-mapping path="/admin/**"/>
+            <mvc:exclude-mapping path="/vcode"/>
+            <mvc:exclude-mapping path="/comment"/>
+            <mvc:exclude-mapping path="/like"/>
             <mvc:exclude-mapping path="/favicon.ico"/>
-            <bean class="xyz.stackoverflow.blog.web.interceptor.VisitInterceptor"/>
+            <bean class="net.stackoverflow.blog.web.interceptor.VisitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="freemarkerConfig" class="xyz.stackoverflow.blog.web.freemarker.ShiroTagFreeMarkerConfigurer">
+    <bean id="freemarkerConfig" class="net.stackoverflow.blog.web.freemarker.ShiroTagFreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>

@@ -3,15 +3,15 @@
         "-//mybtis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xyz.stackoverflow.blog.dao.RolePermissionDao">
+<mapper namespace="net.stackoverflow.blog.dao.RolePermissionDao">
 
-    <resultMap id="rolePermissionMap" type="rolePermission">
+    <resultMap id="rolePermissionMap" type="rolePermissionPO">
         <id property="id" column="id"></id>
         <result property="roleId" column="roleid"></result>
         <result property="permissionId" column="permissionid"></result>
     </resultMap>
 
-    <select id="selectByPage" resultMap="rolePermissionMap" resultType="rolePermission">
+    <select id="selectByPage" resultMap="rolePermissionMap" resultType="rolePermissionPO">
         select * from role_permission
         <where>
             <if test="searchMap != null">
@@ -26,7 +26,7 @@
         limit #{start},#{limit}
     </select>
 
-    <select id="selectByCondition" resultMap="rolePermissionMap" resultType="rolePermission">
+    <select id="selectByCondition" resultMap="rolePermissionMap" resultType="rolePermissionPO">
         select * from role_permission
         <where>
             <if test="roleId != null">
@@ -38,11 +38,11 @@
         </where>
     </select>
 
-    <select id="selectById" resultMap="rolePermissionMap" resultType="rolePermission">
+    <select id="selectById" resultMap="rolePermissionMap" resultType="rolePermissionPO">
         select * from role_permission where id = #{id}
     </select>
 
-    <insert id="insert" parameterType="rolePermission">
+    <insert id="insert" parameterType="rolePermissionPO" useGeneratedKeys="true" keyProperty="id">
         <selectKey keyProperty="id" resultType="string" order="BEFORE">
             select uuid()
         </selectKey>
@@ -69,7 +69,7 @@
         </foreach>
     </delete>
 
-    <update id="update" parameterType="rolePermission">
+    <update id="update" parameterType="rolePermissionPO">
         update role_permission
         <set>
             <if test="roleId != null">
@@ -96,15 +96,5 @@
             where id = #{item.id}
         </foreach>
     </update>
-
-
-    <select id="getRolePermissionByRoleId" resultType="rolePermission" resultMap="rolePermissionMap"
-            parameterType="string">
-        select * from role_permission where roleid = #{roleId}
-    </select>
-
-    <insert id="insertRolePermission" parameterType="rolePermission">
-        insert into role_permission(id,roleid,permissionid) values(#{id},#{roleId},#{permissionId})
-    </insert>
 
 </mapper>

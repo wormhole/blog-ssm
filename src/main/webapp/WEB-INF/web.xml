@@ -8,7 +8,7 @@
     </context-param>
 
     <listener>
-        <listener-class>xyz.stackoverflow.blog.web.listener.InitListener</listener-class>
+        <listener-class>net.stackoverflow.blog.web.listener.InitListener</listener-class>
     </listener>
 
     <listener>

@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <context:component-scan base-package="xyz.stackoverflow.blog">
+    <context:component-scan base-package="net.stackoverflow.blog">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
@@ -26,6 +26,7 @@
             <list>
                 <value>classpath:db.properties</value>
                 <value>classpath:redis.properties</value>
+                <value>classpath:application.properties</value>
             </list>
         </property>
     </bean>

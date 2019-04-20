@@ -34,6 +34,10 @@
         <property name="hashValueSerializer" ref="jdkSerializationRedisSerializer"/>
     </bean>
 
+    <bean id="redisCacheUtils" class="net.stackoverflow.blog.util.RedisCacheUtils" init-method="init">
+        <property name="template" ref="redisTemplate"/>
+    </bean>
+
     <cache:annotation-driven cache-manager="redisCacheManager"/>
 
     <bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">

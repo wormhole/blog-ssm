@@ -11,18 +11,17 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.UserPO" alias="user"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.ArticlePO" alias="article"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.RolePO" alias="role"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.PermissionPO" alias="permission"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.UserRolePO" alias="userRole"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.RolePermissionPO" alias="rolePermission"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.CategoryPO" alias="category"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.CommentPO" alias="comment"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.SettingPO" alias="setting"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.VisitPO" alias="visit"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.VisitorPO" alias="visitor"/>
-        <typeAlias type="xyz.stackoverflow.blog.pojo.po.MenuPO" alias="menu"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.UserPO" alias="userPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.ArticlePO" alias="articlePO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.RolePO" alias="rolePO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.PermissionPO" alias="permissionPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.UserRolePO" alias="userRolePO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.RolePermissionPO" alias="rolePermissionPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.CategoryPO" alias="categoryPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.CommentPO" alias="commentPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.SettingPO" alias="settingPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.VisitPO" alias="visitPO"/>
+        <typeAlias type="net.stackoverflow.blog.pojo.po.MenuPO" alias="menuPO"/>
     </typeAliases>
 
 </configuration>

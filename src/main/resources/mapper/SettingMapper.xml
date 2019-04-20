@@ -3,15 +3,15 @@
         "-//mybtis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xyz.stackoverflow.blog.dao.SettingDao">
+<mapper namespace="net.stackoverflow.blog.dao.SettingDao">
 
-    <resultMap id="settingMap" type="setting">
+    <resultMap id="settingMap" type="settingPO">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="value" column="value"/>
     </resultMap>
 
-    <select id="selectByPage" resultMap="settingMap" resultType="setting">
+    <select id="selectByPage" resultMap="settingMap" resultType="settingPO">
         select * from setting
         <where>
             <if test="searchMap != null">
@@ -26,7 +26,7 @@
         limit #{start},#{limit}
     </select>
 
-    <select id="selectByCondition" resultMap="settingMap" resultType="setting">
+    <select id="selectByCondition" resultMap="settingMap" resultType="settingPO">
         select * from setting
         <where>
             <if test="name != null">
@@ -38,11 +38,11 @@
         </where>
     </select>
 
-    <select id="selectById" resultMap="settingMap" resultType="setting">
+    <select id="selectById" resultMap="settingMap" resultType="settingPO">
         select * from setting where id = #{id}
     </select>
 
-    <insert id="insert" parameterType="rolePermission">
+    <insert id="insert" parameterType="settingPO">
         <selectKey keyProperty="id" resultType="string" order="BEFORE">
             select uuid()
         </selectKey>
@@ -69,7 +69,7 @@
         </foreach>
     </delete>
 
-    <update id="update" parameterType="setting">
+    <update id="update" parameterType="settingPO">
         update setting
         <set>
             <if test="value != null">
