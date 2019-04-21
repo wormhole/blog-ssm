@@ -112,6 +112,7 @@ docker run -d -p 80:80 blog:latest
 ```
 
 ## 项目结构
+```
 java (源码根目录)  
 &emsp;&emsp;|----net.stackoverflow.blog  
 &emsp;&emsp;&emsp;&emsp;|----common/ (公共类)   
@@ -152,3 +153,4 @@ webapp (web目录)
 &emsp;&emsp;&emsp;&emsp;|----web.xml (web配置文件)  
 &emsp;&emsp;|----favicon.icon (浏览器title处图片)  
 &emsp;&emsp;|----robots.txt (搜索引擎爬取规则)  
+```
