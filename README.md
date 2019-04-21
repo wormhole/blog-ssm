@@ -128,7 +128,7 @@ java (源码根目录)
 &emsp;&emsp;&emsp;&emsp;|----validator/ (校验工具)  
 &emsp;&emsp;&emsp;&emsp;|----web/ (web相关代码)  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----controller/ (业务层，提供restful接口)  
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----freemarker/ (freemarker整合shiro注解配置类) 
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----freemarker/ (freemarker整合shiro注解配置类)  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----interceptor/ (拦截器)  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----listener/ (监听器)  
 
