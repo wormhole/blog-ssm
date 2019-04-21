@@ -110,3 +110,45 @@ mvn dockerfile:build
 ```
 docker run -d -p 80:80 blog:latest
 ```
+
+## 项目结构
+java (源码根目录)  
+&emsp;&emsp;|----net.stackoverflow.blog  
+&emsp;&emsp;&emsp;&emsp;|----common/ (公共类)   
+&emsp;&emsp;&emsp;&emsp;|----dao/ (数据访问对象，一般存放mybatis的mapper接口或jpa的repository接口)  
+&emsp;&emsp;&emsp;&emsp;|----exception/ (异常类定义)  
+&emsp;&emsp;&emsp;&emsp;|----pojo/ (存放po，vo，dto等类，可进一步划分子包)  
+&emsp;&emsp;&emsp;&emsp;|----service/ (服务接口以及实现类)  
+&emsp;&emsp;&emsp;&emsp;|----shiro/ (shiro相关代码)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----cache/ (shiro整合redis缓存相关代码)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----filter/ (shiro自定义过滤器)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----realm/ (shiro自定义realm)  
+&emsp;&emsp;&emsp;&emsp;|----task/ (后台任务)  
+&emsp;&emsp;&emsp;&emsp;|----util/ (工具类)  
+&emsp;&emsp;&emsp;&emsp;|----validator/ (校验工具)  
+&emsp;&emsp;&emsp;&emsp;|----web/ (web相关代码)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----controller/ (业务层，提供restful接口)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----freemarker/ (freemarker整合shiro注解配置类) 
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----interceptor/ (拦截器)  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;|----listener/ (监听器)  
+
+resources (资源文件夹)  
+&emsp;&emsp;|----mapper/ (存放mybatis的mapper.xml)  
+&emsp;&emsp;|----sql/ (存放sql脚本)  
+&emsp;&emsp;|----application.properties (项目配置文件)  
+&emsp;&emsp;|----logback.xml (logback日志配置)  
+&emsp;&emsp;|----mybatis-config.xml (mybatis配置文件)  
+&emsp;&emsp;|----redis.properties (redis配置文件)  
+&emsp;&emsp;|----spring-context.xml (spring配置文件)  
+&emsp;&emsp;|----spring-mvc.xml (springmvc配置文件)  
+&emsp;&emsp;|----spring-mybatis.xml (spring整合mybatis配置文件)  
+&emsp;&emsp;|----spring-redis.xml (spring整合redis配置文件)  
+&emsp;&emsp;|----spring-shiro.xml (spring整合shiro配置文件)  
+
+webapp (web目录)  
+&emsp;&emsp;|----static/ (静态文件，包括js，css，图片，以及第三方前端库)  
+&emsp;&emsp;|----WEB-INF/  
+&emsp;&emsp;&emsp;&emsp;|----view/ (freemarker模板文件)  
+&emsp;&emsp;&emsp;&emsp;|----web.xml (web配置文件)  
+&emsp;&emsp;|----favicon.icon (浏览器title处图片)  
+&emsp;&emsp;|----robots.txt (搜索引擎爬取规则)  
