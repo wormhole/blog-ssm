@@ -154,7 +154,7 @@ webapp (web目录)
 &emsp;&emsp;|----favicon.icon (浏览器title处图片)  
 &emsp;&emsp;|----robots.txt (搜索引擎爬取规则) 
 
-## 输出目录接口
+## 输出目录结构
 
 /data 输出根目录  
 &emsp;&emsp;|----upload/ (文件上传目录)  
