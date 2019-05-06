@@ -13,7 +13,7 @@
 
 ## 项目介绍
 这是一个基于互联网架构的一个博客系统，采用`SSM`框架，`Shiro`认证授权框架，整合`Redis`等缓存中间件，`Freemarker`模板引擎完成的。响应式布局完美适配
-PC，平板和手机布局。此项目已用`springboot`重写，请移步[这里](https://github.com/stdutil/blog-springboot)，以后`springboot`版的重点维护。
+PC，平板和手机布局。此项目已用`springboot`重写，请移步[这里](https://github.com/stdutil/blog-springboot)。
 
 ## 技术架构
 * Ioc容器 - [Spring](https://spring.io/projects/spring-framework)
@@ -107,8 +107,9 @@ mvn dockerfile:build
 2. 不出意外本地已经成功生成docker镜像了，你可以push到你的docker仓库中，随时pull到任何一台docker容器中部署了
 
 3. 运行容器
+>`tag`为当前版本号
 ```
-docker run -d -p 80:80 blog:latest
+docker run -d -p 80:80 stdutil/blog-ssm:tag
 ```
 
 ## 项目结构
@@ -151,4 +152,11 @@ webapp (web目录)
 &emsp;&emsp;&emsp;&emsp;|----view/ (freemarker模板文件)  
 &emsp;&emsp;&emsp;&emsp;|----web.xml (web配置文件)  
 &emsp;&emsp;|----favicon.icon (浏览器title处图片)  
-&emsp;&emsp;|----robots.txt (搜索引擎爬取规则)  
+&emsp;&emsp;|----robots.txt (搜索引擎爬取规则) 
+
+## 输出目录结构
+
+/data 输出根目录  
+&emsp;&emsp;|----upload/ (文件上传目录)  
+&emsp;&emsp;|----backup/ (数据库周期性备份目录)  
+&emsp;&emsp;|----log/ (日志输出目录)
