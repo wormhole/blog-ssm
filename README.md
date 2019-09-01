@@ -1,10 +1,10 @@
 # 虫洞博客
-[![downloads](https://img.shields.io/github/downloads/stdutil/blog-ssm/total.svg)](https://github.com/stdutil/blog-ssm/releases)
-[![forks](https://img.shields.io/github/forks/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/network/members)
-[![stars](https://img.shields.io/github/stars/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/stargazers) 
-[![repo size](https://img.shields.io/github/repo-size/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/archive/master.zip)
-[![release](https://img.shields.io/github/release/stdutil/blog-ssm.svg)](https://github.com/stdutil/blog-ssm/releases)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/stdutil/blog-ssm/blob/dev/LICENSE)
+[![downloads](https://img.shields.io/github/downloads/wormhole/blog-ssm/total.svg)](https://github.com/wormhole/blog-ssm/releases)
+[![forks](https://img.shields.io/github/forks/wormhole/blog-ssm.svg)](https://github.com/wormhole/blog-ssm/network/members)
+[![stars](https://img.shields.io/github/stars/wormhole/blog-ssm.svg)](https://github.com/wormhole/blog-ssm/stargazers) 
+[![repo size](https://img.shields.io/github/repo-size/wormhole/blog-ssm.svg)](https://github.com/wormhole/blog-ssm/archive/master.zip)
+[![release](https://img.shields.io/github/release/wormhole/blog-ssm.svg)](https://github.com/wormhole/blog-ssm/releases)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole/blog-ssm/blob/dev/LICENSE)
 
 ## 响应式布局
 |pc布局|mobile布局|
@@ -13,7 +13,7 @@
 
 ## 项目介绍
 这是一个基于互联网架构的一个博客系统，采用`SSM`框架，`Shiro`认证授权框架，整合`Redis`等缓存中间件，`Freemarker`模板引擎完成的。响应式布局完美适配
-PC，平板和手机布局。此项目已用`springboot`重写，请移步[这里](https://github.com/stdutil/blog-springboot)。
+PC，平板和手机布局。此项目已用`springboot`重写，请移步[这里](https://github.com/wormhole/blog-springboot)。
 
 ## 技术架构
 * Ioc容器 - [Spring](https://spring.io/projects/spring-framework)
